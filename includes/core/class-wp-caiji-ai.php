@@ -27,12 +27,22 @@ class WP_Caiji_AI
         return substr($secret, 0, 4) . str_repeat('*', max(4, strlen($secret) - 8)) . substr($secret, -4);
     }
 
+    public static function preserve_or_update_secret($incoming, $existing_value = '')
+    {
+        $incoming = trim((string)$incoming);
+        if ($incoming === '') return (string)$existing_value;
+        if (preg_match('/^\*+$/', $incoming) || preg_match('/^[^*]{1,8}\*{4,}[^*]{1,8}$/', $incoming)) {
+            return (string)$existing_value;
+        }
+        return $incoming;
+    }
+
     public static function prepare_api_key_for_storage($api_key, $existing_value = '')
     {
-        $api_key = trim((string)$api_key);
-        if ($api_key === '') return (string)$existing_value;
+        $api_key = self::preserve_or_update_secret($api_key, $existing_value);
+        if ($api_key === '') return '';
         if ($existing_value !== '' && hash_equals(self::get_plain_api_key_from_value((string)$existing_value), $api_key)) {
-            return $api_key;
+            return (string)$existing_value;
         }
         return $api_key;
     }

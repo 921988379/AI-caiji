@@ -46,7 +46,7 @@ class WP_Caiji_Media
                 continue;
             }
 
-            $tmp = self::download_with_retry($absolute, 20);
+            $tmp = self::download_with_retry($absolute, 20, $max_size);
             if (is_wp_error($tmp)) {
                 self::media_log($logger, 'warning', '图片下载失败:' . $tmp->get_error_message(), $rule_id, $queue_id, $absolute);
                 $stats['failed']++;
@@ -109,9 +109,9 @@ class WP_Caiji_Media
         return $content;
     }
 
-    private static function download_with_retry($url, $timeout)
+    private static function download_with_retry($url, $timeout, $max_size = 0)
     {
-        $first = download_url($url, $timeout, false);
+        $first = self::download_once($url, $timeout, $max_size);
         if (!is_wp_error($first)) return $first;
 
         $code = (string)$first->get_error_code();
@@ -119,8 +119,42 @@ class WP_Caiji_Media
         $temporary = strpos($code, 'http_') !== false || strpos($message, 'timed out') !== false || strpos($message, 'timeout') !== false || strpos($message, '429') !== false || strpos($message, '500') !== false || strpos($message, '502') !== false || strpos($message, '503') !== false || strpos($message, '504') !== false;
         if (!$temporary) return $first;
 
-        $second = download_url($url, $timeout, false);
+        $second = self::download_once($url, $timeout, $max_size);
         return is_wp_error($second) ? $first : $second;
+    }
+
+    private static function download_once($url, $timeout, $max_size = 0)
+    {
+        $tmp = wp_tempnam($url);
+        if (!$tmp) return new WP_Error('wp_caiji_temp_file_failed', '无法创建临时图片文件');
+
+        $args = array(
+            'timeout' => (int)$timeout,
+            'redirection' => 3,
+            'reject_unsafe_urls' => true,
+            'stream' => true,
+            'filename' => $tmp,
+        );
+        if ($max_size > 0) $args['limit_response_size'] = (int)$max_size + 1;
+
+        $response = wp_safe_remote_get($url, $args);
+        if (is_wp_error($response)) {
+            @unlink($tmp);
+            return $response;
+        }
+
+        $code = (int)wp_remote_retrieve_response_code($response);
+        if ($code < 200 || $code >= 300) {
+            @unlink($tmp);
+            return new WP_Error('http_' . $code, '图片下载 HTTP 状态异常:' . $code);
+        }
+
+        if ($max_size > 0 && file_exists($tmp) && filesize($tmp) > (int)$max_size) {
+            @unlink($tmp);
+            return new WP_Error('wp_caiji_image_too_large', '图片超过大小限制');
+        }
+
+        return $tmp;
     }
 
     private static function media_log($logger, $level, $message, $rule_id, $queue_id, $url)

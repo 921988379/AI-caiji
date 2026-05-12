@@ -211,4 +211,15 @@ class WP_Caiji_Updater
         }
         return (array)get_option(WP_Caiji::OPTION_SETTINGS, array());
     }
+
+    public static function prepare_token_for_storage($token, $existing_value = '')
+    {
+        if (class_exists('WP_Caiji_AI') && method_exists('WP_Caiji_AI', 'preserve_or_update_secret')) {
+            return WP_Caiji_AI::preserve_or_update_secret($token, $existing_value);
+        }
+        $token = trim((string)$token);
+        if ($token === '') return (string)$existing_value;
+        if (preg_match('/^\*+$/', $token) || preg_match('/^[^*]{1,8}\*{4,}[^*]{1,8}$/', $token)) return (string)$existing_value;
+        return $token;
+    }
 }

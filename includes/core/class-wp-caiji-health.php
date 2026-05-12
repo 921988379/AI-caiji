@@ -112,6 +112,9 @@ class WP_Caiji_Health
         if (!empty($settings['ai_api_key'])) {
             $settings['ai_api_key'] = WP_Caiji_AI::mask_secret(WP_Caiji_AI::get_plain_api_key_from_value($settings['ai_api_key']));
         }
+        if (!empty($settings['github_token'])) {
+            $settings['github_token'] = WP_Caiji_AI::mask_secret($settings['github_token']);
+        }
         $report = array(
             'generated_at' => current_time('mysql'),
             'plugin_version' => WP_CAIJI_VERSION,

@@ -825,7 +825,7 @@ class WP_Caiji
                 <div class="wp-caiji-section"><h2>AI 改写设置</h2>
                 <table class="form-table" role="presentation">
                     <tr><th>启用 AI 能力</th><td><label><input name="ai_enabled" type="checkbox" value="1" <?php checked($settings['ai_enabled'],1); ?>> 允许采集规则在发布前调用 AI 改写</label><p class="description">每条规则仍需单独开启“发布前 AI 改写”。关闭这里会全局禁用 AI。</p></td></tr>
-                    <tr><th>AI API Key</th><td><input name="ai_api_key" type="text" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::get_api_key($settings)); ?>" autocomplete="off" placeholder="sk-..."><p class="description">API Key 将按明文保存，便于在后台查看和复制；留空保存会保留原值。请仅在可信、单人管理后台环境使用；诊断导出会自动脱敏。</p></td></tr>
+                    <tr><th>AI API Key</th><td><input name="ai_api_key" type="password" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::mask_secret(WP_Caiji_AI::get_api_key($settings))); ?>" autocomplete="new-password" placeholder="sk-..."><p class="description">留空或保留星号掩码会继续使用原 Key；只有输入新 Key 才会替换。诊断导出会自动脱敏。</p></td></tr>
                     <tr><th>AI Endpoint</th><td><input name="ai_endpoint" type="url" class="regular-text" value="<?php echo esc_attr($settings['ai_endpoint']); ?>" placeholder="https://api.openai.com/v1 或 https://api.openai.com/v1/chat/completions"><p class="description">支持 OpenAI 兼容中转站。可填完整 chat/completions 地址，也可只填基础地址，例如 https://api.xxx.com 或 https://api.xxx.com/v1，插件会自动补全 /v1/chat/completions。仅允许公网 HTTPS 地址。</p></td></tr>
                     <tr><th>AI 模型</th><td><input name="ai_model" class="regular-text" value="<?php echo esc_attr($settings['ai_model']); ?>" placeholder="gpt-5.5"> 温度 <input name="ai_temperature" type="number" min="0" max="2" step="0.1" value="<?php echo esc_attr($settings['ai_temperature']); ?>" style="width:90px"></td></tr>
                     <tr><th>API 连接测试</th><td><button class="button button-secondary" formaction="<?php echo esc_url(admin_url('admin-post.php')); ?>" name="action" value="wp_caiji_test_ai_api">测试 API 连接</button><p class="description">会优先使用当前表单里填写的 Key、Endpoint、模型和超时发送一次极小测试请求；不会保存设置，也不会创建文章。</p></td></tr>
@@ -838,7 +838,7 @@ class WP_Caiji
                 <table class="form-table" role="presentation">
                     <tr><th>启用 GitHub 更新</th><td><label><input name="github_update_enabled" type="checkbox" value="1" <?php checked($settings['github_update_enabled'],1); ?>> 在 WordPress 后台插件页检测 GitHub Release 并提示更新</label><p class="description">建议每次发布新版本时创建 GitHub Release，并上传 <code>wp-caiji.zip</code> 作为附件。版本号以 Release 标签为准，例如 <code>v2.1.1</code>。</p></td></tr>
                     <tr><th>GitHub 仓库</th><td><input name="github_repo" type="text" class="regular-text code" value="<?php echo esc_attr($settings['github_repo']); ?>" placeholder="owner/wp-caiji"><p class="description">填写 <code>用户名/仓库名</code>，也可粘贴完整 GitHub 仓库地址，保存时会自动规范化。</p></td></tr>
-                    <tr><th>私有仓库 Token</th><td><input name="github_token" type="password" class="regular-text code" value="<?php echo esc_attr($settings['github_token']); ?>" autocomplete="off" placeholder="公开仓库留空"><p class="description">公开仓库不需要。私有仓库可填写只读 token；注意 GitHub 资源包下载可能仍需要登录，生产环境更推荐公开 release 资产或填写下面的固定下载地址。</p></td></tr>
+                    <tr><th>私有仓库 Token</th><td><input name="github_token" type="password" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::mask_secret($settings['github_token'])); ?>" autocomplete="new-password" placeholder="公开仓库留空"><p class="description">公开仓库不需要。留空或保留星号掩码会继续使用原 Token；只有输入新 Token 才会替换。</p></td></tr>
                     <tr><th>固定更新包 URL</th><td><input name="github_package_url" type="url" class="regular-text code" value="<?php echo esc_attr($settings['github_package_url']); ?>" placeholder="可选：https://example.com/wp-caiji.zip"><p class="description">可选。留空时自动优先使用 Release 附件 <code>wp-caiji.zip</code>，其次使用 GitHub zipball。更新包 zip 内建议包含 <code>wp-caiji/</code> 目录。</p></td></tr>
                 </table>
                 </div>
@@ -1070,6 +1070,7 @@ class WP_Caiji
         $existing_settings = $this->get_settings();
         $settings = $this->settings_from_post($existing_settings);
         update_option(self::OPTION_SETTINGS, $settings, false);
+        if (class_exists('WP_Caiji_Updater')) WP_Caiji_Updater::clear_cache();
         self::clear_event_public(self::CRON_DISCOVER);
         self::clear_event_public(self::CRON_COLLECT);
         self::schedule_events();
@@ -1128,7 +1129,7 @@ class WP_Caiji
             'ai_rewrite_prompt'=>wp_kses_post(wp_unslash($_POST['ai_rewrite_prompt'] ?? WP_Caiji_AI::default_prompt())),
             'github_update_enabled'=>isset($_POST['github_update_enabled']) ? 1 : 0,
             'github_repo'=>WP_Caiji_Updater::normalize_repo(wp_unslash($_POST['github_repo'] ?? '')),
-            'github_token'=>sanitize_text_field(wp_unslash($_POST['github_token'] ?? '')),
+            'github_token'=>WP_Caiji_Updater::prepare_token_for_storage(sanitize_text_field(wp_unslash($_POST['github_token'] ?? '')), $existing_settings['github_token'] ?? ''),
             'github_package_url'=>esc_url_raw(wp_unslash($_POST['github_package_url'] ?? '')),
             'delete_data_on_uninstall'=>isset($_POST['delete_data_on_uninstall']) ? 1 : 0,
         );
