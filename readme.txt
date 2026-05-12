@@ -1,5 +1,5 @@
 === WP 采集助手 ===
-Contributors: openclaw
+Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
