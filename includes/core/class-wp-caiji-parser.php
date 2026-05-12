@@ -56,26 +56,57 @@ class WP_Caiji_Parser
     public static function slice_between_markers($html, $before_marker = '', $after_marker = '')
     {
         $html = (string)$html;
-        $before_marker = (string)$before_marker;
-        $after_marker = (string)$after_marker;
+        $before_marker = self::normalize_marker((string)$before_marker);
+        $after_marker = self::normalize_marker((string)$after_marker);
         if ($html === '' || ($before_marker === '' && $after_marker === '')) return $html;
 
         $start = 0;
         if ($before_marker !== '') {
-            $pos = strpos($html, $before_marker);
-            if ($pos === false) return '';
-            $start = $pos + strlen($before_marker);
+            $match = self::find_marker_match($html, $before_marker, 0);
+            if (!$match) return '';
+            $start = $match['pos'] + $match['length'];
         }
 
         $end = strlen($html);
         if ($after_marker !== '') {
-            $pos = strpos($html, $after_marker, $start);
-            if ($pos === false) return '';
-            $end = $pos;
+            $match = self::find_marker_match($html, $after_marker, $start);
+            if (!$match) return '';
+            $end = $match['pos'];
         }
 
         if ($end <= $start) return '';
         return substr($html, $start, $end - $start);
+    }
+
+    private static function normalize_marker($marker)
+    {
+        $marker = str_replace(array("\r\n", "\r"), "\n", (string)$marker);
+        return trim($marker);
+    }
+
+    private static function find_marker_match($html, $marker, $offset = 0)
+    {
+        $variants = array($marker);
+        $decoded = html_entity_decode($marker, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        if ($decoded !== $marker) $variants[] = $decoded;
+        $encoded = htmlspecialchars($marker, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
+        if ($encoded !== $marker) $variants[] = $encoded;
+
+        foreach (array_values(array_unique($variants)) as $variant) {
+            $pos = strpos($html, $variant, $offset);
+            if ($pos !== false) return array('pos' => $pos, 'length' => strlen($variant));
+        }
+
+        $compact_marker = preg_replace('/\s+/u', ' ', trim($marker));
+        if ($compact_marker !== '' && $compact_marker !== $marker) {
+            $quoted = preg_quote($compact_marker, '/');
+            $pattern = '/' . str_replace('\\ ', '\\s+', $quoted) . '/u';
+            if (preg_match($pattern, substr($html, $offset), $m, PREG_OFFSET_CAPTURE)) {
+                return array('pos' => $offset + $m[0][1], 'length' => strlen($m[0][0]));
+            }
+        }
+
+        return false;
     }
 
     public static function extract_all_anchor_links($html, $base_url)

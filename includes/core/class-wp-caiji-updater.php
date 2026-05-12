@@ -59,6 +59,30 @@ class WP_Caiji_Updater
         }
     }
 
+    public static function sanitize_package_url($url)
+    {
+        $url = esc_url_raw((string)$url);
+        if ($url === '') return '';
+        if (!class_exists('WP_Caiji_Utils') || !WP_Caiji_Utils::is_safe_public_url($url)) return '';
+        $parts = wp_parse_url($url);
+        if (empty($parts['scheme']) || strtolower($parts['scheme']) !== 'https') return '';
+        $path = isset($parts['path']) ? strtolower((string)$parts['path']) : '';
+        return substr($path, -4) === '.zip' ? $url : '';
+    }
+
+    private static function is_safe_github_download_url($url)
+    {
+        $url = esc_url_raw((string)$url);
+        if ($url === '') return false;
+        if (!class_exists('WP_Caiji_Utils') || !WP_Caiji_Utils::is_safe_public_url($url)) return false;
+        $parts = wp_parse_url($url);
+        if (empty($parts['scheme']) || strtolower($parts['scheme']) !== 'https' || empty($parts['host'])) return false;
+        $host = strtolower($parts['host']);
+        return in_array($host, array('github.com', 'api.github.com', 'codeload.github.com', 'objects.githubusercontent.com'), true)
+            || substr($host, -11) === '.github.com'
+            || substr($host, -24) === '.githubusercontent.com';
+    }
+
     public static function check_for_update($transient)
     {
         if (!is_object($transient)) return $transient;
@@ -179,22 +203,25 @@ class WP_Caiji_Updater
     {
         $settings = self::settings();
         if (!empty($settings['github_package_url'])) {
-            return esc_url_raw($settings['github_package_url']);
+            return self::sanitize_package_url($settings['github_package_url']);
         }
         $assets = isset($release['assets']) && is_array($release['assets']) ? $release['assets'] : array();
         foreach ($assets as $asset) {
             $name = strtolower((string)($asset['name'] ?? ''));
-            if ($name === 'wp-caiji.zip' && !empty($asset['browser_download_url'])) {
-                return esc_url_raw($asset['browser_download_url']);
+            $url = !empty($asset['browser_download_url']) ? esc_url_raw($asset['browser_download_url']) : '';
+            if ($name === 'wp-caiji.zip' && $url && self::is_safe_github_download_url($url)) {
+                return $url;
             }
         }
         foreach ($assets as $asset) {
             $name = strtolower((string)($asset['name'] ?? ''));
-            if (substr($name, -4) === '.zip' && !empty($asset['browser_download_url'])) {
-                return esc_url_raw($asset['browser_download_url']);
+            $url = !empty($asset['browser_download_url']) ? esc_url_raw($asset['browser_download_url']) : '';
+            if (substr($name, -4) === '.zip' && $url && self::is_safe_github_download_url($url)) {
+                return $url;
             }
         }
-        return !empty($release['zipball_url']) ? esc_url_raw($release['zipball_url']) : '';
+        $zipball = !empty($release['zipball_url']) ? esc_url_raw($release['zipball_url']) : '';
+        return $zipball && self::is_safe_github_download_url($zipball) ? $zipball : '';
     }
 
     private static function repo_url()

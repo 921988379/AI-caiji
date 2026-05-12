@@ -859,6 +859,21 @@ class WP_Caiji
         return WP_Caiji_DB::default_rule();
     }
 
+    private function sanitize_code_marker($value)
+    {
+        $value = (string)wp_unslash($value);
+        $value = str_replace("\0", '', $value);
+        $value = str_replace(array("\r\n", "\r"), "\n", $value);
+        return mb_substr(trim($value), 0, 20000);
+    }
+
+    private function sanitize_cookie_header($value)
+    {
+        $value = (string)wp_unslash($value);
+        $value = str_replace(array("\r", "\n", "\0"), '', $value);
+        return mb_substr(trim($value), 0, 8000);
+    }
+
     public function save_rule()
     {
         global $wpdb;
@@ -879,21 +894,21 @@ class WP_Caiji
             'enabled'=>isset($_POST['enabled']) ? 1 : 0,
             'list_urls'=>sanitize_textarea_field(wp_unslash($_POST['list_urls'] ?? '')),
             'link_selector'=>sanitize_text_field(wp_unslash($_POST['link_selector'] ?? '')),
-            'link_before_marker'=>sanitize_textarea_field(wp_unslash($_POST['link_before_marker'] ?? '')),
-            'link_after_marker'=>sanitize_textarea_field(wp_unslash($_POST['link_after_marker'] ?? '')),
+            'link_before_marker'=>$this->sanitize_code_marker($_POST['link_before_marker'] ?? ''),
+            'link_after_marker'=>$this->sanitize_code_marker($_POST['link_after_marker'] ?? ''),
             'pagination_pattern'=>esc_url_raw(wp_unslash($_POST['pagination_pattern'] ?? '')),
             'page_start'=>max(1, absint($_POST['page_start'] ?? 1)),
             'page_end'=>max(1, absint($_POST['page_end'] ?? 1)),
             'manual_urls'=>sanitize_textarea_field(wp_unslash($_POST['manual_urls'] ?? '')),
             'title_selector'=>sanitize_text_field(wp_unslash($_POST['title_selector'] ?? '//h1')),
-            'title_before_marker'=>sanitize_textarea_field(wp_unslash($_POST['title_before_marker'] ?? '')),
-            'title_after_marker'=>sanitize_textarea_field(wp_unslash($_POST['title_after_marker'] ?? '')),
+            'title_before_marker'=>$this->sanitize_code_marker($_POST['title_before_marker'] ?? ''),
+            'title_after_marker'=>$this->sanitize_code_marker($_POST['title_after_marker'] ?? ''),
             'content_selector'=>sanitize_text_field(wp_unslash($_POST['content_selector'] ?? '//article')),
-            'content_before_marker'=>sanitize_textarea_field(wp_unslash($_POST['content_before_marker'] ?? '')),
-            'content_after_marker'=>sanitize_textarea_field(wp_unslash($_POST['content_after_marker'] ?? '')),
+            'content_before_marker'=>$this->sanitize_code_marker($_POST['content_before_marker'] ?? ''),
+            'content_after_marker'=>$this->sanitize_code_marker($_POST['content_after_marker'] ?? ''),
             'date_selector'=>sanitize_text_field(wp_unslash($_POST['date_selector'] ?? '')),
-            'date_before_marker'=>sanitize_textarea_field(wp_unslash($_POST['date_before_marker'] ?? '')),
-            'date_after_marker'=>sanitize_textarea_field(wp_unslash($_POST['date_after_marker'] ?? '')),
+            'date_before_marker'=>$this->sanitize_code_marker($_POST['date_before_marker'] ?? ''),
+            'date_after_marker'=>$this->sanitize_code_marker($_POST['date_after_marker'] ?? ''),
             'remove_selectors'=>sanitize_textarea_field(wp_unslash($_POST['remove_selectors'] ?? '')),
             'category_id'=>absint($_POST['category_id'] ?? 0),
             'author_id'=>absint($_POST['author_id'] ?? 0),
@@ -914,7 +929,7 @@ class WP_Caiji
             'publish_delay_max'=>max(0, absint($_POST['publish_delay_max'] ?? 0)),
             'ua_list'=>sanitize_textarea_field(wp_unslash($_POST['ua_list'] ?? '')),
             'referer'=>esc_url_raw(wp_unslash($_POST['referer'] ?? '')),
-            'cookie'=>sanitize_textarea_field(wp_unslash($_POST['cookie'] ?? '')),
+            'cookie'=>$this->sanitize_cookie_header($_POST['cookie'] ?? ''),
             'auto_excerpt'=>isset($_POST['auto_excerpt']) ? 1 : 0,
             'excerpt_length'=>max(50, min(500, absint($_POST['excerpt_length'] ?? 160))),
             'seo_plugin'=>in_array(($_POST['seo_plugin'] ?? 'none'), array('none','rank_math','yoast','aioseo'), true) ? sanitize_key($_POST['seo_plugin']) : 'none',
@@ -1130,7 +1145,7 @@ class WP_Caiji
             'github_update_enabled'=>isset($_POST['github_update_enabled']) ? 1 : 0,
             'github_repo'=>WP_Caiji_Updater::normalize_repo(wp_unslash($_POST['github_repo'] ?? '')),
             'github_token'=>WP_Caiji_Updater::prepare_token_for_storage(sanitize_text_field(wp_unslash($_POST['github_token'] ?? '')), $existing_settings['github_token'] ?? ''),
-            'github_package_url'=>esc_url_raw(wp_unslash($_POST['github_package_url'] ?? '')),
+            'github_package_url'=>WP_Caiji_Updater::sanitize_package_url(wp_unslash($_POST['github_package_url'] ?? '')),
             'delete_data_on_uninstall'=>isset($_POST['delete_data_on_uninstall']) ? 1 : 0,
         );
     }

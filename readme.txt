@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.1.2
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、健康检查和诊断报告。
