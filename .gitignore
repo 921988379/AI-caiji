@@ -1,0 +1,22 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Local backups / generated files
+*.bak
+*.bak-*
+*.tar
+*.tar.gz
+*.zip
+/tmp/
+/logs/
+
+# Runtime / dependencies
+node_modules/
+vendor/
+.env
+.env.*
