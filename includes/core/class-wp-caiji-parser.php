@@ -8,6 +8,146 @@ if (!defined('ABSPATH')) {
  */
 class WP_Caiji_Parser
 {
+    public static function extract_next_data($html)
+    {
+        return self::extract_json_data($html, '__NEXT_DATA__');
+    }
+
+    public static function extract_json_data($html, $source = '__NEXT_DATA__')
+    {
+        $html = (string)$html;
+        $source = trim((string)$source);
+        if ($html === '') return null;
+
+        if ($source === '' || $source === '__NEXT_DATA__' || $source === 'next') {
+            if (!preg_match('/<script\b[^>]*\bid=["\']__NEXT_DATA__["\'][^>]*>(.*?)<\/script>/is', $html, $m)) return null;
+            return self::decode_json_script($m[1]);
+        }
+
+        if ($source === 'ld+json' || $source === 'json-ld') {
+            if (!preg_match_all('/<script\b[^>]*type=["\']application\/ld\+json["\'][^>]*>(.*?)<\/script>/is', $html, $matches)) return null;
+            $items = array();
+            foreach ($matches[1] as $json) {
+                $decoded = self::decode_json_script($json);
+                if ($decoded !== null) $items[] = $decoded;
+            }
+            if (!$items) return null;
+            return count($items) === 1 ? $items[0] : $items;
+        }
+
+        if (strpos($source, 'id:') === 0) {
+            $id = preg_quote(substr($source, 3), '/');
+            if ($id === '') return null;
+            if (!preg_match('/<script\b[^>]*\bid=["\']' . $id . '["\'][^>]*>(.*?)<\/script>/is', $html, $m)) return null;
+            return self::decode_json_script($m[1]);
+        }
+
+        if (strpos($source, 'var:') === 0) {
+            $name = preg_quote(substr($source, 4), '/');
+            if ($name === '') return null;
+            if (!preg_match('/(?:window\.)?' . $name . '\s*=\s*(\{.*?\}|\[.*?\])\s*(?:;|<\/script>)/is', $html, $m)) return null;
+            return self::decode_json_script($m[1]);
+        }
+
+        return null;
+    }
+
+    private static function decode_json_script($json)
+    {
+        $json = trim(html_entity_decode((string)$json, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        if ($json === '') return null;
+        $data = json_decode($json, true);
+        return json_last_error() === JSON_ERROR_NONE ? $data : null;
+    }
+
+    public static function json_path_get($data, $path)
+    {
+        $path = trim((string)$path);
+        if ($path === '') return null;
+        if (strpos($path, '$.') === 0) $path = substr($path, 2);
+        if ($path === '$') return $data;
+        $parts = preg_split('/\./', $path);
+        $current = $data;
+        foreach ($parts as $part) {
+            $part = trim($part);
+            if ($part === '') continue;
+            if (!preg_match_all('/([^\[\]]+)|\[(\d+|\*)\]/', $part, $matches, PREG_SET_ORDER)) return null;
+            foreach ($matches as $match) {
+                if (isset($match[1]) && $match[1] !== '') {
+                    $key = $match[1];
+                    if (is_array($current) && array_key_exists($key, $current)) {
+                        $current = $current[$key];
+                    } else {
+                        return null;
+                    }
+                } elseif (isset($match[2]) && $match[2] !== '') {
+                    if ($match[2] === '*') return is_array($current) ? $current : null;
+                    $idx = (int)$match[2];
+                    if (is_array($current) && array_key_exists($idx, $current)) {
+                        $current = $current[$idx];
+                    } else {
+                        return null;
+                    }
+                }
+            }
+        }
+        return $current;
+    }
+
+    public static function extract_json_links_by_rule($html, $rule, $base_url)
+    {
+        $path = trim((string)($rule['link_json_path'] ?? ''));
+        $field = trim((string)($rule['link_json_url_field'] ?? ''));
+        if ($path === '') return array();
+        $data = self::extract_json_data($html, $rule['json_source'] ?? '__NEXT_DATA__');
+        if (!$data) return array();
+        $items = self::json_path_get($data, $path);
+        if ($items === null) return array();
+        if (!is_array($items)) $items = array($items);
+        $links = array();
+        foreach ($items as $item) {
+            $value = null;
+            if ($field !== '') {
+                $value = is_array($item) ? self::json_path_get($item, $field) : null;
+            } elseif (is_string($item)) {
+                $value = $item;
+            } elseif (is_array($item)) {
+                foreach (array('url', 'href', 'link', 'permalink', 'alias', 'path', 'slug') as $candidate) {
+                    if (!empty($item[$candidate]) && is_scalar($item[$candidate])) { $value = $item[$candidate]; break; }
+                }
+            }
+            if (is_scalar($value) && trim((string)$value) !== '') {
+                $abs = self::absolute_url((string)$value, $base_url);
+                if (WP_Caiji_Utils::is_safe_public_url($abs)) $links[] = WP_Caiji_Utils::normalize_url($abs);
+            }
+        }
+        return array_values(array_unique($links));
+    }
+
+    public static function extract_json_field_by_rule($html, $rule, $field, $text_only = false)
+    {
+        $path = trim((string)($rule[$field . '_json_path'] ?? ''));
+        if ($path === '') return '';
+        $data = self::extract_json_data($html, $rule['json_source'] ?? '__NEXT_DATA__');
+        if (!$data) return '';
+        $value = self::json_path_get($data, $path);
+        if ($value === null) return '';
+        if (is_array($value) || is_object($value)) $value = wp_json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        $value = (string)$value;
+        return $text_only ? trim(preg_replace('/\s+/u', ' ', wp_strip_all_tags($value))) : trim($value);
+    }
+
+    public static function json_field_match_count_by_rule($html, $rule, $field)
+    {
+        $path = trim((string)($rule[$field . '_json_path'] ?? ''));
+        if ($path === '') return 0;
+        $data = self::extract_json_data($html, $rule['json_source'] ?? '__NEXT_DATA__');
+        if (!$data) return 0;
+        $value = self::json_path_get($data, $path);
+        if ($value === null || $value === '') return 0;
+        return is_array($value) ? count($value) : 1;
+    }
+
     public static function extract_links($html, $selector, $base_url)
     {
         if (!$selector) return array();
@@ -35,6 +175,8 @@ class WP_Caiji_Parser
         $selector = trim((string)($rule['link_selector'] ?? ''));
         $before = (string)($rule['link_before_marker'] ?? '');
         $after = (string)($rule['link_after_marker'] ?? '');
+        $json_links = self::extract_json_links_by_rule($html, $rule, $base_url);
+        if ($json_links) return $json_links;
         $scoped_html = self::slice_between_markers($html, $before, $after);
         if ($selector !== '') {
             return self::extract_links($scoped_html, $selector, $base_url);
@@ -48,6 +190,8 @@ class WP_Caiji_Parser
         $selector = trim((string)($rule['link_selector'] ?? ''));
         $before = (string)($rule['link_before_marker'] ?? '');
         $after = (string)($rule['link_after_marker'] ?? '');
+        $json_links = self::extract_json_links_by_rule($html, $rule, 'https://example.com/');
+        if ($json_links) return count($json_links);
         $scoped_html = self::slice_between_markers($html, $before, $after);
         if ($selector !== '') return self::selector_match_count($scoped_html, $selector);
         return count(self::extract_all_anchor_links($scoped_html, 'https://example.com/'));
@@ -129,6 +273,8 @@ class WP_Caiji_Parser
         $selector = trim((string)$selector);
         $before = (string)($rule[$field . '_before_marker'] ?? '');
         $after = (string)($rule[$field . '_after_marker'] ?? '');
+        $json_value = self::extract_json_field_by_rule($html, $rule, $field, $text_only);
+        if ($json_value !== '') return $json_value;
         $scoped_html = self::slice_between_markers($html, $before, $after);
         if ($selector !== '') {
             return self::extract($scoped_html, $selector, $text_only);
@@ -143,6 +289,8 @@ class WP_Caiji_Parser
         $selector = trim((string)$selector);
         $before = (string)($rule[$field . '_before_marker'] ?? '');
         $after = (string)($rule[$field . '_after_marker'] ?? '');
+        $json_count = self::json_field_match_count_by_rule($html, $rule, $field);
+        if ($json_count > 0) return $json_count;
         $scoped_html = self::slice_between_markers($html, $before, $after);
         if ($selector !== '') return self::selector_match_count($scoped_html, $selector);
         return trim(wp_strip_all_tags($scoped_html)) === '' ? 0 : 1;
@@ -155,6 +303,8 @@ class WP_Caiji_Parser
         $selector = trim((string)$selector);
         $before = (string)($rule[$field . '_before_marker'] ?? '');
         $after = (string)($rule[$field . '_after_marker'] ?? '');
+        $json_value = self::extract_json_field_by_rule($html, $rule, $field, false);
+        if ($json_value !== '') return mb_substr($json_value, 0, max(200, (int)$max_chars));
         $scoped_html = self::slice_between_markers($html, $before, $after);
         if ($selector !== '') return self::extract_outer_html_sample($scoped_html, $selector, $max_chars);
         return mb_substr(trim($scoped_html), 0, max(200, (int)$max_chars));
@@ -352,6 +502,7 @@ class WP_Caiji_Parser
         $parts = wp_parse_url($base);
         if (!$parts || empty($parts['scheme']) || empty($parts['host'])) return $src;
         if (strpos($src, '/') === 0) return $parts['scheme'] . '://' . $parts['host'] . $src;
+        if (preg_match('/^(?:node|article|news|story|post)/i', $src)) return $parts['scheme'] . '://' . $parts['host'] . '/' . ltrim($src, '/');
         $path = isset($parts['path']) ? dirname($parts['path']) : '';
         return $parts['scheme'] . '://' . $parts['host'] . rtrim($path, '/') . '/' . ltrim($src, '/');
     }

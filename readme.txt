@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、健康检查和诊断报告。
@@ -241,6 +241,12 @@ WP 采集 → 设置 → 卸载保护
 * 新增 includes/core/class-wp-caiji-parser.php。
 * 选择器转换、DOM 查询、正文提取、链接提取、正文清洗、相对 URL 处理已迁移到 WP_Caiji_Parser。
 * 主类保留兼容包装，原有业务调用不变。
+
+
+= 2.1.3 =
+* 新增 JSON/Next.js 采集字段，支持从 __NEXT_DATA__ 提取列表链接、标题、正文和日期。
+* JSON 来源支持 __NEXT_DATA__、ld+json、id:脚本ID、var:变量名，保留原有选择器和前后代码兜底。
+* 改进相对文章路径和毫秒时间戳日期处理。
 
 = 2.0.4 =
 * 新增 Fetcher 层拆分。

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP 采集助手
  * Description: 长期自动化文章采集插件：规则、列表页发现、URL 队列、失败重试、日志、定时采集。
- * Version: 2.1.2
+ * Version: 2.1.3
  * Author: 一点优化
  * Author URI: https://www.seoyh.net/
  * Text Domain: wp-caiji
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_CAIJI_VERSION', '2.1.2');
+define('WP_CAIJI_VERSION', '2.1.3');
 define('WP_CAIJI_FILE', __FILE__);
 define('WP_CAIJI_DIR', plugin_dir_path(__FILE__));
 define('WP_CAIJI_URL', plugin_dir_url(__FILE__));

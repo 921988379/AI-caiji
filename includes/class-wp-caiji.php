@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.0.4';
+    const SCHEMA_VERSION = '2.0.5';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -375,6 +375,12 @@ class WP_Caiji
                         <textarea name="link_after_marker" rows="3" class="large-text code" placeholder="后代码/结束标记，例如:&lt;/div&gt;&lt;div class=&quot;page&quot;&gt;"><?php echo esc_textarea($rule['link_after_marker']); ?></textarea>
                         <p class="description">可只填前代码或只填后代码；选择器留空时自动提取片段里的所有 a 标签链接。</p>
                     </td></tr>
+                    <tr><th>JSON/Next.js 链接</th><td>
+                        <input name="json_source" class="regular-text" value="<?php echo esc_attr($rule['json_source'] ?? '__NEXT_DATA__'); ?>" placeholder="__NEXT_DATA__"> JSON 来源<br>
+                        <input name="link_json_path" class="regular-text" value="<?php echo esc_attr($rule['link_json_path']); ?>" placeholder="例如: props.pageProps.corporateData"> 路径<br>
+                        <input name="link_json_url_field" class="regular-text" value="<?php echo esc_attr($rule['link_json_url_field']); ?>" placeholder="例如: alias 或 url"> URL 字段
+                        <p class="description">用于 Next.js 等站点的页面 JSON。来源默认 <code>__NEXT_DATA__</code>，也支持 <code>ld+json</code>、<code>id:脚本ID</code>、<code>var:变量名</code>；填写路径后优先从 JSON 数组提取文章 URL，留空则继续使用原来的选择器/前后代码。</p>
+                    </td></tr>
                     <tr><th>手动文章 URL</th><td><textarea name="manual_urls" rows="5" class="large-text code" placeholder="每行一个文章 URL,保存后可直接加入队列"><?php echo esc_textarea($rule['manual_urls']); ?></textarea></td></tr>
                     <tr><th>测试发现链接</th><td><input name="test_list_url" class="regular-text" placeholder="留空默认测试第一个列表页 URL"> <?php if ($editing): ?><button type="submit" name="wp_caiji_intent" value="list_test" class="button wp-caiji-form-action" data-wp-caiji-action="wp_caiji_test_list">测试发现链接</button><?php else: ?><span class="description">新规则请先保存后再测试。</span><?php endif; ?><p class="description">测试按钮不会保存当前修改；如刚改了规则，请先保存再测试。</p></td></tr>
                 </table>
@@ -387,18 +393,21 @@ class WP_Caiji
                         <p style="margin:8px 0">到</p>
                         <textarea name="title_after_marker" rows="2" class="large-text code" placeholder="标题后代码/结束标记"><?php echo esc_textarea($rule['title_after_marker']); ?></textarea>
                     </td></tr>
+                    <tr><th>标题 JSON 路径</th><td><input name="title_json_path" class="regular-text" value="<?php echo esc_attr($rule['title_json_path']); ?>" placeholder="例如: props.pageProps.data.title"><p class="description">填写后优先从上方 JSON 来源提取标题；留空则使用原选择器/前后代码。</p></td></tr>
                     <tr><th>正文选择器</th><td><input name="content_selector" class="regular-text" value="<?php echo esc_attr($rule['content_selector']); ?>"><p class="description">先按正文前后代码截取，再用选择器提取；选择器留空时直接使用截取片段 HTML。</p></td></tr>
                     <tr><th>正文前后代码</th><td>
                         <textarea name="content_before_marker" rows="3" class="large-text code" placeholder="正文前代码/开始标记"><?php echo esc_textarea($rule['content_before_marker']); ?></textarea>
                         <p style="margin:8px 0">到</p>
                         <textarea name="content_after_marker" rows="3" class="large-text code" placeholder="正文后代码/结束标记"><?php echo esc_textarea($rule['content_after_marker']); ?></textarea>
                     </td></tr>
+                    <tr><th>正文 JSON 路径</th><td><input name="content_json_path" class="regular-text" value="<?php echo esc_attr($rule['content_json_path']); ?>" placeholder="例如: props.pageProps.data.content"><p class="description">适合正文 HTML 存在页面 JSON 里的站点。填写后优先从 JSON 提取正文。</p></td></tr>
                     <tr><th>日期选择器</th><td><input name="date_selector" class="regular-text" value="<?php echo esc_attr($rule['date_selector']); ?>"><p class="description">可选。先按日期前后代码截取，再用选择器提取；选择器留空时直接使用截取片段文本。</p></td></tr>
                     <tr><th>日期前后代码</th><td>
                         <textarea name="date_before_marker" rows="2" class="large-text code" placeholder="日期/时间前代码/开始标记"><?php echo esc_textarea($rule['date_before_marker']); ?></textarea>
                         <p style="margin:8px 0">到</p>
                         <textarea name="date_after_marker" rows="2" class="large-text code" placeholder="日期/时间后代码/结束标记"><?php echo esc_textarea($rule['date_after_marker']); ?></textarea>
                     </td></tr>
+                    <tr><th>日期 JSON 路径</th><td><input name="date_json_path" class="regular-text" value="<?php echo esc_attr($rule['date_json_path']); ?>" placeholder="例如: props.pageProps.data.created"><p class="description">可提取字符串或时间戳；留空则使用原日期选择器/前后代码。</p></td></tr>
                     <tr><th>测试文章预览</th><td><input name="test_url" class="regular-text" placeholder="留空默认测试手动 URL 或第一个发现到的文章 URL"> <?php if ($editing): ?><button type="submit" name="wp_caiji_intent" value="article_test" class="button wp-caiji-form-action" data-wp-caiji-action="wp_caiji_test_rule">测试预览</button><?php else: ?><span class="description">新规则请先保存后再测试。</span><?php endif; ?><p class="description">测试按钮不会保存当前修改；如刚改了字段提取或清洗规则，请先保存再测试。</p></td></tr>
                 </table>
                 </div>
@@ -867,6 +876,19 @@ class WP_Caiji
         return mb_substr(trim($value), 0, 20000);
     }
 
+
+    private function sanitize_json_source($value)
+    {
+        $value = sanitize_text_field(wp_unslash($value));
+        $value = trim($value);
+        if ($value === '') return '__NEXT_DATA__';
+        if (mb_strlen($value) > 100) $value = mb_substr($value, 0, 100);
+        if (!preg_match('/^(?:__NEXT_DATA__|next|ld\+json|json-ld|id:[A-Za-z0-9_:\-]+|var:[A-Za-z_$][A-Za-z0-9_$.]*)$/', $value)) {
+            return '__NEXT_DATA__';
+        }
+        return $value;
+    }
+
     private function sanitize_cookie_header($value)
     {
         $value = (string)wp_unslash($value);
@@ -896,6 +918,9 @@ class WP_Caiji
             'link_selector'=>sanitize_text_field(wp_unslash($_POST['link_selector'] ?? '')),
             'link_before_marker'=>$this->sanitize_code_marker($_POST['link_before_marker'] ?? ''),
             'link_after_marker'=>$this->sanitize_code_marker($_POST['link_after_marker'] ?? ''),
+            'json_source'=>$this->sanitize_json_source($_POST['json_source'] ?? '__NEXT_DATA__'),
+            'link_json_path'=>sanitize_text_field(wp_unslash($_POST['link_json_path'] ?? '')),
+            'link_json_url_field'=>sanitize_text_field(wp_unslash($_POST['link_json_url_field'] ?? '')),
             'pagination_pattern'=>esc_url_raw(wp_unslash($_POST['pagination_pattern'] ?? '')),
             'page_start'=>max(1, absint($_POST['page_start'] ?? 1)),
             'page_end'=>max(1, absint($_POST['page_end'] ?? 1)),
@@ -903,12 +928,15 @@ class WP_Caiji
             'title_selector'=>sanitize_text_field(wp_unslash($_POST['title_selector'] ?? '//h1')),
             'title_before_marker'=>$this->sanitize_code_marker($_POST['title_before_marker'] ?? ''),
             'title_after_marker'=>$this->sanitize_code_marker($_POST['title_after_marker'] ?? ''),
+            'title_json_path'=>sanitize_text_field(wp_unslash($_POST['title_json_path'] ?? '')),
             'content_selector'=>sanitize_text_field(wp_unslash($_POST['content_selector'] ?? '//article')),
             'content_before_marker'=>$this->sanitize_code_marker($_POST['content_before_marker'] ?? ''),
             'content_after_marker'=>$this->sanitize_code_marker($_POST['content_after_marker'] ?? ''),
+            'content_json_path'=>sanitize_text_field(wp_unslash($_POST['content_json_path'] ?? '')),
             'date_selector'=>sanitize_text_field(wp_unslash($_POST['date_selector'] ?? '')),
             'date_before_marker'=>$this->sanitize_code_marker($_POST['date_before_marker'] ?? ''),
             'date_after_marker'=>$this->sanitize_code_marker($_POST['date_after_marker'] ?? ''),
+            'date_json_path'=>sanitize_text_field(wp_unslash($_POST['date_json_path'] ?? '')),
             'remove_selectors'=>sanitize_textarea_field(wp_unslash($_POST['remove_selectors'] ?? '')),
             'category_id'=>absint($_POST['category_id'] ?? 0),
             'author_id'=>absint($_POST['author_id'] ?? 0),
@@ -1364,7 +1392,7 @@ class WP_Caiji
             'link'=>WP_Caiji_Parser::link_match_count_by_rule($html, $rule),
             'title'=>WP_Caiji_Parser::field_match_count_by_rule($html, $rule, 'title', $rule['title_selector']),
             'content'=>WP_Caiji_Parser::field_match_count_by_rule($html, $rule, 'content', $rule['content_selector']),
-            'date'=>!empty($rule['date_selector']) || !empty($rule['date_before_marker']) || !empty($rule['date_after_marker']) ? WP_Caiji_Parser::field_match_count_by_rule($html, $rule, 'date', $rule['date_selector']) : 0,
+            'date'=>!empty($rule['date_json_path']) || !empty($rule['date_selector']) || !empty($rule['date_before_marker']) || !empty($rule['date_after_marker']) ? WP_Caiji_Parser::field_match_count_by_rule($html, $rule, 'date', $rule['date_selector']) : 0,
         );
         $html_samples = array(
             'title'=>WP_Caiji_Parser::extract_field_outer_html_sample_by_rule($html, $rule, 'title', $rule['title_selector'], 1200),
@@ -1372,7 +1400,7 @@ class WP_Caiji
         );
         $title = $this->apply_replacements($title_raw, $rule['replace_rules'] ?? '');
         $content = $this->apply_replacements($this->clean_content($content_raw, $rule), $rule['replace_rules'] ?? '');
-        $date = (!empty($rule['date_selector']) || !empty($rule['date_before_marker']) || !empty($rule['date_after_marker'])) ? $this->extract_field_by_rule($html, $rule, 'date', $rule['date_selector'], true) : '';
+        $date = (!empty($rule['date_json_path']) || !empty($rule['date_selector']) || !empty($rule['date_before_marker']) || !empty($rule['date_after_marker'])) ? $this->extract_field_by_rule($html, $rule, 'date', $rule['date_selector'], true) : '';
         $raw_text_length = mb_strlen(wp_strip_all_tags($content_raw));
         $clean_text_length = mb_strlen(wp_strip_all_tags($content));
         $image_sources = WP_Caiji_Parser::extract_image_sources($content);
@@ -1381,7 +1409,7 @@ class WP_Caiji
         if (trim(wp_strip_all_tags($title)) === '') $warnings[] = '标题提取为空，请检查标题选择器或标题前后代码';
         if (trim(wp_strip_all_tags($content_raw)) === '') $warnings[] = '正文提取为空，请检查正文选择器或正文前后代码';
         if (trim(wp_strip_all_tags($content)) === '') $warnings[] = '清洗/替换后正文为空,请检查移除选择器、替换规则或正文选择器';
-        if ((!empty($rule['date_selector']) || !empty($rule['date_before_marker']) || !empty($rule['date_after_marker'])) && trim($date) === '') $warnings[] = '日期提取为空，请检查日期选择器或日期前后代码';
+        if ((!empty($rule['date_json_path']) || !empty($rule['date_selector']) || !empty($rule['date_before_marker']) || !empty($rule['date_after_marker'])) && trim($date) === '') $warnings[] = '日期提取为空，请检查日期选择器或日期前后代码';
         if (!empty($rule['download_images'])) {
             $settings = $this->get_settings();
             $warnings[] = '图片本地化限制:每篇最多 ' . intval($settings['max_images_per_post']) . ' 张,单图最大 ' . intval($settings['max_image_size_mb']) . ' MB';
@@ -1406,6 +1434,14 @@ class WP_Caiji
                 'title'=>$rule['title_selector'],
                 'content'=>$rule['content_selector'],
                 'date'=>$rule['date_selector'],
+            ),
+            'json_paths'=>array(
+                'source'=>$rule['json_source'] ?? '__NEXT_DATA__',
+                'link'=>$rule['link_json_path'] ?? '',
+                'link_url_field'=>$rule['link_json_url_field'] ?? '',
+                'title'=>$rule['title_json_path'] ?? '',
+                'content'=>$rule['content_json_path'] ?? '',
+                'date'=>$rule['date_json_path'] ?? '',
             ),
             'link_marker'=>array(
                 'before'=>$rule['link_before_marker'] ?? '',
@@ -1459,6 +1495,9 @@ class WP_Caiji
                 }
                 if ($enabled_markers) echo '<p class="description"><strong>字段截取:</strong>' . esc_html(implode('、', $enabled_markers)) . ' 已启用前后代码截取模式</p>';
             }
+        }
+        if (!empty($result['json_paths']) && is_array($result['json_paths']) && array_filter($result['json_paths'])) {
+            echo '<p class="description"><strong>JSON 路径:</strong>来源 ' . esc_html($result['json_paths']['source'] ?? '__NEXT_DATA__') . '；链接 ' . esc_html($result['json_paths']['link'] ?? '') . (!empty($result['json_paths']['link_url_field']) ? ' / URL字段 ' . esc_html($result['json_paths']['link_url_field']) : '') . '；标题 ' . esc_html($result['json_paths']['title'] ?? '') . '；正文 ' . esc_html($result['json_paths']['content'] ?? '') . (!empty($result['json_paths']['date']) ? '；日期 ' . esc_html($result['json_paths']['date']) : '') . '</p>';
         }
         if (!empty($result['selector_counts']) && is_array($result['selector_counts'])) {
             echo '<p><strong>选择器匹配数量:</strong>链接 ' . intval($result['selector_counts']['link'] ?? 0) . '；标题 ' . intval($result['selector_counts']['title'] ?? 0) . '；正文 ' . intval($result['selector_counts']['content'] ?? 0) . '；日期 ' . intval($result['selector_counts']['date'] ?? 0) . '</p>';
@@ -1641,7 +1680,7 @@ class WP_Caiji
         }
         $title = $this->extract_field_by_rule($html, $item, 'title', $item['title_selector'], true);
         $content = $this->extract_field_by_rule($html, $item, 'content', $item['content_selector'], false);
-        $date = (!empty($item['date_selector']) || !empty($item['date_before_marker']) || !empty($item['date_after_marker'])) ? $this->extract_field_by_rule($html, $item, 'date', $item['date_selector'], true) : '';
+        $date = (!empty($item['date_json_path']) || !empty($item['date_selector']) || !empty($item['date_before_marker']) || !empty($item['date_after_marker'])) ? $this->extract_field_by_rule($html, $item, 'date', $item['date_selector'], true) : '';
         if (!$title || !$content) {
             $this->mark_failed($item, '标题或正文提取失败,请检查选择器');
             return;

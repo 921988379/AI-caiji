@@ -49,7 +49,16 @@ class WP_Caiji_Publisher
         $postarr['post_status'] = $post_status;
 
         if ($post_date) $postarr['post_date'] = $post_date;
-        elseif ($date && ($ts = strtotime($date))) $postarr['post_date'] = date('Y-m-d H:i:s', $ts);
+        elseif ($date) {
+            $date_string = trim((string)$date);
+            if (preg_match('/^\d{13}$/', $date_string)) {
+                $postarr['post_date'] = date('Y-m-d H:i:s', ((int)$date_string) / 1000);
+            } elseif (preg_match('/^\d{10}$/', $date_string)) {
+                $postarr['post_date'] = date('Y-m-d H:i:s', (int)$date_string);
+            } elseif ($ts = strtotime($date_string)) {
+                $postarr['post_date'] = date('Y-m-d H:i:s', $ts);
+            }
+        }
 
         $post_id = wp_insert_post($postarr, true);
         if (is_wp_error($post_id)) return $post_id;
