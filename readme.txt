@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.6
+Stable tag: 2.1.7
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、Tag 提取、健康检查和诊断报告。
@@ -242,6 +242,10 @@ WP 采集 → 设置 → 卸载保护
 * 选择器转换、DOM 查询、正文提取、链接提取、正文清洗、相对 URL 处理已迁移到 WP_Caiji_Parser。
 * 主类保留兼容包装，原有业务调用不变。
 
+
+= 2.1.7 =
+* 更新默认 AI 改写 Prompt，增加联网补充数据来源、正文尾部 FAQ 等要求。
+* 升级时若站点仍使用旧默认 Prompt 或为空，会自动更新为新版默认 Prompt；如已自定义 Prompt，则不会覆盖。
 
 = 2.1.6 =
 * 修复部分站点健康检查显示旧版 Release 的问题。

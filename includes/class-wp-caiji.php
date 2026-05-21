@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.0.6';
+    const SCHEMA_VERSION = '2.1.7';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -104,7 +104,30 @@ class WP_Caiji
         $installed = (string)get_option(self::OPTION_SCHEMA_VERSION, '');
         if (version_compare($installed ?: '0', self::SCHEMA_VERSION, '<')) {
             self::create_tables();
+            self::maybe_upgrade_default_prompt();
             update_option(self::OPTION_SCHEMA_VERSION, self::SCHEMA_VERSION, false);
+        }
+    }
+
+    private static function maybe_upgrade_default_prompt()
+    {
+        $settings = (array)get_option(self::OPTION_SETTINGS, array());
+        $current = isset($settings['ai_rewrite_prompt']) ? (string)$settings['ai_rewrite_prompt'] : '';
+        $should_update = trim($current) === '';
+
+        if (!$should_update && method_exists('WP_Caiji_AI', 'legacy_default_prompts')) {
+            foreach (WP_Caiji_AI::legacy_default_prompts() as $legacy_prompt) {
+                if ($current === $legacy_prompt) {
+                    $should_update = true;
+                    break;
+                }
+            }
+        }
+
+        if ($should_update) {
+            $settings = wp_parse_args($settings, WP_Caiji_DB::default_settings());
+            $settings['ai_rewrite_prompt'] = WP_Caiji_AI::default_prompt();
+            update_option(self::OPTION_SETTINGS, $settings, false);
         }
     }
 
