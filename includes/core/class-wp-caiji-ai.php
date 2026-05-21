@@ -46,12 +46,7 @@ class WP_Caiji_AI
 
     public static function prepare_api_key_for_storage($api_key, $existing_value = '')
     {
-        $api_key = self::preserve_or_update_secret($api_key, $existing_value);
-        if ($api_key === '') return '';
-        if ($existing_value !== '' && hash_equals(self::get_plain_api_key_from_value((string)$existing_value), $api_key)) {
-            return (string)$existing_value;
-        }
-        return $api_key;
+        return trim((string)$api_key);
     }
 
     public static function get_plain_api_key_from_value($value)

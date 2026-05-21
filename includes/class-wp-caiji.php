@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.7';
+    const SCHEMA_VERSION = '2.1.8';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -105,6 +105,7 @@ class WP_Caiji
         if (version_compare($installed ?: '0', self::SCHEMA_VERSION, '<')) {
             self::create_tables();
             self::maybe_upgrade_default_prompt();
+            self::maybe_upgrade_ai_api_key_plaintext();
             update_option(self::OPTION_SCHEMA_VERSION, self::SCHEMA_VERSION, false);
         }
     }
@@ -129,6 +130,20 @@ class WP_Caiji
             $settings['ai_rewrite_prompt'] = WP_Caiji_AI::default_prompt();
             update_option(self::OPTION_SETTINGS, $settings, false);
         }
+    }
+
+    private static function maybe_upgrade_ai_api_key_plaintext()
+    {
+        $settings = (array)get_option(self::OPTION_SETTINGS, array());
+        $stored_key = isset($settings['ai_api_key']) ? (string)$settings['ai_api_key'] : '';
+        if ($stored_key === '' || strpos($stored_key, WP_Caiji_AI::ENC_PREFIX) !== 0) return;
+
+        $plain_key = WP_Caiji_AI::get_plain_api_key_from_value($stored_key);
+        if ($plain_key === '') return;
+
+        $settings = wp_parse_args($settings, WP_Caiji_DB::default_settings());
+        $settings['ai_api_key'] = $plain_key;
+        update_option(self::OPTION_SETTINGS, $settings, false);
     }
 
     public static function maybe_add_column($table, $column, $sql)
@@ -880,7 +895,7 @@ class WP_Caiji
                 <div class="wp-caiji-section"><h2>AI 改写设置</h2>
                 <table class="form-table" role="presentation">
                     <tr><th>启用 AI 能力</th><td><label><input name="ai_enabled" type="checkbox" value="1" <?php checked($settings['ai_enabled'],1); ?>> 允许采集规则在发布前调用 AI 改写</label><p class="description">每条规则仍需单独开启“发布前 AI 改写”。关闭这里会全局禁用 AI。</p></td></tr>
-                    <tr><th>AI API Key</th><td><input name="ai_api_key" type="password" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::mask_secret(WP_Caiji_AI::get_api_key($settings))); ?>" autocomplete="new-password" placeholder="sk-..."><p class="description">留空或保留星号掩码会继续使用原 Key；只有输入新 Key 才会替换。诊断导出会自动脱敏。</p></td></tr>
+                    <tr><th>AI API Key</th><td><input name="ai_api_key" type="text" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::get_api_key($settings)); ?>" autocomplete="off" placeholder="sk-..."><p class="description">明文保存并在后台显示，仅拥有本插件设置权限的管理员可查看。诊断导出会自动脱敏。</p></td></tr>
                     <tr><th>AI Endpoint</th><td><input name="ai_endpoint" type="url" class="regular-text" value="<?php echo esc_attr($settings['ai_endpoint']); ?>" placeholder="https://api.openai.com/v1 或 https://api.openai.com/v1/chat/completions"><p class="description">支持 OpenAI 兼容中转站。可填完整 chat/completions 地址，也可只填基础地址，例如 https://api.xxx.com 或 https://api.xxx.com/v1，插件会自动补全 /v1/chat/completions。仅允许公网 HTTPS 地址。</p></td></tr>
                     <tr><th>AI 模型</th><td><input name="ai_model" class="regular-text" value="<?php echo esc_attr($settings['ai_model']); ?>" placeholder="gpt-5.5"> 温度 <input name="ai_temperature" type="number" min="0" max="2" step="0.1" value="<?php echo esc_attr($settings['ai_temperature']); ?>" style="width:90px"></td></tr>
                     <tr><th>API 连接测试</th><td><button class="button button-secondary" formaction="<?php echo esc_url(admin_url('admin-post.php')); ?>" name="action" value="wp_caiji_test_ai_api">测试 API 连接</button><p class="description">会优先使用当前表单里填写的 Key、Endpoint、模型和超时发送一次极小测试请求；不会保存设置，也不会创建文章。</p></td></tr>
@@ -1205,7 +1220,7 @@ class WP_Caiji
             'max_images_per_post'=>max(0, min(50, absint($_POST['max_images_per_post'] ?? 10))),
             'max_image_size_mb'=>max(1, min(50, absint($_POST['max_image_size_mb'] ?? 5))),
             'ai_enabled'=>isset($_POST['ai_enabled']) ? 1 : 0,
-            'ai_api_key'=>WP_Caiji_AI::prepare_api_key_for_storage(wp_unslash($_POST['ai_api_key'] ?? ''), $existing_settings['ai_api_key'] ?? ''),
+            'ai_api_key'=>WP_Caiji_AI::prepare_api_key_for_storage(wp_unslash($_POST['ai_api_key'] ?? '')),
             'ai_endpoint'=>WP_Caiji_AI::normalize_endpoint(esc_url_raw(wp_unslash($_POST['ai_endpoint'] ?? 'https://api.openai.com/v1/chat/completions'))),
             'ai_model'=>sanitize_text_field(wp_unslash($_POST['ai_model'] ?? 'gpt-5.5')),
             'ai_temperature'=>max(0, min(2, (float)($_POST['ai_temperature'] ?? 0.7))),
