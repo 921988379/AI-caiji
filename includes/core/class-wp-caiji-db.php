@@ -44,6 +44,10 @@ class WP_Caiji_DB
             date_before_marker TEXT NULL,
             date_after_marker TEXT NULL,
             date_json_path VARCHAR(255) NULL,
+            tag_selector VARCHAR(255) NULL,
+            tag_before_marker TEXT NULL,
+            tag_after_marker TEXT NULL,
+            tag_json_path VARCHAR(255) NULL,
             remove_selectors TEXT NULL,
             category_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
             author_id BIGINT UNSIGNED NOT NULL DEFAULT 0,
@@ -137,6 +141,10 @@ class WP_Caiji_DB
         self::maybe_add_column($rules, 'date_before_marker', "ALTER TABLE {$rules} ADD date_before_marker TEXT NULL");
         self::maybe_add_column($rules, 'date_after_marker', "ALTER TABLE {$rules} ADD date_after_marker TEXT NULL");
         self::maybe_add_column($rules, 'date_json_path', "ALTER TABLE {$rules} ADD date_json_path VARCHAR(255) NULL");
+        self::maybe_add_column($rules, 'tag_selector', "ALTER TABLE {$rules} ADD tag_selector VARCHAR(255) NULL");
+        self::maybe_add_column($rules, 'tag_before_marker', "ALTER TABLE {$rules} ADD tag_before_marker TEXT NULL");
+        self::maybe_add_column($rules, 'tag_after_marker', "ALTER TABLE {$rules} ADD tag_after_marker TEXT NULL");
+        self::maybe_add_column($rules, 'tag_json_path', "ALTER TABLE {$rules} ADD tag_json_path VARCHAR(255) NULL");
         self::maybe_add_column($rules, 'fixed_tags', "ALTER TABLE {$rules} ADD fixed_tags VARCHAR(255) NULL");
         self::maybe_add_column($rules, 'replace_rules', "ALTER TABLE {$rules} ADD replace_rules LONGTEXT NULL");
         self::maybe_add_column($rules, 'category_rules', "ALTER TABLE {$rules} ADD category_rules LONGTEXT NULL");
@@ -204,7 +212,7 @@ class WP_Caiji_DB
             'ai_max_input_chars' => 12000,
             'ai_rewrite_prompt' => WP_Caiji_AI::default_prompt(),
             'github_update_enabled' => 1,
-            'github_repo' => '921988379/AI-caiji',
+            'github_repo' => WP_Caiji_Updater::DEFAULT_REPO,
             'github_token' => '',
             'github_package_url' => '',
             'delete_data_on_uninstall' => 0,
@@ -214,7 +222,7 @@ class WP_Caiji_DB
 
     public static function default_rule()
     {
-        return array('name'=>'','enabled'=>1,'list_urls'=>'','link_selector'=>'','link_before_marker'=>'','link_after_marker'=>'','json_source'=>'__NEXT_DATA__','link_json_path'=>'','link_json_url_field'=>'','pagination_pattern'=>'','page_start'=>1,'page_end'=>1,'manual_urls'=>'','title_selector'=>'//h1','title_before_marker'=>'','title_after_marker'=>'','title_json_path'=>'','content_selector'=>'//article','content_before_marker'=>'','content_after_marker'=>'','content_json_path'=>'','date_selector'=>'','date_before_marker'=>'','date_after_marker'=>'','date_json_path'=>'','remove_selectors'=>'','category_id'=>0,'author_id'=>0,'post_status'=>'draft','batch_limit'=>5,'retry_limit'=>3,'request_delay'=>1,'download_images'=>0,'set_featured_image'=>0,'dedupe_title'=>1,'fixed_tags'=>'','replace_rules'=>'','category_rules'=>'','auto_tags'=>0,'auto_tag_keywords'=>'','publish_mode'=>'immediate','publish_delay_min'=>0,'publish_delay_max'=>0,'ua_list'=>'','referer'=>'','cookie'=>'','auto_excerpt'=>1,'excerpt_length'=>160,'seo_plugin'=>'none','seo_title_template'=>'','seo_desc_template'=>'','remove_empty_paragraphs'=>1,'remove_external_links'=>0,'remove_paragraph_keywords'=>'','image_alt_template'=>'','ai_rewrite'=>0,'ai_rewrite_prompt'=>'','ai_rewrite_on_failure'=>'fallback');
+        return array('name'=>'','enabled'=>1,'list_urls'=>'','link_selector'=>'','link_before_marker'=>'','link_after_marker'=>'','json_source'=>'__NEXT_DATA__','link_json_path'=>'','link_json_url_field'=>'','pagination_pattern'=>'','page_start'=>1,'page_end'=>1,'manual_urls'=>'','title_selector'=>'//h1','title_before_marker'=>'','title_after_marker'=>'','title_json_path'=>'','content_selector'=>'//article','content_before_marker'=>'','content_after_marker'=>'','content_json_path'=>'','date_selector'=>'','date_before_marker'=>'','date_after_marker'=>'','date_json_path'=>'','tag_selector'=>'','tag_before_marker'=>'','tag_after_marker'=>'','tag_json_path'=>'','remove_selectors'=>'','category_id'=>0,'author_id'=>0,'post_status'=>'draft','batch_limit'=>5,'retry_limit'=>3,'request_delay'=>1,'download_images'=>0,'set_featured_image'=>0,'dedupe_title'=>1,'fixed_tags'=>'','replace_rules'=>'','category_rules'=>'','auto_tags'=>0,'auto_tag_keywords'=>'','publish_mode'=>'immediate','publish_delay_min'=>0,'publish_delay_max'=>0,'ua_list'=>'','referer'=>'','cookie'=>'','auto_excerpt'=>1,'excerpt_length'=>160,'seo_plugin'=>'none','seo_title_template'=>'','seo_desc_template'=>'','remove_empty_paragraphs'=>1,'remove_external_links'=>0,'remove_paragraph_keywords'=>'','image_alt_template'=>'','ai_rewrite'=>0,'ai_rewrite_prompt'=>'','ai_rewrite_on_failure'=>'fallback');
     }
 
 

@@ -339,6 +339,74 @@ class WP_Caiji_Parser
     }
 
 
+
+
+    public static function extract_tags_by_rule($html, $rule)
+    {
+        $rule = is_array($rule) ? $rule : array();
+        $json_tags = self::extract_json_tags_by_rule($html, $rule);
+        if ($json_tags) return $json_tags;
+
+        $selector = trim((string)($rule['tag_selector'] ?? ''));
+        $before = (string)($rule['tag_before_marker'] ?? '');
+        $after = (string)($rule['tag_after_marker'] ?? '');
+        $scoped_html = self::slice_between_markers($html, $before, $after);
+
+        if ($selector !== '') {
+            $nodes = self::query_nodes($scoped_html, $selector);
+            if ($nodes && $nodes->length > 0) {
+                $tags = array();
+                foreach ($nodes as $node) {
+                    $tags = array_merge($tags, self::parse_tags_text($node->textContent ?? ''));
+                }
+                return array_values(array_unique($tags));
+            }
+        }
+
+        return self::parse_tags_text($scoped_html);
+    }
+
+    private static function extract_json_tags_by_rule($html, $rule)
+    {
+        $path = trim((string)($rule['tag_json_path'] ?? ''));
+        if ($path === '') return array();
+        $data = self::extract_json_data($html, $rule['json_source'] ?? '__NEXT_DATA__');
+        if (!$data) return array();
+        $value = self::json_path_get($data, $path);
+        if ($value === null || $value === '') return array();
+        return self::normalize_tag_values($value);
+    }
+
+    private static function normalize_tag_values($value)
+    {
+        $tags = array();
+        if (is_array($value) || is_object($value)) {
+            foreach ((array)$value as $item) {
+                $tags = array_merge($tags, self::normalize_tag_values($item));
+            }
+        } else {
+            $tags = array_merge($tags, self::parse_tags_text((string)$value));
+        }
+        return array_values(array_unique($tags));
+    }
+
+    public static function parse_tags_text($text)
+    {
+        $text = html_entity_decode(wp_strip_all_tags((string)$text), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        if ($text === '') return array();
+        $text = preg_replace('/(?:标签|Tags?|关键词|关键字)\s*[:：]/iu', '', $text);
+        $parts = preg_split('/[\r\n,，、;；|\/]+/u', $text);
+        $tags = array();
+        foreach ((array)$parts as $part) {
+            $tag = trim(preg_replace('/\s+/u', ' ', (string)$part));
+            $tag = trim($tag, " #\t\n\r\0\x0B");
+            if ($tag === '' || mb_strlen($tag) > 60) continue;
+            $tags[] = $tag;
+        }
+        return array_values(array_unique($tags));
+    }
+
+
     public static function extract($html, $selector, $text_only = false)
     {
         $nodes = self::query_nodes($html, $selector);

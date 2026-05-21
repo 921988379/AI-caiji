@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.0.5';
+    const SCHEMA_VERSION = '2.0.6';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -328,6 +328,16 @@ class WP_Caiji
         $edit_id = isset($_GET['edit']) ? absint($_GET['edit']) : 0;
         $editing = $edit_id ? $wpdb->get_row($wpdb->prepare("SELECT * FROM {$this->rules_table} WHERE id=%d", $edit_id), ARRAY_A) : null;
         $rule = wp_parse_args($editing ?: array(), $this->default_rule());
+        $existing_tag_names = get_terms(array(
+            'taxonomy' => 'post_tag',
+            'hide_empty' => false,
+            'fields' => 'names',
+        ));
+        if (is_wp_error($existing_tag_names)) $existing_tag_names = array();
+        $auto_tag_keywords_value = implode("\n", array_values(array_unique(array_filter(array_map('trim', array_merge(
+            preg_split('/\r\n|\r|\n/', (string)($rule['auto_tag_keywords'] ?? '')),
+            (array)$existing_tag_names
+        ))))));
         $has_test_result_modal = $edit_id && ($this->get_test_result('article', 'article_test') || $this->get_test_result('list', 'list_test'));
         $rules = $wpdb->get_results("SELECT r.*,
             SUM(CASE WHEN q.status='pending' THEN 1 ELSE 0 END) pending_count,
@@ -408,6 +418,13 @@ class WP_Caiji
                         <textarea name="date_after_marker" rows="2" class="large-text code" placeholder="日期/时间后代码/结束标记"><?php echo esc_textarea($rule['date_after_marker']); ?></textarea>
                     </td></tr>
                     <tr><th>日期 JSON 路径</th><td><input name="date_json_path" class="regular-text" value="<?php echo esc_attr($rule['date_json_path']); ?>" placeholder="例如: props.pageProps.data.created"><p class="description">可提取字符串或时间戳；留空则使用原日期选择器/前后代码。</p></td></tr>
+                    <tr><th>Tag 标签选择器</th><td><input name="tag_selector" class="regular-text" value="<?php echo esc_attr($rule['tag_selector'] ?? ''); ?>" placeholder="例如:.tags a 或 //a[@rel='tag']"><p class="description">可选。提取文章页已有标签，多个标签会自动按逗号、顿号、斜杠、竖线或换行拆分，并与固定标签/自动标签合并。</p></td></tr>
+                    <tr><th>Tag 标签前后代码</th><td>
+                        <textarea name="tag_before_marker" rows="2" class="large-text code" placeholder="标签区域前代码/开始标记"><?php echo esc_textarea($rule['tag_before_marker'] ?? ''); ?></textarea>
+                        <p style="margin:8px 0">到</p>
+                        <textarea name="tag_after_marker" rows="2" class="large-text code" placeholder="标签区域后代码/结束标记"><?php echo esc_textarea($rule['tag_after_marker'] ?? ''); ?></textarea>
+                    </td></tr>
+                    <tr><th>Tag 标签 JSON 路径</th><td><input name="tag_json_path" class="regular-text" value="<?php echo esc_attr($rule['tag_json_path'] ?? ''); ?>" placeholder="例如: props.pageProps.data.tags"><p class="description">可提取字符串、数组或对象；填写后优先从 JSON 提取标签。</p></td></tr>
                     <tr><th>测试文章预览</th><td><input name="test_url" class="regular-text" placeholder="留空默认测试手动 URL 或第一个发现到的文章 URL"> <?php if ($editing): ?><button type="submit" name="wp_caiji_intent" value="article_test" class="button wp-caiji-form-action" data-wp-caiji-action="wp_caiji_test_rule">测试预览</button><?php else: ?><span class="description">新规则请先保存后再测试。</span><?php endif; ?><p class="description">测试按钮不会保存当前修改；如刚改了字段提取或清洗规则，请先保存再测试。</p></td></tr>
                 </table>
                 </div>
@@ -420,7 +437,13 @@ class WP_Caiji
                 </div>
                 <div class="wp-caiji-section"><h2>发布与节奏</h2>
                 <table class="form-table" role="presentation">
-                    <tr><th>发布设置</th><td>默认分类 ID <input name="category_id" type="number" value="<?php echo esc_attr($rule['category_id']); ?>" style="width:90px"> 作者 ID <input name="author_id" type="number" value="<?php echo esc_attr($rule['author_id']); ?>" style="width:90px"> 状态 <select name="post_status"><option value="draft" <?php selected($rule['post_status'],'draft'); ?>>草稿</option><option value="publish" <?php selected($rule['post_status'],'publish'); ?>>发布</option><option value="future" <?php selected($rule['post_status'],'future'); ?>>定时发布</option><option value="pending" <?php selected($rule['post_status'],'pending'); ?>>待审</option></select></td></tr>
+                    <tr><th>发布设置</th><td>
+                        默认分类
+                        <?php wp_dropdown_categories(array('name'=>'category_id','hide_empty'=>0,'selected'=>(int)$rule['category_id'],'show_option_none'=>'不指定分类','option_none_value'=>0,'orderby'=>'name','hierarchical'=>1,'class'=>'regular-text')); ?>
+                        作者
+                        <?php wp_dropdown_users(array('name'=>'author_id','selected'=>(int)$rule['author_id'],'show_option_none'=>'不指定作者','option_none_value'=>0,'who'=>'authors','class'=>'regular-text')); ?>
+                        状态 <select name="post_status"><option value="draft" <?php selected($rule['post_status'],'draft'); ?>>草稿</option><option value="publish" <?php selected($rule['post_status'],'publish'); ?>>发布</option><option value="future" <?php selected($rule['post_status'],'future'); ?>>定时发布</option><option value="pending" <?php selected($rule['post_status'],'pending'); ?>>待审</option></select>
+                    </td></tr>
                     <tr><th>发布节奏</th><td>模式 <select name="publish_mode"><option value="immediate" <?php selected($rule['publish_mode'],'immediate'); ?>>立即使用上方状态</option><option value="random_future" <?php selected($rule['publish_mode'],'random_future'); ?>>随机延迟发布</option></select> 延迟 <input name="publish_delay_min" type="number" min="0" value="<?php echo esc_attr($rule['publish_delay_min']); ?>" style="width:80px"> - <input name="publish_delay_max" type="number" min="0" value="<?php echo esc_attr($rule['publish_delay_max']); ?>" style="width:80px"> 分钟 <p class="description">选择随机延迟发布时,会把文章设为 future,并在区间内随机安排发布时间。</p></td></tr>
                     <tr><th>长期采集控制</th><td>每批 <input name="batch_limit" type="number" min="1" max="50" value="<?php echo esc_attr($rule['batch_limit']); ?>" style="width:80px"> 篇;失败重试 <input name="retry_limit" type="number" min="0" max="10" value="<?php echo esc_attr($rule['retry_limit']); ?>" style="width:80px"> 次;请求间隔 <input name="request_delay" type="number" min="0" max="30" value="<?php echo esc_attr($rule['request_delay']); ?>" style="width:80px"> 秒</td></tr>
                 </table>
@@ -441,7 +464,7 @@ class WP_Caiji
                 <table class="form-table" role="presentation">
                     <tr><th>自动分类规则</th><td><textarea name="category_rules" rows="4" class="large-text code" placeholder="每行一条:关键词=>分类ID,例如:WordPress=>3"><?php echo esc_textarea($rule['category_rules']); ?></textarea><p class="description">匹配标题或正文后,会优先使用命中的分类 ID;没有命中则使用默认分类。</p></td></tr>
                     <tr><th>固定标签</th><td><input name="fixed_tags" class="regular-text" value="<?php echo esc_attr($rule['fixed_tags']); ?>" placeholder="多个标签用英文逗号分隔,例如 SEO,WordPress"></td></tr>
-                    <tr><th>自动标签</th><td><label><input name="auto_tags" type="checkbox" value="1" <?php checked($rule['auto_tags'],1); ?>> 根据关键词自动加标签</label><br><textarea name="auto_tag_keywords" rows="3" class="large-text code" placeholder="每行一个关键词,标题或正文出现该词时自动作为标签"><?php echo esc_textarea($rule['auto_tag_keywords']); ?></textarea></td></tr>
+                    <tr><th>自动标签</th><td><label><input name="auto_tags" type="checkbox" value="1" <?php checked($rule['auto_tags'],1); ?>> 根据标题关键词自动加标签</label><br><textarea name="auto_tag_keywords" rows="6" class="large-text code" placeholder="每行一个关键词；标题中出现该词时自动作为标签，正文出现不会作为标签"><?php echo esc_textarea($auto_tag_keywords_value); ?></textarea><p class="description">已自动载入当前站点现有文章标签，可继续手动增删。保存后会随规则一起保存。</p></td></tr>
                 </table>
                 </div>
                 <div class="wp-caiji-section"><h2>SEO 与摘要</h2>
@@ -843,14 +866,6 @@ class WP_Caiji
                     <tr><th>默认改写 Prompt</th><td><textarea name="ai_rewrite_prompt" rows="8" class="large-text code"><?php echo esc_textarea($settings['ai_rewrite_prompt']); ?></textarea><p class="description">规则里未填写专属 Prompt 时使用这里。建议要求模型只返回 JSON:{"title":"...","content":"..."}</p></td></tr>
                 </table>
                 </div>
-                <div class="wp-caiji-section"><h2>GitHub 更新</h2>
-                <table class="form-table" role="presentation">
-                    <tr><th>启用 GitHub 更新</th><td><label><input name="github_update_enabled" type="checkbox" value="1" <?php checked($settings['github_update_enabled'],1); ?>> 在 WordPress 后台插件页检测 GitHub Release 并提示更新</label><p class="description">建议每次发布新版本时创建 GitHub Release，并上传 <code>wp-caiji.zip</code> 作为附件。版本号以 Release 标签为准，例如 <code>v2.1.1</code>。</p></td></tr>
-                    <tr><th>GitHub 仓库</th><td><input name="github_repo" type="text" class="regular-text code" value="<?php echo esc_attr($settings['github_repo']); ?>" placeholder="owner/wp-caiji"><p class="description">填写 <code>用户名/仓库名</code>，也可粘贴完整 GitHub 仓库地址，保存时会自动规范化。</p></td></tr>
-                    <tr><th>私有仓库 Token</th><td><input name="github_token" type="password" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::mask_secret($settings['github_token'])); ?>" autocomplete="new-password" placeholder="公开仓库留空"><p class="description">公开仓库不需要。留空或保留星号掩码会继续使用原 Token；只有输入新 Token 才会替换。</p></td></tr>
-                    <tr><th>固定更新包 URL</th><td><input name="github_package_url" type="url" class="regular-text code" value="<?php echo esc_attr($settings['github_package_url']); ?>" placeholder="可选：https://example.com/wp-caiji.zip"><p class="description">可选。留空时自动优先使用 Release 附件 <code>wp-caiji.zip</code>，其次使用 GitHub zipball。更新包 zip 内建议包含 <code>wp-caiji/</code> 目录。</p></td></tr>
-                </table>
-                </div>
                 <div class="wp-caiji-section"><h2>日志与数据</h2>
                 <table class="form-table" role="presentation">
                     <tr><th>日志</th><td><label><input name="enable_logs" type="checkbox" value="1" <?php checked($settings['enable_logs'],1); ?>> 启用日志</label>；保留最近 <input name="log_retention" type="number" min="100" max="20000" value="<?php echo esc_attr($settings['log_retention']); ?>"> 条</td></tr>
@@ -937,6 +952,10 @@ class WP_Caiji
             'date_before_marker'=>$this->sanitize_code_marker($_POST['date_before_marker'] ?? ''),
             'date_after_marker'=>$this->sanitize_code_marker($_POST['date_after_marker'] ?? ''),
             'date_json_path'=>sanitize_text_field(wp_unslash($_POST['date_json_path'] ?? '')),
+            'tag_selector'=>sanitize_text_field(wp_unslash($_POST['tag_selector'] ?? '')),
+            'tag_before_marker'=>$this->sanitize_code_marker($_POST['tag_before_marker'] ?? ''),
+            'tag_after_marker'=>$this->sanitize_code_marker($_POST['tag_after_marker'] ?? ''),
+            'tag_json_path'=>sanitize_text_field(wp_unslash($_POST['tag_json_path'] ?? '')),
             'remove_selectors'=>sanitize_textarea_field(wp_unslash($_POST['remove_selectors'] ?? '')),
             'category_id'=>absint($_POST['category_id'] ?? 0),
             'author_id'=>absint($_POST['author_id'] ?? 0),
@@ -1170,10 +1189,10 @@ class WP_Caiji
             'ai_timeout_seconds'=>max(10, min(120, absint($_POST['ai_timeout_seconds'] ?? 45))),
             'ai_max_input_chars'=>max(1000, min(60000, absint($_POST['ai_max_input_chars'] ?? 12000))),
             'ai_rewrite_prompt'=>wp_kses_post(wp_unslash($_POST['ai_rewrite_prompt'] ?? WP_Caiji_AI::default_prompt())),
-            'github_update_enabled'=>isset($_POST['github_update_enabled']) ? 1 : 0,
-            'github_repo'=>WP_Caiji_Updater::normalize_repo(wp_unslash($_POST['github_repo'] ?? '')),
-            'github_token'=>WP_Caiji_Updater::prepare_token_for_storage(sanitize_text_field(wp_unslash($_POST['github_token'] ?? '')), $existing_settings['github_token'] ?? ''),
-            'github_package_url'=>WP_Caiji_Updater::sanitize_package_url(wp_unslash($_POST['github_package_url'] ?? '')),
+            'github_update_enabled'=>1,
+            'github_repo'=>WP_Caiji_Updater::DEFAULT_REPO,
+            'github_token'=>'',
+            'github_package_url'=>'',
             'delete_data_on_uninstall'=>isset($_POST['delete_data_on_uninstall']) ? 1 : 0,
         );
     }
@@ -1388,11 +1407,13 @@ class WP_Caiji
         }
         $title_raw = $this->extract_field_by_rule($html, $rule, 'title', $rule['title_selector'], true);
         $content_raw = $this->extract_field_by_rule($html, $rule, 'content', $rule['content_selector'], false);
+        $extracted_tags = WP_Caiji_Parser::extract_tags_by_rule($html, $rule);
         $selector_counts = array(
             'link'=>WP_Caiji_Parser::link_match_count_by_rule($html, $rule),
             'title'=>WP_Caiji_Parser::field_match_count_by_rule($html, $rule, 'title', $rule['title_selector']),
             'content'=>WP_Caiji_Parser::field_match_count_by_rule($html, $rule, 'content', $rule['content_selector']),
             'date'=>!empty($rule['date_json_path']) || !empty($rule['date_selector']) || !empty($rule['date_before_marker']) || !empty($rule['date_after_marker']) ? WP_Caiji_Parser::field_match_count_by_rule($html, $rule, 'date', $rule['date_selector']) : 0,
+            'tag'=>!empty($rule['tag_json_path']) || !empty($rule['tag_selector']) || !empty($rule['tag_before_marker']) || !empty($rule['tag_after_marker']) ? WP_Caiji_Parser::field_match_count_by_rule($html, $rule, 'tag', $rule['tag_selector'] ?? '') : 0,
         );
         $html_samples = array(
             'title'=>WP_Caiji_Parser::extract_field_outer_html_sample_by_rule($html, $rule, 'title', $rule['title_selector'], 1200),
@@ -1418,6 +1439,7 @@ class WP_Caiji
             'url'=>$url,
             'title'=>$title,
             'date'=>$date,
+            'tags'=>$extracted_tags,
             'content_text'=>wp_html_excerpt(wp_strip_all_tags($content), 1000),
             'raw_text_length'=>$raw_text_length,
             'content_length'=>$clean_text_length,
@@ -1434,6 +1456,7 @@ class WP_Caiji
                 'title'=>$rule['title_selector'],
                 'content'=>$rule['content_selector'],
                 'date'=>$rule['date_selector'],
+                'tag'=>$rule['tag_selector'] ?? '',
             ),
             'json_paths'=>array(
                 'source'=>$rule['json_source'] ?? '__NEXT_DATA__',
@@ -1442,6 +1465,7 @@ class WP_Caiji
                 'title'=>$rule['title_json_path'] ?? '',
                 'content'=>$rule['content_json_path'] ?? '',
                 'date'=>$rule['date_json_path'] ?? '',
+                'tag'=>$rule['tag_json_path'] ?? '',
             ),
             'link_marker'=>array(
                 'before'=>$rule['link_before_marker'] ?? '',
@@ -1451,6 +1475,7 @@ class WP_Caiji
                 'title'=>array('before'=>$rule['title_before_marker'] ?? '', 'after'=>$rule['title_after_marker'] ?? ''),
                 'content'=>array('before'=>$rule['content_before_marker'] ?? '', 'after'=>$rule['content_after_marker'] ?? ''),
                 'date'=>array('before'=>$rule['date_before_marker'] ?? '', 'after'=>$rule['date_after_marker'] ?? ''),
+                'tag'=>array('before'=>$rule['tag_before_marker'] ?? '', 'after'=>$rule['tag_after_marker'] ?? ''),
             ),
             'selector_counts'=>$selector_counts,
             'html_samples'=>$html_samples,
@@ -1473,6 +1498,7 @@ class WP_Caiji
         echo '<p><strong>URL:</strong><a href="' . esc_url($result['url']) . '" target="_blank" rel="noopener noreferrer">' . esc_html($result['url']) . '</a></p>';
         echo '<p><strong>标题:</strong>' . esc_html($result['title'] ?: '未提取到') . '</p>';
         echo '<p><strong>日期:</strong>' . esc_html($result['date'] ?: '未提取到/未设置') . '</p>';
+        echo '<p><strong>Tag 标签:</strong>' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags']) : '未提取到/未设置') . '</p>';
         echo '<p><strong>正文长度:</strong>原始 ' . intval($result['raw_text_length'] ?? 0) . ' 字；清洗后 ' . intval($result['content_length']) . ' 字；<strong>图片数:</strong>' . intval($result['image_count']) . '</p>';
         echo '<p><strong>正文预览:</strong></p>';
         echo '<textarea class="large-text code wp-caiji-content-preview" rows="10" readonly>' . esc_textarea($result['content_text']) . '</textarea>';
@@ -1484,23 +1510,23 @@ class WP_Caiji
         }
         echo '<details class="wp-caiji-test-diagnostics"><summary><strong>查看提取诊断信息</strong></summary>';
         if (!empty($result['selectors']) && is_array($result['selectors'])) {
-            echo '<p class="description"><strong>选择器:</strong>链接 ' . esc_html($result['selectors']['link'] ?? '') . '；标题 ' . esc_html($result['selectors']['title']) . '；正文 ' . esc_html($result['selectors']['content']) . (!empty($result['selectors']['date']) ? '；日期 ' . esc_html($result['selectors']['date']) : '') . '</p>';
+            echo '<p class="description"><strong>选择器:</strong>链接 ' . esc_html($result['selectors']['link'] ?? '') . '；标题 ' . esc_html($result['selectors']['title']) . '；正文 ' . esc_html($result['selectors']['content']) . (!empty($result['selectors']['date']) ? '；日期 ' . esc_html($result['selectors']['date']) : '') . (!empty($result['selectors']['tag']) ? '；Tag标签 ' . esc_html($result['selectors']['tag']) : '') . '</p>';
             if (!empty($result['link_marker']) && (!empty($result['link_marker']['before']) || !empty($result['link_marker']['after']))) {
                 echo '<p class="description"><strong>链接截取:</strong>已启用前后代码截取模式</p>';
             }
             if (!empty($result['field_markers']) && is_array($result['field_markers'])) {
                 $enabled_markers = array();
-                foreach (array('title'=>'标题', 'content'=>'正文', 'date'=>'日期') as $key=>$label) {
+                foreach (array('title'=>'标题', 'content'=>'正文', 'date'=>'日期', 'tag'=>'Tag标签') as $key=>$label) {
                     if (!empty($result['field_markers'][$key]['before']) || !empty($result['field_markers'][$key]['after'])) $enabled_markers[] = $label;
                 }
                 if ($enabled_markers) echo '<p class="description"><strong>字段截取:</strong>' . esc_html(implode('、', $enabled_markers)) . ' 已启用前后代码截取模式</p>';
             }
         }
         if (!empty($result['json_paths']) && is_array($result['json_paths']) && array_filter($result['json_paths'])) {
-            echo '<p class="description"><strong>JSON 路径:</strong>来源 ' . esc_html($result['json_paths']['source'] ?? '__NEXT_DATA__') . '；链接 ' . esc_html($result['json_paths']['link'] ?? '') . (!empty($result['json_paths']['link_url_field']) ? ' / URL字段 ' . esc_html($result['json_paths']['link_url_field']) : '') . '；标题 ' . esc_html($result['json_paths']['title'] ?? '') . '；正文 ' . esc_html($result['json_paths']['content'] ?? '') . (!empty($result['json_paths']['date']) ? '；日期 ' . esc_html($result['json_paths']['date']) : '') . '</p>';
+            echo '<p class="description"><strong>JSON 路径:</strong>来源 ' . esc_html($result['json_paths']['source'] ?? '__NEXT_DATA__') . '；链接 ' . esc_html($result['json_paths']['link'] ?? '') . (!empty($result['json_paths']['link_url_field']) ? ' / URL字段 ' . esc_html($result['json_paths']['link_url_field']) : '') . '；标题 ' . esc_html($result['json_paths']['title'] ?? '') . '；正文 ' . esc_html($result['json_paths']['content'] ?? '') . (!empty($result['json_paths']['date']) ? '；日期 ' . esc_html($result['json_paths']['date']) : '') . (!empty($result['json_paths']['tag']) ? '；Tag标签 ' . esc_html($result['json_paths']['tag']) : '') . '</p>';
         }
         if (!empty($result['selector_counts']) && is_array($result['selector_counts'])) {
-            echo '<p><strong>选择器匹配数量:</strong>链接 ' . intval($result['selector_counts']['link'] ?? 0) . '；标题 ' . intval($result['selector_counts']['title'] ?? 0) . '；正文 ' . intval($result['selector_counts']['content'] ?? 0) . '；日期 ' . intval($result['selector_counts']['date'] ?? 0) . '</p>';
+            echo '<p><strong>选择器匹配数量:</strong>链接 ' . intval($result['selector_counts']['link'] ?? 0) . '；标题 ' . intval($result['selector_counts']['title'] ?? 0) . '；正文 ' . intval($result['selector_counts']['content'] ?? 0) . '；日期 ' . intval($result['selector_counts']['date'] ?? 0) . '；Tag标签 ' . intval($result['selector_counts']['tag'] ?? 0) . '</p>';
         }
         echo '<p><strong>列表链接诊断:</strong>匹配 ' . intval($result['links_found'] ?? 0) . ' 条；可入队 ' . intval($result['links_ready'] ?? 0) . ' 条；来源已存在 ' . intval($result['links_duplicate'] ?? 0) . ' 条。</p>';
         if (!empty($result['sample_links'])) {
@@ -1681,6 +1707,7 @@ class WP_Caiji
         $title = $this->extract_field_by_rule($html, $item, 'title', $item['title_selector'], true);
         $content = $this->extract_field_by_rule($html, $item, 'content', $item['content_selector'], false);
         $date = (!empty($item['date_json_path']) || !empty($item['date_selector']) || !empty($item['date_before_marker']) || !empty($item['date_after_marker'])) ? $this->extract_field_by_rule($html, $item, 'date', $item['date_selector'], true) : '';
+        $item['extracted_tags'] = WP_Caiji_Parser::extract_tags_by_rule($html, $item);
         if (!$title || !$content) {
             $this->mark_failed($item, '标题或正文提取失败,请检查选择器');
             return;

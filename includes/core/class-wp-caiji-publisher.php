@@ -22,7 +22,8 @@ class WP_Caiji_Publisher
         }
 
         $excerpt = WP_Caiji_Content::make_excerpt($content, (int)($item['excerpt_length'] ?? 160));
-        $plain_context = $title . "\n" . wp_strip_all_tags($content);
+        $plain_content = $title . "\n" . wp_strip_all_tags($content);
+        $title_context = $title;
         $postarr = array(
             'post_title' => wp_strip_all_tags($title),
             'post_content' => wp_kses_post($content),
@@ -31,15 +32,18 @@ class WP_Caiji_Publisher
 
         if (!empty($item['auto_excerpt'])) $postarr['post_excerpt'] = $excerpt;
 
-        $matched_category = WP_Caiji_Content::match_category_id($plain_context, $item['category_rules'] ?? '');
+        $matched_category = WP_Caiji_Content::match_category_id($plain_content, $item['category_rules'] ?? '');
         if ($matched_category) $postarr['post_category'] = array($matched_category);
         elseif (!empty($item['category_id'])) $postarr['post_category'] = array((int)$item['category_id']);
 
         if (!empty($item['author_id'])) $postarr['post_author'] = (int)$item['author_id'];
 
         $tags = !empty($item['fixed_tags']) ? WP_Caiji_Content::parse_tags($item['fixed_tags']) : array();
+        if (!empty($item['extracted_tags']) && is_array($item['extracted_tags'])) {
+            $tags = array_merge($tags, $item['extracted_tags']);
+        }
         if (!empty($item['auto_tags'])) {
-            $tags = array_merge($tags, WP_Caiji_Content::match_auto_tags($plain_context, $item['auto_tag_keywords'] ?? ''));
+            $tags = array_merge($tags, WP_Caiji_Content::match_auto_tags($title_context, $item['auto_tag_keywords'] ?? ''));
         }
         if ($tags) $postarr['tags_input'] = array_values(array_unique($tags));
 

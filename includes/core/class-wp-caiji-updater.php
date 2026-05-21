@@ -14,6 +14,7 @@ class WP_Caiji_Updater
 {
     const CACHE_KEY = 'wp_caiji_github_release_cache';
     const CACHE_TTL = 6 * HOUR_IN_SECONDS;
+    const DEFAULT_REPO = '921988379/AI-caiji';
 
     private static function plugin_basename()
     {
@@ -27,10 +28,6 @@ class WP_Caiji_Updater
 
     public static function init($settings)
     {
-        $settings = (array)$settings;
-        if (empty($settings['github_update_enabled']) || empty($settings['github_repo'])) {
-            return;
-        }
         add_filter('pre_set_site_transient_update_plugins', array(__CLASS__, 'check_for_update'));
         add_filter('plugins_api', array(__CLASS__, 'plugins_api'), 20, 3);
         add_action('upgrader_process_complete', array(__CLASS__, 'clear_cache_after_upgrade'), 10, 2);
@@ -141,9 +138,7 @@ class WP_Caiji_Updater
 
     public static function get_latest_release($force = false)
     {
-        $settings = self::settings();
-        $repo = self::normalize_repo($settings['github_repo'] ?? '');
-        if ($repo === '') return false;
+        $repo = self::DEFAULT_REPO;
 
         if (!$force) {
             $cached = get_site_transient(self::CACHE_KEY);
@@ -158,9 +153,6 @@ class WP_Caiji_Updater
                 'User-Agent' => 'WP-Caiji-Updater/' . WP_CAIJI_VERSION,
             ),
         );
-        if (!empty($settings['github_token'])) {
-            $args['headers']['Authorization'] = 'Bearer ' . trim((string)$settings['github_token']);
-        }
 
         $response = wp_remote_get($endpoint, $args);
         if (is_wp_error($response)) return false;
@@ -201,10 +193,6 @@ class WP_Caiji_Updater
 
     private static function get_package_url($release)
     {
-        $settings = self::settings();
-        if (!empty($settings['github_package_url'])) {
-            return self::sanitize_package_url($settings['github_package_url']);
-        }
         $assets = isset($release['assets']) && is_array($release['assets']) ? $release['assets'] : array();
         foreach ($assets as $asset) {
             $name = strtolower((string)($asset['name'] ?? ''));
@@ -226,9 +214,7 @@ class WP_Caiji_Updater
 
     private static function repo_url()
     {
-        $settings = self::settings();
-        $repo = self::normalize_repo($settings['github_repo'] ?? '');
-        return $repo ? 'https://github.com/' . $repo : 'https://github.com/';
+        return 'https://github.com/' . self::DEFAULT_REPO;
     }
 
     private static function settings()
