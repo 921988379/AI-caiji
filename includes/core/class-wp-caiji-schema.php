@@ -27,7 +27,7 @@ class WP_Caiji_Schema
             'replace_rules','category_rules','auto_tags','auto_tag_keywords','publish_mode','publish_delay_min','publish_delay_max',
             'ua_list','referer','cookie','auto_excerpt','excerpt_length','seo_plugin','seo_title_template','seo_desc_template',
             'remove_empty_paragraphs','remove_external_links','remove_paragraph_keywords','image_alt_template',
-            'ai_rewrite','ai_rewrite_prompt','ai_rewrite_on_failure'
+            'ai_rewrite','ai_rewrite_prompt','ai_rewrite_on_failure','ai_rewrite_language'
         );
     }
 }

@@ -59,6 +59,79 @@ class WP_Caiji_AI
         return self::prepare_api_key_for_storage($api_key, $existing_value);
     }
 
+    public static function language_options()
+    {
+        return array(
+            'zh-CN' => '中文',
+            'en' => '英文',
+            'ja' => '日文',
+            'ko' => '韩文',
+            'es' => '西班牙文',
+            'fr' => '法文',
+            'de' => '德文',
+            'auto' => '不限制/不检测',
+        );
+    }
+
+    public static function sanitize_language($language, $allow_empty = false)
+    {
+        $language = sanitize_key((string)$language);
+        if ($allow_empty && $language === '') return '';
+        return array_key_exists($language, self::language_options()) ? $language : 'zh-CN';
+    }
+
+    public static function language_label($language)
+    {
+        $language = self::sanitize_language($language);
+        $options = self::language_options();
+        return $options[$language] ?? $options['zh-CN'];
+    }
+
+    public static function detect_language_matches($title, $content, $language)
+    {
+        $language = self::sanitize_language($language);
+        if ($language === 'auto') return true;
+
+        $text = wp_strip_all_tags((string)$title . "\n" . (string)$content);
+        $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
+        $text = preg_replace('/\s+/u', ' ', $text);
+        $text = trim($text);
+        if ($text === '') return false;
+
+        preg_match_all('/[\p{Han}]/u', $text, $han);
+        preg_match_all('/[\p{Hiragana}\p{Katakana}]/u', $text, $kana);
+        preg_match_all('/[\x{AC00}-\x{D7AF}]/u', $text, $hangul);
+        preg_match_all('/[A-Za-zÀ-ÿ]+/u', $text, $latin);
+
+        $han_count = count($han[0]);
+        $kana_count = count($kana[0]);
+        $hangul_count = count($hangul[0]);
+        $latin_count = count($latin[0]);
+        $letter_count = max(1, $han_count + $kana_count + $hangul_count + $latin_count);
+        $latin_ratio = $latin_count / $letter_count;
+
+        if ($language === 'zh-CN') return $han_count >= 12 && ($han_count / $letter_count) >= 0.25;
+        if ($language === 'ja') return $kana_count >= 8 || ($kana_count >= 3 && $han_count >= 8);
+        if ($language === 'ko') return $hangul_count >= 12 && ($hangul_count / $letter_count) >= 0.30;
+
+        $lower = mb_strtolower(' ' . $text . ' ', 'UTF-8');
+        $scores = array(
+            'en' => preg_match_all('/\b(the|and|or|of|to|in|for|with|that|is|are|this|from|by|as)\b/u', $lower),
+            'es' => preg_match_all('/\b(el|la|los|las|de|del|que|para|con|una|por|como|este|esta|son|más)\b/u', $lower),
+            'fr' => preg_match_all('/\b(le|la|les|des|de|du|que|pour|avec|une|dans|est|sont|plus|sur)\b/u', $lower),
+            'de' => preg_match_all('/\b(der|die|das|und|oder|von|mit|für|ist|sind|ein|eine|nicht|auf|zu)\b/u', $lower),
+        );
+        if (isset($scores[$language])) {
+            $max_other = 0;
+            foreach ($scores as $key => $score) {
+                if ($key !== $language) $max_other = max($max_other, (int)$score);
+            }
+            return $latin_ratio >= 0.55 && ((int)$scores[$language] >= 2 || ((int)$scores[$language] >= 1 && (int)$scores[$language] >= $max_other));
+        }
+
+        return true;
+    }
+
     public static function get_api_key($settings = array())
     {
         $settings = wp_parse_args((array)$settings, WP_Caiji_DB::default_settings());
@@ -141,6 +214,14 @@ class WP_Caiji_AI
         $prompt = trim((string)($rule['ai_rewrite_prompt'] ?? ''));
         if ($prompt === '') $prompt = trim((string)($settings['ai_rewrite_prompt'] ?? ''));
         if ($prompt === '') $prompt = self::default_prompt();
+        $target_language = self::sanitize_language($rule['ai_rewrite_language'] ?? '', true);
+        if ($target_language === '') $target_language = self::sanitize_language($settings['ai_rewrite_language'] ?? 'zh-CN');
+        if ($target_language !== 'auto') {
+            $language_label = self::language_label($target_language);
+            $prompt .= "
+
+语言要求：请将改写后的标题和正文全部输出为{$language_label}。如果原文不是{$language_label}，请先翻译再改写。";
+        }
 
         $max_chars = max(1000, min(60000, (int)($settings['ai_max_input_chars'] ?? 12000)));
         $clean_content = mb_substr((string)$content, 0, $max_chars);
@@ -188,10 +269,15 @@ class WP_Caiji_AI
         if (mb_strlen(wp_strip_all_tags($new_content)) < 80) {
             return new WP_Error('wp_caiji_ai_too_short', 'AI 改写结果正文过短，已判定为失败；响应片段：' . self::safe_excerpt($message, 260));
         }
+        $new_content = wp_kses_post($new_content);
+        $new_title = $new_title !== '' ? $new_title : $title;
+        if (!empty($settings['ai_language_check']) && !self::detect_language_matches($new_title, $new_content, $target_language)) {
+            return new WP_Error('wp_caiji_ai_language_mismatch', 'AI 改写结果未通过目标语言检测，目标语言：' . self::language_label($target_language) . '；已判定为失败');
+        }
 
         return array(
-            'title' => $new_title !== '' ? $new_title : $title,
-            'content' => wp_kses_post($new_content),
+            'title' => $new_title,
+            'content' => $new_content,
         );
     }
 
