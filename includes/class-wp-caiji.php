@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.10';
+    const SCHEMA_VERSION = '2.1.11';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -366,16 +366,7 @@ class WP_Caiji
         $edit_id = isset($_GET['edit']) ? absint($_GET['edit']) : 0;
         $editing = $edit_id ? $wpdb->get_row($wpdb->prepare("SELECT * FROM {$this->rules_table} WHERE id=%d", $edit_id), ARRAY_A) : null;
         $rule = wp_parse_args($editing ?: array(), $this->default_rule());
-        $existing_tag_names = get_terms(array(
-            'taxonomy' => 'post_tag',
-            'hide_empty' => false,
-            'fields' => 'names',
-        ));
-        if (is_wp_error($existing_tag_names)) $existing_tag_names = array();
-        $auto_tag_keywords_value = implode("\n", array_values(array_unique(array_filter(array_map('trim', array_merge(
-            preg_split('/\r\n|\r|\n/', (string)($rule['auto_tag_keywords'] ?? '')),
-            (array)$existing_tag_names
-        ))))));
+        $auto_tag_keywords_value = (string)($rule['auto_tag_keywords'] ?? '');
         $has_test_result_modal = $edit_id && ($this->get_test_result('article', 'article_test') || $this->get_test_result('list', 'list_test'));
         $rules = $wpdb->get_results("SELECT r.*,
             SUM(CASE WHEN q.status='pending' THEN 1 ELSE 0 END) pending_count,
@@ -503,7 +494,7 @@ class WP_Caiji
                 <table class="form-table" role="presentation">
                     <tr><th>自动分类规则</th><td><textarea name="category_rules" rows="4" class="large-text code" placeholder="每行一条:关键词=>分类ID,例如:WordPress=>3"><?php echo esc_textarea($rule['category_rules']); ?></textarea><p class="description">匹配标题或正文后,会优先使用命中的分类 ID;没有命中则使用默认分类。</p></td></tr>
                     <tr><th>固定标签</th><td><input name="fixed_tags" class="regular-text" value="<?php echo esc_attr($rule['fixed_tags']); ?>" placeholder="多个标签用英文逗号分隔,例如 SEO,WordPress"></td></tr>
-                    <tr><th>自动标签</th><td><label><input name="auto_tags" type="checkbox" value="1" <?php checked($rule['auto_tags'],1); ?>> 根据标题关键词自动加标签</label><br><textarea name="auto_tag_keywords" rows="6" class="large-text code" placeholder="每行一个关键词；标题中出现该词时自动作为标签，正文出现不会作为标签"><?php echo esc_textarea($auto_tag_keywords_value); ?></textarea><p class="description">已自动载入当前站点现有文章标签，可继续手动增删。保存后会随规则一起保存。</p></td></tr>
+                    <tr><th>自动标签</th><td><label><input name="auto_tags" type="checkbox" value="1" <?php checked($rule['auto_tags'],1); ?>> 根据标题关键词自动加标签</label><br><textarea name="auto_tag_keywords" rows="6" class="large-text code" placeholder="每行一个关键词；标题中出现该词时自动作为标签，正文出现不会作为标签"><?php echo esc_textarea($auto_tag_keywords_value); ?></textarea><p class="description">只使用这里手动填写的关键词；不会再自动载入站点现有文章标签。标题中出现该词时才会自动作为标签。</p></td></tr>
                 </table>
                 </div>
                 <div class="wp-caiji-section"><h2>SEO 与摘要</h2>
