@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.4
+Stable tag: 2.1.5
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、Tag 提取、健康检查和诊断报告。
@@ -242,6 +242,11 @@ WP 采集 → 设置 → 卸载保护
 * 选择器转换、DOM 查询、正文提取、链接提取、正文清洗、相对 URL 处理已迁移到 WP_Caiji_Parser。
 * 主类保留兼容包装，原有业务调用不变。
 
+
+= 2.1.5 =
+* 健康检查新增“插件更新”状态，显示当前版本、GitHub 最新版本和 Release 链接。
+* 维护工具新增“手动检查插件更新”按钮，可清理更新缓存并立即向 GitHub Release 检测新版本。
+* 手动检查会同步清理 WordPress 插件更新缓存，便于后台更快显示可更新版本。
 
 = 2.1.4 =
 * 固定 GitHub 更新源为 921988379/AI-caiji，移除后台 GitHub 更新配置入口，避免站长误填更新源。

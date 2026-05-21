@@ -40,6 +40,7 @@ class WP_Caiji_Health
         $lock_collect = get_transient(WP_Caiji::LOCK_COLLECT);
         $total_done = max(1, $counts['success'] + $counts['failed']);
         $fail_rate = round(($counts['failed'] / $total_done) * 100, 2);
+        $update_status = self::get_update_status();
         ?>
         <div class="wrap wp-caiji-page">
             <?php $plugin->render_page_header('WP 采集健康检查', '检查数据表、队列状态、Cron 计划、任务锁和最近错误。'); ?>
@@ -53,6 +54,7 @@ class WP_Caiji_Health
                 <tr><th>最近错误</th><td><?php echo $last_error ? esc_html($last_error['created_at'] . ' - ' . $last_error['message'] . ' - ' . $last_error['url']) : '暂无'; ?></td></tr>
                 <tr><th>Cron</th><td>发现链接：<?php echo $next_discover ? esc_html(date_i18n('Y-m-d H:i:s', $next_discover)) : '未计划'; ?>；采集文章：<?php echo $next_collect ? esc_html(date_i18n('Y-m-d H:i:s', $next_collect)) : '未计划'; ?><?php if ($cron_discover_error || $cron_collect_error): ?><br><span style="color:#b32d2e">最近一次计划任务注册失败：发现 <?php echo esc_html($cron_discover_error ?: '无'); ?>；采集 <?php echo esc_html($cron_collect_error ?: '无'); ?></span><?php endif; ?><?php if ($wp_cron_disabled): ?><br><span style="color:#b32d2e">检测到 DISABLE_WP_CRON=true：请确认服务器计划任务定期请求 <?php echo esc_html(site_url('wp-cron.php?doing_wp_cron')); ?>，否则队列不会自动继续。</span><?php endif; ?><?php if ($cron_is_stale): ?><br><span style="color:#b32d2e">检测到 WP-Cron 已过计划时间超过 5 分钟，可能没有被系统 Cron 正常触发。</span><?php endif; ?></td></tr>
                 <tr><th>任务锁</th><td>发现锁：<?php echo $lock_discover ? esc_html(date_i18n('Y-m-d H:i:s', (int)$lock_discover)) : '无'; ?>；采集锁：<?php echo $lock_collect ? esc_html(date_i18n('Y-m-d H:i:s', (int)$lock_collect)) : '无'; ?></td></tr>
+                <tr><th>插件更新</th><td><?php self::render_update_status($update_status); ?></td></tr>
             </tbody></table>
             <div class="wp-caiji-section-title"><span>维护工具</span></div>
             <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
@@ -62,6 +64,7 @@ class WP_Caiji_Health
                 <button class="button" name="health_action" value="release_running" onclick="return confirm('确定释放 running 队列？')">释放 running 队列</button>
                 <button class="button" name="health_action" value="reset_cron">重建定时任务</button>
                 <button class="button" name="health_action" value="clear_locks">清理任务锁</button>
+                <button class="button" name="health_action" value="check_update">手动检查插件更新</button>
                 <button class="button button-link-delete" name="health_action" value="clear_logs" onclick="return confirm('确定清空日志？')">清空日志</button>
             </form>
             <div class="wp-caiji-section-title"><span>诊断报告</span></div>
@@ -90,11 +93,93 @@ class WP_Caiji_Health
         } elseif ($action === 'clear_locks') {
             delete_transient(WP_Caiji::LOCK_DISCOVER);
             delete_transient(WP_Caiji::LOCK_COLLECT);
+        } elseif ($action === 'check_update') {
+            $result = class_exists('WP_Caiji_Updater') ? WP_Caiji_Updater::force_update_check() : array(
+                'ok' => false,
+                'message' => '检查失败：更新模块未加载。',
+                'current_version' => WP_CAIJI_VERSION,
+                'latest_version' => '',
+                'release_url' => '',
+                'package_url' => '',
+                'checked_at' => current_time('mysql'),
+            );
+            set_transient('wp_caiji_update_check_' . get_current_user_id(), $result, 300);
         } elseif ($action === 'clear_logs') {
             $wpdb->query("TRUNCATE TABLE {$logs_table}");
         }
         wp_safe_redirect($plugin->admin_page_url('wp-caiji-health'));
         exit;
+    }
+
+
+    private static function get_update_status()
+    {
+        $result = get_transient('wp_caiji_update_check_' . get_current_user_id());
+        if ($result) {
+            delete_transient('wp_caiji_update_check_' . get_current_user_id());
+            return is_array($result) ? $result : array();
+        }
+
+        if (!class_exists('WP_Caiji_Updater')) {
+            return array(
+                'ok' => false,
+                'message' => '更新模块未加载。',
+                'current_version' => WP_CAIJI_VERSION,
+                'latest_version' => '',
+                'release_url' => '',
+                'package_url' => '',
+                'checked_at' => '',
+            );
+        }
+
+        $release = WP_Caiji_Updater::get_latest_release(false);
+        if (!$release) {
+            return array(
+                'ok' => false,
+                'message' => '暂未获取到 GitHub 最新版本；可点击“手动检查插件更新”实时检测。',
+                'current_version' => WP_CAIJI_VERSION,
+                'latest_version' => '',
+                'release_url' => '',
+                'package_url' => '',
+                'checked_at' => '',
+            );
+        }
+
+        $latest = (string)($release['version'] ?? '');
+        $has_update = $latest !== '' && version_compare($latest, WP_CAIJI_VERSION, '>');
+        return array(
+            'ok' => true,
+            'has_update' => $has_update,
+            'is_latest' => $latest !== '' && version_compare($latest, WP_CAIJI_VERSION, '<='),
+            'message' => $has_update ? '发现新版本 ' . $latest . '。' : '当前已是最新版本。',
+            'current_version' => WP_CAIJI_VERSION,
+            'latest_version' => $latest,
+            'release_url' => (string)($release['html_url'] ?? ''),
+            'package_url' => '',
+            'checked_at' => '',
+        );
+    }
+
+    private static function render_update_status($status)
+    {
+        $status = is_array($status) ? $status : array();
+        $ok = !empty($status['ok']);
+        $has_update = !empty($status['has_update']);
+        $color = !$ok ? '#b32d2e' : ($has_update ? '#996800' : '#008a20');
+        echo '<strong style="color:' . esc_attr($color) . '">' . esc_html((string)($status['message'] ?? '暂无更新状态。')) . '</strong>';
+        echo '<br>当前版本：' . esc_html((string)($status['current_version'] ?? WP_CAIJI_VERSION));
+        if (!empty($status['latest_version'])) {
+            echo '；最新版本：' . esc_html((string)$status['latest_version']);
+        }
+        if (!empty($status['checked_at'])) {
+            echo '；检查时间：' . esc_html((string)$status['checked_at']);
+        }
+        if (!empty($status['release_url'])) {
+            echo '<br><a href="' . esc_url((string)$status['release_url']) . '" target="_blank" rel="noopener noreferrer">查看 GitHub Release</a>';
+        }
+        if ($has_update) {
+            echo '　<a class="button button-small button-primary" href="' . esc_url(self_admin_url('update-core.php')) . '">前往更新页面</a>';
+        }
     }
 
     public static function export_diagnostics($plugin)

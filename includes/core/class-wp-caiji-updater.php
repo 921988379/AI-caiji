@@ -49,6 +49,53 @@ class WP_Caiji_Updater
         delete_site_transient(self::CACHE_KEY);
     }
 
+    public static function force_update_check()
+    {
+        self::clear_cache();
+        delete_site_transient('update_plugins');
+        wp_clean_plugins_cache(true);
+
+        $release = self::get_latest_release(true);
+        if (!$release) {
+            return array(
+                'ok' => false,
+                'message' => '检查失败：无法获取 GitHub 最新 Release，请确认服务器能访问 GitHub API。',
+                'current_version' => WP_CAIJI_VERSION,
+                'latest_version' => '',
+                'release_url' => self::repo_url(),
+                'package_url' => '',
+                'checked_at' => current_time('mysql'),
+            );
+        }
+
+        $package = self::get_package_url($release);
+        $latest = (string)($release['version'] ?? '');
+        $has_update = $latest !== '' && version_compare($latest, WP_CAIJI_VERSION, '>');
+        $is_latest = $latest !== '' && version_compare($latest, WP_CAIJI_VERSION, '<=');
+
+        if ($has_update) {
+            $message = $package
+                ? '发现新版本 ' . $latest . '，可前往插件更新页升级。'
+                : '发现新版本 ' . $latest . '，但 Release 中没有可用 zip 更新包。';
+        } elseif ($is_latest) {
+            $message = '当前已是最新版本。';
+        } else {
+            $message = '检查完成，但无法识别最新版本号。';
+        }
+
+        return array(
+            'ok' => true,
+            'has_update' => $has_update,
+            'is_latest' => $is_latest,
+            'message' => $message,
+            'current_version' => WP_CAIJI_VERSION,
+            'latest_version' => $latest,
+            'release_url' => (string)($release['html_url'] ?? self::repo_url()),
+            'package_url' => $package,
+            'checked_at' => current_time('mysql'),
+        );
+    }
+
     public static function clear_cache_after_upgrade($upgrader, $hook_extra)
     {
         if (!empty($hook_extra['type']) && $hook_extra['type'] === 'plugin') {
