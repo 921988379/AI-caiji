@@ -23,6 +23,7 @@ class WP_Caiji_Publisher
 
         $excerpt = WP_Caiji_Content::make_excerpt($content, (int)($item['excerpt_length'] ?? 160));
         $plain_content = $title . "\n" . wp_strip_all_tags($content);
+        // 分类匹配保留“标题 + 正文”；自动标签只允许匹配标题，不能因为正文命中就加 tag。
         $title_context = $title;
         $postarr = array(
             'post_title' => wp_strip_all_tags($title),
@@ -43,7 +44,7 @@ class WP_Caiji_Publisher
             $tags = array_merge($tags, $item['extracted_tags']);
         }
         if (!empty($item['auto_tags'])) {
-            $tags = array_merge($tags, WP_Caiji_Content::match_auto_tags($title_context, $item['auto_tag_keywords'] ?? ''));
+            $tags = array_merge($tags, WP_Caiji_Content::match_auto_tags_by_title($title_context, $item['auto_tag_keywords'] ?? ''));
         }
         if ($tags) $postarr['tags_input'] = array_values(array_unique($tags));
 

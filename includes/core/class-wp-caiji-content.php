@@ -54,14 +54,27 @@ class WP_Caiji_Content
     }
 
 
-    public static function match_auto_tags($text, $keywords)
+    /**
+     * Match automatic post tags from the post title only.
+     *
+     * Important: do not pass body/content here. Auto tags should only be added
+     * when the keyword appears in the title. Category matching can still use
+     * title + content via match_category_id().
+     */
+    public static function match_auto_tags_by_title($title, $keywords)
     {
         $tags = array();
+        $title = (string)$title;
         $items = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', (string)$keywords)));
         foreach ($items as $kw) {
-            if ($kw !== '' && stripos($text, $kw) !== false) $tags[] = $kw;
+            if ($kw !== '' && stripos($title, $kw) !== false) $tags[] = $kw;
         }
         return array_values(array_unique($tags));
+    }
+
+    public static function match_auto_tags($text, $keywords)
+    {
+        return self::match_auto_tags_by_title($text, $keywords);
     }
 
 
