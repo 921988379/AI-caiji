@@ -192,7 +192,6 @@ class WP_Caiji_Updater
             if (is_array($cached) && !empty($cached['repo']) && $cached['repo'] === $repo) return $cached;
         }
 
-        $endpoint = 'https://api.github.com/repos/' . rawurlencode(dirname($repo)) . '/' . rawurlencode(basename($repo)) . '/releases/latest';
         $args = array(
             'timeout' => 15,
             'headers' => array(
@@ -201,17 +200,43 @@ class WP_Caiji_Updater
             ),
         );
 
+        $owner = rawurlencode(dirname($repo));
+        $name = rawurlencode(basename($repo));
+        $endpoint = 'https://api.github.com/repos/' . $owner . '/' . $name . '/releases?per_page=20';
         $response = wp_remote_get($endpoint, $args);
         if (is_wp_error($response)) return false;
         $code = (int)wp_remote_retrieve_response_code($response);
         if ($code !== 200) return false;
+
         $data = json_decode(wp_remote_retrieve_body($response), true);
-        if (!is_array($data) || !empty($data['draft']) || !empty($data['prerelease'])) return false;
+        if (!is_array($data)) return false;
 
-        $version = self::version_from_release($data);
-        if ($version === '') return false;
+        $best = false;
+        $best_version = '';
+        foreach ($data as $item) {
+            if (!is_array($item) || !empty($item['draft']) || !empty($item['prerelease'])) continue;
+            $version = self::version_from_release($item);
+            if ($version === '') continue;
+            if ($best === false || version_compare($version, $best_version, '>')) {
+                $best = $item;
+                $best_version = $version;
+            }
+        }
 
-        $release = array(
+        if (!$best || $best_version === '') return false;
+
+        $release = self::normalize_release($best, $repo, $best_version);
+        set_site_transient(self::CACHE_KEY, $release, self::CACHE_TTL);
+        return $release;
+    }
+
+    private static function normalize_release($data, $repo, $version = '')
+    {
+        if ($version === '') {
+            $version = self::version_from_release($data);
+        }
+
+        return array(
             'repo' => $repo,
             'version' => $version,
             'tag_name' => (string)($data['tag_name'] ?? ''),
@@ -222,8 +247,6 @@ class WP_Caiji_Updater
             'published_at' => (string)($data['published_at'] ?? ''),
             'assets' => isset($data['assets']) && is_array($data['assets']) ? $data['assets'] : array(),
         );
-        set_site_transient(self::CACHE_KEY, $release, self::CACHE_TTL);
-        return $release;
     }
 
     private static function version_from_release($data)
