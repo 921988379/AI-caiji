@@ -196,6 +196,9 @@ class WP_Caiji_DB
         return array(
             'discover_interval' => 'wp_caiji_30min',
             'collect_interval' => 'wp_caiji_10min',
+            'collect_schedule_mode' => 'fixed',
+            'collect_random_min_minutes' => 10,
+            'collect_random_max_minutes' => 30,
             'global_collect_limit' => 10,
             'max_runtime_seconds' => 45,
             'running_timeout_minutes' => 30,

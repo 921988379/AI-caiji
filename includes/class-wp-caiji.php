@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.11';
+    const SCHEMA_VERSION = '2.1.12';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -175,10 +175,22 @@ class WP_Caiji
             else delete_option('wp_caiji_cron_discover_error');
         }
         if (!wp_next_scheduled(self::CRON_COLLECT)) {
-            $scheduled = wp_schedule_event(time() + 180, $collect, self::CRON_COLLECT);
+            if (($settings['collect_schedule_mode'] ?? 'fixed') === 'random') {
+                $scheduled = wp_schedule_single_event(self::next_random_collect_timestamp($settings), self::CRON_COLLECT);
+            } else {
+                $scheduled = wp_schedule_event(time() + 180, $collect, self::CRON_COLLECT);
+            }
             if ($scheduled === false) update_option('wp_caiji_cron_collect_error', current_time('mysql'), false);
             else delete_option('wp_caiji_cron_collect_error');
         }
+    }
+
+    private static function next_random_collect_timestamp($settings)
+    {
+        $min = max(1, min(1440, (int)($settings['collect_random_min_minutes'] ?? 10)));
+        $max = max(1, min(1440, (int)($settings['collect_random_max_minutes'] ?? 30)));
+        if ($max < $min) $max = $min;
+        return time() + (wp_rand($min, $max) * MINUTE_IN_SECONDS);
     }
 
 
@@ -366,6 +378,15 @@ class WP_Caiji
         $edit_id = isset($_GET['edit']) ? absint($_GET['edit']) : 0;
         $editing = $edit_id ? $wpdb->get_row($wpdb->prepare("SELECT * FROM {$this->rules_table} WHERE id=%d", $edit_id), ARRAY_A) : null;
         $rule = wp_parse_args($editing ?: array(), $this->default_rule());
+        $link_rule_method = !empty($rule['link_json_path']) ? 'json' : ((!empty($rule['link_before_marker']) || !empty($rule['link_after_marker'])) ? 'marker' : 'selector');
+        $field_rule_method = function ($field) use ($rule) {
+            $json_key = $field . '_json_path';
+            $before_key = $field . '_before_marker';
+            $after_key = $field . '_after_marker';
+            if (!empty($rule[$json_key])) return 'json';
+            if (!empty($rule[$before_key]) || !empty($rule[$after_key])) return 'marker';
+            return 'selector';
+        };
         $auto_tag_keywords_value = (string)($rule['auto_tag_keywords'] ?? '');
         $has_test_result_modal = $edit_id && ($this->get_test_result('article', 'article_test') || $this->get_test_result('list', 'list_test'));
         $rules = $wpdb->get_results("SELECT r.*,
@@ -407,18 +428,26 @@ class WP_Caiji
                 <table class="form-table" role="presentation">
                     <tr><th>列表页 URL</th><td><textarea name="list_urls" rows="4" class="large-text code" placeholder="每行一个栏目/列表页 URL,用于自动发现文章链接"><?php echo esc_textarea($rule['list_urls']); ?></textarea></td></tr>
                     <tr><th>分页规则</th><td><input name="pagination_pattern" class="regular-text" value="<?php echo esc_attr($rule['pagination_pattern']); ?>" placeholder="例如:https://example.com/news/page/{page}"> 页码 <input name="page_start" type="number" min="1" value="<?php echo esc_attr($rule['page_start']); ?>" style="width:80px"> - <input name="page_end" type="number" min="1" value="<?php echo esc_attr($rule['page_end']); ?>" style="width:80px"></td></tr>
-                    <tr><th>文章链接选择器</th><td><input name="link_selector" class="regular-text" value="<?php echo esc_attr($rule['link_selector']); ?>" placeholder="例如:.news-list a 或 //div[@class='list']//a"><p class="description">默认使用 CSS/XPath 提取链接。填写“前后代码”后，会先截取列表区域，再提取文章 URL。</p></td></tr>
-                    <tr><th>链接前后代码</th><td>
+                    <tr><th>文章链接获取方式</th><td>
+                        <select name="link_rule_method" class="wp-caiji-rule-method" data-wp-caiji-rule-group="link">
+                            <option value="selector" <?php selected($link_rule_method, 'selector'); ?>>选择器 CSS/XPath</option>
+                            <option value="marker" <?php selected($link_rule_method, 'marker'); ?>>前后代码截取</option>
+                            <option value="json" <?php selected($link_rule_method, 'json'); ?>>JSON/Next.js 路径</option>
+                        </select>
+                        <p class="description">先选择一种获取规则，只显示对应编辑项；保存后按当前选择的规则执行。</p>
+                    </td></tr>
+                    <tr data-wp-caiji-rule-group="link" data-wp-caiji-rule-method="selector"><th>文章链接选择器</th><td><input name="link_selector" class="regular-text" value="<?php echo esc_attr($rule['link_selector']); ?>" placeholder="例如:.news-list a 或 //div[@class='list']//a"><p class="description">使用 CSS/XPath 从列表页提取文章链接。</p></td></tr>
+                    <tr data-wp-caiji-rule-group="link" data-wp-caiji-rule-method="marker"><th>链接前后代码</th><td>
                         <textarea name="link_before_marker" rows="3" class="large-text code" placeholder="前代码/开始标记，例如:&lt;div class=&quot;article-list&quot;&gt;"><?php echo esc_textarea($rule['link_before_marker']); ?></textarea>
                         <p style="margin:8px 0">到</p>
                         <textarea name="link_after_marker" rows="3" class="large-text code" placeholder="后代码/结束标记，例如:&lt;/div&gt;&lt;div class=&quot;page&quot;&gt;"><?php echo esc_textarea($rule['link_after_marker']); ?></textarea>
                         <p class="description">可只填前代码或只填后代码；选择器留空时自动提取片段里的所有 a 标签链接。</p>
                     </td></tr>
-                    <tr><th>JSON/Next.js 链接</th><td>
+                    <tr data-wp-caiji-rule-group="link" data-wp-caiji-rule-method="json"><th>JSON/Next.js 链接</th><td>
                         <input name="json_source" class="regular-text" value="<?php echo esc_attr($rule['json_source'] ?? '__NEXT_DATA__'); ?>" placeholder="__NEXT_DATA__"> JSON 来源<br>
                         <input name="link_json_path" class="regular-text" value="<?php echo esc_attr($rule['link_json_path']); ?>" placeholder="例如: props.pageProps.corporateData"> 路径<br>
                         <input name="link_json_url_field" class="regular-text" value="<?php echo esc_attr($rule['link_json_url_field']); ?>" placeholder="例如: alias 或 url"> URL 字段
-                        <p class="description">用于 Next.js 等站点的页面 JSON。来源默认 <code>__NEXT_DATA__</code>，也支持 <code>ld+json</code>、<code>id:脚本ID</code>、<code>var:变量名</code>；填写路径后优先从 JSON 数组提取文章 URL，留空则继续使用原来的选择器/前后代码。</p>
+                        <p class="description">用于 Next.js 等站点的页面 JSON。来源默认 <code>__NEXT_DATA__</code>，也支持 <code>ld+json</code>、<code>id:脚本ID</code>、<code>var:变量名</code>。</p>
                     </td></tr>
                     <tr><th>手动文章 URL</th><td><textarea name="manual_urls" rows="5" class="large-text code" placeholder="每行一个文章 URL,保存后可直接加入队列"><?php echo esc_textarea($rule['manual_urls']); ?></textarea></td></tr>
                     <tr><th>测试发现链接</th><td><input name="test_list_url" class="regular-text" placeholder="留空默认测试第一个列表页 URL"> <?php if ($editing): ?><button type="submit" name="wp_caiji_intent" value="list_test" class="button wp-caiji-form-action" data-wp-caiji-action="wp_caiji_test_list">测试发现链接</button><?php else: ?><span class="description">新规则请先保存后再测试。</span><?php endif; ?><p class="description">测试按钮不会保存当前修改；如刚改了规则，请先保存再测试。</p></td></tr>
@@ -426,34 +455,62 @@ class WP_Caiji
                 </div>
                 <div class="wp-caiji-section"><h2>文章字段提取</h2>
                 <table class="form-table" role="presentation">
-                    <tr><th>标题选择器</th><td><input name="title_selector" class="regular-text" value="<?php echo esc_attr($rule['title_selector']); ?>"><p class="description">先按标题前后代码截取，再用选择器提取；选择器留空时直接使用截取片段文本。</p></td></tr>
-                    <tr><th>标题前后代码</th><td>
+                    <tr><th>标题获取方式</th><td>
+                        <select name="title_rule_method" class="wp-caiji-rule-method" data-wp-caiji-rule-group="title">
+                            <option value="selector" <?php selected($field_rule_method('title'), 'selector'); ?>>选择器 CSS/XPath</option>
+                            <option value="marker" <?php selected($field_rule_method('title'), 'marker'); ?>>前后代码截取</option>
+                            <option value="json" <?php selected($field_rule_method('title'), 'json'); ?>>JSON/Next.js 路径</option>
+                        </select>
+                    </td></tr>
+                    <tr data-wp-caiji-rule-group="title" data-wp-caiji-rule-method="selector"><th>标题选择器</th><td><input name="title_selector" class="regular-text" value="<?php echo esc_attr($rule['title_selector']); ?>" placeholder=""><p class="description">使用 CSS/XPath 提取标题。</p></td></tr>
+                    <tr data-wp-caiji-rule-group="title" data-wp-caiji-rule-method="marker"><th>标题前后代码</th><td>
                         <textarea name="title_before_marker" rows="2" class="large-text code" placeholder="标题前代码/开始标记"><?php echo esc_textarea($rule['title_before_marker']); ?></textarea>
                         <p style="margin:8px 0">到</p>
                         <textarea name="title_after_marker" rows="2" class="large-text code" placeholder="标题后代码/结束标记"><?php echo esc_textarea($rule['title_after_marker']); ?></textarea>
                     </td></tr>
-                    <tr><th>标题 JSON 路径</th><td><input name="title_json_path" class="regular-text" value="<?php echo esc_attr($rule['title_json_path']); ?>" placeholder="例如: props.pageProps.data.title"><p class="description">填写后优先从上方 JSON 来源提取标题；留空则使用原选择器/前后代码。</p></td></tr>
-                    <tr><th>正文选择器</th><td><input name="content_selector" class="regular-text" value="<?php echo esc_attr($rule['content_selector']); ?>"><p class="description">先按正文前后代码截取，再用选择器提取；选择器留空时直接使用截取片段 HTML。</p></td></tr>
-                    <tr><th>正文前后代码</th><td>
+                    <tr data-wp-caiji-rule-group="title" data-wp-caiji-rule-method="json"><th>标题 JSON 路径</th><td><input name="title_json_path" class="regular-text" value="<?php echo esc_attr($rule['title_json_path']); ?>" placeholder="例如: props.pageProps.data.title"><p class="description">填写后优先从上方 JSON 来源提取标题。</p></td></tr>
+                    <tr><th>正文获取方式</th><td>
+                        <select name="content_rule_method" class="wp-caiji-rule-method" data-wp-caiji-rule-group="content">
+                            <option value="selector" <?php selected($field_rule_method('content'), 'selector'); ?>>选择器 CSS/XPath</option>
+                            <option value="marker" <?php selected($field_rule_method('content'), 'marker'); ?>>前后代码截取</option>
+                            <option value="json" <?php selected($field_rule_method('content'), 'json'); ?>>JSON/Next.js 路径</option>
+                        </select>
+                    </td></tr>
+                    <tr data-wp-caiji-rule-group="content" data-wp-caiji-rule-method="selector"><th>正文选择器</th><td><input name="content_selector" class="regular-text" value="<?php echo esc_attr($rule['content_selector']); ?>" placeholder=""><p class="description">使用 CSS/XPath 提取正文。</p></td></tr>
+                    <tr data-wp-caiji-rule-group="content" data-wp-caiji-rule-method="marker"><th>正文前后代码</th><td>
                         <textarea name="content_before_marker" rows="3" class="large-text code" placeholder="正文前代码/开始标记"><?php echo esc_textarea($rule['content_before_marker']); ?></textarea>
                         <p style="margin:8px 0">到</p>
                         <textarea name="content_after_marker" rows="3" class="large-text code" placeholder="正文后代码/结束标记"><?php echo esc_textarea($rule['content_after_marker']); ?></textarea>
                     </td></tr>
-                    <tr><th>正文 JSON 路径</th><td><input name="content_json_path" class="regular-text" value="<?php echo esc_attr($rule['content_json_path']); ?>" placeholder="例如: props.pageProps.data.content"><p class="description">适合正文 HTML 存在页面 JSON 里的站点。填写后优先从 JSON 提取正文。</p></td></tr>
-                    <tr><th>日期选择器</th><td><input name="date_selector" class="regular-text" value="<?php echo esc_attr($rule['date_selector']); ?>"><p class="description">可选。先按日期前后代码截取，再用选择器提取；选择器留空时直接使用截取片段文本。</p></td></tr>
-                    <tr><th>日期前后代码</th><td>
-                        <textarea name="date_before_marker" rows="2" class="large-text code" placeholder="日期/时间前代码/开始标记"><?php echo esc_textarea($rule['date_before_marker']); ?></textarea>
-                        <p style="margin:8px 0">到</p>
-                        <textarea name="date_after_marker" rows="2" class="large-text code" placeholder="日期/时间后代码/结束标记"><?php echo esc_textarea($rule['date_after_marker']); ?></textarea>
+                    <tr data-wp-caiji-rule-group="content" data-wp-caiji-rule-method="json"><th>正文 JSON 路径</th><td><input name="content_json_path" class="regular-text" value="<?php echo esc_attr($rule['content_json_path']); ?>" placeholder="例如: props.pageProps.data.content"><p class="description">填写后优先从上方 JSON 来源提取正文。</p></td></tr>
+                    <tr><th>日期获取方式</th><td>
+                        <select name="date_rule_method" class="wp-caiji-rule-method" data-wp-caiji-rule-group="date">
+                            <option value="selector" <?php selected($field_rule_method('date'), 'selector'); ?>>选择器 CSS/XPath</option>
+                            <option value="marker" <?php selected($field_rule_method('date'), 'marker'); ?>>前后代码截取</option>
+                            <option value="json" <?php selected($field_rule_method('date'), 'json'); ?>>JSON/Next.js 路径</option>
+                        </select>
                     </td></tr>
-                    <tr><th>日期 JSON 路径</th><td><input name="date_json_path" class="regular-text" value="<?php echo esc_attr($rule['date_json_path']); ?>" placeholder="例如: props.pageProps.data.created"><p class="description">可提取字符串或时间戳；留空则使用原日期选择器/前后代码。</p></td></tr>
-                    <tr><th>Tag 标签选择器</th><td><input name="tag_selector" class="regular-text" value="<?php echo esc_attr($rule['tag_selector'] ?? ''); ?>" placeholder="例如:.tags a 或 //a[@rel='tag']"><p class="description">可选。提取文章页已有标签，多个标签会自动按逗号、顿号、斜杠、竖线或换行拆分，并与固定标签/自动标签合并。</p></td></tr>
-                    <tr><th>Tag 标签前后代码</th><td>
-                        <textarea name="tag_before_marker" rows="2" class="large-text code" placeholder="标签区域前代码/开始标记"><?php echo esc_textarea($rule['tag_before_marker'] ?? ''); ?></textarea>
+                    <tr data-wp-caiji-rule-group="date" data-wp-caiji-rule-method="selector"><th>日期选择器</th><td><input name="date_selector" class="regular-text" value="<?php echo esc_attr($rule['date_selector']); ?>" placeholder=""><p class="description">可选。使用 CSS/XPath 提取发布时间。</p></td></tr>
+                    <tr data-wp-caiji-rule-group="date" data-wp-caiji-rule-method="marker"><th>日期前后代码</th><td>
+                        <textarea name="date_before_marker" rows="2" class="large-text code" placeholder="日期前代码/开始标记"><?php echo esc_textarea($rule['date_before_marker']); ?></textarea>
                         <p style="margin:8px 0">到</p>
-                        <textarea name="tag_after_marker" rows="2" class="large-text code" placeholder="标签区域后代码/结束标记"><?php echo esc_textarea($rule['tag_after_marker'] ?? ''); ?></textarea>
+                        <textarea name="date_after_marker" rows="2" class="large-text code" placeholder="日期后代码/结束标记"><?php echo esc_textarea($rule['date_after_marker']); ?></textarea>
                     </td></tr>
-                    <tr><th>Tag 标签 JSON 路径</th><td><input name="tag_json_path" class="regular-text" value="<?php echo esc_attr($rule['tag_json_path'] ?? ''); ?>" placeholder="例如: props.pageProps.data.tags"><p class="description">可提取字符串、数组或对象；填写后优先从 JSON 提取标签。</p></td></tr>
+                    <tr data-wp-caiji-rule-group="date" data-wp-caiji-rule-method="json"><th>日期 JSON 路径</th><td><input name="date_json_path" class="regular-text" value="<?php echo esc_attr($rule['date_json_path']); ?>" placeholder="例如: props.pageProps.data.created"><p class="description">填写后优先从上方 JSON 来源提取日期。</p></td></tr>
+                    <tr><th>Tag 标签获取方式</th><td>
+                        <select name="tag_rule_method" class="wp-caiji-rule-method" data-wp-caiji-rule-group="tag">
+                            <option value="selector" <?php selected($field_rule_method('tag'), 'selector'); ?>>选择器 CSS/XPath</option>
+                            <option value="marker" <?php selected($field_rule_method('tag'), 'marker'); ?>>前后代码截取</option>
+                            <option value="json" <?php selected($field_rule_method('tag'), 'json'); ?>>JSON/Next.js 路径</option>
+                        </select>
+                    </td></tr>
+                    <tr data-wp-caiji-rule-group="tag" data-wp-caiji-rule-method="selector"><th>Tag 标签选择器</th><td><input name="tag_selector" class="regular-text" value="<?php echo esc_attr($rule['tag_selector'] ?? ''); ?>" placeholder="例如:.tags a 或 //a[@rel='tag']"><p class="description">可选。提取文章页已有标签，多个标签会自动拆分并与固定标签/自动标签合并。</p></td></tr>
+                    <tr data-wp-caiji-rule-group="tag" data-wp-caiji-rule-method="marker"><th>Tag 标签前后代码</th><td>
+                        <textarea name="tag_before_marker" rows="2" class="large-text code" placeholder="Tag 标签前代码/开始标记"><?php echo esc_textarea($rule['tag_before_marker'] ?? ''); ?></textarea>
+                        <p style="margin:8px 0">到</p>
+                        <textarea name="tag_after_marker" rows="2" class="large-text code" placeholder="Tag 标签后代码/结束标记"><?php echo esc_textarea($rule['tag_after_marker'] ?? ''); ?></textarea>
+                    </td></tr>
+                    <tr data-wp-caiji-rule-group="tag" data-wp-caiji-rule-method="json"><th>Tag 标签 JSON 路径</th><td><input name="tag_json_path" class="regular-text" value="<?php echo esc_attr($rule['tag_json_path'] ?? ''); ?>" placeholder="例如: props.pageProps.data.tags"><p class="description">填写后优先从上方 JSON 来源提取 Tag 标签。</p></td></tr>
                     <tr><th>测试文章预览</th><td><input name="test_url" class="regular-text" placeholder="留空默认测试手动 URL 或第一个发现到的文章 URL"> <?php if ($editing): ?><button type="submit" name="wp_caiji_intent" value="article_test" class="button wp-caiji-form-action" data-wp-caiji-action="wp_caiji_test_rule">测试预览</button><?php else: ?><span class="description">新规则请先保存后再测试。</span><?php endif; ?><p class="description">测试按钮不会保存当前修改；如刚改了字段提取或清洗规则，请先保存再测试。</p></td></tr>
                 </table>
                 </div>
@@ -864,27 +921,39 @@ class WP_Caiji
             <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
                 <?php wp_nonce_field('wp_caiji_save_settings'); ?>
                 <input type="hidden" name="action" value="wp_caiji_save_settings">
-                <div class="wp-caiji-section"><h2>定时与队列</h2>
+                <div class="wp-caiji-section is-collapsed"><h2>定时与队列</h2>
                 <table class="form-table" role="presentation">
                     <tr><th>发现链接频率</th><td><select name="discover_interval"><option value="wp_caiji_5min" <?php selected($settings['discover_interval'],'wp_caiji_5min'); ?>>每 5 分钟</option><option value="wp_caiji_10min" <?php selected($settings['discover_interval'],'wp_caiji_10min'); ?>>每 10 分钟</option><option value="wp_caiji_30min" <?php selected($settings['discover_interval'],'wp_caiji_30min'); ?>>每 30 分钟</option><option value="hourly" <?php selected($settings['discover_interval'],'hourly'); ?>>每小时</option></select></td></tr>
-                    <tr><th>采集文章频率</th><td><select name="collect_interval"><option value="wp_caiji_5min" <?php selected($settings['collect_interval'],'wp_caiji_5min'); ?>>每 5 分钟</option><option value="wp_caiji_10min" <?php selected($settings['collect_interval'],'wp_caiji_10min'); ?>>每 10 分钟</option><option value="wp_caiji_30min" <?php selected($settings['collect_interval'],'wp_caiji_30min'); ?>>每 30 分钟</option><option value="hourly" <?php selected($settings['collect_interval'],'hourly'); ?>>每小时</option></select></td></tr>
+                    <tr><th>采集文章频率</th><td>
+                        <select name="collect_schedule_mode" class="wp-caiji-rule-method" data-wp-caiji-rule-group="collect-schedule">
+                            <option value="fixed" <?php selected($settings['collect_schedule_mode'] ?? 'fixed', 'fixed'); ?>>固定频率</option>
+                            <option value="random" <?php selected($settings['collect_schedule_mode'] ?? 'fixed', 'random'); ?>>随机延迟采集</option>
+                        </select>
+                        <span data-wp-caiji-rule-group="collect-schedule" data-wp-caiji-rule-method="fixed">
+                            <select name="collect_interval"><option value="wp_caiji_5min" <?php selected($settings['collect_interval'],'wp_caiji_5min'); ?>>每 5 分钟</option><option value="wp_caiji_10min" <?php selected($settings['collect_interval'],'wp_caiji_10min'); ?>>每 10 分钟</option><option value="wp_caiji_30min" <?php selected($settings['collect_interval'],'wp_caiji_30min'); ?>>每 30 分钟</option><option value="hourly" <?php selected($settings['collect_interval'],'hourly'); ?>>每小时</option></select>
+                        </span>
+                        <span data-wp-caiji-rule-group="collect-schedule" data-wp-caiji-rule-method="random">
+                            随机间隔 <input name="collect_random_min_minutes" type="number" min="1" max="1440" value="<?php echo esc_attr($settings['collect_random_min_minutes'] ?? 10); ?>" style="width:80px"> - <input name="collect_random_max_minutes" type="number" min="1" max="1440" value="<?php echo esc_attr($settings['collect_random_max_minutes'] ?? 30); ?>" style="width:80px"> 分钟
+                        </span>
+                        <p class="description">随机延迟采集会在每次采集完成后，按设置范围随机安排下一次采集，更像人工操作。</p>
+                    </td></tr>
                     <tr><th>全局每次最多采集</th><td><input name="global_collect_limit" type="number" min="1" max="100" value="<?php echo esc_attr($settings['global_collect_limit']); ?>"> 篇</td></tr>
                     <tr><th>每次最多处理规则</th><td><input name="max_rules_per_discover" type="number" min="1" max="100" value="<?php echo esc_attr($settings['max_rules_per_discover']); ?>"> 条</td></tr>
                 </table>
                 </div>
-                <div class="wp-caiji-section"><h2>运行保护</h2>
+                <div class="wp-caiji-section is-collapsed"><h2>运行保护</h2>
                 <table class="form-table" role="presentation">
                     <tr><th>单次 Cron 最大运行</th><td><input name="max_runtime_seconds" type="number" min="10" max="300" value="<?php echo esc_attr($settings['max_runtime_seconds']); ?>"> 秒 <p class="description">当前采集规则启用 AI 时，建议大于 AI 超时 + 抓取/图片处理耗时；否则会频繁出现“达到单次 Cron 最大运行时间”。</p></td></tr>
                     <tr><th>运行中超时释放</th><td><input name="running_timeout_minutes" type="number" min="5" max="1440" value="<?php echo esc_attr($settings['running_timeout_minutes']); ?>"> 分钟 <p class="description">队列长时间停留 running 会自动退回 pending，避免卡死。</p></td></tr>
                     <tr><th>任务锁超时</th><td><input name="lock_ttl_seconds" type="number" min="60" max="3600" value="<?php echo esc_attr($settings['lock_ttl_seconds']); ?>"> 秒 <p class="description">防止两个 Cron 同时运行。超过该时间会自动释放旧锁。</p></td></tr>
                 </table>
                 </div>
-                <div class="wp-caiji-section"><h2>图片本地化</h2>
+                <div class="wp-caiji-section is-collapsed"><h2>图片本地化</h2>
                 <table class="form-table" role="presentation">
                     <tr><th>图片限制</th><td>每篇最多 <input name="max_images_per_post" type="number" min="0" max="50" value="<?php echo esc_attr($settings['max_images_per_post']); ?>" style="width:80px"> 张；单图最大 <input name="max_image_size_mb" type="number" min="1" max="50" value="<?php echo esc_attr($settings['max_image_size_mb']); ?>" style="width:80px"> MB<p class="description">0 张表示不下载图片；建议生产环境保持 5-10 张、5MB 以内，避免被大图拖慢。</p></td></tr>
                 </table>
                 </div>
-                <div class="wp-caiji-section"><h2>AI 改写设置</h2>
+                <div class="wp-caiji-section is-collapsed"><h2>AI 改写设置</h2>
                 <table class="form-table" role="presentation">
                     <tr><th>启用 AI 能力</th><td><label><input name="ai_enabled" type="checkbox" value="1" <?php checked($settings['ai_enabled'],1); ?>> 允许采集规则在发布前调用 AI 改写</label><p class="description">每条规则仍需单独开启“发布前 AI 改写”。关闭这里会全局禁用 AI。</p></td></tr>
                     <tr><th>AI API Key</th><td><input name="ai_api_key" type="text" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::get_api_key($settings)); ?>" autocomplete="off" placeholder="sk-..."><p class="description">明文保存并在后台显示，仅拥有本插件设置权限的管理员可查看。诊断导出会自动脱敏。</p></td></tr>
@@ -897,7 +966,7 @@ class WP_Caiji
                     <tr><th>默认改写 Prompt</th><td><textarea name="ai_rewrite_prompt" rows="8" class="large-text code"><?php echo esc_textarea($settings['ai_rewrite_prompt']); ?></textarea><p class="description">规则里未填写专属 Prompt 时使用这里。建议要求模型只返回 JSON:{"title":"...","content":"..."}</p></td></tr>
                 </table>
                 </div>
-                <div class="wp-caiji-section"><h2>日志与数据</h2>
+                <div class="wp-caiji-section is-collapsed"><h2>日志与数据</h2>
                 <table class="form-table" role="presentation">
                     <tr><th>日志</th><td><label><input name="enable_logs" type="checkbox" value="1" <?php checked($settings['enable_logs'],1); ?>> 启用日志</label>；保留最近 <input name="log_retention" type="number" min="100" max="20000" value="<?php echo esc_attr($settings['log_retention']); ?>"> 条</td></tr>
                     <tr><th>卸载保护</th><td><label class="wp-caiji-danger-option"><input name="delete_data_on_uninstall" type="checkbox" value="1" <?php checked($settings['delete_data_on_uninstall'],1); ?>> 卸载插件时删除规则、队列、日志和设置</label><p class="description">危险选项：默认不删除数据，防止误卸载造成采集规则丢失。只有确认不再需要这些数据时才建议开启。</p></td></tr>
@@ -1023,6 +1092,34 @@ class WP_Caiji
             'ai_rewrite_language'=>WP_Caiji_AI::sanitize_language($_POST['ai_rewrite_language'] ?? '', true),
             'updated_at'=>$now,
         );
+        $selected_rule_method = function ($name, $fallback = 'selector') {
+            $method = sanitize_key(wp_unslash($_POST[$name] ?? $fallback));
+            return in_array($method, array('selector','marker','json'), true) ? $method : $fallback;
+        };
+        $clear_rule_method_fields = function (&$data, $field, $method) {
+            if ($method !== 'selector') $data[$field . '_selector'] = '';
+            if ($method !== 'marker') {
+                $data[$field . '_before_marker'] = '';
+                $data[$field . '_after_marker'] = '';
+            }
+            if ($method !== 'json') $data[$field . '_json_path'] = '';
+        };
+        $link_method = $selected_rule_method('link_rule_method');
+        if ($link_method !== 'selector') $data['link_selector'] = '';
+        if ($link_method !== 'marker') {
+            $data['link_before_marker'] = '';
+            $data['link_after_marker'] = '';
+        }
+        if ($link_method !== 'json') {
+            $data['link_json_path'] = '';
+            $data['link_json_url_field'] = '';
+        }
+        foreach (array('title','content','date','tag') as $field) {
+            $clear_rule_method_fields($data, $field, $selected_rule_method($field . '_rule_method'));
+        }
+        if (empty($data['link_json_path']) && empty($data['title_json_path']) && empty($data['content_json_path']) && empty($data['date_json_path']) && empty($data['tag_json_path'])) {
+            $data['json_source'] = '__NEXT_DATA__';
+        }
         if ($data['page_end'] < $data['page_start']) $data['page_end'] = $data['page_start'];
         if ($data['publish_delay_max'] < $data['publish_delay_min']) $data['publish_delay_max'] = $data['publish_delay_min'];
         if ($id) {
@@ -1201,9 +1298,15 @@ class WP_Caiji
     private function settings_from_post($existing_settings)
     {
         $existing_settings = wp_parse_args((array)$existing_settings, WP_Caiji_DB::default_settings());
+        $collect_random_min = max(1, min(1440, absint($_POST['collect_random_min_minutes'] ?? 10)));
+        $collect_random_max = max(1, min(1440, absint($_POST['collect_random_max_minutes'] ?? 30)));
+        if ($collect_random_max < $collect_random_min) $collect_random_max = $collect_random_min;
         return array(
             'discover_interval'=>sanitize_key($_POST['discover_interval'] ?? 'wp_caiji_30min'),
             'collect_interval'=>sanitize_key($_POST['collect_interval'] ?? 'wp_caiji_10min'),
+            'collect_schedule_mode'=>in_array(($_POST['collect_schedule_mode'] ?? 'fixed'), array('fixed','random'), true) ? sanitize_key($_POST['collect_schedule_mode']) : 'fixed',
+            'collect_random_min_minutes'=>$collect_random_min,
+            'collect_random_max_minutes'=>$collect_random_max,
             'global_collect_limit'=>max(1, min(100, absint($_POST['global_collect_limit'] ?? 10))),
             'max_runtime_seconds'=>max(10, min(300, absint($_POST['max_runtime_seconds'] ?? 45))),
             'running_timeout_minutes'=>max(5, min(1440, absint($_POST['running_timeout_minutes'] ?? 30))),
@@ -1645,6 +1748,11 @@ class WP_Caiji
     {
         if (!$this->acquire_lock(self::LOCK_COLLECT)) {
             $this->log('warning', '采集文章任务已有实例运行,本次跳过', 0, 0, '');
+            $settings = $this->get_settings();
+            if (($settings['collect_schedule_mode'] ?? 'fixed') === 'random') {
+                self::clear_event_public(self::CRON_COLLECT);
+                wp_schedule_single_event(self::next_random_collect_timestamp($settings), self::CRON_COLLECT);
+            }
             return;
         }
 
@@ -1652,6 +1760,11 @@ class WP_Caiji
             $this->collect_pending(0);
         } finally {
             $this->release_lock(self::LOCK_COLLECT);
+            $settings = $this->get_settings();
+            if (($settings['collect_schedule_mode'] ?? 'fixed') === 'random') {
+                self::clear_event_public(self::CRON_COLLECT);
+                wp_schedule_single_event(self::next_random_collect_timestamp($settings), self::CRON_COLLECT);
+            }
         }
     }
 

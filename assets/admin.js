@@ -52,6 +52,23 @@
             });
         });
 
+        function updateRuleMethod(select) {
+            var group = select.getAttribute('data-wp-caiji-rule-group') || '';
+            var method = select.value || 'selector';
+            var form = closest(select, 'form') || document;
+            if (!group) return;
+            form.querySelectorAll('[data-wp-caiji-rule-group="' + group + '"][data-wp-caiji-rule-method]').forEach(function (row) {
+                row.hidden = row.getAttribute('data-wp-caiji-rule-method') !== method;
+            });
+        }
+
+        document.querySelectorAll('.wp-caiji-rule-method').forEach(function (select) {
+            updateRuleMethod(select);
+            select.addEventListener('change', function () {
+                updateRuleMethod(select);
+            });
+        });
+
         document.querySelectorAll('.wp-caiji-modal').forEach(function (modal) {
             var form = modal.querySelector('form');
             var dirty = false;
