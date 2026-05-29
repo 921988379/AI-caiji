@@ -44,7 +44,8 @@ class WP_Caiji_Publisher
             $tags = array_merge($tags, $item['extracted_tags']);
         }
         if (!empty($item['auto_tags'])) {
-            $tags = array_merge($tags, WP_Caiji_Content::match_auto_tags_by_title($title_context, $item['auto_tag_keywords'] ?? '', !empty($item['auto_tag_advanced'])));
+            $use_advanced_auto_tags = isset($item['auto_tag_advanced']) ? !empty($item['auto_tag_advanced']) : false;
+            $tags = array_merge($tags, WP_Caiji_Content::match_auto_tags_by_title($title_context, $item['auto_tag_keywords'] ?? '', $use_advanced_auto_tags));
         }
         if ($tags) $postarr['tags_input'] = WP_Caiji_Content::parse_tags(implode(',', $tags));
 
