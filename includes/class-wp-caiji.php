@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.13';
+    const SCHEMA_VERSION = '2.1.14';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -244,6 +244,7 @@ class WP_Caiji
                 <a class="<?php echo $current === $page ? 'is-active' : ''; ?>" href="<?php echo esc_url($this->page_url($page)); ?>"><?php echo esc_html($label); ?></a>
             <?php endforeach; ?>
         </nav>
+        <p class="description" style="margin:12px 0 0;">版权：<a href="https://www.seoyh.net/" target="_blank" rel="noopener noreferrer">一点优化</a></p>
         <?php
     }
 
@@ -551,7 +552,7 @@ class WP_Caiji
                 <table class="form-table" role="presentation">
                     <tr><th>自动分类规则</th><td><textarea name="category_rules" rows="4" class="large-text code" placeholder="每行一条:关键词=>分类ID,例如:WordPress=>3"><?php echo esc_textarea($rule['category_rules']); ?></textarea><p class="description">匹配标题或正文后,会优先使用命中的分类 ID;没有命中则使用默认分类。</p></td></tr>
                     <tr><th>固定标签</th><td><input name="fixed_tags" class="regular-text" value="<?php echo esc_attr($rule['fixed_tags']); ?>" placeholder="多个标签用英文逗号分隔,例如 SEO,WordPress"></td></tr>
-                    <tr><th>自动标签</th><td><label><input name="auto_tags" type="checkbox" value="1" <?php checked($rule['auto_tags'],1); ?>> 根据标题关键词自动加标签</label><br><label style="display:inline-block;margin:8px 0 6px;"><input name="auto_tag_advanced" type="checkbox" value="1" <?php checked($rule['auto_tag_advanced'] ?? 1, 1); ?>> 启用增强匹配</label><textarea name="auto_tag_keywords" rows="6" class="large-text code" placeholder="支持：每行一个关键词；或 关键词=>标签名；或 关键词1|关键词2=>标签名。正文出现不会作为标签。"><?php echo esc_textarea($auto_tag_keywords_value); ?></textarea><p class="description">只使用这里手动填写的关键词；不会再自动载入站点现有文章标签。开启“增强匹配”时，支持“关键词=>标签名”“关键词1|关键词2=>标签名”，并尽量避免英文短词误匹配；关闭后回退为旧版纯包含匹配。</p></td></tr>
+                    <tr><th>自动标签</th><td><label><input name="auto_tags" type="checkbox" value="1" <?php checked($rule['auto_tags'],1); ?>> 根据标题关键词自动加标签</label><br><label style="display:inline-block;margin:8px 0 6px;"><input name="auto_tag_advanced" type="checkbox" value="1" <?php checked($rule['auto_tag_advanced'] ?? 0, 1); ?>> 启用增强匹配</label><textarea name="auto_tag_keywords" rows="6" class="large-text code" placeholder="支持：每行一个关键词；或 关键词=>标签名；或 关键词1|关键词2=>标签名。正文出现不会作为标签。"><?php echo esc_textarea($auto_tag_keywords_value); ?></textarea><p class="description">只使用这里手动填写的关键词；不会再自动载入站点现有文章标签。开启“增强匹配”时，支持“关键词=>标签名”“关键词1|关键词2=>标签名”，并尽量避免英文短词误匹配；关闭后回退为旧版纯包含匹配。</p></td></tr>
                 </table>
                 </div>
                 <div class="wp-caiji-section"><h2>SEO 与摘要</h2>
@@ -1123,6 +1124,10 @@ class WP_Caiji
         }
         if ($data['page_end'] < $data['page_start']) $data['page_end'] = $data['page_start'];
         if ($data['publish_delay_max'] < $data['publish_delay_min']) $data['publish_delay_max'] = $data['publish_delay_min'];
+        $allowed_columns = $wpdb->get_col("SHOW COLUMNS FROM {$this->rules_table}");
+        if (is_array($allowed_columns) && $allowed_columns) {
+            $data = array_intersect_key($data, array_flip($allowed_columns));
+        }
         if ($id) {
             $wpdb->update($this->rules_table, $data, array('id'=>$id));
         } else {
