@@ -44,9 +44,9 @@ class WP_Caiji_Publisher
             $tags = array_merge($tags, $item['extracted_tags']);
         }
         if (!empty($item['auto_tags'])) {
-            $tags = array_merge($tags, WP_Caiji_Content::match_auto_tags_by_title($title_context, $item['auto_tag_keywords'] ?? ''));
+            $tags = array_merge($tags, WP_Caiji_Content::match_auto_tags_by_title($title_context, $item['auto_tag_keywords'] ?? '', !empty($item['auto_tag_advanced'])));
         }
-        if ($tags) $postarr['tags_input'] = array_values(array_unique($tags));
+        if ($tags) $postarr['tags_input'] = WP_Caiji_Content::parse_tags(implode(',', $tags));
 
         $valid_statuses = array('draft', 'publish', 'future', 'pending', 'private');
         if (!in_array($post_status, $valid_statuses, true)) $post_status = 'draft';

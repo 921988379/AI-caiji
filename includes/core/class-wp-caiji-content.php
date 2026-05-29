@@ -57,24 +57,52 @@ class WP_Caiji_Content
     /**
      * Match automatic post tags from the post title only.
      *
-     * Important: do not pass body/content here. Auto tags should only be added
-     * when the keyword appears in the title. Category matching can still use
-     * title + content via match_category_id().
+     * Supported formats per line:
+     * - 关键词
+     * - 关键词=>标签名
+     * - 关键词1|关键词2=>标签名
+     *
+     * Matching rules:
+     * - Chinese / mixed non-ASCII keywords: substring match.
+     * - ASCII-only keywords: whole-word-ish match with Unicode-safe boundaries,
+     *   so `AI` will not match `Paid`.
      */
-    public static function match_auto_tags_by_title($title, $keywords)
+    public static function match_auto_tags_by_title($title, $keywords, $advanced = true)
     {
-        $tags = array();
         $title = (string)$title;
         $items = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', (string)$keywords)));
-        foreach ($items as $kw) {
-            if ($kw !== '' && stripos($title, $kw) !== false) $tags[] = $kw;
+
+        if (!$advanced) {
+            $tags = array();
+            foreach ($items as $kw) {
+                if ($kw !== '' && stripos($title, $kw) !== false) $tags[] = $kw;
+            }
+            return self::normalize_tag_list($tags);
         }
-        return array_values(array_unique($tags));
+
+        $tags = array();
+        foreach ($items as $line) {
+            $parsed = self::parse_auto_tag_rule($line);
+            if (!$parsed) continue;
+
+            $matched = false;
+            foreach ($parsed['patterns'] as $pattern) {
+                if (self::title_matches_auto_tag_pattern($title, $pattern)) {
+                    $matched = true;
+                    break;
+                }
+            }
+
+            if ($matched) {
+                $tags[] = $parsed['tag'];
+            }
+        }
+        return self::normalize_tag_list($tags);
     }
 
-    public static function match_auto_tags($text, $keywords)
+    public static function match_auto_tags($text, $keywords, $advanced = true)
     {
-        return self::match_auto_tags_by_title($text, $keywords);
+        return self::match_auto_tags_by_title($text, $keywords, $advanced);
     }
 
 
@@ -95,7 +123,58 @@ class WP_Caiji_Content
     public static function parse_tags($tags)
     {
         $items = array_filter(array_map('trim', explode(',', (string)$tags)));
-        return array_values(array_unique($items));
+        return self::normalize_tag_list($items);
+    }
+
+
+    private static function parse_auto_tag_rule($line)
+    {
+        $line = trim((string)$line);
+        if ($line === '') return null;
+
+        $raw_patterns = $line;
+        $tag = $line;
+        if (strpos($line, '=>') !== false) {
+            list($raw_patterns, $tag) = array_map('trim', explode('=>', $line, 2));
+        }
+
+        $patterns = array_values(array_filter(array_map('trim', explode('|', (string)$raw_patterns))));
+        $tag = trim((string)$tag);
+        if (!$patterns || $tag === '') return null;
+
+        return array(
+            'patterns' => $patterns,
+            'tag' => $tag,
+        );
+    }
+
+    private static function title_matches_auto_tag_pattern($title, $pattern)
+    {
+        $title = (string)$title;
+        $pattern = trim((string)$pattern);
+        if ($title === '' || $pattern === '') return false;
+
+        if (preg_match('/^[A-Za-z0-9][A-Za-z0-9 _+\-.#&\/]*$/', $pattern)) {
+            $quoted = preg_quote($pattern, '/');
+            return (bool)preg_match('/(^|[^\p{L}\p{N}_])' . $quoted . '([^\p{L}\p{N}_]|$)/iu', $title);
+        }
+
+        return stripos($title, $pattern) !== false;
+    }
+
+    private static function normalize_tag_list($tags)
+    {
+        $normalized = array();
+        $seen = array();
+        foreach ((array)$tags as $tag) {
+            $tag = trim(wp_strip_all_tags((string)$tag));
+            if ($tag === '') continue;
+            $key = function_exists('mb_strtolower') ? mb_strtolower($tag, 'UTF-8') : strtolower($tag);
+            if (isset($seen[$key])) continue;
+            $seen[$key] = true;
+            $normalized[] = $tag;
+        }
+        return array_values($normalized);
     }
 
 
