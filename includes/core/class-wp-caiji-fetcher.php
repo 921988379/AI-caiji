@@ -28,8 +28,14 @@ class WP_Caiji_Fetcher
         if ($rule) {
             $ua = self::pick_user_agent($rule['ua_list'] ?? '');
             if ($ua) $args['user-agent'] = $ua;
-            if (!empty($rule['referer']) && WP_Caiji_Utils::is_safe_public_url($rule['referer'])) $headers['Referer'] = $rule['referer'];
-            if (!empty($rule['cookie'])) $headers['Cookie'] = $rule['cookie'];
+            if (!empty($rule['referer']) && WP_Caiji_Utils::is_safe_public_url($rule['referer'])) {
+                $headers['Referer'] = $rule['referer'];
+            } else {
+                $referer = self::generate_referer($url);
+                if ($referer) $headers['Referer'] = $referer;
+            }
+            $cookie = self::pick_cookie($rule['cookie'] ?? '');
+            if ($cookie) $headers['Cookie'] = $cookie;
         }
         if ($headers) $args['headers'] = $headers;
         $response = wp_remote_get($url, $args);
@@ -64,6 +70,47 @@ class WP_Caiji_Fetcher
         $items = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', (string)$ua_list)));
         if (!$items) return '';
         return $items[array_rand($items)];
+    }
+
+    public static function pick_cookie($cookie_list)
+    {
+        $items = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', (string)$cookie_list)));
+        if (!$items) return '';
+        return $items[array_rand($items)];
+    }
+
+    public static function generate_referer($url)
+    {
+        $parts = wp_parse_url($url);
+        if (empty($parts['scheme']) || empty($parts['host'])) return '';
+
+        $scheme = strtolower((string)$parts['scheme']);
+        $host = strtolower((string)$parts['host']);
+        if (!in_array($scheme, array('http', 'https'), true)) return '';
+
+        $base = $scheme . '://' . $host . '/';
+        $path = isset($parts['path']) ? trim((string)$parts['path'], '/') : '';
+        $candidates = array($base);
+
+        if ($path !== '') {
+            $segments = explode('/', $path);
+            array_pop($segments);
+            if ($segments) {
+                $candidates[] = $base . implode('/', array_map('rawurlencode', $segments)) . '/';
+            }
+        }
+
+        $external = array(
+            'https://www.google.com/',
+            'https://www.bing.com/',
+            'https://www.baidu.com/',
+            'https://www.so.com/',
+            'https://www.sogou.com/',
+        );
+        $candidates = array_merge($candidates, $external);
+
+        $referer = $candidates[array_rand($candidates)];
+        return WP_Caiji_Utils::is_safe_public_url($referer) ? $referer : '';
     }
 
     public static function generate_user_agent()

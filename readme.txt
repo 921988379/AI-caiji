@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.16
+Stable tag: 2.1.17
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、Tag 提取、健康检查和诊断报告。
@@ -206,6 +206,11 @@ WP 采集 → 设置 → 卸载保护
 请确认采集行为符合目标网站 robots.txt、版权声明和服务条款。建议优先采集为草稿，人工检查后再发布。
 
 == 更新记录 ==
+
+= 2.1.17 =
+* Referer 留空时自动随机生成来源页，包含目标站首页/栏目页和常见搜索引擎来源。
+* Cookie 支持每行一组 Cookie，采集时随机选择一组发送。
+* Cookie 留空时默认不发送，避免无效随机 Cookie 触发目标站风控。
 
 = 2.1.16 =
 * User-Agent 池留空时自动随机生成常见浏览器 User-Agent，不再使用固定插件标识。

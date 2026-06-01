@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.16';
+    const SCHEMA_VERSION = '2.1.17';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -563,7 +563,7 @@ class WP_Caiji
                 </div>
                 <div class="wp-caiji-section"><h2>请求头与访问</h2>
                 <table class="form-table" role="presentation">
-                    <tr><th>请求头配置</th><td><p>User-Agent 池,每行一个:</p><textarea name="ua_list" rows="3" class="large-text code" placeholder="留空则自动随机生成常见浏览器 User-Agent"><?php echo esc_textarea($rule['ua_list']); ?></textarea><p>Referer:<input name="referer" class="regular-text" value="<?php echo esc_attr($rule['referer']); ?>" placeholder="可留空"></p><p>Cookie:<textarea name="cookie" rows="2" class="large-text code" placeholder="需要登录态/特殊 Cookie 时填写,可留空"><?php echo esc_textarea($rule['cookie']); ?></textarea></p></td></tr>
+                    <tr><th>请求头配置</th><td><p>User-Agent 池,每行一个:</p><textarea name="ua_list" rows="3" class="large-text code" placeholder="留空则自动随机生成常见浏览器 User-Agent"><?php echo esc_textarea($rule['ua_list']); ?></textarea><p>Referer:<input name="referer" class="regular-text" value="<?php echo esc_attr($rule['referer']); ?>" placeholder="留空则自动随机生成来源页"></p><p>Cookie:<textarea name="cookie" rows="2" class="large-text code" placeholder="可每行填写一组 Cookie，采集时随机选择；留空则不发送"><?php echo esc_textarea($rule['cookie']); ?></textarea></p></td></tr>
                 </table>
                 </div>
                 <div class="wp-caiji-modal-footer">
