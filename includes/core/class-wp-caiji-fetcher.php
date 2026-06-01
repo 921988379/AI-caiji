@@ -21,7 +21,7 @@ class WP_Caiji_Fetcher
             'redirection' => 3,
             'reject_unsafe_urls' => true,
             'limit_response_size' => 5242880,
-            'user-agent' => 'Mozilla/5.0 WordPress WP-Caiji/' . WP_CAIJI_VERSION,
+            'user-agent' => self::generate_user_agent(),
         );
         $headers = array();
         $rule = self::get_rule_for_headers($plugin, $rule_id);
@@ -64,6 +64,31 @@ class WP_Caiji_Fetcher
         $items = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', (string)$ua_list)));
         if (!$items) return '';
         return $items[array_rand($items)];
+    }
+
+    public static function generate_user_agent()
+    {
+        $chrome_major = wp_rand(120, 126);
+        $chrome_build = wp_rand(6000, 6478);
+        $chrome_patch = wp_rand(80, 180);
+        $edge_major = $chrome_major;
+        $edge_build = $chrome_build;
+        $edge_patch = $chrome_patch;
+        $mac_minor = wp_rand(2, 7);
+        $ios_minor = wp_rand(0, 5);
+        $android_version = wp_rand(12, 14);
+
+        $agents = array(
+            sprintf('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%d.0.%d.%d Safari/537.36', $chrome_major, $chrome_build, $chrome_patch),
+            sprintf('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%d.0.%d.%d Safari/537.36 Edg/%d.0.%d.%d', $chrome_major, $chrome_build, $chrome_patch, $edge_major, $edge_build, $edge_patch),
+            sprintf('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_%d) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%d.0.%d.%d Safari/537.36', $mac_minor, $chrome_major, $chrome_build, $chrome_patch),
+            sprintf('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_%d) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.%d Safari/605.1.15', $mac_minor, wp_rand(0, 5)),
+            sprintf('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%d.0.%d.%d Safari/537.36', $chrome_major, $chrome_build, $chrome_patch),
+            sprintf('Mozilla/5.0 (Linux; Android %d; Pixel %d) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%d.0.%d.%d Mobile Safari/537.36', $android_version, wp_rand(6, 8), $chrome_major, $chrome_build, $chrome_patch),
+            sprintf('Mozilla/5.0 (iPhone; CPU iPhone OS 17_%d like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.%d Mobile/15E148 Safari/604.1', $ios_minor, $ios_minor),
+        );
+
+        return $agents[array_rand($agents)];
     }
 
 

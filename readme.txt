@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.15
+Stable tag: 2.1.16
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、Tag 提取、健康检查和诊断报告。
@@ -206,6 +206,11 @@ WP 采集 → 设置 → 卸载保护
 请确认采集行为符合目标网站 robots.txt、版权声明和服务条款。建议优先采集为草稿，人工检查后再发布。
 
 == 更新记录 ==
+
+= 2.1.16 =
+* User-Agent 池留空时自动随机生成常见浏览器 User-Agent，不再使用固定插件标识。
+* 自动 User-Agent 覆盖 Chrome、Edge、Safari、Android Chrome、iPhone Safari 等常见访问标识。
+* 保留手动 User-Agent 池优先级；已填写时仍从手动列表随机选择。
 
 = 2.1.15 =
 * 修复发布文章时旧队列数据缺少 auto_tag_advanced 字段导致 PHP 未定义索引提示的问题。
