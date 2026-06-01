@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.17
+Stable tag: 2.1.18
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、Tag 提取、健康检查和诊断报告。
@@ -206,6 +206,11 @@ WP 采集 → 设置 → 卸载保护
 请确认采集行为符合目标网站 robots.txt、版权声明和服务条款。建议优先采集为草稿，人工检查后再发布。
 
 == 更新记录 ==
+
+= 2.1.18 =
+* AI API Endpoint 兼容公网 HTTP 地址，便于使用内网映射或不支持 HTTPS 的 OpenAI 兼容中转服务。
+* AI Endpoint 后台说明更新为支持 HTTP/HTTPS，生产环境仍建议优先使用 HTTPS。
+* 保留 Endpoint 自动补全逻辑，可继续填写基础地址、/v1 或完整 /chat/completions 地址。
 
 = 2.1.17 =
 * Referer 留空时自动随机生成来源页，包含目标站首页/栏目页和常见搜索引擎来源。

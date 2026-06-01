@@ -195,8 +195,8 @@ class WP_Caiji_AI
     public static function validate_endpoint($endpoint)
     {
         $endpoint = self::normalize_endpoint($endpoint);
-        if ($endpoint === '' || !WP_Caiji_Utils::is_safe_public_url($endpoint) || parse_url($endpoint, PHP_URL_SCHEME) !== 'https') {
-            return new WP_Error('wp_caiji_ai_endpoint_unsafe', 'AI API Endpoint 无效或不安全，必须是公网 HTTPS 地址');
+        if ($endpoint === '' || !WP_Caiji_Utils::is_safe_public_url($endpoint)) {
+            return new WP_Error('wp_caiji_ai_endpoint_unsafe', 'AI API Endpoint 无效或不安全，必须是公网 HTTP/HTTPS 地址');
         }
         return $endpoint;
     }

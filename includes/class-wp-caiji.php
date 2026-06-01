@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.17';
+    const SCHEMA_VERSION = '2.1.18';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -958,7 +958,7 @@ class WP_Caiji
                 <table class="form-table" role="presentation">
                     <tr><th>启用 AI 能力</th><td><label><input name="ai_enabled" type="checkbox" value="1" <?php checked($settings['ai_enabled'],1); ?>> 允许采集规则在发布前调用 AI 改写</label><p class="description">每条规则仍需单独开启“发布前 AI 改写”。关闭这里会全局禁用 AI。</p></td></tr>
                     <tr><th>AI API Key</th><td><input name="ai_api_key" type="text" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::get_api_key($settings)); ?>" autocomplete="off" placeholder="sk-..."><p class="description">明文保存并在后台显示，仅拥有本插件设置权限的管理员可查看。诊断导出会自动脱敏。</p></td></tr>
-                    <tr><th>AI Endpoint</th><td><input name="ai_endpoint" type="url" class="regular-text" value="<?php echo esc_attr($settings['ai_endpoint']); ?>" placeholder="https://api.openai.com/v1 或 https://api.openai.com/v1/chat/completions"><p class="description">支持 OpenAI 兼容中转站。可填完整 chat/completions 地址，也可只填基础地址，例如 https://api.xxx.com 或 https://api.xxx.com/v1，插件会自动补全 /v1/chat/completions。仅允许公网 HTTPS 地址。</p></td></tr>
+                    <tr><th>AI Endpoint</th><td><input name="ai_endpoint" type="url" class="regular-text" value="<?php echo esc_attr($settings['ai_endpoint']); ?>" placeholder="https://api.openai.com/v1 或 http://你的中转站/v1"><p class="description">支持 OpenAI 兼容中转站。可填完整 chat/completions 地址，也可只填基础地址，例如 https://api.xxx.com、http://api.xxx.com 或 /v1，插件会自动补全 /v1/chat/completions。支持公网 HTTP/HTTPS 地址；生产环境建议优先使用 HTTPS。</p></td></tr>
                     <tr><th>AI 模型</th><td><input name="ai_model" class="regular-text" value="<?php echo esc_attr($settings['ai_model']); ?>" placeholder="gpt-5.5"> 温度 <input name="ai_temperature" type="number" min="0" max="2" step="0.1" value="<?php echo esc_attr($settings['ai_temperature']); ?>" style="width:90px"></td></tr>
                     <tr><th>默认改写语言</th><td><select name="ai_rewrite_language"><?php foreach (WP_Caiji_AI::language_options() as $lang_code => $lang_label): ?><option value="<?php echo esc_attr($lang_code); ?>" <?php selected($settings['ai_rewrite_language'] ?? 'zh-CN', $lang_code); ?>><?php echo esc_html($lang_label); ?></option><?php endforeach; ?></select> <label><input name="ai_language_check" type="checkbox" value="1" <?php checked($settings['ai_language_check'] ?? 1, 1); ?>> 检测改写后语言，不符合则判定 AI 失败</label><p class="description">规则可单独覆盖目标语言。选择“不限制/不检测”时不会追加语言要求，也不会做语言检测。</p></td></tr>
                     <tr><th>API 连接测试</th><td><button class="button button-secondary" formaction="<?php echo esc_url(admin_url('admin-post.php')); ?>" name="action" value="wp_caiji_test_ai_api">测试 API 连接</button><p class="description">会优先使用当前表单里填写的 Key、Endpoint、模型和超时发送一次极小测试请求；不会保存设置，也不会创建文章。</p></td></tr>

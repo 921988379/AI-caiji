@@ -43,6 +43,12 @@ WP-Cron 依赖访问触发。长期运行建议服务器添加：
 
 ## 最近版本更新说明
 
+### 2.1.18
+
+- AI API Endpoint 兼容公网 HTTP 地址，便于使用内网映射或不支持 HTTPS 的 OpenAI 兼容中转服务。
+- AI Endpoint 后台说明更新为支持 HTTP/HTTPS，生产环境仍建议优先使用 HTTPS。
+- 保留 Endpoint 自动补全逻辑，可继续填写基础地址、`/v1` 或完整 `/chat/completions` 地址。
+
 ### 2.1.17
 
 - Referer 留空时自动随机生成来源页。
