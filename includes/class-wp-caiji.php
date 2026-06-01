@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.14';
+    const SCHEMA_VERSION = '2.1.15';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
