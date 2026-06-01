@@ -195,10 +195,51 @@ class WP_Caiji_AI
     public static function validate_endpoint($endpoint)
     {
         $endpoint = self::normalize_endpoint($endpoint);
-        if ($endpoint === '' || !WP_Caiji_Utils::is_safe_public_url($endpoint)) {
+        if ($endpoint === '' || !self::is_safe_public_endpoint($endpoint)) {
             return new WP_Error('wp_caiji_ai_endpoint_unsafe', 'AI API Endpoint 无效或不安全，必须是公网 HTTP/HTTPS 地址');
         }
         return $endpoint;
+    }
+
+    public static function is_safe_public_endpoint($url)
+    {
+        $url = trim((string)$url);
+        if ($url === '') return false;
+
+        $parts = wp_parse_url($url);
+        if (!$parts || empty($parts['scheme']) || empty($parts['host'])) return false;
+        if (!empty($parts['user']) || !empty($parts['pass'])) return false;
+
+        $scheme = strtolower((string)$parts['scheme']);
+        if (!in_array($scheme, array('http', 'https'), true)) return false;
+
+        if (isset($parts['port'])) {
+            $port = (int)$parts['port'];
+            if ($port < 1 || $port > 65535) return false;
+        }
+
+        $host = trim((string)$parts['host'], "[] \t\n\r\0\x0B");
+        if ($host === '') return false;
+
+        $host_lc = strtolower($host);
+        if (in_array($host_lc, array('localhost', 'localhost.localdomain'), true) || substr($host_lc, -6) === '.local') {
+            return false;
+        }
+
+        $ips = array();
+        if (filter_var($host, FILTER_VALIDATE_IP)) {
+            $ips[] = $host;
+        } else {
+            $resolved = gethostbynamel($host);
+            if (!$resolved || !is_array($resolved)) return false;
+            $ips = $resolved;
+        }
+
+        foreach ($ips as $ip) {
+            if (!WP_Caiji_Utils::is_public_ip($ip)) return false;
+        }
+
+        return true;
     }
 
     public static function rewrite($title, $content, $rule, $settings)
@@ -240,7 +281,7 @@ class WP_Caiji_AI
         $response = wp_remote_post($endpoint, array(
             'timeout' => $timeout,
             'redirection' => 0,
-            'reject_unsafe_urls' => true,
+            'reject_unsafe_urls' => false,
             'headers' => array(
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer ' . $api_key,
@@ -318,7 +359,7 @@ class WP_Caiji_AI
         $response = wp_remote_post($endpoint, array(
             'timeout' => $timeout,
             'redirection' => 0,
-            'reject_unsafe_urls' => true,
+            'reject_unsafe_urls' => false,
             'headers' => array(
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer ' . $api_key,

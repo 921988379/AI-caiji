@@ -43,6 +43,12 @@ WP-Cron 依赖访问触发。长期运行建议服务器添加：
 
 ## 最近版本更新说明
 
+### 2.1.19
+
+- 修复 AI Endpoint 使用 HTTP 自定义端口时被 WordPress 默认安全端口校验拦截的问题。
+- AI Endpoint 现在支持公网 HTTP/HTTPS 自定义端口，例如 `http://43.153.188.132:6689/v1/chat/completions`。
+- 保留公网 IP 安全校验，仍会拒绝 localhost、内网 IP 和保留地址。
+
 ### 2.1.18
 
 - AI API Endpoint 兼容公网 HTTP 地址，便于使用内网映射或不支持 HTTPS 的 OpenAI 兼容中转服务。
