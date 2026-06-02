@@ -11,7 +11,7 @@ class WP_Caiji_Health
     public static function render($plugin)
     {
         global $wpdb;
-        if (!current_user_can('manage_options')) return;
+        if (!WP_Caiji::current_user_can_manage()) return;
         $rules_table = $plugin->rules_table();
         $queue_table = $plugin->queue_table();
         $logs_table = $plugin->logs_table();
@@ -76,7 +76,7 @@ class WP_Caiji_Health
     public static function handle_action($plugin)
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_health_action')) wp_die('权限验证失败');
+        if (!WP_Caiji::current_user_can_manage() || !check_admin_referer('wp_caiji_health_action')) wp_die('权限验证失败');
         $queue_table = $plugin->queue_table();
         $logs_table = $plugin->logs_table();
         $action = sanitize_key($_POST['health_action'] ?? '');
@@ -185,7 +185,7 @@ class WP_Caiji_Health
     public static function export_diagnostics($plugin)
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_export_diagnostics')) wp_die('权限验证失败');
+        if (!WP_Caiji::current_user_can_manage() || !check_admin_referer('wp_caiji_export_diagnostics')) wp_die('权限验证失败');
         $rules_table = $plugin->rules_table();
         $queue_table = $plugin->queue_table();
         $logs_table = $plugin->logs_table();

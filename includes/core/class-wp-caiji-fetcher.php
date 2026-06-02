@@ -19,7 +19,7 @@ class WP_Caiji_Fetcher
         $args = array(
             'timeout' => 25,
             'redirection' => 3,
-            'reject_unsafe_urls' => true,
+            'reject_unsafe_urls' => false,
             'limit_response_size' => 5242880,
             'user-agent' => self::generate_user_agent(),
         );

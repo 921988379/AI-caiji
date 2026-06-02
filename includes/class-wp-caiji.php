@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.22';
+    const SCHEMA_VERSION = '2.1.23';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -44,6 +44,7 @@ class WP_Caiji
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
         add_action('admin_init', array(__CLASS__, 'maybe_upgrade_schema'));
+        add_action('admin_init', array(__CLASS__, 'add_privacy_policy_content'));
         add_action('admin_post_wp_caiji_save_rule', array($this, 'save_rule'));
         add_action('admin_post_wp_caiji_delete_rule', array($this, 'delete_rule'));
         add_action('admin_post_wp_caiji_toggle_rule', array($this, 'toggle_rule'));
@@ -66,6 +67,32 @@ class WP_Caiji
         add_action('add_meta_boxes', array($this, 'add_post_ai_meta_box'));
         add_action('admin_post_wp_caiji_rewrite_post_ai', array($this, 'rewrite_post_ai'));
         WP_Caiji_Updater::init($this->get_settings());
+    }
+
+
+    public static function required_capability()
+    {
+        /**
+         * Filters the capability required to manage WP Caiji settings, rules, queues, logs and diagnostics.
+         * Defaults to manage_options because the plugin can create posts, make remote requests and store API credentials.
+         */
+        return apply_filters('wp_caiji_required_capability', 'manage_options');
+    }
+
+    public static function current_user_can_manage()
+    {
+        return current_user_can(self::required_capability());
+    }
+
+    public static function add_privacy_policy_content()
+    {
+        if (!function_exists('wp_add_privacy_policy_content')) return;
+        $content = '<p>WP 采集助手会根据管理员配置的采集规则向目标网站发起远程 HTTP/HTTPS 请求，以读取列表页、文章页和图片资源；启用图片本地化时，远程图片会下载到本站媒体库。</p>'
+            . '<p>启用 AI 改写时，插件会把文章标题、正文片段、目标语言和管理员配置的 Prompt 发送到管理员填写的 OpenAI 兼容 AI Endpoint。AI API Key 按站点管理员要求明文保存在 WordPress 数据库选项中，并只在具备插件管理权限的后台页面显示；诊断导出会自动脱敏。</p>'
+            . '<p>插件会向 GitHub API 请求 Release 信息，用于检查插件更新；安装更新时会从 GitHub Release 下载插件 ZIP 包。</p>'
+            . '<p>插件会在自定义数据库表中保存采集规则、队列 URL、采集状态、错误日志、来源 URL 和生成的文章 ID。默认卸载插件不会删除这些数据；只有管理员在设置中启用“卸载时删除数据”后，卸载时才会删除规则、队列、日志和设置。</p>'
+            . '<p>站点管理员应确认采集行为符合目标网站 robots.txt、版权声明和服务条款，并在站点隐私政策中披露使用的第三方 AI 服务和远程内容来源。</p>';
+        wp_add_privacy_policy_content('WP 采集助手', wp_kses_post($content));
     }
 
     public static function activate()
@@ -203,12 +230,13 @@ class WP_Caiji
 
     public function admin_menu()
     {
-        add_menu_page('WP 采集助手', 'WP 采集', 'manage_options', 'wp-caiji', array($this, 'render_dashboard'), 'dashicons-download', 58);
-        add_submenu_page('wp-caiji', '采集规则', '采集规则', 'manage_options', 'wp-caiji-rules', array($this, 'render_rules'));
-        add_submenu_page('wp-caiji', 'URL 队列', 'URL 队列', 'manage_options', 'wp-caiji-queue', array($this, 'render_queue'));
-        add_submenu_page('wp-caiji', '采集日志', '采集日志', 'manage_options', 'wp-caiji-logs', array($this, 'render_logs'));
-        add_submenu_page('wp-caiji', '设置', '设置', 'manage_options', 'wp-caiji-settings', array($this, 'render_settings'));
-        add_submenu_page('wp-caiji', '健康检查', '健康检查', 'manage_options', 'wp-caiji-health', array($this, 'render_health'));
+        $capability = self::required_capability();
+        add_menu_page('WP 采集助手', 'WP 采集', $capability, 'wp-caiji', array($this, 'render_dashboard'), 'dashicons-download', 58);
+        add_submenu_page('wp-caiji', '采集规则', '采集规则', $capability, 'wp-caiji-rules', array($this, 'render_rules'));
+        add_submenu_page('wp-caiji', 'URL 队列', 'URL 队列', $capability, 'wp-caiji-queue', array($this, 'render_queue'));
+        add_submenu_page('wp-caiji', '采集日志', '采集日志', $capability, 'wp-caiji-logs', array($this, 'render_logs'));
+        add_submenu_page('wp-caiji', '设置', '设置', $capability, 'wp-caiji-settings', array($this, 'render_settings'));
+        add_submenu_page('wp-caiji', '健康检查', '健康检查', $capability, 'wp-caiji-health', array($this, 'render_health'));
     }
 
     private function page_url($page, $args = array())
@@ -241,7 +269,7 @@ class WP_Caiji
         </div>
         <nav class="wp-caiji-nav" aria-label="WP 采集页面导航">
             <?php foreach ($items as $page => $label): ?>
-                <a class="<?php echo $current === $page ? 'is-active' : ''; ?>" href="<?php echo esc_url($this->page_url($page)); ?>"><?php echo esc_html($label); ?></a>
+                <a class="<?php echo esc_attr($current === $page ? 'is-active' : ''); ?>" href="<?php echo esc_url($this->page_url($page)); ?>"><?php echo esc_html($label); ?></a>
             <?php endforeach; ?>
         </nav>
         <p class="description" style="margin:12px 0 0;">版权：<a href="https://www.seoyh.net/" target="_blank" rel="noopener noreferrer">一点优化</a></p>
@@ -290,7 +318,7 @@ class WP_Caiji
     public function render_dashboard()
     {
         global $wpdb;
-        if (!current_user_can('manage_options')) return;
+        if (!self::current_user_can_manage()) return;
         $settings = $this->get_settings();
         $cache_key = 'wp_caiji_dashboard_stats_v1';
         $stats = get_transient($cache_key);
@@ -375,7 +403,7 @@ class WP_Caiji
     public function render_rules()
     {
         global $wpdb;
-        if (!current_user_can('manage_options')) return;
+        if (!self::current_user_can_manage()) return;
         $edit_id = isset($_GET['edit']) ? absint($_GET['edit']) : 0;
         $editing = $edit_id ? $wpdb->get_row($wpdb->prepare("SELECT * FROM {$this->rules_table} WHERE id=%d", $edit_id), ARRAY_A) : null;
         $rule = wp_parse_args($editing ?: array(), $this->default_rule());
@@ -630,7 +658,7 @@ class WP_Caiji
     public function render_queue()
     {
         global $wpdb;
-        if (!current_user_can('manage_options')) return;
+        if (!self::current_user_can_manage()) return;
         $status = isset($_GET['status']) ? sanitize_key($_GET['status']) : '';
         $rule_id = isset($_GET['rule_id']) ? absint($_GET['rule_id']) : 0;
         $search = isset($_GET['s']) ? sanitize_text_field(wp_unslash($_GET['s'])) : '';
@@ -708,7 +736,7 @@ class WP_Caiji
     public function render_logs()
     {
         global $wpdb;
-        if (!current_user_can('manage_options')) return;
+        if (!self::current_user_can_manage()) return;
         $level = isset($_GET['level']) ? sanitize_key($_GET['level']) : '';
         $rule_id = isset($_GET['rule_id']) ? absint($_GET['rule_id']) : 0;
         $search = isset($_GET['s']) ? sanitize_text_field(wp_unslash($_GET['s'])) : '';
@@ -801,13 +829,14 @@ class WP_Caiji
 
     public function add_post_ai_meta_box()
     {
+        if (!self::current_user_can_manage()) return;
         add_meta_box('wp-caiji-post-ai', 'WP采集 AI重写', array($this, 'render_post_ai_meta_box'), 'post', 'side', 'high');
     }
 
     public function render_post_ai_meta_box($post)
     {
         global $wpdb;
-        if (!current_user_can('edit_post', $post->ID)) return;
+        if (!self::current_user_can_manage() || !current_user_can('edit_post', $post->ID)) return;
         $source_url = (string)get_post_meta($post->ID, self::META_SOURCE_URL, true);
         $queue = null;
         if ($source_url !== '') {
@@ -842,7 +871,7 @@ class WP_Caiji
     {
         global $wpdb;
         $post_id = absint($_GET['post_id'] ?? 0);
-        if (!$post_id || !current_user_can('edit_post', $post_id) || !check_admin_referer('wp_caiji_rewrite_post_ai_' . $post_id)) wp_die('权限验证失败');
+        if (!$post_id || !self::current_user_can_manage() || !current_user_can('edit_post', $post_id) || !check_admin_referer('wp_caiji_rewrite_post_ai_' . $post_id)) wp_die('权限验证失败');
         $post = get_post($post_id);
         if (!$post || $post->post_type !== 'post') wp_die('文章不存在');
         $settings = $this->get_settings();
@@ -914,7 +943,7 @@ class WP_Caiji
 
     public function render_settings()
     {
-        if (!current_user_can('manage_options')) return;
+        if (!self::current_user_can_manage()) return;
         $settings = $this->get_settings();
         ?>
         <div class="wrap wp-caiji-page">
@@ -1094,7 +1123,7 @@ class WP_Caiji
     public function save_rule()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_save_rule')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_save_rule')) wp_die('权限验证失败');
         $intent = sanitize_key(wp_unslash($_POST['wp_caiji_intent'] ?? ''));
         if ($intent === 'list_test') {
             $this->test_list();
@@ -1155,7 +1184,7 @@ class WP_Caiji
     public function delete_rule()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_delete_rule')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_delete_rule')) wp_die('权限验证失败');
         $id = absint($_GET['id'] ?? 0);
         $wpdb->delete($this->rules_table, array('id'=>$id));
         $wpdb->delete($this->queue_table, array('rule_id'=>$id));
@@ -1190,7 +1219,7 @@ class WP_Caiji
     public function test_list()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_save_rule')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_save_rule')) wp_die('权限验证失败');
         $id = absint($_POST['id'] ?? 0);
         $url = esc_url_raw(wp_unslash($_POST['test_list_url'] ?? ''));
         if ($url === '') {
@@ -1247,7 +1276,7 @@ class WP_Caiji
     public function toggle_rule()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_toggle_rule')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_toggle_rule')) wp_die('权限验证失败');
         $id = absint($_GET['id'] ?? 0);
         $enabled = (int)$wpdb->get_var($wpdb->prepare("SELECT enabled FROM {$this->rules_table} WHERE id=%d", $id));
         $wpdb->update($this->rules_table, array('enabled'=>$enabled ? 0 : 1, 'updated_at'=>current_time('mysql')), array('id'=>$id));
@@ -1258,7 +1287,7 @@ class WP_Caiji
     public function clean_queue()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_clean_queue')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_clean_queue')) wp_die('权限验证失败');
         $rule_id = absint($_POST['clean_rule_id'] ?? 0);
         $status = sanitize_key($_POST['clean_status'] ?? 'success');
         if (!in_array($status, array('success','failed','skipped','pending'), true)) $status = 'success';
@@ -1274,7 +1303,7 @@ class WP_Caiji
 
     public function save_settings()
     {
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_save_settings')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_save_settings')) wp_die('权限验证失败');
         $existing_settings = $this->get_settings();
         $settings = $this->settings_from_post($existing_settings);
         update_option(self::OPTION_SETTINGS, $settings, false);
@@ -1288,7 +1317,7 @@ class WP_Caiji
 
     public function test_ai_api()
     {
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_save_settings')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_save_settings')) wp_die('权限验证失败');
         $settings = $this->settings_from_post($this->get_settings());
         $result = WP_Caiji_AI::test_connection($settings);
         set_transient('wp_caiji_ai_api_test_' . get_current_user_id(), $result, 300);
@@ -1354,7 +1383,7 @@ class WP_Caiji
     public function copy_rule()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_copy_rule')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_copy_rule')) wp_die('权限验证失败');
         $id = absint($_GET['id'] ?? 0);
         $rule = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$this->rules_table} WHERE id=%d", $id), ARRAY_A);
         if ($rule) {
@@ -1373,7 +1402,7 @@ class WP_Caiji
     public function export_rules()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_export_rules')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_export_rules')) wp_die('权限验证失败');
         $rules = $wpdb->get_results("SELECT * FROM {$this->rules_table} ORDER BY id ASC", ARRAY_A);
         $fields = array_flip(WP_Caiji_Schema::rule_export_fields());
         foreach ($rules as &$rule) {
@@ -1389,7 +1418,7 @@ class WP_Caiji
     public function import_rules()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_import_rules')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_import_rules')) wp_die('权限验证失败');
         if (empty($_FILES['rules_file']['tmp_name'])) {
             wp_safe_redirect($this->page_url('wp-caiji-rules'));
             exit;
@@ -1424,7 +1453,7 @@ class WP_Caiji
 
     public function discover_rule_now()
     {
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_discover_rule')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_discover_rule')) wp_die('权限验证失败');
         $rule_id = absint($_GET['id'] ?? 0);
         if ($rule_id) {
             wp_schedule_single_event(time() + 1, self::CRON_DISCOVER_RULE_ONCE, array($rule_id));
@@ -1437,7 +1466,7 @@ class WP_Caiji
 
     public function collect_rule_now()
     {
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_collect_rule')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_collect_rule')) wp_die('权限验证失败');
         $rule_id = absint($_GET['id'] ?? 0);
         if ($rule_id) {
             wp_schedule_single_event(time() + 1, self::CRON_COLLECT_RULE_ONCE, array($rule_id));
@@ -1473,7 +1502,7 @@ class WP_Caiji
     public function retry_queue()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_retry_queue')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_retry_queue')) wp_die('权限验证失败');
         $id = absint($_GET['id'] ?? 0);
         $wpdb->update($this->queue_table, array('status'=>'pending','attempts'=>0,'last_error'=>null,'scheduled_at'=>current_time('mysql'),'started_at'=>null,'finished_at'=>null), array('id'=>$id));
         wp_safe_redirect($this->page_url('wp-caiji-queue'));
@@ -1483,7 +1512,7 @@ class WP_Caiji
     public function delete_queue()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_delete_queue')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_delete_queue')) wp_die('权限验证失败');
         $wpdb->delete($this->queue_table, array('id'=>absint($_GET['id'] ?? 0)));
         wp_safe_redirect($this->page_url('wp-caiji-queue'));
         exit;
@@ -1492,7 +1521,7 @@ class WP_Caiji
     public function clear_logs()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_clear_logs')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_clear_logs')) wp_die('权限验证失败');
         $wpdb->query("TRUNCATE TABLE {$this->logs_table}");
         wp_safe_redirect($this->page_url('wp-caiji-logs'));
         exit;
@@ -1502,7 +1531,7 @@ class WP_Caiji
     public function test_rule()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_save_rule')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_save_rule')) wp_die('权限验证失败');
         $id = absint($_POST['id'] ?? 0);
         $url = esc_url_raw(wp_unslash($_POST['test_url'] ?? ''));
         if ($url === '') {
@@ -1706,7 +1735,7 @@ class WP_Caiji
     public function bulk_queue()
     {
         global $wpdb;
-        if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_bulk_queue')) wp_die('权限验证失败');
+        if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_bulk_queue')) wp_die('权限验证失败');
         $action = sanitize_key($_POST['bulk_action'] ?? '');
         $ids = array_map('absint', (array)($_POST['queue_ids'] ?? array()));
         $ids = array_values(array_filter($ids));
