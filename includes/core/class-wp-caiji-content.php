@@ -122,8 +122,14 @@ class WP_Caiji_Content
 
     public static function parse_tags($tags)
     {
-        $items = array_filter(array_map('trim', explode(',', (string)$tags)));
+        if (is_array($tags)) return self::normalize_tag_list($tags);
+        $items = array_filter(array_map('trim', preg_split('/[\r\n,，、;；|\/]+/u', (string)$tags)));
         return self::normalize_tag_list($items);
+    }
+
+    public static function normalize_tags($tags)
+    {
+        return self::normalize_tag_list($tags);
     }
 
 

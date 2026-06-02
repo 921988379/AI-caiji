@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.19
+Stable tag: 2.1.20
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、Tag 提取、健康检查和诊断报告。
@@ -206,6 +206,11 @@ WP 采集 → 设置 → 卸载保护
 请确认采集行为符合目标网站 robots.txt、版权声明和服务条款。建议优先采集为草稿，人工检查后再发布。
 
 == 更新记录 ==
+
+= 2.1.20 =
+* 修复自动采集/Cron 发布文章时 Tag 标签可能未写入的问题，改为文章创建后显式写入 post_tag。
+* 固定标签支持英文逗号、中文逗号、顿号、分号、竖线、斜杠和换行等多种分隔符。
+* 修复规则导入导出时遗漏 auto_tag_advanced 增强匹配开关的问题。
 
 = 2.1.19 =
 * 修复 AI Endpoint 使用 HTTP 自定义端口时被 WordPress 默认安全端口校验拦截的问题。

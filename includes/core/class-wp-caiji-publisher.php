@@ -47,7 +47,7 @@ class WP_Caiji_Publisher
             $use_advanced_auto_tags = isset($item['auto_tag_advanced']) ? !empty($item['auto_tag_advanced']) : false;
             $tags = array_merge($tags, WP_Caiji_Content::match_auto_tags_by_title($title_context, $item['auto_tag_keywords'] ?? '', $use_advanced_auto_tags));
         }
-        if ($tags) $postarr['tags_input'] = WP_Caiji_Content::parse_tags(implode(',', $tags));
+        $tags = WP_Caiji_Content::normalize_tags($tags);
 
         $valid_statuses = array('draft', 'publish', 'future', 'pending', 'private');
         if (!in_array($post_status, $valid_statuses, true)) $post_status = 'draft';
@@ -70,6 +70,9 @@ class WP_Caiji_Publisher
         if (is_wp_error($post_id)) return $post_id;
 
         update_post_meta($post_id, WP_Caiji::META_SOURCE_URL, esc_url_raw($source_url));
+        if ($tags) {
+            wp_set_post_tags($post_id, $tags, false);
+        }
         WP_Caiji_Content::write_seo_meta($post_id, $item, $title, $excerpt, $source_url);
         if ($featured_id) set_post_thumbnail($post_id, $featured_id);
 
