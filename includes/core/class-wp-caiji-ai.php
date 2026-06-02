@@ -16,7 +16,7 @@ class WP_Caiji_AI
 
     public static function default_prompt()
     {
-        return "请将下面采集到的文章改写为自然、流畅、适合中文网站发布的原创表达。\n要求：\n1. 保留原意和事实，不要编造不存在的信息。\n2. 优化标题和正文表达，避免机械翻译腔。\n3. 正文允许保留必要 HTML 标签，例如 p、h2、h3、ul、ol、li、strong、em、a、img。\n4. 正文中一些需要数据的段落，请你在网上找到对应的数据，并在数据下面说明数据来源和RUL。\n5. 正文尾部增加FAQ。\n6. 不要输出解释，不要输出 Markdown。\n7. 必须只返回 JSON：{\"title\":\"改写后的标题\",\"content\":\"改写后的 HTML 正文\"}";
+        return "请将下面采集到的文章改写为自然、流畅、适合中文网站发布的原创表达。\n要求：\n1. 保留原意和事实，不要编造不存在的信息。\n2. 优化标题和正文表达，避免机械翻译腔。\n3. 正文允许保留必要 HTML 标签，例如 p、h2、h3、ul、ol、li、strong、em、a、img。\n4. 如原文已包含数据来源，请保留并规范来源 URL；不要编造不存在的数据或来源。\n5. 正文尾部增加FAQ。\n6. 不要输出解释，不要输出 Markdown。\n7. 必须只返回 JSON：{\"title\":\"改写后的标题\",\"content\":\"改写后的 HTML 正文\"}";
     }
 
     public static function legacy_default_prompts()

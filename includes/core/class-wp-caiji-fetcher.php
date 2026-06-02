@@ -74,7 +74,11 @@ class WP_Caiji_Fetcher
 
     public static function pick_cookie($cookie_list)
     {
-        $items = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', (string)$cookie_list)));
+        $items = array_filter(array_map(function ($item) {
+            $item = trim((string)$item);
+            $item = str_replace(array("\r", "\n", "\0"), '', $item);
+            return preg_match('/[\x00-\x1F\x7F]/', $item) ? '' : $item;
+        }, preg_split('/\r\n|\r|\n/', (string)$cookie_list)));
         if (!$items) return '';
         return $items[array_rand($items)];
     }
@@ -88,7 +92,9 @@ class WP_Caiji_Fetcher
         $host = strtolower((string)$parts['host']);
         if (!in_array($scheme, array('http', 'https'), true)) return '';
 
-        $base = $scheme . '://' . $host . '/';
+        $base = $scheme . '://' . $host;
+        if (!empty($parts['port'])) $base .= ':' . (int)$parts['port'];
+        $base .= '/';
         $path = isset($parts['path']) ? trim((string)$parts['path'], '/') : '';
         $candidates = array($base);
 

@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.21';
+    const SCHEMA_VERSION = '2.1.22';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -1012,6 +1012,85 @@ class WP_Caiji
         return mb_substr(trim($value), 0, 8000);
     }
 
+    private function sanitize_rule_data($input, $now = '')
+    {
+        $input = wp_parse_args((array)$input, $this->default_rule());
+        $now = $now ?: current_time('mysql');
+        $data = array(
+            'name'=>sanitize_text_field(wp_unslash($input['name'] ?? '')),
+            'enabled'=>!empty($input['enabled']) ? 1 : 0,
+            'list_urls'=>sanitize_textarea_field(wp_unslash($input['list_urls'] ?? '')),
+            'link_selector'=>sanitize_text_field(wp_unslash($input['link_selector'] ?? '')),
+            'link_before_marker'=>$this->sanitize_code_marker($input['link_before_marker'] ?? ''),
+            'link_after_marker'=>$this->sanitize_code_marker($input['link_after_marker'] ?? ''),
+            'json_source'=>$this->sanitize_json_source($input['json_source'] ?? '__NEXT_DATA__'),
+            'link_json_path'=>sanitize_text_field(wp_unslash($input['link_json_path'] ?? '')),
+            'link_json_url_field'=>sanitize_text_field(wp_unslash($input['link_json_url_field'] ?? '')),
+            'pagination_pattern'=>esc_url_raw(wp_unslash($input['pagination_pattern'] ?? '')),
+            'page_start'=>max(1, absint($input['page_start'] ?? 1)),
+            'page_end'=>max(1, absint($input['page_end'] ?? 1)),
+            'manual_urls'=>sanitize_textarea_field(wp_unslash($input['manual_urls'] ?? '')),
+            'title_selector'=>sanitize_text_field(wp_unslash($input['title_selector'] ?? '//h1')),
+            'title_before_marker'=>$this->sanitize_code_marker($input['title_before_marker'] ?? ''),
+            'title_after_marker'=>$this->sanitize_code_marker($input['title_after_marker'] ?? ''),
+            'title_json_path'=>sanitize_text_field(wp_unslash($input['title_json_path'] ?? '')),
+            'content_selector'=>sanitize_text_field(wp_unslash($input['content_selector'] ?? '//article')),
+            'content_before_marker'=>$this->sanitize_code_marker($input['content_before_marker'] ?? ''),
+            'content_after_marker'=>$this->sanitize_code_marker($input['content_after_marker'] ?? ''),
+            'content_json_path'=>sanitize_text_field(wp_unslash($input['content_json_path'] ?? '')),
+            'date_selector'=>sanitize_text_field(wp_unslash($input['date_selector'] ?? '')),
+            'date_before_marker'=>$this->sanitize_code_marker($input['date_before_marker'] ?? ''),
+            'date_after_marker'=>$this->sanitize_code_marker($input['date_after_marker'] ?? ''),
+            'date_json_path'=>sanitize_text_field(wp_unslash($input['date_json_path'] ?? '')),
+            'tag_selector'=>sanitize_text_field(wp_unslash($input['tag_selector'] ?? '')),
+            'tag_before_marker'=>$this->sanitize_code_marker($input['tag_before_marker'] ?? ''),
+            'tag_after_marker'=>$this->sanitize_code_marker($input['tag_after_marker'] ?? ''),
+            'tag_json_path'=>sanitize_text_field(wp_unslash($input['tag_json_path'] ?? '')),
+            'remove_selectors'=>sanitize_textarea_field(wp_unslash($input['remove_selectors'] ?? '')),
+            'category_id'=>absint($input['category_id'] ?? 0),
+            'author_id'=>absint($input['author_id'] ?? 0),
+            'post_status'=>in_array(($input['post_status'] ?? 'draft'), array('draft','publish','future','pending'), true) ? sanitize_key($input['post_status']) : 'draft',
+            'batch_limit'=>max(1, min(50, absint($input['batch_limit'] ?? 5))),
+            'retry_limit'=>max(0, min(10, absint($input['retry_limit'] ?? 3))),
+            'request_delay'=>max(0, min(30, absint($input['request_delay'] ?? 1))),
+            'download_images'=>!empty($input['download_images']) ? 1 : 0,
+            'set_featured_image'=>!empty($input['set_featured_image']) ? 1 : 0,
+            'dedupe_title'=>!empty($input['dedupe_title']) ? 1 : 0,
+            'fixed_tags'=>sanitize_textarea_field(wp_unslash($input['fixed_tags'] ?? '')),
+            'replace_rules'=>sanitize_textarea_field(wp_unslash($input['replace_rules'] ?? '')),
+            'category_rules'=>sanitize_textarea_field(wp_unslash($input['category_rules'] ?? '')),
+            'auto_tags'=>!empty($input['auto_tags']) ? 1 : 0,
+            'auto_tag_keywords'=>sanitize_textarea_field(wp_unslash($input['auto_tag_keywords'] ?? '')),
+            'auto_tag_advanced'=>!empty($input['auto_tag_advanced']) ? 1 : 0,
+            'publish_mode'=>in_array(($input['publish_mode'] ?? 'immediate'), array('immediate','random_future'), true) ? sanitize_key($input['publish_mode']) : 'immediate',
+            'publish_delay_min'=>max(0, absint($input['publish_delay_min'] ?? 0)),
+            'publish_delay_max'=>max(0, absint($input['publish_delay_max'] ?? 0)),
+            'ua_list'=>sanitize_textarea_field(wp_unslash($input['ua_list'] ?? '')),
+            'referer'=>esc_url_raw(wp_unslash($input['referer'] ?? '')),
+            'cookie'=>$this->sanitize_cookie_header($input['cookie'] ?? ''),
+            'auto_excerpt'=>!empty($input['auto_excerpt']) ? 1 : 0,
+            'excerpt_length'=>max(50, min(500, absint($input['excerpt_length'] ?? 160))),
+            'seo_plugin'=>in_array(($input['seo_plugin'] ?? 'none'), array('none','rank_math','yoast','aioseo'), true) ? sanitize_key($input['seo_plugin']) : 'none',
+            'seo_title_template'=>sanitize_text_field(wp_unslash($input['seo_title_template'] ?? '')),
+            'seo_desc_template'=>sanitize_text_field(wp_unslash($input['seo_desc_template'] ?? '')),
+            'remove_empty_paragraphs'=>!empty($input['remove_empty_paragraphs']) ? 1 : 0,
+            'remove_external_links'=>!empty($input['remove_external_links']) ? 1 : 0,
+            'remove_paragraph_keywords'=>sanitize_textarea_field(wp_unslash($input['remove_paragraph_keywords'] ?? '')),
+            'image_alt_template'=>sanitize_text_field(wp_unslash($input['image_alt_template'] ?? '')),
+            'ai_rewrite'=>!empty($input['ai_rewrite']) ? 1 : 0,
+            'ai_rewrite_prompt'=>wp_kses_post(wp_unslash($input['ai_rewrite_prompt'] ?? '')),
+            'ai_rewrite_on_failure'=>in_array(($input['ai_rewrite_on_failure'] ?? 'fallback'), array('fallback','fail'), true) ? sanitize_key($input['ai_rewrite_on_failure']) : 'fallback',
+            'ai_rewrite_language'=>WP_Caiji_AI::sanitize_language($input['ai_rewrite_language'] ?? '', true),
+            'updated_at'=>$now,
+        );
+        if ($data['page_end'] < $data['page_start']) $data['page_end'] = $data['page_start'];
+        if ($data['publish_delay_max'] < $data['publish_delay_min']) $data['publish_delay_max'] = $data['publish_delay_min'];
+        if (empty($data['link_json_path']) && empty($data['title_json_path']) && empty($data['content_json_path']) && empty($data['date_json_path']) && empty($data['tag_json_path'])) {
+            $data['json_source'] = '__NEXT_DATA__';
+        }
+        return $data;
+    }
+
     public function save_rule()
     {
         global $wpdb;
@@ -1027,73 +1106,7 @@ class WP_Caiji
         }
         $id = absint($_POST['id'] ?? 0);
         $now = current_time('mysql');
-        $data = array(
-            'name'=>sanitize_text_field(wp_unslash($_POST['name'] ?? '')),
-            'enabled'=>isset($_POST['enabled']) ? 1 : 0,
-            'list_urls'=>sanitize_textarea_field(wp_unslash($_POST['list_urls'] ?? '')),
-            'link_selector'=>sanitize_text_field(wp_unslash($_POST['link_selector'] ?? '')),
-            'link_before_marker'=>$this->sanitize_code_marker($_POST['link_before_marker'] ?? ''),
-            'link_after_marker'=>$this->sanitize_code_marker($_POST['link_after_marker'] ?? ''),
-            'json_source'=>$this->sanitize_json_source($_POST['json_source'] ?? '__NEXT_DATA__'),
-            'link_json_path'=>sanitize_text_field(wp_unslash($_POST['link_json_path'] ?? '')),
-            'link_json_url_field'=>sanitize_text_field(wp_unslash($_POST['link_json_url_field'] ?? '')),
-            'pagination_pattern'=>esc_url_raw(wp_unslash($_POST['pagination_pattern'] ?? '')),
-            'page_start'=>max(1, absint($_POST['page_start'] ?? 1)),
-            'page_end'=>max(1, absint($_POST['page_end'] ?? 1)),
-            'manual_urls'=>sanitize_textarea_field(wp_unslash($_POST['manual_urls'] ?? '')),
-            'title_selector'=>sanitize_text_field(wp_unslash($_POST['title_selector'] ?? '//h1')),
-            'title_before_marker'=>$this->sanitize_code_marker($_POST['title_before_marker'] ?? ''),
-            'title_after_marker'=>$this->sanitize_code_marker($_POST['title_after_marker'] ?? ''),
-            'title_json_path'=>sanitize_text_field(wp_unslash($_POST['title_json_path'] ?? '')),
-            'content_selector'=>sanitize_text_field(wp_unslash($_POST['content_selector'] ?? '//article')),
-            'content_before_marker'=>$this->sanitize_code_marker($_POST['content_before_marker'] ?? ''),
-            'content_after_marker'=>$this->sanitize_code_marker($_POST['content_after_marker'] ?? ''),
-            'content_json_path'=>sanitize_text_field(wp_unslash($_POST['content_json_path'] ?? '')),
-            'date_selector'=>sanitize_text_field(wp_unslash($_POST['date_selector'] ?? '')),
-            'date_before_marker'=>$this->sanitize_code_marker($_POST['date_before_marker'] ?? ''),
-            'date_after_marker'=>$this->sanitize_code_marker($_POST['date_after_marker'] ?? ''),
-            'date_json_path'=>sanitize_text_field(wp_unslash($_POST['date_json_path'] ?? '')),
-            'tag_selector'=>sanitize_text_field(wp_unslash($_POST['tag_selector'] ?? '')),
-            'tag_before_marker'=>$this->sanitize_code_marker($_POST['tag_before_marker'] ?? ''),
-            'tag_after_marker'=>$this->sanitize_code_marker($_POST['tag_after_marker'] ?? ''),
-            'tag_json_path'=>sanitize_text_field(wp_unslash($_POST['tag_json_path'] ?? '')),
-            'remove_selectors'=>sanitize_textarea_field(wp_unslash($_POST['remove_selectors'] ?? '')),
-            'category_id'=>absint($_POST['category_id'] ?? 0),
-            'author_id'=>absint($_POST['author_id'] ?? 0),
-            'post_status'=>in_array(($_POST['post_status'] ?? 'draft'), array('draft','publish','future','pending'), true) ? sanitize_key($_POST['post_status']) : 'draft',
-            'batch_limit'=>max(1, min(50, absint($_POST['batch_limit'] ?? 5))),
-            'retry_limit'=>max(0, min(10, absint($_POST['retry_limit'] ?? 3))),
-            'request_delay'=>max(0, min(30, absint($_POST['request_delay'] ?? 1))),
-            'download_images'=>isset($_POST['download_images']) ? 1 : 0,
-            'set_featured_image'=>isset($_POST['set_featured_image']) ? 1 : 0,
-            'dedupe_title'=>isset($_POST['dedupe_title']) ? 1 : 0,
-            'fixed_tags'=>sanitize_textarea_field(wp_unslash($_POST['fixed_tags'] ?? '')),
-            'replace_rules'=>sanitize_textarea_field(wp_unslash($_POST['replace_rules'] ?? '')),
-            'category_rules'=>sanitize_textarea_field(wp_unslash($_POST['category_rules'] ?? '')),
-            'auto_tags'=>isset($_POST['auto_tags']) ? 1 : 0,
-            'auto_tag_keywords'=>sanitize_textarea_field(wp_unslash($_POST['auto_tag_keywords'] ?? '')),
-            'auto_tag_advanced'=>isset($_POST['auto_tag_advanced']) ? 1 : 0,
-            'publish_mode'=>in_array(($_POST['publish_mode'] ?? 'immediate'), array('immediate','random_future'), true) ? sanitize_key($_POST['publish_mode']) : 'immediate',
-            'publish_delay_min'=>max(0, absint($_POST['publish_delay_min'] ?? 0)),
-            'publish_delay_max'=>max(0, absint($_POST['publish_delay_max'] ?? 0)),
-            'ua_list'=>sanitize_textarea_field(wp_unslash($_POST['ua_list'] ?? '')),
-            'referer'=>esc_url_raw(wp_unslash($_POST['referer'] ?? '')),
-            'cookie'=>$this->sanitize_cookie_header($_POST['cookie'] ?? ''),
-            'auto_excerpt'=>isset($_POST['auto_excerpt']) ? 1 : 0,
-            'excerpt_length'=>max(50, min(500, absint($_POST['excerpt_length'] ?? 160))),
-            'seo_plugin'=>in_array(($_POST['seo_plugin'] ?? 'none'), array('none','rank_math','yoast','aioseo'), true) ? sanitize_key($_POST['seo_plugin']) : 'none',
-            'seo_title_template'=>sanitize_text_field(wp_unslash($_POST['seo_title_template'] ?? '')),
-            'seo_desc_template'=>sanitize_text_field(wp_unslash($_POST['seo_desc_template'] ?? '')),
-            'remove_empty_paragraphs'=>isset($_POST['remove_empty_paragraphs']) ? 1 : 0,
-            'remove_external_links'=>isset($_POST['remove_external_links']) ? 1 : 0,
-            'remove_paragraph_keywords'=>sanitize_textarea_field(wp_unslash($_POST['remove_paragraph_keywords'] ?? '')),
-            'image_alt_template'=>sanitize_text_field(wp_unslash($_POST['image_alt_template'] ?? '')),
-            'ai_rewrite'=>isset($_POST['ai_rewrite']) ? 1 : 0,
-            'ai_rewrite_prompt'=>wp_kses_post(wp_unslash($_POST['ai_rewrite_prompt'] ?? '')),
-            'ai_rewrite_on_failure'=>in_array(($_POST['ai_rewrite_on_failure'] ?? 'fallback'), array('fallback','fail'), true) ? sanitize_key($_POST['ai_rewrite_on_failure']) : 'fallback',
-            'ai_rewrite_language'=>WP_Caiji_AI::sanitize_language($_POST['ai_rewrite_language'] ?? '', true),
-            'updated_at'=>$now,
-        );
+        $data = $this->sanitize_rule_data($_POST, $now);
         $selected_rule_method = function ($name, $fallback = 'selector') {
             $method = sanitize_key(wp_unslash($_POST[$name] ?? $fallback));
             return in_array($method, array('selector','marker','json'), true) ? $method : $fallback;
@@ -1122,8 +1135,6 @@ class WP_Caiji
         if (empty($data['link_json_path']) && empty($data['title_json_path']) && empty($data['content_json_path']) && empty($data['date_json_path']) && empty($data['tag_json_path'])) {
             $data['json_source'] = '__NEXT_DATA__';
         }
-        if ($data['page_end'] < $data['page_start']) $data['page_end'] = $data['page_start'];
-        if ($data['publish_delay_max'] < $data['publish_delay_min']) $data['publish_delay_max'] = $data['publish_delay_min'];
         $allowed_columns = $wpdb->get_col("SHOW COLUMNS FROM {$this->rules_table}");
         if (is_array($allowed_columns) && $allowed_columns) {
             $data = array_intersect_key($data, array_flip($allowed_columns));
@@ -1323,7 +1334,7 @@ class WP_Caiji
             'max_images_per_post'=>max(0, min(50, absint($_POST['max_images_per_post'] ?? 10))),
             'max_image_size_mb'=>max(1, min(50, absint($_POST['max_image_size_mb'] ?? 5))),
             'ai_enabled'=>isset($_POST['ai_enabled']) ? 1 : 0,
-            'ai_api_key'=>WP_Caiji_AI::prepare_api_key_for_storage(wp_unslash($_POST['ai_api_key'] ?? '')),
+            'ai_api_key'=>WP_Caiji_AI::prepare_api_key_for_storage(wp_unslash($_POST['ai_api_key'] ?? ($existing_settings['ai_api_key'] ?? ''))),
             'ai_endpoint'=>WP_Caiji_AI::normalize_endpoint(esc_url_raw(wp_unslash($_POST['ai_endpoint'] ?? 'https://api.openai.com/v1/chat/completions'))),
             'ai_model'=>sanitize_text_field(wp_unslash($_POST['ai_model'] ?? 'gpt-5.5')),
             'ai_temperature'=>max(0, min(2, (float)($_POST['ai_temperature'] ?? 0.7))),
@@ -1364,8 +1375,9 @@ class WP_Caiji
         global $wpdb;
         if (!current_user_can('manage_options') || !check_admin_referer('wp_caiji_export_rules')) wp_die('权限验证失败');
         $rules = $wpdb->get_results("SELECT * FROM {$this->rules_table} ORDER BY id ASC", ARRAY_A);
+        $fields = array_flip(WP_Caiji_Schema::rule_export_fields());
         foreach ($rules as &$rule) {
-            unset($rule['id'], $rule['created_at'], $rule['updated_at'], $rule['last_discovered_at'], $rule['last_collected_at']);
+            $rule = array_intersect_key((array)$rule, $fields);
         }
         nocache_headers();
         header('Content-Type: application/json; charset=utf-8');
@@ -1394,25 +1406,16 @@ class WP_Caiji
             wp_die('规则 JSON 格式错误:' . esc_html(json_last_error_msg()));
         }
         $rules = isset($data['rules']) && is_array($data['rules']) ? array_slice($data['rules'], 0, 200) : array();
-        $allowed = array_keys($this->default_rule());
+        $allowed = array_flip(WP_Caiji_Schema::rule_export_fields());
         foreach ($rules as $rule) {
             if (!is_array($rule) || empty($rule['name'])) continue;
-            $insert = array();
-            foreach ($allowed as $key) {
-                if (array_key_exists($key, $rule)) $insert[$key] = is_scalar($rule[$key]) ? (string)$rule[$key] : '';
+            $raw = array_intersect_key($rule, $allowed);
+            foreach ($raw as $key => $value) {
+                $raw[$key] = is_scalar($value) ? (string)$value : '';
             }
-            $insert = wp_parse_args($insert, $this->default_rule());
-            $insert['enabled'] = !empty($insert['enabled']) ? 1 : 0;
-            $insert['name'] = sanitize_text_field($insert['name']);
-            $insert['pagination_pattern'] = esc_url_raw($insert['pagination_pattern']);
-            $insert['referer'] = esc_url_raw($insert['referer']);
-            $insert['page_start'] = max(1, absint($insert['page_start']));
-            $insert['page_end'] = max($insert['page_start'], absint($insert['page_end']));
-            $insert['batch_limit'] = max(1, min(50, absint($insert['batch_limit'])));
-            $insert['retry_limit'] = max(0, min(10, absint($insert['retry_limit'])));
-            $insert['request_delay'] = max(0, min(30, absint($insert['request_delay'])));
-            $insert['created_at'] = current_time('mysql');
-            $insert['updated_at'] = current_time('mysql');
+            $now = current_time('mysql');
+            $insert = $this->sanitize_rule_data($raw, $now);
+            $insert['created_at'] = $now;
             $wpdb->insert($this->rules_table, $insert);
         }
         wp_safe_redirect($this->page_url('wp-caiji-rules'));

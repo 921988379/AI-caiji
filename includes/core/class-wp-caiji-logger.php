@@ -25,7 +25,9 @@ class WP_Caiji_Logger
             'created_at' => current_time('mysql'),
         ));
 
-        self::trim($plugin, (int)$settings['log_retention']);
+        if (wp_rand(1, 20) === 1) {
+            self::trim($plugin, (int)$settings['log_retention']);
+        }
     }
 
     public static function trim($plugin, $retention)

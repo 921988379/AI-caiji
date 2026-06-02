@@ -37,7 +37,8 @@ class WP_Caiji_Utils
             $parts['query'] = http_build_query($query);
         }
 
-        $rebuilt = $parts['scheme'] . '://' . strtolower($parts['host']);
+        $rebuilt = strtolower($parts['scheme']) . '://' . strtolower($parts['host']);
+        if (!empty($parts['port'])) $rebuilt .= ':' . (int)$parts['port'];
         if (!empty($parts['path'])) $rebuilt .= $parts['path'];
         if (!empty($parts['query'])) $rebuilt .= '?' . $parts['query'];
         return rtrim($rebuilt, '/');
@@ -46,13 +47,19 @@ class WP_Caiji_Utils
     public static function is_safe_public_url($url)
     {
         $url = trim((string)$url);
-        if ($url === '' || !wp_http_validate_url($url)) return false;
+        if ($url === '') return false;
 
         $parts = wp_parse_url($url);
         if (!$parts || empty($parts['scheme']) || empty($parts['host'])) return false;
+        if (!empty($parts['user']) || !empty($parts['pass'])) return false;
 
         $scheme = strtolower((string)$parts['scheme']);
         if (!in_array($scheme, array('http', 'https'), true)) return false;
+
+        if (isset($parts['port'])) {
+            $port = (int)$parts['port'];
+            if ($port < 1 || $port > 65535) return false;
+        }
 
         $host = trim((string)$parts['host'], "[] \t\n\r\0\x0B");
         if ($host === '') return false;
