@@ -58,7 +58,7 @@ class WP_Caiji_DB
             download_images TINYINT(1) NOT NULL DEFAULT 0,
             set_featured_image TINYINT(1) NOT NULL DEFAULT 0,
             dedupe_title TINYINT(1) NOT NULL DEFAULT 1,
-            fixed_tags VARCHAR(255) NULL,
+            fixed_tags TEXT NULL,
             replace_rules LONGTEXT NULL,
             category_rules LONGTEXT NULL,
             auto_tags TINYINT(1) NOT NULL DEFAULT 0,
@@ -147,7 +147,8 @@ class WP_Caiji_DB
         self::maybe_add_column($rules, 'tag_before_marker', "ALTER TABLE {$rules} ADD tag_before_marker TEXT NULL");
         self::maybe_add_column($rules, 'tag_after_marker', "ALTER TABLE {$rules} ADD tag_after_marker TEXT NULL");
         self::maybe_add_column($rules, 'tag_json_path', "ALTER TABLE {$rules} ADD tag_json_path VARCHAR(255) NULL");
-        self::maybe_add_column($rules, 'fixed_tags', "ALTER TABLE {$rules} ADD fixed_tags VARCHAR(255) NULL");
+        self::maybe_add_column($rules, 'fixed_tags', "ALTER TABLE {$rules} ADD fixed_tags TEXT NULL");
+        self::maybe_modify_column($rules, 'fixed_tags', 'text', "ALTER TABLE {$rules} MODIFY fixed_tags TEXT NULL");
         self::maybe_add_column($rules, 'replace_rules', "ALTER TABLE {$rules} ADD replace_rules LONGTEXT NULL");
         self::maybe_add_column($rules, 'category_rules', "ALTER TABLE {$rules} ADD category_rules LONGTEXT NULL");
         self::maybe_add_column($rules, 'auto_tags', "ALTER TABLE {$rules} ADD auto_tags TINYINT(1) NOT NULL DEFAULT 0");
@@ -188,6 +189,16 @@ class WP_Caiji_DB
         global $wpdb;
         $exists = $wpdb->get_var($wpdb->prepare("SHOW INDEX FROM {$table} WHERE Key_name = %s", $index));
         if (!$exists) {
+            $wpdb->query($sql);
+        }
+    }
+
+    public static function maybe_modify_column($table, $column, $expected_type, $sql)
+    {
+        global $wpdb;
+        $row = $wpdb->get_row($wpdb->prepare("SHOW COLUMNS FROM {$table} LIKE %s", $column), ARRAY_A);
+        if (!$row || empty($row['Type'])) return;
+        if (stripos((string)$row['Type'], (string)$expected_type) === false) {
             $wpdb->query($sql);
         }
     }

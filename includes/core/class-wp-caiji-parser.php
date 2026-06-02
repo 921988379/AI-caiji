@@ -344,12 +344,20 @@ class WP_Caiji_Parser
     public static function extract_tags_by_rule($html, $rule)
     {
         $rule = is_array($rule) ? $rule : array();
-        $json_tags = self::extract_json_tags_by_rule($html, $rule);
-        if ($json_tags) return $json_tags;
-
+        $json_path = trim((string)($rule['tag_json_path'] ?? ''));
         $selector = trim((string)($rule['tag_selector'] ?? ''));
         $before = (string)($rule['tag_before_marker'] ?? '');
         $after = (string)($rule['tag_after_marker'] ?? '');
+
+        if ($json_path !== '') {
+            $json_tags = self::extract_json_tags_by_rule($html, $rule);
+            if ($json_tags) return $json_tags;
+        }
+
+        if ($selector === '' && trim($before) === '' && trim($after) === '') {
+            return array();
+        }
+
         $scoped_html = self::slice_between_markers($html, $before, $after);
 
         if ($selector !== '') {
@@ -361,6 +369,7 @@ class WP_Caiji_Parser
                 }
                 return array_values(array_unique($tags));
             }
+            return array();
         }
 
         return self::parse_tags_text($scoped_html);
@@ -381,7 +390,16 @@ class WP_Caiji_Parser
     {
         $tags = array();
         if (is_array($value) || is_object($value)) {
-            foreach ((array)$value as $item) {
+            $array = (array)$value;
+            $preferred_keys = array('name', 'title', 'label', 'tag', 'term', 'text');
+            foreach ($preferred_keys as $key) {
+                if (isset($array[$key]) && is_scalar($array[$key]) && trim((string)$array[$key]) !== '') {
+                    return self::parse_tags_text((string)$array[$key]);
+                }
+            }
+            foreach ($array as $key => $item) {
+                $key_lc = strtolower((string)$key);
+                if (in_array($key_lc, array('id', 'slug', 'url', 'href', 'link', 'count'), true)) continue;
                 $tags = array_merge($tags, self::normalize_tag_values($item));
             }
         } else {

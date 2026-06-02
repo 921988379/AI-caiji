@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.20';
+    const SCHEMA_VERSION = '2.1.21';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -551,7 +551,7 @@ class WP_Caiji
                 <div class="wp-caiji-section"><h2>分类与标签</h2>
                 <table class="form-table" role="presentation">
                     <tr><th>自动分类规则</th><td><textarea name="category_rules" rows="4" class="large-text code" placeholder="每行一条:关键词=>分类ID,例如:WordPress=>3"><?php echo esc_textarea($rule['category_rules']); ?></textarea><p class="description">匹配标题或正文后,会优先使用命中的分类 ID;没有命中则使用默认分类。</p></td></tr>
-                    <tr><th>固定标签</th><td><input name="fixed_tags" class="regular-text" value="<?php echo esc_attr($rule['fixed_tags']); ?>" placeholder="多个标签用英文逗号分隔,例如 SEO,WordPress"></td></tr>
+                    <tr><th>固定标签</th><td><textarea name="fixed_tags" rows="3" class="large-text code" placeholder="每行或用逗号/顿号/分号/竖线分隔，例如：SEO, WordPress"><?php echo esc_textarea($rule['fixed_tags']); ?></textarea><p class="description">会与页面提取标签、自动标签合并后写入文章。</p></td></tr>
                     <tr><th>自动标签</th><td><label><input name="auto_tags" type="checkbox" value="1" <?php checked($rule['auto_tags'],1); ?>> 根据标题关键词自动加标签</label><br><label style="display:inline-block;margin:8px 0 6px;"><input name="auto_tag_advanced" type="checkbox" value="1" <?php checked($rule['auto_tag_advanced'] ?? 0, 1); ?>> 启用增强匹配</label><textarea name="auto_tag_keywords" rows="6" class="large-text code" placeholder="支持：每行一个关键词；或 关键词=>标签名；或 关键词1|关键词2=>标签名。正文出现不会作为标签。"><?php echo esc_textarea($auto_tag_keywords_value); ?></textarea><p class="description">只使用这里手动填写的关键词；不会再自动载入站点现有文章标签。开启“增强匹配”时，支持“关键词=>标签名”“关键词1|关键词2=>标签名”，并尽量避免英文短词误匹配；关闭后回退为旧版纯包含匹配。</p></td></tr>
                 </table>
                 </div>
@@ -1067,7 +1067,7 @@ class WP_Caiji
             'download_images'=>isset($_POST['download_images']) ? 1 : 0,
             'set_featured_image'=>isset($_POST['set_featured_image']) ? 1 : 0,
             'dedupe_title'=>isset($_POST['dedupe_title']) ? 1 : 0,
-            'fixed_tags'=>sanitize_text_field(wp_unslash($_POST['fixed_tags'] ?? '')),
+            'fixed_tags'=>sanitize_textarea_field(wp_unslash($_POST['fixed_tags'] ?? '')),
             'replace_rules'=>sanitize_textarea_field(wp_unslash($_POST['replace_rules'] ?? '')),
             'category_rules'=>sanitize_textarea_field(wp_unslash($_POST['category_rules'] ?? '')),
             'auto_tags'=>isset($_POST['auto_tags']) ? 1 : 0,
@@ -1551,6 +1551,9 @@ class WP_Caiji
         $title_raw = $this->extract_field_by_rule($html, $rule, 'title', $rule['title_selector'], true);
         $content_raw = $this->extract_field_by_rule($html, $rule, 'content', $rule['content_selector'], false);
         $extracted_tags = WP_Caiji_Parser::extract_tags_by_rule($html, $rule);
+        $fixed_tags = WP_Caiji_Content::parse_tags($rule['fixed_tags'] ?? '');
+        $auto_tags = !empty($rule['auto_tags']) ? WP_Caiji_Content::match_auto_tags_by_title($title_raw, $rule['auto_tag_keywords'] ?? '', !empty($rule['auto_tag_advanced'])) : array();
+        $final_tags = WP_Caiji_Content::normalize_tags(array_merge($fixed_tags, $extracted_tags, $auto_tags));
         $selector_counts = array(
             'link'=>WP_Caiji_Parser::link_match_count_by_rule($html, $rule),
             'title'=>WP_Caiji_Parser::field_match_count_by_rule($html, $rule, 'title', $rule['title_selector']),
@@ -1582,7 +1585,10 @@ class WP_Caiji
             'url'=>$url,
             'title'=>$title,
             'date'=>$date,
-            'tags'=>$extracted_tags,
+            'tags'=>$final_tags,
+            'extracted_tags'=>$extracted_tags,
+            'fixed_tags'=>$fixed_tags,
+            'auto_tags'=>$auto_tags,
             'content_text'=>wp_html_excerpt(wp_strip_all_tags($content), 1000),
             'raw_text_length'=>$raw_text_length,
             'content_length'=>$clean_text_length,
@@ -1641,7 +1647,9 @@ class WP_Caiji
         echo '<p><strong>URL:</strong><a href="' . esc_url($result['url']) . '" target="_blank" rel="noopener noreferrer">' . esc_html($result['url']) . '</a></p>';
         echo '<p><strong>标题:</strong>' . esc_html($result['title'] ?: '未提取到') . '</p>';
         echo '<p><strong>日期:</strong>' . esc_html($result['date'] ?: '未提取到/未设置') . '</p>';
-        echo '<p><strong>Tag 标签:</strong>' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags']) : '未提取到/未设置') . '</p>';
+        echo '<p><strong>最终写入 Tag:</strong>' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags']) : '未设置') . '</p>';
+        echo '<p><strong>页面提取 Tag:</strong>' . esc_html(!empty($result['extracted_tags']) ? implode(', ', (array)$result['extracted_tags']) : '未提取到/未设置') . '</p>';
+        echo '<p><strong>固定 Tag:</strong>' . esc_html(!empty($result['fixed_tags']) ? implode(', ', (array)$result['fixed_tags']) : '未设置') . '；<strong>自动匹配 Tag:</strong>' . esc_html(!empty($result['auto_tags']) ? implode(', ', (array)$result['auto_tags']) : '未匹配') . '</p>';
         echo '<p><strong>正文长度:</strong>原始 ' . intval($result['raw_text_length'] ?? 0) . ' 字；清洗后 ' . intval($result['content_length']) . ' 字；<strong>图片数:</strong>' . intval($result['image_count']) . '</p>';
         echo '<p><strong>正文预览:</strong></p>';
         echo '<textarea class="large-text code wp-caiji-content-preview" rows="10" readonly>' . esc_textarea($result['content_text']) . '</textarea>';
@@ -1925,7 +1933,7 @@ class WP_Caiji
                 }
             }
         }
-        $post_id = WP_Caiji_Publisher::publish($item, $title, $content, $date, $url, $featured_id);
+        $post_id = WP_Caiji_Publisher::publish($item, $title, $content, $date, $url, $featured_id, array($this, 'log_public'));
         if (is_wp_error($post_id)) {
             $this->mark_failed($item, $post_id->get_error_message());
             return;

@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
  */
 class WP_Caiji_Publisher
 {
-    public static function publish($item, $title, $content, $date, $source_url, $featured_id = 0)
+    public static function publish($item, $title, $content, $date, $source_url, $featured_id = 0, $logger = null)
     {
         $post_status = $item['post_status'];
         $post_date = null;
@@ -71,7 +71,10 @@ class WP_Caiji_Publisher
 
         update_post_meta($post_id, WP_Caiji::META_SOURCE_URL, esc_url_raw($source_url));
         if ($tags) {
-            wp_set_post_tags($post_id, $tags, false);
+            $tag_result = wp_set_post_tags($post_id, $tags, false);
+            if (is_wp_error($tag_result) && is_callable($logger)) {
+                call_user_func($logger, 'warning', 'Tag 标签写入失败:' . $tag_result->get_error_message(), (int)($item['rule_id'] ?? 0), (int)($item['queue_id'] ?? 0), $source_url);
+            }
         }
         WP_Caiji_Content::write_seo_meta($post_id, $item, $title, $excerpt, $source_url);
         if ($featured_id) set_post_thumbnail($post_id, $featured_id);

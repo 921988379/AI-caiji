@@ -71,17 +71,15 @@ class WP_Caiji_Content
     {
         $title = (string)$title;
         $items = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', (string)$keywords)));
-
-        if (!$advanced) {
-            $tags = array();
-            foreach ($items as $kw) {
-                if ($kw !== '' && stripos($title, $kw) !== false) $tags[] = $kw;
-            }
-            return self::normalize_tag_list($tags);
-        }
-
         $tags = array();
+
         foreach ($items as $line) {
+            $needs_advanced_parse = strpos($line, '=>') !== false || strpos($line, '|') !== false;
+            if (!$advanced && !$needs_advanced_parse) {
+                if (stripos($title, $line) !== false) $tags[] = $line;
+                continue;
+            }
+
             $parsed = self::parse_auto_tag_rule($line);
             if (!$parsed) continue;
 
@@ -173,8 +171,10 @@ class WP_Caiji_Content
         $normalized = array();
         $seen = array();
         foreach ((array)$tags as $tag) {
-            $tag = trim(wp_strip_all_tags((string)$tag));
-            if ($tag === '') continue;
+            $tag = trim(html_entity_decode(wp_strip_all_tags((string)$tag), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            $tag = trim(preg_replace('/\s+/u', ' ', $tag));
+            $tag = trim($tag, " #\t\n\r\0\x0B");
+            if ($tag === '' || mb_strlen($tag) > 60) continue;
             $key = function_exists('mb_strtolower') ? mb_strtolower($tag, 'UTF-8') : strtolower($tag);
             if (isset($seen[$key])) continue;
             $seen[$key] = true;
