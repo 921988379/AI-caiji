@@ -173,5 +173,82 @@
         if (document.querySelector('.wp-caiji-modal.is-open')) {
             document.body.classList.add('wp-caiji-modal-opened');
         }
+
+
+        document.querySelectorAll('.wp-caiji-ai-provider-cascade').forEach(function (wrap) {
+            var form = closest(wrap, 'form') || document;
+            var kindSelect = wrap.querySelector('.wp-caiji-ai-provider-kind');
+            var providerSelect = wrap.querySelector('.wp-caiji-ai-provider');
+            var tutorialBtn = wrap.querySelector('.wp-caiji-ai-tutorial-open');
+            var endpointInput = form.querySelector('.wp-caiji-ai-endpoint');
+            var modelInput = form.querySelector('.wp-caiji-ai-model');
+            var hint = form.querySelector('.wp-caiji-ai-provider-hint');
+            var fillBtn = form.querySelector('.wp-caiji-ai-fill-endpoint');
+
+            function selectedProvider() {
+                return providerSelect ? providerSelect.options[providerSelect.selectedIndex] : null;
+            }
+
+            function syncProviderOptions() {
+                if (!kindSelect || !providerSelect) return;
+                var kind = kindSelect.value || 'transit';
+                var firstVisible = null;
+                var selectedVisible = false;
+                Array.prototype.forEach.call(providerSelect.options, function (option) {
+                    var visible = (option.getAttribute('data-kind') || '') === kind;
+                    option.hidden = !visible;
+                    option.disabled = !visible;
+                    if (visible && !firstVisible) firstVisible = option;
+                    if (visible && option.selected) selectedVisible = true;
+                });
+                if (!selectedVisible && firstVisible) providerSelect.value = firstVisible.value;
+            }
+
+            function updateHint() {
+                var provider = selectedProvider();
+                if (!provider || !hint) return;
+                var models = (provider.getAttribute('data-models') || '').split(',').filter(Boolean);
+                var region = provider.getAttribute('data-region') || '';
+                var billing = provider.getAttribute('data-billing') || '';
+                var desc = provider.getAttribute('data-description') || '';
+                var prefix = [region, billing].filter(Boolean).join(' · ');
+                var modelText = models.length ? ('推荐模型：' + models.join('、') + '；也可以手动输入中转站支持的任意模型名。') : '可以手动输入服务商或中转站支持的模型名。';
+                hint.textContent = (prefix ? prefix + '。' : '') + (desc ? desc + ' ' : '') + modelText;
+            }
+
+            function fillEndpoint(force) {
+                var provider = selectedProvider();
+                if (!provider || !endpointInput) return;
+                var endpoint = provider.getAttribute('data-endpoint') || '';
+                if (force || !endpointInput.value.trim()) endpointInput.value = endpoint;
+            }
+
+            function fillModelIfEmpty() {
+                var provider = selectedProvider();
+                if (!provider || !modelInput || modelInput.value.trim()) return;
+                var models = (provider.getAttribute('data-models') || '').split(',').filter(Boolean);
+                if (models.length) modelInput.value = models[0];
+            }
+
+            function providerChanged(forceEndpoint) {
+                fillEndpoint(!!forceEndpoint);
+                fillModelIfEmpty();
+                updateHint();
+            }
+
+            if (kindSelect) kindSelect.addEventListener('change', function () {
+                syncProviderOptions();
+                providerChanged(true);
+            });
+            if (providerSelect) providerSelect.addEventListener('change', function () { providerChanged(true); });
+            if (fillBtn) fillBtn.addEventListener('click', function () { fillEndpoint(true); });
+            if (tutorialBtn) tutorialBtn.addEventListener('click', function () {
+                var provider = selectedProvider();
+                var target = provider ? provider.getAttribute('data-tutorial-target') : '';
+                if (target) openModal(target);
+            });
+            syncProviderOptions();
+            providerChanged(false);
+        });
     });
 }());

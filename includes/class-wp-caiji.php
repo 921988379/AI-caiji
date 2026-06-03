@@ -987,14 +987,16 @@ class WP_Caiji
                 <table class="form-table" role="presentation">
                     <tr><th>启用 AI 能力</th><td><label><input name="ai_enabled" type="checkbox" value="1" <?php checked($settings['ai_enabled'],1); ?>> 允许采集规则在发布前调用 AI 改写</label><p class="description">每条规则仍需单独开启“发布前 AI 改写”。关闭这里会全局禁用 AI。</p></td></tr>
                     <tr><th>AI API Key</th><td><input name="ai_api_key" type="text" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::get_api_key($settings)); ?>" autocomplete="off" placeholder="sk-..."><p class="description">明文保存并在后台显示，仅拥有本插件设置权限的管理员可查看。诊断导出会自动脱敏。</p></td></tr>
-                    <tr><th>AI Endpoint</th><td><input name="ai_endpoint" type="url" class="regular-text" value="<?php echo esc_attr($settings['ai_endpoint']); ?>" placeholder="https://api.openai.com/v1 或 http://你的中转站/v1"><p class="description">支持 OpenAI 兼容中转站。可填完整 chat/completions 地址，也可只填基础地址，例如 https://api.xxx.com、http://api.xxx.com 或 /v1，插件会自动补全 /v1/chat/completions。支持公网 HTTP/HTTPS 地址和自定义端口；生产环境建议优先使用 HTTPS。</p></td></tr>
-                    <tr><th>AI 模型</th><td><input name="ai_model" class="regular-text" value="<?php echo esc_attr($settings['ai_model']); ?>" placeholder="gpt-5.5"> 温度 <input name="ai_temperature" type="number" min="0" max="2" step="0.1" value="<?php echo esc_attr($settings['ai_temperature']); ?>" style="width:90px"></td></tr>
+                    <tr><th>AI 服务商</th><td><?php $current_ai_provider = WP_Caiji_AI::sanitize_provider($settings['ai_provider'] ?? 'openai_compatible'); $provider_options = WP_Caiji_AI::provider_options(); $current_provider_meta = $provider_options[$current_ai_provider] ?? array('billing'=>'depends','region'=>'custom'); $current_provider_kind = (($current_provider_meta['region'] ?? '') === 'custom' || ($current_provider_meta['billing'] ?? '') === 'depends') ? 'transit' : ((($current_provider_meta['billing'] ?? '') === 'free_tier') ? 'free' : 'paid'); ?><div class="wp-caiji-ai-provider-cascade"><select class="wp-caiji-ai-provider-kind"><option value="transit" <?php selected($current_provider_kind, 'transit'); ?>>中转 / 自定义</option><option value="free" <?php selected($current_provider_kind, 'free'); ?>>免费 / 免费额度</option><option value="paid" <?php selected($current_provider_kind, 'paid'); ?>>付费</option></select> <select name="ai_provider" class="wp-caiji-ai-provider"><?php foreach ($provider_options as $provider_key => $provider_meta): ?><?php $provider_kind = (($provider_meta['region'] ?? '') === 'custom' || ($provider_meta['billing'] ?? '') === 'depends') ? 'transit' : ((($provider_meta['billing'] ?? '') === 'free_tier') ? 'free' : 'paid'); ?><option value="<?php echo esc_attr($provider_key); ?>" data-kind="<?php echo esc_attr($provider_kind); ?>" data-endpoint="<?php echo esc_attr($provider_meta['endpoint']); ?>" data-models="<?php echo esc_attr(implode(',', (array)$provider_meta['models'])); ?>" data-region="<?php echo esc_attr(WP_Caiji_AI::provider_region_label($provider_meta['region'] ?? 'global')); ?>" data-billing="<?php echo esc_attr(WP_Caiji_AI::provider_billing_label($provider_meta['billing'] ?? 'paid')); ?>" data-description="<?php echo esc_attr($provider_meta['description'] ?? ''); ?>" data-tutorial-target="wp-caiji-ai-tutorial-<?php echo esc_attr($provider_key); ?>" <?php selected($current_ai_provider, $provider_key); ?>><?php echo esc_html(WP_Caiji_AI::provider_region_label($provider_meta['region'] ?? 'global') . ' · ' . $provider_meta['label']); ?></option><?php endforeach; ?></select> <button type="button" class="button wp-caiji-ai-tutorial-open">说明</button></div><p class="description">先选择“中转 / 免费 / 付费”，再选择对应 AI 名称；选好后点击“说明”查看该平台注册和 API Key 获取教程。中国大陆/其他国家会显示在 AI 名称前。</p></td></tr>
+                    <tr><th>AI Endpoint</th><td><input name="ai_endpoint" type="url" class="regular-text wp-caiji-ai-endpoint" value="<?php echo esc_attr($settings['ai_endpoint']); ?>" placeholder="https://api.openai.com/v1 或 http://你的中转站/v1"> <button type="button" class="button wp-caiji-ai-fill-endpoint">填入所选默认地址</button><p class="description">兼容中转站：可填完整 chat/completions 地址，也可只填基础地址或 /v1，插件会自动补全。Gemini 官方可使用 {model} 占位；生产环境建议优先 HTTPS。</p></td></tr>
+                    <tr><th>AI 模型</th><td><input name="ai_model" class="regular-text wp-caiji-ai-model" list="wp-caiji-ai-model-presets" value="<?php echo esc_attr($settings['ai_model']); ?>" placeholder="gpt-5.5"><datalist id="wp-caiji-ai-model-presets"><?php foreach (WP_Caiji_AI::provider_model_presets() as $model_name): ?><option value="<?php echo esc_attr($model_name); ?>"></option><?php endforeach; ?></datalist> 温度 <input name="ai_temperature" type="number" min="0" max="2" step="0.1" value="<?php echo esc_attr($settings['ai_temperature']); ?>" style="width:90px"><p class="description wp-caiji-ai-provider-hint"></p></td></tr>
                     <tr><th>默认改写语言</th><td><select name="ai_rewrite_language"><?php foreach (WP_Caiji_AI::language_options() as $lang_code => $lang_label): ?><option value="<?php echo esc_attr($lang_code); ?>" <?php selected($settings['ai_rewrite_language'] ?? 'zh-CN', $lang_code); ?>><?php echo esc_html($lang_label); ?></option><?php endforeach; ?></select> <label><input name="ai_language_check" type="checkbox" value="1" <?php checked($settings['ai_language_check'] ?? 1, 1); ?>> 检测改写后语言，不符合则判定 AI 失败</label><p class="description">规则可单独覆盖目标语言。选择“不限制/不检测”时不会追加语言要求，也不会做语言检测。</p></td></tr>
                     <tr><th>API 连接测试</th><td><button class="button button-secondary" formaction="<?php echo esc_url(admin_url('admin-post.php')); ?>" name="action" value="wp_caiji_test_ai_api">测试 API 连接</button><p class="description">会优先使用当前表单里填写的 Key、Endpoint、模型和超时发送一次极小测试请求；不会保存设置，也不会创建文章。</p></td></tr>
                     <?php $this->render_ai_api_test_result(); ?>
                     <tr><th>AI 超时/输入限制</th><td>超时 <input name="ai_timeout_seconds" type="number" min="10" max="120" value="<?php echo esc_attr($settings['ai_timeout_seconds']); ?>" style="width:90px"> 秒；最多提交正文 <input name="ai_max_input_chars" type="number" min="1000" max="60000" value="<?php echo esc_attr($settings['ai_max_input_chars']); ?>" style="width:110px"> 字符<p class="description">如果 AI 经常 504 或 cURL 28，可先把超时降到 30-60 秒，或把单次 Cron 最大运行调到高于 AI 超时。</p></td></tr>
                     <tr><th>默认改写 Prompt</th><td><textarea name="ai_rewrite_prompt" rows="8" class="large-text code"><?php echo esc_textarea($settings['ai_rewrite_prompt']); ?></textarea><p class="description">规则里未填写专属 Prompt 时使用这里。建议要求模型只返回 JSON:{"title":"...","content":"..."}</p></td></tr>
                 </table>
+                <?php $this->render_ai_tutorial_modals(); ?>
                 </div>
                 <div class="wp-caiji-section is-collapsed"><h2>日志与数据</h2>
                 <table class="form-table" role="presentation">
@@ -1006,6 +1008,54 @@ class WP_Caiji
             </form>
         </div>
         <?php
+    }
+
+    private function render_ai_tutorial_modals()
+    {
+        $tutorials = WP_Caiji_AI::provider_tutorials();
+        $providers = WP_Caiji_AI::provider_options();
+        foreach ($tutorials as $provider_key => $tutorial) {
+            $provider_meta = $providers[$provider_key] ?? array('label' => $provider_key, 'region' => 'global', 'billing' => 'paid');
+            ?>
+            <div id="wp-caiji-ai-tutorial-<?php echo esc_attr($provider_key); ?>" class="wp-caiji-modal wp-caiji-ai-tutorial-modal" aria-hidden="true">
+                <div class="wp-caiji-modal-backdrop" data-wp-caiji-modal-close></div>
+                <div class="wp-caiji-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="wp-caiji-ai-tutorial-title-<?php echo esc_attr($provider_key); ?>">
+                    <div class="wp-caiji-modal-header">
+                        <div>
+                            <h2 id="wp-caiji-ai-tutorial-title-<?php echo esc_attr($provider_key); ?>"><?php echo esc_html($tutorial['title'] ?? (($provider_meta['label'] ?? $provider_key) . ' API Key 获取说明')); ?></h2>
+                            <p><?php echo esc_html(WP_Caiji_AI::provider_region_label($provider_meta['region'] ?? 'global') . ' · ' . WP_Caiji_AI::provider_billing_label($provider_meta['billing'] ?? 'paid')); ?></p>
+                        </div>
+                        <button type="button" class="wp-caiji-modal-close" data-wp-caiji-modal-close aria-label="关闭">×</button>
+                    </div>
+                    <div class="wp-caiji-modal-body wp-caiji-ai-tutorial-body">
+                        <?php if (!empty($tutorial['official_url'])): ?>
+                            <p><strong>官方入口：</strong><a href="<?php echo esc_url($tutorial['official_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($tutorial['official_url']); ?></a></p>
+                        <?php endif; ?>
+                        <?php if (!empty($provider_meta['description'])): ?>
+                            <p><strong>平台说明：</strong><?php echo esc_html($provider_meta['description']); ?></p>
+                        <?php endif; ?>
+                        <h3>操作步骤</h3>
+                        <ol>
+                            <?php foreach ((array)($tutorial['steps'] ?? array()) as $step): ?>
+                                <li><?php echo esc_html($step); ?></li>
+                            <?php endforeach; ?>
+                        </ol>
+                        <?php if (!empty($tutorial['notes'])): ?>
+                            <h3>注意事项</h3>
+                            <ul>
+                                <?php foreach ((array)$tutorial['notes'] as $note): ?>
+                                    <li><?php echo esc_html($note); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
+                    <div class="wp-caiji-modal-footer">
+                        <button type="button" class="button button-primary" data-wp-caiji-modal-close>我知道了</button>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
     }
 
     private function default_rule()
@@ -1333,7 +1383,7 @@ class WP_Caiji
         delete_transient($key);
         $ok = !empty($result['ok']);
         echo '<tr><th>测试结果</th><td><div class="notice ' . ($ok ? 'notice-success' : 'notice-error') . ' inline wp-caiji-result-card"><p><strong>' . ($ok ? '连接成功' : '连接失败') . '</strong></p><ul>';
-        foreach (array('endpoint'=>'Endpoint', 'model'=>'模型', 'http_code'=>'HTTP 状态', 'latency_ms'=>'耗时(ms)', 'message'=>'返回/错误') as $field=>$label) {
+        foreach (array('provider'=>'服务商', 'endpoint'=>'Endpoint', 'model'=>'模型', 'http_code'=>'HTTP 状态', 'latency_ms'=>'耗时(ms)', 'message'=>'返回/错误') as $field=>$label) {
             if (isset($result[$field]) && $result[$field] !== '') {
                 echo '<li><strong>' . esc_html($label) . ':</strong> ' . esc_html((string)$result[$field]) . '</li>';
             }
@@ -1363,8 +1413,9 @@ class WP_Caiji
             'max_images_per_post'=>max(0, min(50, absint($_POST['max_images_per_post'] ?? 10))),
             'max_image_size_mb'=>max(1, min(50, absint($_POST['max_image_size_mb'] ?? 5))),
             'ai_enabled'=>isset($_POST['ai_enabled']) ? 1 : 0,
+            'ai_provider'=>WP_Caiji_AI::sanitize_provider(wp_unslash($_POST['ai_provider'] ?? 'openai_compatible')),
             'ai_api_key'=>WP_Caiji_AI::prepare_api_key_for_storage(wp_unslash($_POST['ai_api_key'] ?? ($existing_settings['ai_api_key'] ?? ''))),
-            'ai_endpoint'=>WP_Caiji_AI::normalize_endpoint(esc_url_raw(wp_unslash($_POST['ai_endpoint'] ?? 'https://api.openai.com/v1/chat/completions'))),
+            'ai_endpoint'=>WP_Caiji_AI::normalize_endpoint(esc_url_raw(wp_unslash($_POST['ai_endpoint'] ?? WP_Caiji_AI::provider_default_endpoint(wp_unslash($_POST['ai_provider'] ?? 'openai_compatible')))), wp_unslash($_POST['ai_provider'] ?? 'openai_compatible'), sanitize_text_field(wp_unslash($_POST['ai_model'] ?? 'gpt-5.5'))),
             'ai_model'=>sanitize_text_field(wp_unslash($_POST['ai_model'] ?? 'gpt-5.5')),
             'ai_temperature'=>max(0, min(2, (float)($_POST['ai_temperature'] ?? 0.7))),
             'ai_timeout_seconds'=>max(10, min(120, absint($_POST['ai_timeout_seconds'] ?? 45))),

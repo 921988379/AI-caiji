@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.23
+Stable tag: 2.1.24
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、Tag 提取、健康检查和诊断报告。
@@ -231,6 +231,14 @@ WP 采集 → 设置 → 卸载保护
 请确认采集行为符合目标网站 robots.txt、版权声明和服务条款。建议优先采集为草稿，人工检查后再发布。
 
 == 更新记录 ==
+
+= 2.1.24 =
+* AI 改写设置新增多层级服务商选择：先选“中转 / 免费 / 付费”，再选择对应 AI 平台。
+* AI 平台按中国大陆、其他国家/海外、中转站自定义和费用类型区分展示。
+* 新增 OpenAI 兼容中转站、OpenAI、DeepSeek、通义千问、Kimi、智谱、百川、MiniMax、xAI、OpenRouter、Claude、Gemini 等平台预设。
+* 新增各 AI 平台“说明”弹窗，包含注册入口、API Key 获取步骤、插件填写方式和注意事项。
+* 支持 Anthropic Claude 官方 Messages API 与 Google Gemini 官方 generateContent API，同时继续兼容 OpenAI 格式中转站。
+* 默认中转站 Endpoint 调整为 https://api.seoyh.net/。
 
 = 2.1.23 =
 * 新增远程请求、采集、AI、图片下载、GitHub 更新检查和 WP-Cron 触发的完整披露说明。

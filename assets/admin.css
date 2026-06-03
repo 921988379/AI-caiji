@@ -1347,3 +1347,101 @@ body.wp-admin:has(.wp-caiji-page) {
         padding: 14px;
     }
 }
+
+.wp-caiji-ai-tutorial-modal .wp-caiji-modal-dialog {
+    max-width: 760px;
+}
+
+.wp-caiji-ai-tutorial-body h3 {
+    margin: 18px 0 8px;
+}
+
+.wp-caiji-ai-tutorial-body ol,
+.wp-caiji-ai-tutorial-body ul {
+    margin-left: 22px;
+}
+
+.wp-caiji-ai-tutorial-body li {
+    margin: 6px 0;
+    line-height: 1.7;
+}
+
+.wp-caiji-ai-provider-list {
+    max-width: 860px;
+}
+
+.wp-caiji-ai-provider-group {
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+    background: #fff;
+    margin: 0 0 10px;
+    overflow: hidden;
+}
+
+.wp-caiji-ai-provider-group-title {
+    background: #f6f7f7;
+    border-bottom: 1px solid #dcdcde;
+    color: #1d2327;
+    font-weight: 600;
+    padding: 8px 12px;
+}
+
+.wp-caiji-ai-provider-item {
+    align-items: center;
+    border-top: 1px solid #f0f0f1;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 8px 12px;
+}
+
+.wp-caiji-ai-provider-item:first-of-type {
+    border-top: 0;
+}
+
+.wp-caiji-ai-provider-item label {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    gap: 8px;
+    min-width: 0;
+}
+
+.wp-caiji-ai-provider-name {
+    font-weight: 500;
+}
+
+.wp-caiji-ai-provider-badges {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.wp-caiji-ai-provider-badges span {
+    background: #f0f6fc;
+    border: 1px solid #c5d9ed;
+    border-radius: 999px;
+    color: #135e96;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 1px 7px;
+}
+
+.wp-caiji-ai-provider-cascade {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.wp-caiji-ai-provider-cascade select {
+    max-width: 100%;
+}
+
+.wp-caiji-ai-provider-cascade .wp-caiji-ai-provider-kind {
+    min-width: 150px;
+}
+
+.wp-caiji-ai-provider-cascade .wp-caiji-ai-provider {
+    min-width: 260px;
+}
