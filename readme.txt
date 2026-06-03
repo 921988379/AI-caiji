@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.24
+Stable tag: 2.1.26
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、Tag 提取、健康检查和诊断报告。
@@ -231,6 +231,20 @@ WP 采集 → 设置 → 卸载保护
 请确认采集行为符合目标网站 robots.txt、版权声明和服务条款。建议优先采集为草稿，人工检查后再发布。
 
 == 更新记录 ==
+
+= 2.1.26 =
+* 完善全插件国际化：新增 I18n 核心类，按后台用户语言优先加载 languages 目录中的 .mo 文件。
+* 新增英文 en_US 与简体中文 zh_CN 实际语言包，修复仅有 POT 模板导致后台切换语言不生效的问题。
+* 扩充 en_US 语言包，收录历史 PHP/JS/HTML 中文静态文案，并为所有中文 msgid 生成非空英文翻译。
+* 新增后台输出翻译兜底层，覆盖历史模板文本、placeholder、title、aria-label、data-confirm 等文案。
+* 增加英文运行时兜底词典，减少动态拼接文案在英文后台继续显示中文的问题。
+
+= 2.1.25 =
+* 新增全插件国际化支持，声明 Domain Path 并统一加载 languages 目录翻译文件。
+* 后台菜单、AI 服务商分类/费用/地区标签、核心提示和后台脚本文案接入 wp-caiji 文本域。
+* 新增后台历史模板输出翻译层，覆盖页面文本节点、placeholder、title、aria-label、data-confirm 等属性文案。
+* 新增 languages/wp-caiji.pot 翻译模板，并自动收录历史 PHP/JS/HTML 中文静态文案，便于后续生成各语言 po/mo 文件。
+* 新增 zh_CN 与 en_US 语言包示例，并按后台用户语言优先加载对应 .mo 文件。
 
 = 2.1.24 =
 * AI 改写设置新增多层级服务商选择：先选“中转 / 免费 / 付费”，再选择对应 AI 平台。

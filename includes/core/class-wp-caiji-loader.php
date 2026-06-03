@@ -15,6 +15,7 @@ class WP_Caiji_Loader
     public static function load()
     {
         $files = array(
+            WP_CAIJI_DIR . 'includes/core/class-wp-caiji-i18n.php',
             WP_CAIJI_DIR . 'includes/core/class-wp-caiji-utils.php',
             WP_CAIJI_DIR . 'includes/core/class-wp-caiji-schema.php',
             WP_CAIJI_DIR . 'includes/core/class-wp-caiji-db.php',

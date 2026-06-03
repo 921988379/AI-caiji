@@ -1,4 +1,6 @@
 (function () {
+    var i18n = window.wpCaijiI18n || {};
+    function t(key, fallback) { return i18n[key] || fallback; }
     function ready(fn) {
         if (document.readyState !== 'loading') fn();
         else document.addEventListener('DOMContentLoaded', fn);
@@ -13,6 +15,8 @@
     }
 
     ready(function () {
+    var i18n = window.wpCaijiI18n || {};
+    function t(key, fallback) { return i18n[key] || fallback; }
         document.querySelectorAll('.wp-caiji-section > h2').forEach(function (heading) {
             heading.addEventListener('click', function () {
                 var modal = closest(heading, '.wp-caiji-modal');
@@ -27,9 +31,13 @@
                 var text = btn.getAttribute('data-wp-caiji-copy') || '';
                 if (navigator.clipboard) {
                     navigator.clipboard.writeText(text).then(function () {
+    var i18n = window.wpCaijiI18n || {};
+    function t(key, fallback) { return i18n[key] || fallback; }
                         var old = btn.textContent;
-                        btn.textContent = '已复制';
-                        setTimeout(function () { btn.textContent = old; }, 1200);
+                        btn.textContent = t('copied', '已复制');
+                        setTimeout(function () {
+    var i18n = window.wpCaijiI18n || {};
+    function t(key, fallback) { return i18n[key] || fallback; } btn.textContent = old; }, 1200);
                     });
                 }
             });
@@ -37,7 +45,7 @@
 
         document.querySelectorAll('.wp-caiji-confirm').forEach(function (el) {
             el.addEventListener('click', function (e) {
-                var msg = el.getAttribute('data-confirm') || '确定执行？';
+                var msg = el.getAttribute('data-confirm') || t('confirmDefault', '确定执行？');
                 if (!confirm(msg)) e.preventDefault();
             });
         });
@@ -79,7 +87,7 @@
             }
             modal.wpCaijiCanClose = function () {
                 if (!dirty) return true;
-                return confirm('有未保存内容，确定关闭吗？');
+                return confirm(t('unsavedConfirm', '有未保存内容，确定关闭吗？'));
             };
 
             var tabs = modal.querySelector('.wp-caiji-rule-tabs');
@@ -104,7 +112,7 @@
 
             sections.forEach(function (section, i) {
                 var heading = section.querySelector(':scope > h2');
-                var label = heading ? heading.textContent.trim() : '分组 ' + (i + 1);
+                var label = heading ? heading.textContent.trim() : t('groupPrefix', '分组') + ' ' + (i + 1);
                 var btn = document.createElement('button');
                 btn.type = 'button';
                 btn.textContent = label;
@@ -133,7 +141,9 @@
             modal.setAttribute('aria-hidden', 'false');
             document.body.classList.add('wp-caiji-modal-opened');
             var focusTarget = modal.querySelector('input[name="name"]') || modal.querySelector('button, input, textarea, select, a[href]');
-            if (focusTarget) setTimeout(function () { focusTarget.focus(); }, 50);
+            if (focusTarget) setTimeout(function () {
+    var i18n = window.wpCaijiI18n || {};
+    function t(key, fallback) { return i18n[key] || fallback; } focusTarget.focus(); }, 50);
         }
 
         function closeModal(modal) {
@@ -212,7 +222,7 @@
                 var billing = provider.getAttribute('data-billing') || '';
                 var desc = provider.getAttribute('data-description') || '';
                 var prefix = [region, billing].filter(Boolean).join(' · ');
-                var modelText = models.length ? ('推荐模型：' + models.join('、') + '；也可以手动输入中转站支持的任意模型名。') : '可以手动输入服务商或中转站支持的模型名。';
+                var modelText = models.length ? (t('recommendedModelsPrefix', '推荐模型：') + models.join('、') + t('customModelHint', '；也可以手动输入中转站支持的任意模型名。')) : t('manualModelHint', '可以手动输入服务商或中转站支持的模型名。');
                 hint.textContent = (prefix ? prefix + '。' : '') + (desc ? desc + ' ' : '') + modelText;
             }
 

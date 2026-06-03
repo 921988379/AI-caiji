@@ -226,17 +226,26 @@ class WP_Caiji
         if (strpos((string)$hook, 'wp-caiji') === false && !in_array((string)$hook, array('post.php', 'post-new.php'), true)) return;
         wp_enqueue_style('wp-caiji-admin', WP_CAIJI_URL . 'assets/admin.css', array(), WP_CAIJI_VERSION);
         wp_enqueue_script('wp-caiji-admin', WP_CAIJI_URL . 'assets/admin.js', array(), WP_CAIJI_VERSION, true);
+        wp_localize_script('wp-caiji-admin', 'wpCaijiI18n', array(
+            'copied' => __('已复制', 'wp-caiji'),
+            'confirmDefault' => __('确定执行？', 'wp-caiji'),
+            'unsavedConfirm' => __('有未保存内容，确定关闭吗？', 'wp-caiji'),
+            'groupPrefix' => __('分组', 'wp-caiji'),
+            'recommendedModelsPrefix' => __('推荐模型：', 'wp-caiji'),
+            'customModelHint' => __('；也可以手动输入中转站支持的任意模型名。', 'wp-caiji'),
+            'manualModelHint' => __('可以手动输入服务商或中转站支持的模型名。', 'wp-caiji'),
+        ));
     }
 
     public function admin_menu()
     {
         $capability = self::required_capability();
-        add_menu_page('WP 采集助手', 'WP 采集', $capability, 'wp-caiji', array($this, 'render_dashboard'), 'dashicons-download', 58);
-        add_submenu_page('wp-caiji', '采集规则', '采集规则', $capability, 'wp-caiji-rules', array($this, 'render_rules'));
-        add_submenu_page('wp-caiji', 'URL 队列', 'URL 队列', $capability, 'wp-caiji-queue', array($this, 'render_queue'));
-        add_submenu_page('wp-caiji', '采集日志', '采集日志', $capability, 'wp-caiji-logs', array($this, 'render_logs'));
-        add_submenu_page('wp-caiji', '设置', '设置', $capability, 'wp-caiji-settings', array($this, 'render_settings'));
-        add_submenu_page('wp-caiji', '健康检查', '健康检查', $capability, 'wp-caiji-health', array($this, 'render_health'));
+        add_menu_page(__('WP 采集助手', 'wp-caiji'), __('WP 采集', 'wp-caiji'), $capability, 'wp-caiji', array($this, 'render_dashboard'), 'dashicons-download', 58);
+        add_submenu_page('wp-caiji', __('采集规则', 'wp-caiji'), __('采集规则', 'wp-caiji'), $capability, 'wp-caiji-rules', array($this, 'render_rules'));
+        add_submenu_page('wp-caiji', __('URL 队列', 'wp-caiji'), __('URL 队列', 'wp-caiji'), $capability, 'wp-caiji-queue', array($this, 'render_queue'));
+        add_submenu_page('wp-caiji', __('采集日志', 'wp-caiji'), __('采集日志', 'wp-caiji'), $capability, 'wp-caiji-logs', array($this, 'render_logs'));
+        add_submenu_page('wp-caiji', __('设置', 'wp-caiji'), __('设置', 'wp-caiji'), $capability, 'wp-caiji-settings', array($this, 'render_settings'));
+        add_submenu_page('wp-caiji', __('健康检查', 'wp-caiji'), __('健康检查', 'wp-caiji'), $capability, 'wp-caiji-health', array($this, 'render_health'));
     }
 
     private function page_url($page, $args = array())

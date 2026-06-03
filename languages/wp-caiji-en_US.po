@@ -1,0 +1,2889 @@
+# WP Caiji English translations.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Caiji 2.1.25\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-03 08:20+0000\n"
+"PO-Revision-Date: 2026-06-03 08:20+0000\n"
+"Last-Translator: WP Caiji\n"
+"Language-Team: WP Caiji\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "URL éå"
+msgstr "URL Queue"
+
+msgid "WP éé"
+msgstr "WP Collection"
+
+msgid "WP ééå©æ"
+msgstr "WP Collection Assistant"
+
+msgid "å¥åº·æ£æ¥"
+msgstr "Health Check"
+
+msgid "åç»"
+msgstr "Group"
+
+msgid "å¯ä»¥æå¨è¾å¥æå¡åæä¸­è½¬ç«æ¯æçæ¨¡ååã"
+msgstr "You can manually enter a model name supported by the provider or relay."
+
+msgid "å·²å¤å¶"
+msgstr "Copied"
+
+msgid "æ¨èæ¨¡åï¼"
+msgstr "Recommended models: "
+
+msgid "ææªä¿å­åå®¹ï¼ç¡®å®å³é­åï¼"
+msgstr "There are unsaved changes. Close anyway?"
+
+msgid "ç¡®å®æ§è¡ï¼"
+msgstr "Are you sure?"
+
+msgid "è®¾ç½®"
+msgstr "Settings"
+
+msgid "ééæ¥å¿"
+msgstr "Collection Logs"
+
+msgid "ééè§å"
+msgstr "Collection Rules"
+
+msgid "ï¼ä¹å¯ä»¥æå¨è¾å¥ä¸­è½¬ç«æ¯æçä»»ææ¨¡ååã"
+msgstr "; you can also manually enter any model name supported by your relay provider."
+
+msgid "WP ééå©æä¼æ ¹æ®ç®¡çåéç½®çééè§ååç®æ ç½ç«åèµ·è¿ç¨ HTTP/HTTPS è¯·æ±ï¼ä»¥è¯»ååè¡¨é¡µãæç« é¡µåå¾çèµæºï¼å¯ç¨å¾çæ¬å°åæ¶ï¼è¿ç¨å¾çä¼ä¸è½½å°æ¬ç«åªä½åºã"
+msgstr ""
+
+msgid "$content = ' WP ééå©æä¼æ ¹æ®ç®¡çåéç½®çééè§ååç®æ ç½ç«åèµ·è¿ç¨ HTTP/HTTPS è¯·æ±ï¼ä»¥è¯»ååè¡¨é¡µãæç« é¡µåå¾çèµæºï¼å¯ç¨å¾çæ¬å°åæ¶ï¼è¿ç¨å¾çä¼ä¸è½½å°æ¬ç«åªä½åºã '"
+msgstr ""
+
+msgid "å¯ç¨ AI æ¹åæ¶ï¼æä»¶ä¼ææç« æ é¢ãæ­£æçæ®µãç®æ è¯­è¨åç®¡çåéç½®ç Prompt åéå°ç®¡çåå¡«åç OpenAI å¼å®¹ AI EndpointãAI API Key æç«ç¹ç®¡çåè¦æ±ææä¿å­å¨ WordPress æ°æ®åºéé¡¹ä¸­ï¼å¹¶åªå¨å·å¤æä»¶ç®¡çæéçåå°é¡µé¢æ¾ç¤ºï¼è¯æ­å¯¼åºä¼èªå¨è±æã"
+msgstr ""
+
+msgid ". ' å¯ç¨ AI æ¹åæ¶ï¼æä»¶ä¼ææç« æ é¢ãæ­£æçæ®µãç®æ è¯­è¨åç®¡çåéç½®ç Prompt åéå°ç®¡çåå¡«åç OpenAI å¼å®¹ AI EndpointãAI API Key æç«ç¹ç®¡çåè¦æ±ææä¿å­å¨ WordPress æ°æ®åºéé¡¹ä¸­ï¼å¹¶åªå¨å·å¤æä»¶ç®¡çæéçåå°é¡µé¢æ¾ç¤ºï¼è¯æ­å¯¼åºä¼èªå¨è±æã '"
+msgstr ""
+
+msgid "æä»¶ä¼å GitHub API è¯·æ± Release ä¿¡æ¯ï¼ç¨äºæ£æ¥æä»¶æ´æ°ï¼å®è£æ´æ°æ¶ä¼ä» GitHub Release ä¸è½½æä»¶ ZIP åã"
+msgstr ""
+
+msgid ". ' æä»¶ä¼å GitHub API è¯·æ± Release ä¿¡æ¯ï¼ç¨äºæ£æ¥æä»¶æ´æ°ï¼å®è£æ´æ°æ¶ä¼ä» GitHub Release ä¸è½½æä»¶ ZIP åã '"
+msgstr ""
+
+msgid "æä»¶ä¼å¨èªå®ä¹æ°æ®åºè¡¨ä¸­ä¿å­ééè§åãéå URLãééç¶æãéè¯¯æ¥å¿ãæ¥æº URL åçæçæç«  IDãé»è®¤å¸è½½æä»¶ä¸ä¼å é¤è¿äºæ°æ®ï¼åªæç®¡çåå¨è®¾ç½®ä¸­å¯ç¨âå¸è½½æ¶å é¤æ°æ®âåï¼å¸è½½æ¶æä¼å é¤è§åãéåãæ¥å¿åè®¾ç½®ã"
+msgstr ""
+
+msgid ". ' æä»¶ä¼å¨èªå®ä¹æ°æ®åºè¡¨ä¸­ä¿å­ééè§åãéå URLãééç¶æãéè¯¯æ¥å¿ãæ¥æº URL åçæçæç«  IDãé»è®¤å¸è½½æä»¶ä¸ä¼å é¤è¿äºæ°æ®ï¼åªæç®¡çåå¨è®¾ç½®ä¸­å¯ç¨âå¸è½½æ¶å é¤æ°æ®âåï¼å¸è½½æ¶æä¼å é¤è§åãéåãæ¥å¿åè®¾ç½®ã '"
+msgstr ""
+
+msgid "ç«ç¹ç®¡çååºç¡®è®¤ééè¡ä¸ºç¬¦åç®æ ç½ç« robots.txtãçæå£°æåæå¡æ¡æ¬¾ï¼å¹¶å¨ç«ç¹éç§æ¿ç­ä¸­æ«é²ä½¿ç¨çç¬¬ä¸æ¹ AI æå¡åè¿ç¨åå®¹æ¥æºã"
+msgstr ""
+
+msgid ". ' ç«ç¹ç®¡çååºç¡®è®¤ééè¡ä¸ºç¬¦åç®æ ç½ç« robots.txtãçæå£°æåæå¡æ¡æ¬¾ï¼å¹¶å¨ç«ç¹éç§æ¿ç­ä¸­æ«é²ä½¿ç¨çç¬¬ä¸æ¹ AI æå¡åè¿ç¨åå®¹æ¥æºã ';"
+msgstr ""
+
+msgid "æ¯ 5 åé"
+msgstr ""
+
+msgid "æ¯ 10 åé"
+msgstr ""
+
+msgid "æ¯ 30 åé"
+msgstr ""
+
+msgid "æ¦è§"
+msgstr "Overview"
+
+msgid "æ°å»º/ç¼è¾è§å"
+msgstr "New/Edit Rule"
+
+msgid "æ¥çå¾éé"
+msgstr "View Pending Items"
+
+msgid "WP ééé¡µé¢å¯¼èª"
+msgstr ""
+
+msgid "çæï¼"
+msgstr "Copyright:"
+
+msgid "ä¸ç¹ä¼å"
+msgstr ""
+
+msgid ">çæï¼<a href="
+msgstr ""
+
+msgid "çæï¼ ä¸ç¹ä¼å"
+msgstr ""
+
+msgid "å¾é"
+msgstr ""
+
+msgid "è¿è¡ä¸­"
+msgstr ""
+
+msgid "æå"
+msgstr ""
+
+msgid "å¤±è´¥"
+msgstr ""
+
+msgid "è·³è¿"
+msgstr ""
+
+msgid "ä¿¡æ¯"
+msgstr ""
+
+msgid "è­¦å"
+msgstr ""
+
+msgid "éè¯¯"
+msgstr ""
+
+msgid "å¯ç¨"
+msgstr ""
+
+msgid "åç¨"
+msgstr ""
+
+msgid "å¾ç"
+msgstr ""
+
+msgid "é¿æèªå¨ééæ§å¶å°:åç°é¾æ¥ãéåééãå¤±è´¥éè¯ä¸å¥åº·æ£æ¥éä¸­ç®¡çã"
+msgstr ""
+
+msgid "é¿æèªå¨ééå»ºè®®:ä½¿ç¨éåæ¨¡å¼,ååç°æç« é¾æ¥,åææ¹æ¬¡ééæç« ,å¤±è´¥åå¯éè¯ã"
+msgstr ""
+
+msgid "è§å"
+msgstr ""
+
+msgid "å¾éé"
+msgstr ""
+
+msgid "ä»æ¥ç»è®¡"
+msgstr ""
+
+msgid "ä»æ¥åç°"
+msgstr ""
+
+msgid "ä»æ¥æå"
+msgstr ""
+
+msgid "ä»æ¥å¤±è´¥"
+msgstr ""
+
+msgid "ä»æ¥éè¯¯æ¥å¿"
+msgstr ""
+
+msgid "AI ç¸å³"
+msgstr ""
+
+msgid "å¾çç¸å³"
+msgstr ""
+
+msgid "è¶æ¶è¿è¡"
+msgstr ""
+
+msgid "æè¿ 7 å¤©è¶å¿"
+msgstr ""
+
+msgid "æ¥æ"
+msgstr ""
+
+msgid "æ»éå"
+msgstr ""
+
+msgid "æåç"
+msgstr ""
+
+msgid "æ¥æ æ»éå æå å¤±è´¥ æåç"
+msgstr ""
+
+msgid "ææ æ°æ®"
+msgstr ""
+
+msgid "å®æ¶ç¶æ"
+msgstr ""
+
+msgid "åç°é¾æ¥ä»»å¡:"
+msgstr ""
+
+msgid "æªè®¡å"
+msgstr ""
+
+msgid "ééæç« ä»»å¡:"
+msgstr ""
+
+msgid "å»ºè®®æå¡å¨ Cron:"
+msgstr ""
+
+msgid "ç®¡çééè§å"
+msgstr ""
+
+msgid "æ¥çéå"
+msgstr ""
+
+msgid "æä»¶è®¾ç½®"
+msgstr ""
+
+msgid ")); ?>\">ç®¡çééè§å page_url("
+msgstr ""
+
+msgid ")); ?>\">æ¥çéå page_url("
+msgstr ""
+
+msgid ")); ?>\">æä»¶è®¾ç½® page_url("
+msgstr ""
+
+msgid "ç®¡çééè§å æ¥çéå æä»¶è®¾ç½® å¥åº·æ£æ¥"
+msgstr ""
+
+msgid "è§åæ¦è§"
+msgstr ""
+
+msgid "å¤±è´¥ç"
+msgstr ""
+
+msgid "æä½"
+msgstr ""
+
+msgid "ID è§å å¾é æå å¤±è´¥ å¤±è´¥ç æä½"
+msgstr ""
+
+msgid "ææ è§å"
+msgstr ""
+
+msgid "çéå"
+msgstr ""
+
+msgid "% çéå"
+msgstr ""
+
+msgid "æè¿éè¯¯/è­¦å"
+msgstr ""
+
+msgid "æ¶é´"
+msgstr ""
+
+msgid "çº§å«"
+msgstr ""
+
+msgid "æ¶æ¯"
+msgstr ""
+
+msgid "æ¶é´ çº§å« è§å æ¶æ¯ URL"
+msgstr ""
+
+msgid "ææ éè¯¯"
+msgstr ""
+
+msgid "è¯·ç¡®è®¤ééè¡ä¸ºç¬¦åç®æ ç½ç« robotsãçæå£°æåæå¡æ¡æ¬¾ãé¿æééå»ºè®®åä¿å­ä¸ºèç¨¿ã"
+msgstr ""
+
+msgid "éç½®ç«ç¹æ¥æºãåå®¹éæ©å¨ãæ­£ææ¸æ´ãAI æ¹åä¸åå¸ç­ç¥ã"
+msgstr ""
+
+msgid "ééä»»å¡å·²æäº¤,å°å¨çº¦ 1 ç§ååå°æ§è¡ã"
+msgstr ""
+
+msgid "åç°é¾æ¥ä»»å¡å·²æäº¤,å°å¨çº¦ 1 ç§ååå°æ§è¡ã"
+msgstr ""
+
+msgid "æ°å¢ééè§å"
+msgstr ""
+
+msgid "éåºç¼è¾"
+msgstr ""
+
+msgid "ç¼è¾ééè§å"
+msgstr ""
+
+msgid "æåç»å¡«åè§å,ä¿å­åå¯è¿è¡åè¡¨é¡µæµè¯åæç« é¢è§æµè¯ã"
+msgstr ""
+
+msgid "å³é­"
+msgstr "Close"
+
+msgid "ééè§åéç½®åç»"
+msgstr ""
+
+msgid "åºç¡ä¿¡æ¯"
+msgstr ""
+
+msgid "è§ååç§°"
+msgstr ""
+
+msgid "è§åç¶æ"
+msgstr ""
+
+msgid "å¯ç¨å®æ¶åç°/éé"
+msgstr ""
+
+msgid "æ é¢/æ¥æºå»é"
+msgstr ""
+
+msgid "> å¯ç¨å®æ¶åç°/éé <input name="
+msgstr ""
+
+msgid "è§åç¶æ å¯ç¨å®æ¶åç°/éé æ é¢/æ¥æºå»é"
+msgstr ""
+
+msgid "æ¥æºä¸æç«  URL"
+msgstr ""
+
+msgid "åè¡¨é¡µ URL"
+msgstr ""
+
+msgid "æ¯è¡ä¸ä¸ªæ ç®/åè¡¨é¡µ URL,ç¨äºèªå¨åç°æç« é¾æ¥"
+msgstr ""
+
+msgid "åé¡µè§å"
+msgstr ""
+
+msgid "é¡µç "
+msgstr ""
+
+msgid "ä¾å¦:https://example.com/news/page/{page}"
+msgstr ""
+
+msgid "]); ?>\" placeholder=\"ä¾å¦:https://example.com/news/page/{page}\"> é¡µç  <input name=\"page_start\" type=\"number\" min=\"1\" value=\"<?php echo esc_attr($rule["
+msgstr ""
+
+msgid "åé¡µè§å é¡µç  -"
+msgstr ""
+
+msgid "æç« é¾æ¥è·åæ¹å¼"
+msgstr ""
+
+msgid "éæ©å¨ CSS/XPath"
+msgstr ""
+
+msgid "ååä»£ç æªå"
+msgstr ""
+
+msgid "JSON/Next.js è·¯å¾"
+msgstr ""
+
+msgid "åéæ©ä¸ç§è·åè§åï¼åªæ¾ç¤ºå¯¹åºç¼è¾é¡¹ï¼ä¿å­åæå½åéæ©çè§åæ§è¡ã"
+msgstr ""
+
+msgid "æç« é¾æ¥éæ©å¨"
+msgstr ""
+
+msgid "ä½¿ç¨ CSS/XPath ä»åè¡¨é¡µæåæç« é¾æ¥ã"
+msgstr ""
+
+msgid "> æç« é¾æ¥éæ©å¨ <input name="
+msgstr ""
+
+msgid "]); ?>\" placeholder=\"ä¾å¦:.news-list a æ //div[@class="
+msgstr ""
+
+msgid "æç« é¾æ¥éæ©å¨ ä½¿ç¨ CSS/XPath ä»åè¡¨é¡µæåæç« é¾æ¥ã"
+msgstr ""
+
+msgid "é¾æ¥ååä»£ç "
+msgstr ""
+
+msgid "åä»£ç /å¼å§æ è®°ï¼ä¾å¦:&lt;div class=&quot;article-list&quot;&gt;"
+msgstr ""
+
+msgid "åä»£ç /ç»ææ è®°ï¼ä¾å¦:&lt;/div&gt;&lt;div class=&quot;page&quot;&gt;"
+msgstr ""
+
+msgid "å¯åªå¡«åä»£ç æåªå¡«åä»£ç ï¼éæ©å¨çç©ºæ¶èªå¨æåçæ®µéçææ a æ ç­¾é¾æ¥ã"
+msgstr ""
+
+msgid "JSON/Next.js é¾æ¥"
+msgstr ""
+
+msgid "JSON æ¥æº"
+msgstr ""
+
+msgid "è·¯å¾"
+msgstr ""
+
+msgid "ä¾å¦: props.pageProps.corporateData"
+msgstr ""
+
+msgid "ä¾å¦: alias æ url"
+msgstr ""
+
+msgid "URL å­æ®µ"
+msgstr ""
+
+msgid "ç¨äº Next.js ç­ç«ç¹çé¡µé¢ JSONãæ¥æºé»è®¤"
+msgstr ""
+
+msgid "ï¼ä¹æ¯æ"
+msgstr ""
+
+msgid "id:èæ¬ID"
+msgstr ""
+
+msgid "var:åéå"
+msgstr ""
+
+msgid "ç¨äº Next.js ç­ç«ç¹çé¡µé¢ JSONãæ¥æºé»è®¤ __NEXT_DATA__ ï¼ä¹æ¯æ ld+json ã id:èæ¬ID ã var:åéå ã"
+msgstr ""
+
+msgid "æå¨æç«  URL"
+msgstr ""
+
+msgid "æ¯è¡ä¸ä¸ªæç«  URL,ä¿å­åå¯ç´æ¥å å¥éå"
+msgstr ""
+
+msgid "æµè¯åç°é¾æ¥"
+msgstr ""
+
+msgid "æ°è§åè¯·åä¿å­ååæµè¯ã"
+msgstr ""
+
+msgid "æµè¯æé®ä¸ä¼ä¿å­å½åä¿®æ¹ï¼å¦åæ¹äºè§åï¼è¯·åä¿å­åæµè¯ã"
+msgstr ""
+
+msgid "çç©ºé»è®¤æµè¯ç¬¬ä¸ä¸ªåè¡¨é¡µ URL"
+msgstr ""
+
+msgid ">æµè¯åç°é¾æ¥ <span class="
+msgstr ""
+
+msgid ">æ°è§åè¯·åä¿å­ååæµè¯ã <p class="
+msgstr ""
+
+msgid "æµè¯åç°é¾æ¥ æµè¯åç°é¾æ¥ æ°è§åè¯·åä¿å­ååæµè¯ã æµè¯æé®ä¸ä¼ä¿å­å½åä¿®æ¹ï¼å¦åæ¹äºè§åï¼è¯·åä¿å­åæµè¯ã"
+msgstr ""
+
+msgid "æç« å­æ®µæå"
+msgstr ""
+
+msgid "æ é¢è·åæ¹å¼"
+msgstr ""
+
+msgid "æ é¢éæ©å¨"
+msgstr ""
+
+msgid "ä½¿ç¨ CSS/XPath æåæ é¢ã"
+msgstr ""
+
+msgid "> æ é¢éæ©å¨ <input name="
+msgstr ""
+
+msgid "æ é¢éæ©å¨ ä½¿ç¨ CSS/XPath æåæ é¢ã"
+msgstr ""
+
+msgid "æ é¢ååä»£ç "
+msgstr ""
+
+msgid "æ é¢åä»£ç /å¼å§æ è®°"
+msgstr ""
+
+msgid "æ é¢åä»£ç /ç»ææ è®°"
+msgstr ""
+
+msgid "æ é¢ JSON è·¯å¾"
+msgstr ""
+
+msgid "å¡«ååä¼åä»ä¸æ¹ JSON æ¥æºæåæ é¢ã"
+msgstr ""
+
+msgid "ä¾å¦: props.pageProps.data.title"
+msgstr ""
+
+msgid "> æ é¢ JSON è·¯å¾ <input name="
+msgstr ""
+
+msgid "æ é¢ JSON è·¯å¾ å¡«ååä¼åä»ä¸æ¹ JSON æ¥æºæåæ é¢ã"
+msgstr ""
+
+msgid "æ­£æè·åæ¹å¼"
+msgstr ""
+
+msgid "æ­£æéæ©å¨"
+msgstr ""
+
+msgid "ä½¿ç¨ CSS/XPath æåæ­£æã"
+msgstr ""
+
+msgid "> æ­£æéæ©å¨ <input name="
+msgstr ""
+
+msgid "æ­£æéæ©å¨ ä½¿ç¨ CSS/XPath æåæ­£æã"
+msgstr ""
+
+msgid "æ­£æååä»£ç "
+msgstr ""
+
+msgid "æ­£æåä»£ç /å¼å§æ è®°"
+msgstr ""
+
+msgid "æ­£æåä»£ç /ç»ææ è®°"
+msgstr ""
+
+msgid "æ­£æ JSON è·¯å¾"
+msgstr ""
+
+msgid "å¡«ååä¼åä»ä¸æ¹ JSON æ¥æºæåæ­£æã"
+msgstr ""
+
+msgid "ä¾å¦: props.pageProps.data.content"
+msgstr ""
+
+msgid "> æ­£æ JSON è·¯å¾ <input name="
+msgstr ""
+
+msgid "æ­£æ JSON è·¯å¾ å¡«ååä¼åä»ä¸æ¹ JSON æ¥æºæåæ­£æã"
+msgstr ""
+
+msgid "æ¥æè·åæ¹å¼"
+msgstr ""
+
+msgid "æ¥æéæ©å¨"
+msgstr ""
+
+msgid "å¯éãä½¿ç¨ CSS/XPath æååå¸æ¶é´ã"
+msgstr ""
+
+msgid "> æ¥æéæ©å¨ <input name="
+msgstr ""
+
+msgid "æ¥æéæ©å¨ å¯éãä½¿ç¨ CSS/XPath æååå¸æ¶é´ã"
+msgstr ""
+
+msgid "æ¥æååä»£ç "
+msgstr ""
+
+msgid "æ¥æåä»£ç /å¼å§æ è®°"
+msgstr ""
+
+msgid "æ¥æåä»£ç /ç»ææ è®°"
+msgstr ""
+
+msgid "æ¥æ JSON è·¯å¾"
+msgstr ""
+
+msgid "å¡«ååä¼åä»ä¸æ¹ JSON æ¥æºæåæ¥æã"
+msgstr ""
+
+msgid "ä¾å¦: props.pageProps.data.created"
+msgstr ""
+
+msgid "> æ¥æ JSON è·¯å¾ <input name="
+msgstr ""
+
+msgid "æ¥æ JSON è·¯å¾ å¡«ååä¼åä»ä¸æ¹ JSON æ¥æºæåæ¥æã"
+msgstr ""
+
+msgid "Tag æ ç­¾è·åæ¹å¼"
+msgstr ""
+
+msgid "Tag æ ç­¾éæ©å¨"
+msgstr ""
+
+msgid "å¯éãæåæç« é¡µå·²ææ ç­¾ï¼å¤ä¸ªæ ç­¾ä¼èªå¨æåå¹¶ä¸åºå®æ ç­¾/èªå¨æ ç­¾åå¹¶ã"
+msgstr ""
+
+msgid "> Tag æ ç­¾éæ©å¨ <input name="
+msgstr ""
+
+msgid "); ?>\" placeholder=\"ä¾å¦:.tags a æ //a[@rel="
+msgstr ""
+
+msgid "Tag æ ç­¾éæ©å¨ å¯éãæåæç« é¡µå·²ææ ç­¾ï¼å¤ä¸ªæ ç­¾ä¼èªå¨æåå¹¶ä¸åºå®æ ç­¾/èªå¨æ ç­¾åå¹¶ã"
+msgstr ""
+
+msgid "Tag æ ç­¾ååä»£ç "
+msgstr ""
+
+msgid "Tag æ ç­¾åä»£ç /å¼å§æ è®°"
+msgstr ""
+
+msgid "Tag æ ç­¾åä»£ç /ç»ææ è®°"
+msgstr ""
+
+msgid "Tag æ ç­¾ JSON è·¯å¾"
+msgstr ""
+
+msgid "å¡«ååä¼åä»ä¸æ¹ JSON æ¥æºæå Tag æ ç­¾ã"
+msgstr ""
+
+msgid "ä¾å¦: props.pageProps.data.tags"
+msgstr ""
+
+msgid "> Tag æ ç­¾ JSON è·¯å¾ <input name="
+msgstr ""
+
+msgid "Tag æ ç­¾ JSON è·¯å¾ å¡«ååä¼åä»ä¸æ¹ JSON æ¥æºæå Tag æ ç­¾ã"
+msgstr ""
+
+msgid "æµè¯æç« é¢è§"
+msgstr ""
+
+msgid "æµè¯é¢è§"
+msgstr ""
+
+msgid "æµè¯æé®ä¸ä¼ä¿å­å½åä¿®æ¹ï¼å¦åæ¹äºå­æ®µæåææ¸æ´è§åï¼è¯·åä¿å­åæµè¯ã"
+msgstr ""
+
+msgid "çç©ºé»è®¤æµè¯æå¨ URL æç¬¬ä¸ä¸ªåç°å°çæç«  URL"
+msgstr ""
+
+msgid ">æµè¯é¢è§ <span class="
+msgstr ""
+
+msgid "æµè¯æç« é¢è§ æµè¯é¢è§ æ°è§åè¯·åä¿å­ååæµè¯ã æµè¯æé®ä¸ä¼ä¿å­å½åä¿®æ¹ï¼å¦åæ¹äºå­æ®µæåææ¸æ´è§åï¼è¯·åä¿å­åæµè¯ã"
+msgstr ""
+
+msgid "æ­£ææ¸æ´"
+msgstr ""
+
+msgid "å é¤éæ©å¨"
+msgstr ""
+
+msgid "æ¯è¡ä¸ä¸ªéè¦ä»æ­£æä¸­å é¤çéæ©å¨,å¦ .adã.shareãscript"
+msgstr ""
+
+msgid "é«çº§æ¸æ´"
+msgstr ""
+
+msgid "å é¤ç©ºæ®µè½"
+msgstr ""
+
+msgid "å é¤æ­£æå¤é¾ä½ä¿çæå­"
+msgstr ""
+
+msgid "å é¤åå«å³é®è¯çæ®µè½,æ¯è¡ä¸ä¸ªå³é®è¯:"
+msgstr ""
+
+msgid "> å é¤ç©ºæ®µè½ <input name="
+msgstr ""
+
+msgid "> å é¤æ­£æå¤é¾ä½ä¿çæå­ å é¤åå«å³é®è¯çæ®µè½,æ¯è¡ä¸ä¸ªå³é®è¯: <textarea name="
+msgstr ""
+
+msgid "é«çº§æ¸æ´ å é¤ç©ºæ®µè½ å é¤æ­£æå¤é¾ä½ä¿çæå­ å é¤åå«å³é®è¯çæ®µè½,æ¯è¡ä¸ä¸ªå³é®è¯:"
+msgstr ""
+
+msgid "å³é®è¯æ¿æ¢"
+msgstr ""
+
+msgid "ä¼åæ¶ä½ç¨äºæ é¢åæ­£æãçç©ºåä¸æ¿æ¢ã"
+msgstr ""
+
+msgid "æ¯è¡ä¸æ¡:åè¯=>æ°è¯,ä¾å¦:æ§åç=>æ°åç"
+msgstr ""
+
+msgid "å³é®è¯æ¿æ¢ æ°è¯,ä¾å¦:æ§åç=>æ°åç\"> ä¼åæ¶ä½ç¨äºæ é¢åæ­£æãçç©ºåä¸æ¿æ¢ã"
+msgstr ""
+
+msgid "åå¸ä¸èå¥"
+msgstr ""
+
+msgid "åå¸è®¾ç½®"
+msgstr ""
+
+msgid "ä¸æå®åç±»"
+msgstr ""
+
+msgid "ä¸æå®ä½è"
+msgstr ""
+
+msgid "èç¨¿"
+msgstr ""
+
+msgid "åå¸"
+msgstr ""
+
+msgid "å®æ¶åå¸"
+msgstr ""
+
+msgid "å¾å®¡"
+msgstr ""
+
+msgid ">èç¨¿ <option value="
+msgstr ""
+
+msgid ">åå¸ <option value="
+msgstr ""
+
+msgid ">å®æ¶åå¸ <option value="
+msgstr ""
+
+msgid "ç¶æ èç¨¿ åå¸ å®æ¶åå¸ å¾å®¡"
+msgstr ""
+
+msgid "åå¸èå¥"
+msgstr ""
+
+msgid "æ¨¡å¼"
+msgstr ""
+
+msgid "ç«å³ä½¿ç¨ä¸æ¹ç¶æ"
+msgstr ""
+
+msgid "éæºå»¶è¿åå¸"
+msgstr ""
+
+msgid "å»¶è¿"
+msgstr ""
+
+msgid "åé"
+msgstr ""
+
+msgid "éæ©éæºå»¶è¿åå¸æ¶,ä¼ææç« è®¾ä¸º future,å¹¶å¨åºé´åéæºå®æåå¸æ¶é´ã"
+msgstr ""
+
+msgid ">ç«å³ä½¿ç¨ä¸æ¹ç¶æ <option value="
+msgstr ""
+
+msgid ">éæºå»¶è¿åå¸ å»¶è¿ <input name="
+msgstr ""
+
+msgid "> åé <p class="
+msgstr ""
+
+msgid "åå¸èå¥ æ¨¡å¼ ç«å³ä½¿ç¨ä¸æ¹ç¶æ éæºå»¶è¿åå¸ å»¶è¿ - åé éæ©éæºå»¶è¿åå¸æ¶,ä¼ææç« è®¾ä¸º future,å¹¶å¨åºé´åéæºå®æåå¸æ¶é´ã"
+msgstr ""
+
+msgid "é¿æééæ§å¶"
+msgstr ""
+
+msgid "æ¯æ¹"
+msgstr ""
+
+msgid "ç¯;å¤±è´¥éè¯"
+msgstr ""
+
+msgid "æ¬¡;è¯·æ±é´é"
+msgstr ""
+
+msgid "]); ?>\" style=\"width:80px\"> ç¯;å¤±è´¥éè¯ <input name=\"retry_limit\" type=\"number\" min=\"0\" max=\"10\" value=\"<?php echo esc_attr($rule["
+msgstr ""
+
+msgid "]); ?>\" style=\"width:80px\"> æ¬¡;è¯·æ±é´é <input name=\"request_delay\" type=\"number\" min=\"0\" max=\"30\" value=\"<?php echo esc_attr($rule["
+msgstr ""
+
+msgid "é¿æééæ§å¶ æ¯æ¹ ç¯;å¤±è´¥éè¯ æ¬¡;è¯·æ±é´é ç§"
+msgstr ""
+
+msgid "å¾çä¸åªä½"
+msgstr ""
+
+msgid "å¾çæ¬å°å"
+msgstr ""
+
+msgid "ç¬¬ä¸å¼ å¾è®¾ä¸ºç¹è²å¾"
+msgstr ""
+
+msgid "å¾ç ALT æ¨¡æ¿:"
+msgstr ""
+
+msgid "> å¾çæ¬å°å <input name="
+msgstr ""
+
+msgid "> ç¬¬ä¸å¼ å¾è®¾ä¸ºç¹è²å¾ å¾ç ALT æ¨¡æ¿:<input name="
+msgstr ""
+
+msgid "å¾ç å¾çæ¬å°å ç¬¬ä¸å¼ å¾è®¾ä¸ºç¹è²å¾ å¾ç ALT æ¨¡æ¿:"
+msgstr ""
+
+msgid "AI æ¹å"
+msgstr ""
+
+msgid "åå¸å AI æ¹å"
+msgstr ""
+
+msgid "éè¦åå¨\"WP éé â è®¾ç½®\"éå¯ç¨ AI å¹¶éç½® APIãAI ä¼å¨æ­£ææ¸æ´åå¾çæ¬å°åä¹åãåå¥æç« ä¹åè¿è¡ã"
+msgstr ""
+
+msgid "> å¯ç¨ <p class="
+msgstr ""
+
+msgid ">éè¦åå¨"
+msgstr ""
+
+msgid "åå¸å AI æ¹å å¯ç¨ éè¦åå¨\"WP éé â è®¾ç½®\"éå¯ç¨ AI å¹¶éç½® APIãAI ä¼å¨æ­£ææ¸æ´åå¾çæ¬å°åä¹åãåå¥æç« ä¹åè¿è¡ã"
+msgstr ""
+
+msgid "å¤±è´¥å¤ç"
+msgstr ""
+
+msgid "AI å¤±è´¥æ¶åå¸åæ"
+msgstr ""
+
+msgid "AI å¤±è´¥æ¶æ è®°éåå¤±è´¥"
+msgstr ""
+
+msgid ">AI å¤±è´¥æ¶åå¸åæ <option value="
+msgstr ""
+
+msgid "å¤±è´¥å¤ç AI å¤±è´¥æ¶åå¸åæ AI å¤±è´¥æ¶æ è®°éåå¤±è´¥"
+msgstr ""
+
+msgid "æ¹åç®æ è¯­è¨"
+msgstr ""
+
+msgid "ä½¿ç¨å¨å±è®¾ç½®"
+msgstr ""
+
+msgid "ç¨äºç¿»è¯/æ¹ååºæ¯ï¼å¯ç¨è¯­è¨æ£æµåï¼æ¹åç»æä¸ç¬¦åç®æ è¯­è¨ä¼æ AI å¤±è´¥å¤çã"
+msgstr ""
+
+msgid ">ä½¿ç¨å¨å±è®¾ç½® <option value="
+msgstr ""
+
+msgid "æ¹åç®æ è¯­è¨ ä½¿ç¨å¨å±è®¾ç½® ç¨äºç¿»è¯/æ¹ååºæ¯ï¼å¯ç¨è¯­è¨æ£æµåï¼æ¹åç»æä¸ç¬¦åç®æ è¯­è¨ä¼æ AI å¤±è´¥å¤çã"
+msgstr ""
+
+msgid "ä¸å± Prompt"
+msgstr ""
+
+msgid "å»ºè®®è¦æ±æ¨¡ååªè¿å JSON:{\"title\":\"æ¹åæ é¢\",\"content\":\"æ¹ååç HTML æ­£æ\"}"
+msgstr ""
+
+msgid "çç©ºåä½¿ç¨å¨å±é»è®¤ Prompt"
+msgstr ""
+
+msgid ">å»ºè®®è¦æ±æ¨¡ååªè¿å JSON:{"
+msgstr ""
+
+msgid "æ¹åæ é¢"
+msgstr ""
+
+msgid "æ¹ååç HTML æ­£æ"
+msgstr ""
+
+msgid "ä¸å± Prompt å»ºè®®è¦æ±æ¨¡ååªè¿å JSON:{\"title\":\"æ¹åæ é¢\",\"content\":\"æ¹ååç HTML æ­£æ\"}"
+msgstr ""
+
+msgid "åç±»ä¸æ ç­¾"
+msgstr ""
+
+msgid "èªå¨åç±»è§å"
+msgstr ""
+
+msgid "å¹éæ é¢ææ­£æå,ä¼ä¼åä½¿ç¨å½ä¸­çåç±» ID;æ²¡æå½ä¸­åä½¿ç¨é»è®¤åç±»ã"
+msgstr ""
+
+msgid "æ¯è¡ä¸æ¡:å³é®è¯=>åç±»ID,ä¾å¦:WordPress=>3"
+msgstr ""
+
+msgid "èªå¨åç±»è§å åç±»ID,ä¾å¦:WordPress=>3\"> å¹éæ é¢ææ­£æå,ä¼ä¼åä½¿ç¨å½ä¸­çåç±» ID;æ²¡æå½ä¸­åä½¿ç¨é»è®¤åç±»ã"
+msgstr ""
+
+msgid "åºå®æ ç­¾"
+msgstr ""
+
+msgid "ä¼ä¸é¡µé¢æåæ ç­¾ãèªå¨æ ç­¾åå¹¶ååå¥æç« ã"
+msgstr ""
+
+msgid "æ¯è¡æç¨éå·/é¡¿å·/åå·/ç«çº¿åéï¼ä¾å¦ï¼SEO, WordPress"
+msgstr ""
+
+msgid "åºå®æ ç­¾ ä¼ä¸é¡µé¢æåæ ç­¾ãèªå¨æ ç­¾åå¹¶ååå¥æç« ã"
+msgstr ""
+
+msgid "èªå¨æ ç­¾"
+msgstr ""
+
+msgid "æ ¹æ®æ é¢å³é®è¯èªå¨å æ ç­¾"
+msgstr ""
+
+msgid "å¯ç¨å¢å¼ºå¹é"
+msgstr ""
+
+msgid "æ ç­¾åâï¼å¹¶å°½éé¿åè±æç­è¯è¯¯å¹éï¼å³é­ååéä¸ºæ§ççº¯åå«å¹éã"
+msgstr ""
+
+msgid "æ¯æï¼æ¯è¡ä¸ä¸ªå³é®è¯ï¼æ å³é®è¯=>æ ç­¾åï¼æ å³é®è¯1|å³é®è¯2=>æ ç­¾åãæ­£æåºç°ä¸ä¼ä½ä¸ºæ ç­¾ã"
+msgstr ""
+
+msgid "> æ ¹æ®æ é¢å³é®è¯èªå¨å æ ç­¾ <label style="
+msgstr ""
+
+msgid "> å¯ç¨å¢å¼ºå¹é <textarea name="
+msgstr ""
+
+msgid "èªå¨æ ç­¾ æ ¹æ®æ é¢å³é®è¯èªå¨å æ ç­¾ å¯ç¨å¢å¼ºå¹é æ ç­¾åï¼æ å³é®è¯1|å³é®è¯2=>æ ç­¾åãæ­£æåºç°ä¸ä¼ä½ä¸ºæ ç­¾ã\"> åªä½¿ç¨è¿éæå¨å¡«åçå³é®è¯ï¼ä¸ä¼åèªå¨è½½å¥ç«ç¹ç°ææç« æ ç­¾ãå¼å¯âå¢å¼ºå¹éâæ¶ï¼æ¯æâå³é®è¯=>æ ç­¾åââå³é®è¯1|å³é®è¯2=>æ ç­¾åâï¼å¹¶å°½éé¿åè±æç­è¯è¯¯å¹éï¼å³é­ååéä¸ºæ§ççº¯åå«å¹éã"
+msgstr ""
+
+msgid "SEO ä¸æè¦"
+msgstr ""
+
+msgid "æè¦"
+msgstr ""
+
+msgid "èªå¨çææè¦"
+msgstr ""
+
+msgid "é¿åº¦"
+msgstr ""
+
+msgid "> èªå¨çææè¦ é¿åº¦ <input name="
+msgstr ""
+
+msgid "æè¦ èªå¨çææè¦ é¿åº¦ å­"
+msgstr ""
+
+msgid "SEO å­æ®µ"
+msgstr ""
+
+msgid "æä»¶"
+msgstr ""
+
+msgid "ä¸åå¥"
+msgstr ""
+
+msgid "SEO æ é¢æ¨¡æ¿:"
+msgstr ""
+
+msgid "SEO æè¿°æ¨¡æ¿:"
+msgstr ""
+
+msgid "å¯ç¨åé:{title}ã{excerpt}ã{site}ã{source}"
+msgstr ""
+
+msgid "å¤å¶æ é¢æ¨¡æ¿"
+msgstr ""
+
+msgid "å¤å¶æè¿°æ¨¡æ¿"
+msgstr ""
+
+msgid ">ä¸åå¥ <option value="
+msgstr ""
+
+msgid ">All in One SEO SEO æ é¢æ¨¡æ¿:<input name="
+msgstr ""
+
+msgid "]); ?>\" placeholder=\"{title} - {site}\"> SEO æè¿°æ¨¡æ¿:<input name=\"seo_desc_template\" class=\"regular-text\" value=\"<?php echo esc_attr($rule["
+msgstr ""
+
+msgid ">å¯ç¨åé:{title}ã{excerpt}ã{site}ã{source} <button class="
+msgstr ""
+
+msgid ">å¤å¶æ é¢æ¨¡æ¿ <button class="
+msgstr ""
+
+msgid "SEO å­æ®µ æä»¶ ä¸åå¥ Rank Math Yoast SEO All in One SEO SEO æ é¢æ¨¡æ¿: SEO æè¿°æ¨¡æ¿: å¯ç¨åé:{title}ã{excerpt}ã{site}ã{source} å¤å¶æ é¢æ¨¡æ¿ å¤å¶æè¿°æ¨¡æ¿"
+msgstr ""
+
+msgid "è¯·æ±å¤´ä¸è®¿é®"
+msgstr ""
+
+msgid "è¯·æ±å¤´éç½®"
+msgstr ""
+
+msgid "User-Agent æ± ,æ¯è¡ä¸ä¸ª:"
+msgstr ""
+
+msgid "çç©ºåèªå¨éæºçæå¸¸è§æµè§å¨ User-Agent"
+msgstr ""
+
+msgid "çç©ºåèªå¨éæºçææ¥æºé¡µ"
+msgstr ""
+
+msgid "å¯æ¯è¡å¡«åä¸ç» Cookieï¼ééæ¶éæºéæ©ï¼çç©ºåä¸åé"
+msgstr ""
+
+msgid "]); ?>\" placeholder=\"çç©ºåèªå¨éæºçææ¥æºé¡µ\"> Cookie: <?php echo esc_textarea($rule["
+msgstr ""
+
+msgid "è¯·æ±å¤´éç½® User-Agent æ± ,æ¯è¡ä¸ä¸ª: Referer: Cookie:"
+msgstr ""
+
+msgid "ä¿å­è§å"
+msgstr ""
+
+msgid "æ·»å è§å"
+msgstr ""
+
+msgid "åæ¶"
+msgstr ""
+
+msgid "æµè¯ä¸ä¼ä¿å­å½åä¿®æ¹ï¼å¦æåæ¹äºè§åï¼è¯·åä¿å­åæµè¯ã"
+msgstr ""
+
+msgid "è§åæµè¯ç»æ"
+msgstr ""
+
+msgid "è¿éæ¾ç¤ºååæ§è¡çåè¡¨é¡µæµè¯ææç« é¢è§ç»æï¼å³é­åä»å¯ç»§ç»­ç¼è¾å½åè§åã"
+msgstr ""
+
+msgid "å³é­ç»æ"
+msgstr ""
+
+msgid "è§ååè¡¨"
+msgstr ""
+
+msgid "åç§°"
+msgstr ""
+
+msgid "ç¶æ"
+msgstr ""
+
+msgid "æååç°"
+msgstr ""
+
+msgid "æåéé"
+msgstr ""
+
+msgid "ID åç§° ç¶æ å¾é æå å¤±è´¥ æååç° æåéé æä½"
+msgstr ""
+
+msgid "ç¼è¾"
+msgstr ""
+
+msgid "å¤å¶"
+msgstr ""
+
+msgid "åç°é¾æ¥"
+msgstr ""
+
+msgid "éééå"
+msgstr ""
+
+msgid "å é¤"
+msgstr ""
+
+msgid "return confirm('ç¡®å®å é¤è§å?éååæ¥å¿ä¹ä¼å é¤ã')"
+msgstr ""
+
+msgid "è§åå¯¼å¥/å¯¼åº"
+msgstr ""
+
+msgid "å¯¼åºå¨é¨è§å JSON"
+msgstr ""
+
+msgid "å¯¼å¥è§å JSON"
+msgstr ""
+
+msgid "return confirm('å¯¼å¥ä¼æ°å¢è§å,ä¸ä¼è¦çç°æè§å,ç¡®å®ç»§ç»­?')"
+msgstr ""
+
+msgid "æ¥çééä»»å¡ç¶æ,ç­éå¤±è´¥é¡¹,éè¯ææ¸çéåã"
+msgstr ""
+
+msgid "å¨é¨"
+msgstr ""
+
+msgid ")); ?>\">å¨é¨ page_url("
+msgstr ""
+
+msgid "))); ?>\">å¾é page_url("
+msgstr ""
+
+msgid "))); ?>\">å¤±è´¥ page_url("
+msgstr ""
+
+msgid "å¨é¨ å¾é å¤±è´¥ æå"
+msgstr ""
+
+msgid ">å¨é¨ <option value="
+msgstr ""
+
+msgid "ç¶æ å¨é¨"
+msgstr ""
+
+msgid "å¨é¨è§å"
+msgstr ""
+
+msgid ">å¨é¨è§å <option value="
+msgstr ""
+
+msgid "è§å å¨é¨è§å"
+msgstr ""
+
+msgid "URL å³é®è¯"
+msgstr ""
+
+msgid "éè¯¯å³é®è¯"
+msgstr ""
+
+msgid "å·²å°æ/å¯æ§è¡"
+msgstr ""
+
+msgid "å»¶è¿ä¸­"
+msgstr ""
+
+msgid ">å·²å°æ/å¯æ§è¡ <option value="
+msgstr ""
+
+msgid "æ§è¡æ¶é´ å¨é¨ å·²å°æ/å¯æ§è¡ å»¶è¿ä¸­"
+msgstr ""
+
+msgid "ç­é"
+msgstr ""
+
+msgid "éç½®"
+msgstr ""
+
+msgid ">ç­é <a class="
+msgstr ""
+
+msgid "ç­é éç½®"
+msgstr ""
+
+msgid "å¤±è´¥ä»»å¡"
+msgstr ""
+
+msgid "ç­å¾æ§è¡"
+msgstr ""
+
+msgid "AI å¤±è´¥"
+msgstr ""
+
+msgid "å¾çé®é¢"
+msgstr ""
+
+msgid "éæ©å¨é®é¢"
+msgstr ""
+
+msgid "æ¸çéå:è§å å¨é¨è§å"
+msgstr ""
+
+msgid ">æå <option value="
+msgstr ""
+
+msgid ">å¤±è´¥ <option value="
+msgstr ""
+
+msgid ">è·³è¿ <option value="
+msgstr ""
+
+msgid "ç¶æ æå å¤±è´¥ è·³è¿ å¾é"
+msgstr ""
+
+msgid "æ©äº å¤©"
+msgstr ""
+
+msgid "æ¸ç"
+msgstr ""
+
+msgid "return confirm('ç¡®å®ææ¡ä»¶æ¸çéå?')"
+msgstr ""
+
+msgid "æ¹éæä½"
+msgstr ""
+
+msgid "éè¯éä¸­"
+msgstr ""
+
+msgid "å é¤éä¸­"
+msgstr ""
+
+msgid "éè¯å¨é¨å¤±è´¥"
+msgstr ""
+
+msgid "å é¤å¨é¨æå"
+msgstr ""
+
+msgid "åºç¨"
+msgstr ""
+
+msgid "æ¡;å½åç¬¬"
+msgstr ""
+
+msgid "é¡µ,æ¯é¡µ"
+msgstr ""
+
+msgid "æ¡ã"
+msgstr ""
+
+msgid ">æ¹éæä½ <option value="
+msgstr ""
+
+msgid ">éè¯éä¸­ <option value="
+msgstr ""
+
+msgid ">å é¤éä¸­ <option value="
+msgstr ""
+
+msgid ">éè¯å¨é¨å¤±è´¥ <option value="
+msgstr ""
+
+msgid ">å é¤å¨é¨æå <button class="
+msgstr ""
+
+msgid "return confirm('ç¡®å®æ§è¡æ¹éæä½?')"
+msgstr ""
+
+msgid "æ¹éæä½ éè¯éä¸­ å é¤éä¸­ éè¯å¨é¨å¤±è´¥ å é¤å¨é¨æå åºç¨ å± æ¡;å½åç¬¬ é¡µ,æ¯é¡µ æ¡ã"
+msgstr ""
+
+msgid "æ¬¡æ°"
+msgstr ""
+
+msgid "æç« "
+msgstr ""
+
+msgid "ä¸æ¬¡æ§è¡"
+msgstr ""
+
+msgid "æ´æ°æ¶é´"
+msgstr ""
+
+msgid "cb.checked=this.checked)\"> ID è§å ç¶æ æ¬¡æ° æç«  URL éè¯¯ ä¸æ¬¡æ§è¡ æ´æ°æ¶é´ æä½"
+msgstr ""
+
+msgid "ææ éå"
+msgstr ""
+
+msgid "ç«å³"
+msgstr ""
+
+msgid "éè¯"
+msgstr ""
+
+msgid "return confirm('ç¡®å®å é¤?')"
+msgstr ""
+
+msgid "è¿½è¸ªééè¿ç¨ãéè¯¯åå ãè­¦åä¿¡æ¯åç®æ  URLã"
+msgstr ""
+
+msgid "çº§å« å¨é¨"
+msgstr ""
+
+msgid "æ¶æ¯æ URL"
+msgstr ""
+
+msgid "å³é®è¯"
+msgstr ""
+
+msgid "éåID"
+msgstr ""
+
+msgid "éæ©å¨ç¸å³"
+msgstr ""
+
+msgid "éå¤/è·³è¿"
+msgstr ""
+
+msgid "æ¸ç©ºæ¥å¿"
+msgstr ""
+
+msgid "return confirm('ç¡®å®æ¸ç©ºå¨é¨æ¥å¿?')"
+msgstr ""
+
+msgid "å± æ¡;å½åç¬¬ é¡µ,æ¯é¡µ æ¡ã"
+msgstr ""
+
+msgid "éå"
+msgstr ""
+
+msgid "æ¶é´ çº§å« è§å éå æ¶æ¯ URL"
+msgstr ""
+
+msgid "ææ æ¥å¿"
+msgstr ""
+
+msgid "&laquo; ä¸ä¸é¡µ"
+msgstr ""
+
+msgid "\">&laquo; ä¸ä¸é¡µ"
+msgstr ""
+
+msgid "if ($paged > 1) echo ' page_url($page, array_merge($args, array('paged'=>$paged-1)))) . '\">&laquo; ä¸ä¸é¡µ ';"
+msgstr ""
+
+msgid "ä¸ä¸é¡µ &raquo;"
+msgstr ""
+
+msgid "\">ä¸ä¸é¡µ &raquo;"
+msgstr ""
+
+msgid "if ($paged page_url($page, array_merge($args, array('paged'=>$paged+1)))) . '\">ä¸ä¸é¡µ &raquo; ';"
+msgstr ""
+
+msgid "WPéé AIéå"
+msgstr ""
+
+msgid "æ¥æº:"
+msgstr ""
+
+msgid "æ¥æº: <a href=\""
+msgstr ""
+
+msgid "if ($source_url !== '') echo ' æ¥æº: ' . esc_html(wp_html_excerpt($source_url, 90)) . ' ';"
+msgstr ""
+
+msgid "è¿ç¯æç« æ²¡æééæ¥æº URL,ä»å¯æå¨ç¨å½åæ é¢åæ­£æè¿è¡ AI éåã"
+msgstr ""
+
+msgid "else echo ' è¿ç¯æç« æ²¡æééæ¥æº URL,ä»å¯æå¨ç¨å½åæ é¢åæ­£æè¿è¡ AI éåã ';"
+msgstr ""
+
+msgid "è§å:"
+msgstr ""
+
+msgid "éå:"
+msgstr ""
+
+msgid "éå: #"
+msgstr ""
+
+msgid "echo ' è§å: ' . esc_html($queue['rule_name'] ?: ('#' . (int)$queue['rule_id'])) . ' éå: #' . intval($queue['id']) . ' / ' . esc_html($queue['status']) . ' ';"
+msgstr ""
+
+msgid "æè¿ AI æ¥å¿:"
+msgstr ""
+
+msgid "echo ' æè¿ AI æ¥å¿: ';"
+msgstr ""
+
+msgid "ææ "
+msgstr ""
+
+msgid "æè¿ AI æ¥å¿: ææ "
+msgstr ""
+
+msgid "} else echo ' æè¿ AI æ¥å¿: ææ  ';"
+msgstr ""
+
+msgid "éééå:"
+msgstr ""
+
+msgid "æªå¹éå°éåè®°å½"
+msgstr ""
+
+msgid "éééå: æªå¹éå°éåè®°å½"
+msgstr ""
+
+msgid "} else echo ' éééå: æªå¹éå°éåè®°å½ ';"
+msgstr ""
+
+msgid "å¨å± AI è½åå½åæªå¯ç¨,è¯·åå° WPééè®¾ç½®å¼å¯ã"
+msgstr ""
+
+msgid "if (empty($settings['ai_enabled'])) echo ' å¨å± AI è½åå½åæªå¯ç¨,è¯·åå° WPééè®¾ç½®å¼å¯ã ';"
+msgstr ""
+
+msgid "æå¨ AI éåå½åæç« "
+msgstr ""
+
+msgid "ç¡®å®è¦ç¨ AI éåå½åæç« æ é¢åæ­£æå?å»ºè®®åç¡®è®¤æç« å·²ä¿å­ã"
+msgstr ""
+
+msgid "<a class=\"button button-primary wp-caiji-confirm\" data-confirm=\"ç¡®å®è¦ç¨ AI éåå½åæç« æ é¢åæ­£æå?å»ºè®®åç¡®è®¤æç« å·²ä¿å­ã\" href=\""
+msgstr ""
+
+msgid "\">æå¨ AI éåå½åæç« "
+msgstr ""
+
+msgid "echo ' æå¨ AI éåå½åæç«  ';"
+msgstr ""
+
+msgid "ä¼ç´æ¥æ´æ°å½åæç« æ é¢åæ­£æ;å¤±è´¥æ¶ä¸ä¼æ¹å¨åæã"
+msgstr ""
+
+msgid "echo ' ä¼ç´æ¥æ´æ°å½åæç« æ é¢åæ­£æ;å¤±è´¥æ¶ä¸ä¼æ¹å¨åæã ';"
+msgstr ""
+
+msgid "æééªè¯å¤±è´¥"
+msgstr ""
+
+msgid "æç« ä¸å­å¨"
+msgstr ""
+
+msgid "å¨å± AI è½åæªå¯ç¨"
+msgstr ""
+
+msgid "æç« ç¼è¾é¡µæå¨ AI æ¹åå¤±è´¥:"
+msgstr ""
+
+msgid "æç« ç¼è¾é¡µæå¨ AI æ¹åå¤±è´¥:ç»æè¿ç­æä¸ºç©º"
+msgstr ""
+
+msgid "æç« ç¼è¾é¡µæå¨ AI æ¹åå¤±è´¥:æ¹ååå¾çå¨é¨ä¸¢å¤±"
+msgstr ""
+
+msgid "æç« ç¼è¾é¡µæå¨ AI æ¹ååå¾çæ°éåå°:å"
+msgstr ""
+
+msgid "å¼ ,ç°"
+msgstr ""
+
+msgid "æç« ç¼è¾é¡µæå¨ AI æ¹åå®æ,æç«  ID:"
+msgstr ""
+
+msgid "AI éåå®æ,å·²æ´æ°å½åæç« "
+msgstr ""
+
+msgid "WP ééè®¾ç½®"
+msgstr ""
+
+msgid "è°æ´ééé¢çãéåè¿è¡éå¶ãå¾çæ¬å°åå AI æ¹åè½åã"
+msgstr ""
+
+msgid "å®æ¶ä¸éå"
+msgstr ""
+
+msgid "åç°é¾æ¥é¢ç"
+msgstr ""
+
+msgid "æ¯å°æ¶"
+msgstr ""
+
+msgid ">æ¯ 5 åé <option value="
+msgstr ""
+
+msgid ">æ¯ 10 åé <option value="
+msgstr ""
+
+msgid ">æ¯ 30 åé <option value="
+msgstr ""
+
+msgid "åç°é¾æ¥é¢ç æ¯ 5 åé æ¯ 10 åé æ¯ 30 åé æ¯å°æ¶"
+msgstr ""
+
+msgid "ééæç« é¢ç"
+msgstr ""
+
+msgid "åºå®é¢ç"
+msgstr ""
+
+msgid "éæºå»¶è¿éé"
+msgstr ""
+
+msgid "æ¯ 5 åé æ¯ 10 åé æ¯ 30 åé æ¯å°æ¶"
+msgstr ""
+
+msgid "éæºé´é - åé"
+msgstr ""
+
+msgid "éæºå»¶è¿ééä¼å¨æ¯æ¬¡ééå®æåï¼æè®¾ç½®èå´éæºå®æä¸ä¸æ¬¡ééï¼æ´åäººå·¥æä½ã"
+msgstr ""
+
+msgid "å¨å±æ¯æ¬¡æå¤éé"
+msgstr ""
+
+msgid "å¨å±æ¯æ¬¡æå¤éé ç¯"
+msgstr ""
+
+msgid "æ¯æ¬¡æå¤å¤çè§å"
+msgstr ""
+
+msgid "æ¯æ¬¡æå¤å¤çè§å æ¡"
+msgstr ""
+
+msgid "è¿è¡ä¿æ¤"
+msgstr ""
+
+msgid "åæ¬¡ Cron æå¤§è¿è¡"
+msgstr ""
+
+msgid "å½åééè§åå¯ç¨ AI æ¶ï¼å»ºè®®å¤§äº AI è¶æ¶ + æå/å¾çå¤çèæ¶ï¼å¦åä¼é¢ç¹åºç°âè¾¾å°åæ¬¡ Cron æå¤§è¿è¡æ¶é´âã"
+msgstr ""
+
+msgid "> ç§ <p class="
+msgstr ""
+
+msgid "åæ¬¡ Cron æå¤§è¿è¡ ç§ å½åééè§åå¯ç¨ AI æ¶ï¼å»ºè®®å¤§äº AI è¶æ¶ + æå/å¾çå¤çèæ¶ï¼å¦åä¼é¢ç¹åºç°âè¾¾å°åæ¬¡ Cron æå¤§è¿è¡æ¶é´âã"
+msgstr ""
+
+msgid "è¿è¡ä¸­è¶æ¶éæ¾"
+msgstr ""
+
+msgid "éåé¿æ¶é´åç running ä¼èªå¨éå pendingï¼é¿åå¡æ­»ã"
+msgstr ""
+
+msgid "è¿è¡ä¸­è¶æ¶éæ¾ åé éåé¿æ¶é´åç running ä¼èªå¨éå pendingï¼é¿åå¡æ­»ã"
+msgstr ""
+
+msgid "ä»»å¡éè¶æ¶"
+msgstr ""
+
+msgid "é²æ­¢ä¸¤ä¸ª Cron åæ¶è¿è¡ãè¶è¿è¯¥æ¶é´ä¼èªå¨éæ¾æ§éã"
+msgstr ""
+
+msgid "ä»»å¡éè¶æ¶ ç§ é²æ­¢ä¸¤ä¸ª Cron åæ¶è¿è¡ãè¶è¿è¯¥æ¶é´ä¼èªå¨éæ¾æ§éã"
+msgstr ""
+
+msgid "å¾çéå¶"
+msgstr ""
+
+msgid "æ¯ç¯æå¤"
+msgstr ""
+
+msgid "å¼ ï¼åå¾æå¤§"
+msgstr ""
+
+msgid "0 å¼ è¡¨ç¤ºä¸ä¸è½½å¾çï¼å»ºè®®çäº§ç¯å¢ä¿æ 5-10 å¼ ã5MB ä»¥åï¼é¿åè¢«å¤§å¾ææ¢ã"
+msgstr ""
+
+msgid "]); ?>\" style=\"width:80px\"> å¼ ï¼åå¾æå¤§ <input name=\"max_image_size_mb\" type=\"number\" min=\"1\" max=\"50\" value=\"<?php echo esc_attr($settings["
+msgstr ""
+
+msgid "å¾çéå¶ æ¯ç¯æå¤ å¼ ï¼åå¾æå¤§ MB 0 å¼ è¡¨ç¤ºä¸ä¸è½½å¾çï¼å»ºè®®çäº§ç¯å¢ä¿æ 5-10 å¼ ã5MB ä»¥åï¼é¿åè¢«å¤§å¾ææ¢ã"
+msgstr ""
+
+msgid "AI æ¹åè®¾ç½®"
+msgstr "AI Rewrite Settings"
+
+msgid "å¯ç¨ AI è½å"
+msgstr "Enable AI"
+
+msgid "åè®¸ééè§åå¨åå¸åè°ç¨ AI æ¹å"
+msgstr ""
+
+msgid "æ¯æ¡è§åä»éåç¬å¼å¯âåå¸å AI æ¹åâãå³é­è¿éä¼å¨å±ç¦ç¨ AIã"
+msgstr ""
+
+msgid "> åè®¸ééè§åå¨åå¸åè°ç¨ AI æ¹å <p class="
+msgstr ""
+
+msgid "å¯ç¨ AI è½å åè®¸ééè§åå¨åå¸åè°ç¨ AI æ¹å æ¯æ¡è§åä»éåç¬å¼å¯âåå¸å AI æ¹åâãå³é­è¿éä¼å¨å±ç¦ç¨ AIã"
+msgstr ""
+
+msgid "ææä¿å­å¹¶å¨åå°æ¾ç¤ºï¼ä»æ¥ææ¬æä»¶è®¾ç½®æéçç®¡çåå¯æ¥çãè¯æ­å¯¼åºä¼èªå¨è±æã"
+msgstr ""
+
+msgid "AI API Key ææä¿å­å¹¶å¨åå°æ¾ç¤ºï¼ä»æ¥ææ¬æä»¶è®¾ç½®æéçç®¡çåå¯æ¥çãè¯æ­å¯¼åºä¼èªå¨è±æã"
+msgstr ""
+
+msgid "AI æå¡å"
+msgstr "AI Provider"
+
+msgid "ä¸­è½¬ / èªå®ä¹"
+msgstr "Relay / Custom"
+
+msgid "åè´¹ / åè´¹é¢åº¦"
+msgstr "Free / Free quota"
+
+msgid "ä»è´¹"
+msgstr "Paid"
+
+msgid "è¯´æ"
+msgstr "Guide"
+
+msgid "åéæ©âä¸­è½¬ / åè´¹ / ä»è´¹âï¼åéæ©å¯¹åº AI åç§°ï¼éå¥½åç¹å»âè¯´æâæ¥çè¯¥å¹³å°æ³¨åå API Key è·åæç¨ãä¸­å½å¤§é/å¶ä»å½å®¶ä¼æ¾ç¤ºå¨ AI åç§°åã"
+msgstr ""
+
+msgid ">ä¸­è½¬ / èªå®ä¹ <option value="
+msgstr ""
+
+msgid ">åè´¹ / åè´¹é¢åº¦ <option value="
+msgstr ""
+
+msgid ">ä»è´¹ <select name="
+msgstr ""
+
+msgid ">è¯´æ <p class="
+msgstr ""
+
+msgid "AI æå¡å ä¸­è½¬ / èªå®ä¹ åè´¹ / åè´¹é¢åº¦ ä»è´¹ è¯´æ åéæ©âä¸­è½¬ / åè´¹ / ä»è´¹âï¼åéæ©å¯¹åº AI åç§°ï¼éå¥½åç¹å»âè¯´æâæ¥çè¯¥å¹³å°æ³¨åå API Key è·åæç¨ãä¸­å½å¤§é/å¶ä»å½å®¶ä¼æ¾ç¤ºå¨ AI åç§°åã"
+msgstr ""
+
+msgid "å¡«å¥æéé»è®¤å°å"
+msgstr "Fill selected default endpoint"
+
+msgid "å¼å®¹ä¸­è½¬ç«ï¼å¯å¡«å®æ´ chat/completions å°åï¼ä¹å¯åªå¡«åºç¡å°åæ /v1ï¼æä»¶ä¼èªå¨è¡¥å¨ãGemini å®æ¹å¯ä½¿ç¨ {model} å ä½ï¼çäº§ç¯å¢å»ºè®®ä¼å HTTPSã"
+msgstr ""
+
+msgid "https://api.openai.com/v1 æ http://ä½ çä¸­è½¬ç«/v1"
+msgstr ""
+
+msgid ">å¡«å¥æéé»è®¤å°å <p class="
+msgstr ""
+
+msgid "AI Endpoint å¡«å¥æéé»è®¤å°å å¼å®¹ä¸­è½¬ç«ï¼å¯å¡«å®æ´ chat/completions å°åï¼ä¹å¯åªå¡«åºç¡å°åæ /v1ï¼æä»¶ä¼èªå¨è¡¥å¨ãGemini å®æ¹å¯ä½¿ç¨ {model} å ä½ï¼çäº§ç¯å¢å»ºè®®ä¼å HTTPSã"
+msgstr ""
+
+msgid "AI æ¨¡å"
+msgstr "AI Model"
+
+msgid "æ¸©åº¦"
+msgstr ""
+
+msgid "]); ?>\" placeholder=\"gpt-5.5\"> æ¸©åº¦ <input name=\"ai_temperature\" type=\"number\" min=\"0\" max=\"2\" step=\"0.1\" value=\"<?php echo esc_attr($settings["
+msgstr ""
+
+msgid "AI æ¨¡å æ¸©åº¦"
+msgstr ""
+
+msgid "é»è®¤æ¹åè¯­è¨"
+msgstr "Default rewrite language"
+
+msgid "æ£æµæ¹ååè¯­è¨ï¼ä¸ç¬¦ååå¤å® AI å¤±è´¥"
+msgstr ""
+
+msgid "è§åå¯åç¬è¦çç®æ è¯­è¨ãéæ©âä¸éå¶/ä¸æ£æµâæ¶ä¸ä¼è¿½å è¯­è¨è¦æ±ï¼ä¹ä¸ä¼åè¯­è¨æ£æµã"
+msgstr ""
+
+msgid "> æ£æµæ¹ååè¯­è¨ï¼ä¸ç¬¦ååå¤å® AI å¤±è´¥ <p class="
+msgstr ""
+
+msgid "é»è®¤æ¹åè¯­è¨ æ£æµæ¹ååè¯­è¨ï¼ä¸ç¬¦ååå¤å® AI å¤±è´¥ è§åå¯åç¬è¦çç®æ è¯­è¨ãéæ©âä¸éå¶/ä¸æ£æµâæ¶ä¸ä¼è¿½å è¯­è¨è¦æ±ï¼ä¹ä¸ä¼åè¯­è¨æ£æµã"
+msgstr ""
+
+msgid "API è¿æ¥æµè¯"
+msgstr "API Connection Test"
+
+msgid "æµè¯ API è¿æ¥"
+msgstr "Test API Connection"
+
+msgid "ä¼ä¼åä½¿ç¨å½åè¡¨åéå¡«åç KeyãEndpointãæ¨¡ååè¶æ¶åéä¸æ¬¡æå°æµè¯è¯·æ±ï¼ä¸ä¼ä¿å­è®¾ç½®ï¼ä¹ä¸ä¼åå»ºæç« ã"
+msgstr ""
+
+msgid ">æµè¯ API è¿æ¥ <p class="
+msgstr ""
+
+msgid "API è¿æ¥æµè¯ æµè¯ API è¿æ¥ ä¼ä¼åä½¿ç¨å½åè¡¨åéå¡«åç KeyãEndpointãæ¨¡ååè¶æ¶åéä¸æ¬¡æå°æµè¯è¯·æ±ï¼ä¸ä¼ä¿å­è®¾ç½®ï¼ä¹ä¸ä¼åå»ºæç« ã"
+msgstr ""
+
+msgid "AI è¶æ¶/è¾å¥éå¶"
+msgstr ""
+
+msgid "è¶æ¶"
+msgstr ""
+
+msgid "ç§ï¼æå¤æäº¤æ­£æ"
+msgstr ""
+
+msgid "å­ç¬¦"
+msgstr ""
+
+msgid "å¦æ AI ç»å¸¸ 504 æ cURL 28ï¼å¯åæè¶æ¶éå° 30-60 ç§ï¼ææåæ¬¡ Cron æå¤§è¿è¡è°å°é«äº AI è¶æ¶ã"
+msgstr ""
+
+msgid "]); ?>\" style=\"width:90px\"> ç§ï¼æå¤æäº¤æ­£æ <input name=\"ai_max_input_chars\" type=\"number\" min=\"1000\" max=\"60000\" value=\"<?php echo esc_attr($settings["
+msgstr ""
+
+msgid "> å­ç¬¦<p class="
+msgstr ""
+
+msgid "AI è¶æ¶/è¾å¥éå¶ è¶æ¶ ç§ï¼æå¤æäº¤æ­£æ å­ç¬¦ å¦æ AI ç»å¸¸ 504 æ cURL 28ï¼å¯åæè¶æ¶éå° 30-60 ç§ï¼ææåæ¬¡ Cron æå¤§è¿è¡è°å°é«äº AI è¶æ¶ã"
+msgstr ""
+
+msgid "é»è®¤æ¹å Prompt"
+msgstr "Default Rewrite Prompt"
+
+msgid "è§åéæªå¡«åä¸å± Prompt æ¶ä½¿ç¨è¿éãå»ºè®®è¦æ±æ¨¡ååªè¿å JSON:{\"title\":\"...\",\"content\":\"...\"}"
+msgstr ""
+
+msgid ">è§åéæªå¡«åä¸å± Prompt æ¶ä½¿ç¨è¿éãå»ºè®®è¦æ±æ¨¡ååªè¿å JSON:{"
+msgstr ""
+
+msgid "é»è®¤æ¹å Prompt è§åéæªå¡«åä¸å± Prompt æ¶ä½¿ç¨è¿éãå»ºè®®è¦æ±æ¨¡ååªè¿å JSON:{\"title\":\"...\",\"content\":\"...\"}"
+msgstr ""
+
+msgid "æ¥å¿ä¸æ°æ®"
+msgstr ""
+
+msgid "æ¥å¿"
+msgstr ""
+
+msgid "å¯ç¨æ¥å¿"
+msgstr ""
+
+msgid "ï¼ä¿çæè¿"
+msgstr ""
+
+msgid "> å¯ç¨æ¥å¿ ï¼ä¿çæè¿ <input name="
+msgstr ""
+
+msgid "æ¥å¿ å¯ç¨æ¥å¿ ï¼ä¿çæè¿ æ¡"
+msgstr ""
+
+msgid "å¸è½½ä¿æ¤"
+msgstr ""
+
+msgid "å¸è½½æä»¶æ¶å é¤è§åãéåãæ¥å¿åè®¾ç½®"
+msgstr ""
+
+msgid "å±é©éé¡¹ï¼é»è®¤ä¸å é¤æ°æ®ï¼é²æ­¢è¯¯å¸è½½é æééè§åä¸¢å¤±ãåªæç¡®è®¤ä¸åéè¦è¿äºæ°æ®æ¶æå»ºè®®å¼å¯ã"
+msgstr ""
+
+msgid "> å¸è½½æä»¶æ¶å é¤è§åãéåãæ¥å¿åè®¾ç½® <p class="
+msgstr ""
+
+msgid "å¸è½½ä¿æ¤ å¸è½½æä»¶æ¶å é¤è§åãéåãæ¥å¿åè®¾ç½® å±é©éé¡¹ï¼é»è®¤ä¸å é¤æ°æ®ï¼é²æ­¢è¯¯å¸è½½é æééè§åä¸¢å¤±ãåªæç¡®è®¤ä¸åéè¦è¿äºæ°æ®æ¶æå»ºè®®å¼å¯ã"
+msgstr ""
+
+msgid "ä¿å­è®¾ç½®"
+msgstr ""
+
+msgid "API Key è·åè¯´æ"
+msgstr ""
+
+msgid "å®æ¹å¥å£ï¼"
+msgstr "Official entry:"
+
+msgid "å¹³å°è¯´æï¼"
+msgstr "Platform notes:"
+
+msgid "æä½æ­¥éª¤"
+msgstr "Steps"
+
+msgid "æ³¨æäºé¡¹"
+msgstr "Notes"
+
+msgid "æç¥éäº"
+msgstr "Got it"
+
+msgid "è§åæåè¡¨é¡µ URL æ æ"
+msgstr ""
+
+msgid "åè¡¨é¡µæåå¤±è´¥,è¯·æ¥çééæ¥å¿"
+msgstr ""
+
+msgid "åè¡¨é¡µæµè¯ç»æ"
+msgstr ""
+
+msgid "echo ' åè¡¨é¡µæµè¯ç»æ ';"
+msgstr ""
+
+msgid "åè¡¨é¡µ:"
+msgstr ""
+
+msgid "åè¡¨é¡µ: <a href=\""
+msgstr ""
+
+msgid "echo ' åè¡¨é¡µ: ' . esc_html($result['url']) . ' ';"
+msgstr ""
+
+msgid "æ¬æ¬¡é¢è§åç°:"
+msgstr ""
+
+msgid "' . intval($result['count']) . ' æ¡;å¯å¥é ' . intval($result['ready_count'] ?? 0) . ' æ¡;æ¥æºå·²å­å¨ ' . intval($result['duplicate_count'] ?? 0) . ' æ¡ãæå¤æ¾ç¤º 50 æ¡ã"
+msgstr ""
+
+msgid "æ¡;å¯å¥é"
+msgstr ""
+
+msgid "æ¡;æ¥æºå·²å­å¨"
+msgstr ""
+
+msgid "æ¡ãæå¤æ¾ç¤º 50 æ¡ã"
+msgstr ""
+
+msgid "echo ' æ¬æ¬¡é¢è§åç°: ' . intval($result['count']) . ' æ¡;å¯å¥é ' . intval($result['ready_count'] ?? 0) . ' æ¡;æ¥æºå·²å­å¨ ' . intval($result['duplicate_count'] ?? 0) . ' æ¡ãæå¤æ¾ç¤º 50 æ¡ã ';"
+msgstr ""
+
+msgid "æµè¯ç»æ"
+msgstr ""
+
+msgid "' . ($ok ? 'è¿æ¥æå' : 'è¿æ¥å¤±è´¥') . '"
+msgstr ""
+
+msgid "æµè¯ç»æ <div class=\"notice"
+msgstr ""
+
+msgid "è¿æ¥æå"
+msgstr ""
+
+msgid "è¿æ¥å¤±è´¥"
+msgstr ""
+
+msgid "echo ' æµè¯ç»æ ' . ($ok ? 'è¿æ¥æå' : 'è¿æ¥å¤±è´¥') . ' ';"
+msgstr ""
+
+msgid "æå¡å"
+msgstr ""
+
+msgid "æ¨¡å"
+msgstr ""
+
+msgid "HTTP ç¶æ"
+msgstr ""
+
+msgid "èæ¶(ms)"
+msgstr ""
+
+msgid "è¿å/éè¯¯"
+msgstr ""
+
+msgid "- å¯æ¬"
+msgstr ""
+
+msgid "è§åæä»¶è¿å¤§,è¯·ä¸ä¼  2MB ä»¥åç JSON æä»¶ã"
+msgstr ""
+
+msgid "è§åæä»¶è¯»åå¤±è´¥ææä»¶è¿å¤§ã"
+msgstr ""
+
+msgid "è§å JSON æ ¼å¼éè¯¯:"
+msgstr ""
+
+msgid "æå¨åç°é¾æ¥ä»»å¡å·²æäº¤,çº¦ 1 ç§ååå°æ§è¡"
+msgstr ""
+
+msgid "æå¨éééåä»»å¡å·²æäº¤,çº¦ 1 ç§ååå°æ§è¡"
+msgstr ""
+
+msgid "è§åä¸å­å¨æå·²è¢«å é¤"
+msgstr ""
+
+msgid "æµè¯ URL æ ææè¢«å®å¨ç­ç¥æç»:åªåè®¸å¬ç½ http/https å°å"
+msgstr ""
+
+msgid "é¡µé¢æåå¤±è´¥,è¯·æ¥çééæ¥å¿"
+msgstr ""
+
+msgid "æ é¢æåä¸ºç©ºï¼è¯·æ£æ¥æ é¢éæ©å¨ææ é¢ååä»£ç "
+msgstr ""
+
+msgid "æ­£ææåä¸ºç©ºï¼è¯·æ£æ¥æ­£æéæ©å¨ææ­£æååä»£ç "
+msgstr ""
+
+msgid "æ¸æ´/æ¿æ¢åæ­£æä¸ºç©º,è¯·æ£æ¥ç§»é¤éæ©å¨ãæ¿æ¢è§åææ­£æéæ©å¨"
+msgstr ""
+
+msgid "æ¥ææåä¸ºç©ºï¼è¯·æ£æ¥æ¥æéæ©å¨ææ¥æååä»£ç "
+msgstr ""
+
+msgid "å¾çæ¬å°åéå¶:æ¯ç¯æå¤"
+msgstr ""
+
+msgid "å¼ ,åå¾æå¤§"
+msgstr ""
+
+msgid "æµè¯é¢è§ç»æ"
+msgstr ""
+
+msgid "echo ' æµè¯é¢è§ç»æ ';"
+msgstr ""
+
+msgid "æ é¢:"
+msgstr ""
+
+msgid "' . esc_html($result['title'] ?: 'æªæåå°') . '"
+msgstr ""
+
+msgid "æªæåå°"
+msgstr ""
+
+msgid "echo ' æ é¢: ' . esc_html($result['title'] ?: 'æªæåå°') . ' ';"
+msgstr ""
+
+msgid "æ¥æ:"
+msgstr ""
+
+msgid "' . esc_html($result['date'] ?: 'æªæåå°/æªè®¾ç½®') . '"
+msgstr ""
+
+msgid "æªæåå°/æªè®¾ç½®"
+msgstr ""
+
+msgid "echo ' æ¥æ: ' . esc_html($result['date'] ?: 'æªæåå°/æªè®¾ç½®') . ' ';"
+msgstr ""
+
+msgid "æç»åå¥ Tag:"
+msgstr ""
+
+msgid "' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags']) : 'æªè®¾ç½®') . '"
+msgstr ""
+
+msgid "æªè®¾ç½®"
+msgstr "Not set"
+
+msgid "echo ' æç»åå¥ Tag: ' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags']) : 'æªè®¾ç½®') . ' ';"
+msgstr ""
+
+msgid "é¡µé¢æå Tag:"
+msgstr ""
+
+msgid "' . esc_html(!empty($result['extracted_tags']) ? implode(', ', (array)$result['extracted_tags']) : 'æªæåå°/æªè®¾ç½®') . '"
+msgstr ""
+
+msgid "echo ' é¡µé¢æå Tag: ' . esc_html(!empty($result['extracted_tags']) ? implode(', ', (array)$result['extracted_tags']) : 'æªæåå°/æªè®¾ç½®') . ' ';"
+msgstr ""
+
+msgid "åºå® Tag:"
+msgstr ""
+
+msgid "' . esc_html(!empty($result['fixed_tags']) ? implode(', ', (array)$result['fixed_tags']) : 'æªè®¾ç½®') . 'ï¼"
+msgstr ""
+
+msgid "èªå¨å¹é Tag:"
+msgstr ""
+
+msgid "' . esc_html(!empty($result['auto_tags']) ? implode(', ', (array)$result['auto_tags']) : 'æªå¹é') . '"
+msgstr ""
+
+msgid "ï¼ èªå¨å¹é Tag:"
+msgstr ""
+
+msgid "æªå¹é"
+msgstr ""
+
+msgid "echo ' åºå® Tag: ' . esc_html(!empty($result['fixed_tags']) ? implode(', ', (array)$result['fixed_tags']) : 'æªè®¾ç½®') . 'ï¼ èªå¨å¹é Tag: ' . esc_html(!empty($result['auto_tags']) ? implode(', ', (array)$result['auto_tags']) : 'æªå¹é') . ' ';"
+msgstr ""
+
+msgid "æ­£æé¿åº¦:"
+msgstr ""
+
+msgid "åå§ ' . intval($result['raw_text_length'] ?? 0) . ' å­ï¼æ¸æ´å ' . intval($result['content_length']) . ' å­ï¼"
+msgstr ""
+
+msgid "å¾çæ°:"
+msgstr ""
+
+msgid "æ­£æé¿åº¦: åå§"
+msgstr ""
+
+msgid "å­ï¼æ¸æ´å"
+msgstr ""
+
+msgid "å­ï¼ å¾çæ°:"
+msgstr ""
+
+msgid "echo ' æ­£æé¿åº¦: åå§ ' . intval($result['raw_text_length'] ?? 0) . ' å­ï¼æ¸æ´å ' . intval($result['content_length']) . ' å­ï¼ å¾çæ°: ' . intval($result['image_count']) . ' ';"
+msgstr ""
+
+msgid "æ­£æé¢è§:"
+msgstr ""
+
+msgid "echo ' æ­£æé¢è§: ';"
+msgstr ""
+
+msgid "æµè¯æç¤º:"
+msgstr ""
+
+msgid "echo ' æµè¯æç¤º: ';"
+msgstr ""
+
+msgid "æ¥çæåè¯æ­ä¿¡æ¯"
+msgstr ""
+
+msgid "echo ' æ¥çæåè¯æ­ä¿¡æ¯ ';"
+msgstr ""
+
+msgid "éæ©å¨:"
+msgstr ""
+
+msgid "é¾æ¥ ' . esc_html($result['selectors']['link'] ?? '') . 'ï¼æ é¢ ' . esc_html($result['selectors']['title']) . 'ï¼æ­£æ ' . esc_html($result['selectors']['content']) . (!empty($result['selectors']['date']) ? 'ï¼æ¥æ ' . esc_html($result['selectors']['date']) : '') . (!empty($result['selectors']['tag']) ? 'ï¼Tagæ ç­¾ ' . esc_html($result['selectors']['tag']) : '') . '"
+msgstr ""
+
+msgid "éæ©å¨: é¾æ¥"
+msgstr ""
+
+msgid "ï¼æ é¢"
+msgstr ""
+
+msgid "ï¼æ­£æ"
+msgstr ""
+
+msgid "ï¼æ¥æ"
+msgstr ""
+
+msgid "ï¼Tagæ ç­¾"
+msgstr ""
+
+msgid "echo ' éæ©å¨: é¾æ¥ ' . esc_html($result['selectors']['link'] ?? '') . 'ï¼æ é¢ ' . esc_html($result['selectors']['title']) . 'ï¼æ­£æ ' . esc_html($result['selectors']['content']) . (!empty($result['selectors']['date']) ? 'ï¼æ¥æ ' . esc_html($result['selectors']['date']) : '') . (!empty($result['selectors']['tag']) ? 'ï¼Tagæ ç­¾ ' . esc_html($result['selectors']['tag']) : '') . ' ';"
+msgstr ""
+
+msgid "é¾æ¥æªå:"
+msgstr ""
+
+msgid "å·²å¯ç¨ååä»£ç æªåæ¨¡å¼"
+msgstr ""
+
+msgid "é¾æ¥æªå: å·²å¯ç¨ååä»£ç æªåæ¨¡å¼"
+msgstr ""
+
+msgid "echo ' é¾æ¥æªå: å·²å¯ç¨ååä»£ç æªåæ¨¡å¼ ';"
+msgstr ""
+
+msgid "æ é¢"
+msgstr ""
+
+msgid "æ­£æ"
+msgstr ""
+
+msgid "Tagæ ç­¾"
+msgstr ""
+
+msgid "å­æ®µæªå:"
+msgstr ""
+
+msgid "' . esc_html(implode('ã', $enabled_markers)) . ' å·²å¯ç¨ååä»£ç æªåæ¨¡å¼"
+msgstr ""
+
+msgid "if ($enabled_markers) echo ' å­æ®µæªå: ' . esc_html(implode('ã', $enabled_markers)) . ' å·²å¯ç¨ååä»£ç æªåæ¨¡å¼ ';"
+msgstr ""
+
+msgid "JSON è·¯å¾:"
+msgstr ""
+
+msgid "JSON è·¯å¾: æ¥æº"
+msgstr ""
+
+msgid "ï¼é¾æ¥"
+msgstr ""
+
+msgid "/ URLå­æ®µ"
+msgstr ""
+
+msgid "éæ©å¨å¹éæ°é:"
+msgstr ""
+
+msgid "é¾æ¥ ' . intval($result['selector_counts']['link'] ?? 0) . 'ï¼æ é¢ ' . intval($result['selector_counts']['title'] ?? 0) . 'ï¼æ­£æ ' . intval($result['selector_counts']['content'] ?? 0) . 'ï¼æ¥æ ' . intval($result['selector_counts']['date'] ?? 0) . 'ï¼Tagæ ç­¾ ' . intval($result['selector_counts']['tag'] ?? 0) . '"
+msgstr ""
+
+msgid "éæ©å¨å¹éæ°é: é¾æ¥"
+msgstr ""
+
+msgid "echo ' éæ©å¨å¹éæ°é: é¾æ¥ ' . intval($result['selector_counts']['link'] ?? 0) . 'ï¼æ é¢ ' . intval($result['selector_counts']['title'] ?? 0) . 'ï¼æ­£æ ' . intval($result['selector_counts']['content'] ?? 0) . 'ï¼æ¥æ ' . intval($result['selector_counts']['date'] ?? 0) . 'ï¼Tagæ ç­¾ ' . intval($result['selector_counts']['tag'] ?? 0) . ' ';"
+msgstr ""
+
+msgid "åè¡¨é¾æ¥è¯æ­:"
+msgstr ""
+
+msgid "å¹é ' . intval($result['links_found'] ?? 0) . ' æ¡ï¼å¯å¥é ' . intval($result['links_ready'] ?? 0) . ' æ¡ï¼æ¥æºå·²å­å¨ ' . intval($result['links_duplicate'] ?? 0) . ' æ¡ã"
+msgstr ""
+
+msgid "åè¡¨é¾æ¥è¯æ­: å¹é"
+msgstr ""
+
+msgid "æ¡ï¼å¯å¥é"
+msgstr ""
+
+msgid "æ¡ï¼æ¥æºå·²å­å¨"
+msgstr ""
+
+msgid "echo ' åè¡¨é¾æ¥è¯æ­: å¹é ' . intval($result['links_found'] ?? 0) . ' æ¡ï¼å¯å¥é ' . intval($result['links_ready'] ?? 0) . ' æ¡ï¼æ¥æºå·²å­å¨ ' . intval($result['links_duplicate'] ?? 0) . ' æ¡ã ';"
+msgstr ""
+
+msgid "å¯å¥éé¾æ¥ç¤ºä¾:"
+msgstr ""
+
+msgid "echo ' å¯å¥éé¾æ¥ç¤ºä¾: ';"
+msgstr ""
+
+msgid "å¾çç¤ºä¾:"
+msgstr ""
+
+msgid "echo ' å¾çç¤ºä¾: ';"
+msgstr ""
+
+msgid "æ é¢èç¹ HTML:"
+msgstr ""
+
+msgid "if (!empty($result['html_samples']['title'])) echo ' æ é¢èç¹ HTML: ' . esc_textarea($result['html_samples']['title']) . ' ';"
+msgstr ""
+
+msgid "æ­£æèç¹ HTML:"
+msgstr ""
+
+msgid "if (!empty($result['html_samples']['content'])) echo ' æ­£æèç¹ HTML: ' . esc_textarea($result['html_samples']['content']) . ' ';"
+msgstr ""
+
+msgid "åç°é¾æ¥ä»»å¡å·²æå®ä¾è¿è¡,æ¬æ¬¡è·³è¿"
+msgstr ""
+
+msgid "ééæç« ä»»å¡å·²æå®ä¾è¿è¡,æ¬æ¬¡è·³è¿"
+msgstr ""
+
+msgid "åç°é¾æ¥å®æ,æ°å¢"
+msgstr ""
+
+msgid "éåå·²è¢«å¶ä»è¿ç¨è®¤é¢æå°æªå°æ§è¡æ¶é´,æ¬æ¬¡è·³è¿"
+msgstr ""
+
+msgid "é¡µé¢æåå¤±è´¥"
+msgstr ""
+
+msgid "æ é¢ææ­£ææåå¤±è´¥,è¯·æ£æ¥éæ©å¨"
+msgstr ""
+
+msgid "æ é¢ææ¥æº URL éå¤"
+msgstr ""
+
+msgid "æ é¢ææ¥æº URL éå¤,å·²è·³è¿"
+msgstr ""
+
+msgid "å¾çæ¬å°åæè¦:åç°"
+msgstr ""
+
+msgid "å¼ ,æå"
+msgstr ""
+
+msgid "å¼ ,å¤±è´¥"
+msgstr ""
+
+msgid "å¼ ,è·³è¿"
+msgstr ""
+
+msgid ",ç¹è²å¾éä»¶ ID:"
+msgstr ""
+
+msgid "AI æ¹åå¤±è´¥:"
+msgstr ""
+
+msgid ";å·²åéåå¸åæ"
+msgstr ""
+
+msgid "AI æ¹åç»æè¿ç­æä¸ºç©º,çä¼¼è´¨éä¸åæ ¼"
+msgstr ""
+
+msgid "AI æ¹ååå¾çå¨é¨ä¸¢å¤±,çä¼¼è´¨éä¸åæ ¼"
+msgstr ""
+
+msgid "AI æ¹ååå¾çæ°éåå°:å"
+msgstr ""
+
+msgid "AI æ¹åå®æ"
+msgstr ""
+
+msgid "ééæå,æç«  ID:"
+msgstr ""
+
+msgid "URL ä¸å®å¨æä¸å¯è®¿é®å¬ç½ï¼å·²æç»æå"
+msgstr ""
+
+msgid "HTTP ç¶æå¼å¸¸ï¼"
+msgstr ""
+
+msgid "/(?:æ ç­¾|Tags?|å³é®è¯|å³é®å­)\\s*[:ï¼]/iu"
+msgstr ""
+
+msgid "è¯·å°ä¸é¢ééå°çæç« æ¹åä¸ºèªç¶ãæµçãéåä¸­æç½ç«åå¸çååè¡¨è¾¾ã è¦æ±ï¼ 1. ä¿çåæåäºå®ï¼ä¸è¦ç¼é ä¸å­å¨çä¿¡æ¯ã 2. ä¼åæ é¢åæ­£æè¡¨è¾¾ï¼é¿åæºæ¢°ç¿»è¯èã 3. æ­£æåè®¸ä¿çå¿è¦ HTML æ ç­¾ï¼ä¾å¦ pãh2ãh3ãulãolãliãstrongãemãaãimgã 4. å¦åæå·²åå«æ°æ®æ¥æºï¼è¯·ä¿çå¹¶è§èæ¥æº URLï¼ä¸è¦ç¼é ä¸å­å¨çæ°æ®ææ¥æºã 5. æ­£æå°¾é¨å¢å FAQã 6. ä¸è¦è¾åºè§£éï¼ä¸è¦è¾åº Markdownã 7. å¿é¡»åªè¿å JSONï¼{\"title\":\"æ¹ååçæ é¢\",\"content\":\"æ¹ååç HTML æ­£æ\"}"
+msgstr ""
+
+msgid "è¯·å°ä¸é¢ééå°çæç« æ¹åä¸ºèªç¶ãæµçãéåä¸­æç½ç«åå¸çååè¡¨è¾¾ã è¦æ±ï¼ 1. ä¿çåæåäºå®ï¼ä¸è¦ç¼é ä¸å­å¨çä¿¡æ¯ã 2. ä¼åæ é¢åæ­£æè¡¨è¾¾ï¼é¿åæºæ¢°ç¿»è¯èã 3. æ­£æåè®¸ä¿çå¿è¦ HTML æ ç­¾ï¼ä¾å¦ pãh2ãh3ãulãolãliãstrongãemãaãimgã 4. ä¸è¦è¾åºè§£éï¼ä¸è¦è¾åº Markdownã 5. å¿é¡»åªè¿å JSONï¼{\"title\":\"æ¹ååçæ é¢\",\"content\":\"æ¹ååç HTML æ­£æ\"}"
+msgstr ""
+
+msgid "ä¸­æ"
+msgstr "Chinese"
+
+msgid "è±æ"
+msgstr "English"
+
+msgid "æ¥æ"
+msgstr "Japanese"
+
+msgid "é©æ"
+msgstr "Korean"
+
+msgid "è¥¿ç­çæ"
+msgstr "Spanish"
+
+msgid "æ³æ"
+msgstr "French"
+
+msgid "å¾·æ"
+msgstr "German"
+
+msgid "ä¸éå¶/ä¸æ£æµ"
+msgstr "No limit / no check"
+
+msgid "OpenAI å¼å®¹ / ä¸­è½¬ç«"
+msgstr "OpenAI Compatible / Relay"
+
+msgid "éåç»å¤§å¤æ°ä¸­è½¬ç«ãOne APIãNew APIãLiteLLMãOpenRouter ç­ï¼å°åºåè´¹ç¨åå³äºä½ çä¸­è½¬ç«ã"
+msgstr ""
+
+msgid "OpenAI å®æ¹"
+msgstr "OpenAI Official"
+
+msgid "OpenAI å®æ¹ Chat Completionsï¼éå¸¸ä¸ºä»è´¹ APIã"
+msgstr ""
+
+msgid "DeepSeek ä¸­å½å¤§éå®æ¹æ¥å£ï¼å¼å®¹ OpenAI æ ¼å¼ï¼éå¸¸ä¸ºä»è´¹ APIã"
+msgstr ""
+
+msgid "éä¹åé® / DashScope"
+msgstr "Qwen / DashScope"
+
+msgid "é¿éäº DashScope ä¸­å½å¤§é OpenAI å¼å®¹æ¨¡å¼ï¼å¸¸è§ä¸ºåè´¹é¢åº¦ + ä»è´¹è®¡è´¹ã"
+msgstr ""
+
+msgid "Moonshot / Kimi ä¸­å½å¤§éå®æ¹æ¥å£ï¼å¼å®¹ OpenAI æ ¼å¼ï¼éå¸¸ä¸ºä»è´¹ APIã"
+msgstr ""
+
+msgid "æºè°± GLM"
+msgstr "Zhipu GLM"
+
+msgid "æºè°± AI ä¸­å½å¤§é v4 Chat Completionsï¼é¨åæ¨¡å/é¢åº¦å¯è½åè´¹ï¼çäº§éå¸¸æéä»è´¹ã"
+msgstr ""
+
+msgid "ç¾å·æºè½"
+msgstr "Baichuan AI"
+
+msgid "ç¾å·æºè½ä¸­å½å¤§é OpenAI å¼å®¹æ¥å£ï¼éå¸¸ä¸ºä»è´¹ APIã"
+msgstr ""
+
+msgid "MiniMax ä¸­å½å¤§é Chat Completion v2ï¼éå¸¸ä¸ºä»è´¹ APIï¼å¤æ°ä¸­è½¬ç«ä¹å¯ç¨ OpenAI å¼å®¹æ¨¡å¼ã"
+msgstr ""
+
+msgid "xAI / Grok æµ·å¤å®æ¹æ¥å£ï¼å¼å®¹ OpenAI æ ¼å¼ï¼éå¸¸ä¸ºä»è´¹ APIã"
+msgstr ""
+
+msgid "æµ·å¤èåå¹³å° / ä¸­è½¬ç«ï¼å¼å®¹ OpenAI æ ¼å¼ï¼æåè´¹æ¨¡åï¼ä¹æä»è´¹æ¨¡åã"
+msgstr ""
+
+msgid "Anthropic Claude å®æ¹"
+msgstr "Anthropic Claude Official"
+
+msgid "Claude æµ·å¤å®æ¹ Messages APIï¼éå¸¸ä¸ºä»è´¹ APIï¼å¦æèµ°ä¸­è½¬ç«è¯·éæ© OpenAI å¼å®¹ã"
+msgstr ""
+
+msgid "Google Gemini å®æ¹"
+msgstr "Google Gemini Official"
+
+msgid "Google Gemini æµ·å¤å®æ¹ generateContent APIï¼æåè´¹é¢åº¦/åè´¹å±ï¼Key ä¼èªå¨æ¾å¥ URL åæ°ã"
+msgstr ""
+
+msgid "ä¸­å½å¤§é"
+msgstr "Mainland China"
+
+msgid "å¶ä»å½å®¶/æµ·å¤"
+msgstr "Other countries / overseas"
+
+msgid "ä¸­è½¬ç«/èªå®ä¹"
+msgstr "Relay / Custom"
+
+msgid "åè´¹é¢åº¦/åè´¹æ¨¡å"
+msgstr "Free quota / free models"
+
+msgid "è´¹ç¨åå³äºä¸­è½¬ç«"
+msgstr "Cost depends on relay provider"
+
+msgid "ä¸­è½¬ç« / èªå®ä¹ï¼è´¹ç¨åå°åºåå³äºæå¡åï¼"
+msgstr "Relay / Custom (cost and region depend on provider)"
+
+msgid "ä¸­å½å¤§é Â· åè´¹é¢åº¦/åè´¹æ¨¡å"
+msgstr "Mainland China Â· Free quota / free models"
+
+msgid "ä¸­å½å¤§é Â· ä»è´¹"
+msgstr "Mainland China Â· Paid"
+
+msgid "å¶ä»å½å®¶/æµ·å¤ Â· åè´¹é¢åº¦/åè´¹æ¨¡å"
+msgstr "Other countries / overseas Â· Free quota / free models"
+
+msgid "å¶ä»å½å®¶/æµ·å¤ Â· ä»è´¹"
+msgstr "Other countries / overseas Â· Paid"
+
+msgid "OpenAI å¼å®¹ / ä¸­è½¬ç« API Key è·åè¯´æ"
+msgstr ""
+
+msgid "ç»å½ä½ çä¸­è½¬ç«åå°ï¼ä¾å¦ One APIãNew APIãLiteLLMãOpenRouter ææå¡åæä¾çå¼å®¹å¹³å°ã"
+msgstr ""
+
+msgid "å¨åå°æ¾å°âä»¤ç / Tokens / API Keys / æ¸ éå¯é¥âç­èåï¼æ°å»ºä¸ä¸ªå¯ç¨ä»¤çã"
+msgstr ""
+
+msgid "å¤å¶çæç Keyï¼éå¸¸ä»¥ sk- å¼å¤´ï¼ä¹å¯è½æ¯ä¸­è½¬ç«èªå®ä¹æ ¼å¼ã"
+msgstr ""
+
+msgid "å¤å¶ä¸­è½¬ç«æä¾çæ¥å£å°åãå¸¸è§æ ¼å¼ä¸º https://ä½ çåå/v1 æ https://ä½ çåå/v1/chat/completionsã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶ï¼æå¡åéæ©âOpenAI å¼å®¹ / ä¸­è½¬ç«âï¼API Key å¡«ä»¤çï¼Endpoint å¡«ä¸­è½¬ç«å°åï¼æ¨¡ååå¡«ä¸­è½¬ç«æ¯æçæ¨¡åã"
+msgstr ""
+
+msgid "ç¹å»âæµè¯ API è¿æ¥âï¼æåååä¿å­è®¾ç½®ã"
+msgstr ""
+
+msgid "å¦æä¸­è½¬ç«è¦æ±èªå®ä¹æ¨¡ååï¼è¯·ä»¥ä¸­è½¬ç«åå°æ¾ç¤ºä¸ºåã"
+msgstr ""
+
+msgid "ä¸è¦æ Key åå¨ Endpoint URL éï¼åºå¡«åå¨ API Key è¾å¥æ¡ã"
+msgstr ""
+
+msgid "OpenAI å®æ¹ API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼ OpenAI Platform å¹¶ç»å½è´¦å·ã"
+msgstr ""
+
+msgid "è¿å¥ API keys é¡µé¢ï¼ç¹å» Create new secret keyã"
+msgstr ""
+
+msgid "å¤å¶çæç sk- å¼å¤´å¯é¥ï¼å¯é¥åªæ¾ç¤ºä¸æ¬¡ï¼è¯·å¦¥åä¿å­ã"
+msgstr ""
+
+msgid "ç¡®è®¤ Billing / è´¦åå·²å¼éï¼å®æ¹ API éå¸¸éè¦å¯ç¨ä½é¢æä»æ¬¾æ¹å¼ã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âOpenAI å®æ¹âï¼Endpoint ä½¿ç¨é»è®¤å°åï¼æ¨¡åéæ© gpt-4oãgpt-4o-mini ç­ã"
+msgstr ""
+
+msgid "ç¹å»âæµè¯ API è¿æ¥âã"
+msgstr ""
+
+msgid "OpenAI ChatGPT ç½é¡µä¼åä¸ç­äº API ä½é¢ã"
+msgstr ""
+
+msgid "ä¸­å½å¤§éç½ç»ç¯å¢å¯è½éè¦ä½ çæå¡å¨è½æ­£å¸¸è®¿é® OpenAI å®æ¹ååã"
+msgstr ""
+
+msgid "DeepSeek API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼ DeepSeek å¼æ¾å¹³å°å¹¶æ³¨å/ç»å½ã"
+msgstr ""
+
+msgid "å®æå¿è¦çè´¦å·éªè¯åï¼è¿å¥ API Keys é¡µé¢ã"
+msgstr ""
+
+msgid "ç¹å»åå»º API Keyï¼å¤å¶çæçå¯é¥ã"
+msgstr ""
+
+msgid "ç¡®è®¤è´¦å·ä½é¢æåå¼ç¶æå¯ç¨ã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âDeepSeekâï¼Endpoint ä½¿ç¨é»è®¤å°åï¼æ¨¡åå¯é deepseek-chat æ deepseek-reasonerã"
+msgstr ""
+
+msgid "deepseek-reasoner ææ¬åååºæ¶é´éå¸¸é«äº deepseek-chatã"
+msgstr ""
+
+msgid "å¦æèµ°ä¸­è½¬ç«ï¼è¯·éæ©âOpenAI å¼å®¹ / ä¸­è½¬ç«âã"
+msgstr ""
+
+msgid "éä¹åé® / DashScope API Key è·åè¯´æ"
+msgstr ""
+
+msgid "ç»å½é¿éäºè´¦å·å¹¶è¿å¥ DashScope æ§å¶å°ã"
+msgstr ""
+
+msgid "æé¡µé¢æç¤ºå¼é DashScope / æ¨¡åæå¡ã"
+msgstr ""
+
+msgid "è¿å¥ API Key ç®¡çé¡µé¢ï¼åå»ºæå¤å¶ API Keyã"
+msgstr ""
+
+msgid "ç¡®è®¤åè´¹é¢åº¦ãèµæºåææéä»è´¹å·²å¯ç¨ã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âéä¹åé® / DashScopeâï¼Endpoint ä½¿ç¨å¼å®¹æ¨¡å¼é»è®¤å°åã"
+msgstr ""
+
+msgid "æ¨¡åå¯å¡« qwen-plusãqwen-turboãqwen-maxãqwen-long ç­ï¼ç¶åæµè¯è¿æ¥ã"
+msgstr ""
+
+msgid "å»ºè®®ä½¿ç¨ DashScope ç OpenAI å¼å®¹æ¨¡å¼ Endpointã"
+msgstr ""
+
+msgid "é¿éäºæé/å®å/è®¡è´¹ç­ç¥å¯è½éè´¦å·ç±»åä¸åã"
+msgstr ""
+
+msgid "Moonshot / Kimi API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼ Moonshot AI å¼æ¾å¹³å°å¹¶æ³¨å/ç»å½ã"
+msgstr ""
+
+msgid "è¿å¥æ§å¶å°ç API Key ç®¡çé¡µé¢ã"
+msgstr ""
+
+msgid "ç¹å»æ°å»º API Key å¹¶å¤å¶å¯é¥ã"
+msgstr ""
+
+msgid "ç¡®è®¤è´¦å·ä½é¢æèµ éé¢åº¦å¯ç¨ã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âMoonshot / Kimiâï¼Endpoint ä½¿ç¨é»è®¤å°åã"
+msgstr ""
+
+msgid "æ¨¡åå¯å¡« moonshot-v1-8kãmoonshot-v1-32kãmoonshot-v1-128kï¼ç¶åæµè¯è¿æ¥ã"
+msgstr ""
+
+msgid "é¿ä¸ä¸ææ¨¡åè´¹ç¨éå¸¸æ´é«ã"
+msgstr ""
+
+msgid "å¦æ¥å£ç­ç¥ååï¼è¯·ä»¥ Moonshot æ§å¶å°æ¾ç¤ºä¸ºåã"
+msgstr ""
+
+msgid "æºè°± GLM API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼æºè°±å¼æ¾å¹³å°å¹¶æ³¨å/ç»å½ã"
+msgstr ""
+
+msgid "è¿å¥ç¨æ·ä¸­å¿ / API Keys é¡µé¢ã"
+msgstr ""
+
+msgid "åå»ºæ°ç API Key å¹¶å¤å¶ã"
+msgstr ""
+
+msgid "ç¡®è®¤åè´¹é¢åº¦ãå¥é¤æä½é¢å¯ç¨ã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âæºè°± GLMâï¼Endpoint ä½¿ç¨é»è®¤ v4 å°åã"
+msgstr ""
+
+msgid "æ¨¡åå¯å¡« glm-4-plusãglm-4-airãglm-4-flashï¼ç¶åæµè¯è¿æ¥ã"
+msgstr ""
+
+msgid "åè´¹æ¨¡å/é¢åº¦ä¼éå®æ¹æ´»å¨ååã"
+msgstr ""
+
+msgid "å¦æå®æ¹ Key æ ¼å¼æé´ææ¹å¼ååï¼è¯·ä¼ååèæ§å¶å°ææ°ææ¡£ã"
+msgstr ""
+
+msgid "ç¾å·æºè½ API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼ç¾å·æºè½å¼æ¾å¹³å°å¹¶æ³¨å/ç»å½ã"
+msgstr ""
+
+msgid "è¿å¥æ§å¶å°ç API Key æå¯é¥ç®¡çé¡µé¢ã"
+msgstr ""
+
+msgid "åå»º API Key å¹¶å¤å¶ã"
+msgstr ""
+
+msgid "ç¡®è®¤è´¦å·å·²å¼éå¯¹åºæ¨¡åæéåè®¡è´¹ã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âç¾å·æºè½âï¼Endpoint ä½¿ç¨é»è®¤å°åã"
+msgstr ""
+
+msgid "æ¨¡åå¯å¡« Baichuan4ãBaichuan3-TurboãBaichuan3-Turbo-128kï¼ç¶åæµè¯è¿æ¥ã"
+msgstr ""
+
+msgid "æ¨¡ååç§°å¤§å°åå»ºè®®æå®æ¹æ§å¶å°å¡«åã"
+msgstr ""
+
+msgid "MiniMax API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼ MiniMax å¼æ¾å¹³å°å¹¶æ³¨å/ç»å½ã"
+msgstr ""
+
+msgid "è¿å¥è´¦æ·ä¸­å¿ / æ¥å£å¯é¥é¡µé¢ã"
+msgstr ""
+
+msgid "åå»ºæå¤å¶ API Keyã"
+msgstr ""
+
+msgid "ç¡®è®¤å·²å¼éæ¨¡åè°ç¨æéåä½é¢ã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âMiniMaxâï¼Endpoint ä½¿ç¨é»è®¤ chatcompletion_v2 å°åã"
+msgstr ""
+
+msgid "æ¨¡åå¯å¡« abab6.5s-chatãabab6.5g-chatãabab6.5t-chatï¼ç¶åæµè¯è¿æ¥ã"
+msgstr ""
+
+msgid "å¦æä½ ç MiniMax è´¦å·è¿è¦æ± GroupId ç­é¢å¤åæ°ï¼å»ºè®®éè¿ä¸­è½¬ç«è½¬æ¢ä¸º OpenAI å¼å®¹æ ¼å¼åæ¥å¥ã"
+msgstr ""
+
+msgid "xAI / Grok API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼ xAI Console å¹¶ç»å½ã"
+msgstr ""
+
+msgid "è¿å¥ API Keys é¡µé¢åå»ºæ°ç API Keyã"
+msgstr ""
+
+msgid "å¤å¶çæçå¯é¥ã"
+msgstr ""
+
+msgid "ç¡®è®¤ Billing / Credits å¯ç¨ã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âxAI / Grokâï¼Endpoint ä½¿ç¨é»è®¤å°åã"
+msgstr ""
+
+msgid "æ¨¡åå¯å¡« grok-3ãgrok-3-mini ç­ï¼ç¶åæµè¯è¿æ¥ã"
+msgstr ""
+
+msgid "xAI å®æ¹ API éå¸¸éè¦æµ·å¤ç½ç»å¯è®¿é®ã"
+msgstr ""
+
+msgid "æ¨¡ååç§°å¯è½æ´æ°è¾å¿«ï¼è¯·ä»¥ xAI Console ä¸ºåã"
+msgstr ""
+
+msgid "OpenRouter API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼ OpenRouter å¹¶æ³¨å/ç»å½ã"
+msgstr ""
+
+msgid "è¿å¥ Keys é¡µé¢ï¼ç¹å» Create Keyã"
+msgstr ""
+
+msgid "å¤å¶çæç API Keyã"
+msgstr ""
+
+msgid "å¦éä»è´¹æ¨¡åï¼è¯·å¨ Credits / Billing ä¸­åå¼ï¼åè´¹æ¨¡åå¯çææ¨¡åé¡µæ è®°ã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âOpenRouterâï¼Endpoint ä½¿ç¨é»è®¤å°åã"
+msgstr ""
+
+msgid "æ¨¡ååéè¦å¡«å OpenRouter æ¨¡å IDï¼ä¾å¦ openai/gpt-4o-miniãdeepseek/deepseek-chat ç­ï¼ç¶åæµè¯è¿æ¥ã"
+msgstr ""
+
+msgid "OpenRouter ä¸çâåè´¹æ¨¡åâåâä»è´¹æ¨¡åâä¼ååï¼è¯·ä»¥æ¨¡åé¡µé¢ä¸ºåã"
+msgstr ""
+
+msgid "ä¹å¯ä»¥æ OpenRouter å½ä½ OpenAI å¼å®¹ä¸­è½¬ç«ä½¿ç¨ã"
+msgstr ""
+
+msgid "Anthropic Claude å®æ¹ API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼ Anthropic Console å¹¶ç»å½ã"
+msgstr ""
+
+msgid "è¿å¥ Settings / API Keys é¡µé¢ã"
+msgstr ""
+
+msgid "ç¹å» Create Keyï¼å¤å¶çæç API Keyã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âAnthropic Claude å®æ¹âï¼Endpoint ä½¿ç¨é»è®¤ /v1/messages å°åã"
+msgstr ""
+
+msgid "æ¨¡åå¯å¡« claude-3-5-sonnet-latestãclaude-3-5-haiku-latest ç­ï¼ç¶åæµè¯è¿æ¥ã"
+msgstr ""
+
+msgid "Claude å®æ¹æ¥å£ä¸æ¯ OpenAI æ ¼å¼ï¼æ¬æä»¶å·²åç¬ééã"
+msgstr ""
+
+msgid "å¦æä½¿ç¨ Claude ä¸­è½¬ç«ï¼è¯·éæ©âOpenAI å¼å®¹ / ä¸­è½¬ç«âã"
+msgstr ""
+
+msgid "Google Gemini API Key è·åè¯´æ"
+msgstr ""
+
+msgid "æå¼ Google AI Studio å¹¶ç»å½ Google è´¦å·ã"
+msgstr ""
+
+msgid "è¿å¥ Get API key / API keys é¡µé¢ã"
+msgstr ""
+
+msgid "åå»º API Keyï¼éæ©æåå»ºå¯¹åº Google Cloud é¡¹ç®ã"
+msgstr ""
+
+msgid "å¤å¶çæç API Keyï¼åè´¹é¢åº¦åå°åºéå¶ä»¥ Google å½åæ¿ç­ä¸ºåã"
+msgstr ""
+
+msgid "åå°æ¬æä»¶éæ©âGoogle Gemini å®æ¹âï¼Endpoint ä½¿ç¨é»è®¤ {model}:generateContent å°åã"
+msgstr ""
+
+msgid "æ¨¡åå¯å¡« gemini-2.0-flashãgemini-1.5-proãgemini-1.5-flashï¼ç¶åæµè¯è¿æ¥ã"
+msgstr ""
+
+msgid "Gemini å®æ¹æ¥å£ Key ä¼ç±æä»¶èªå¨æ¾å° URL åæ°ä¸­ï¼ä¸éè¦æå¨æ¼æ¥ ?key=ã"
+msgstr ""
+
+msgid "ä¸­å½å¤§éæå¡å¨å¯è½æ æ³ç´æ¥è®¿é® Google å®æ¹æ¥å£ï¼å¿è¦æ¶ä½¿ç¨ä¸­è½¬ç«ã"
+msgstr ""
+
+msgid "AI API Endpoint æ ææä¸å®å¨ï¼å¿é¡»æ¯å¬ç½ HTTP/HTTPS å°å"
+msgstr ""
+
+msgid "? \"ç³»ç»è¦æ±ï¼ \" :"
+msgstr ""
+
+msgid "AI API Key æªè®¾ç½®"
+msgstr ""
+
+msgid "æ é¢ï¼"
+msgstr ""
+
+msgid "æ­£æ HTMLï¼"
+msgstr ""
+
+msgid "AI API è¯·æ±å¤±è´¥ï¼HTTP"
+msgstr ""
+
+msgid "AI API è¿ååå®¹ä¸ºç©º"
+msgstr ""
+
+msgid "AI æ¹åç»æè§£æå¤±è´¥ææ­£æä¸ºç©ºï¼ååºçæ®µï¼"
+msgstr ""
+
+msgid "AI æ¹åç»ææ­£æè¿ç­ï¼å·²å¤å®ä¸ºå¤±è´¥ï¼ååºçæ®µï¼"
+msgstr ""
+
+msgid "AI æ¹åç»ææªéè¿ç®æ è¯­è¨æ£æµï¼ç®æ è¯­è¨ï¼"
+msgstr ""
+
+msgid "ï¼å·²å¤å®ä¸ºå¤±è´¥"
+msgstr ""
+
+msgid "HTTP æåï¼ä½è¿åä¸æ¯ JSONï¼"
+msgstr ""
+
+msgid "HTTP æåï¼JSON è§£ææå"
+msgstr ""
+
+msgid "è§åè¡¨"
+msgstr ""
+
+msgid "éåè¡¨"
+msgstr ""
+
+msgid "æ¥å¿è¡¨"
+msgstr ""
+
+msgid "WP ééå¥åº·æ£æ¥"
+msgstr ""
+
+msgid "æ£æ¥æ°æ®è¡¨ãéåç¶æãCron è®¡åãä»»å¡éåæè¿éè¯¯ã"
+msgstr ""
+
+msgid "ç¶ææ¦è§"
+msgstr ""
+
+msgid "æ°æ®åºè¡¨"
+msgstr ""
+
+msgid "æ­£å¸¸"
+msgstr ""
+
+msgid "ç¼ºå¤±"
+msgstr ""
+
+msgid "éåç¶æ"
+msgstr ""
+
+msgid "ï¼è¿è¡ä¸­"
+msgstr ""
+
+msgid "ï¼æå"
+msgstr ""
+
+msgid "ï¼å¤±è´¥"
+msgstr ""
+
+msgid "ï¼è·³è¿"
+msgstr ""
+
+msgid "]); ?>ï¼è¿è¡ä¸­ <?php echo intval($counts["
+msgstr ""
+
+msgid "]); ?>ï¼æå <?php echo intval($counts["
+msgstr ""
+
+msgid "]); ?>ï¼å¤±è´¥ <?php echo intval($counts["
+msgstr ""
+
+msgid "]); ?>ï¼è·³è¿ <?php echo intval($counts["
+msgstr ""
+
+msgid "éåç¶æ å¾é ï¼è¿è¡ä¸­ ï¼æå ï¼å¤±è´¥ ï¼è·³è¿"
+msgstr ""
+
+msgid "å¤±è´¥ç %"
+msgstr ""
+
+msgid "å¡ä½ running"
+msgstr ""
+
+msgid "å¡ä½ running æ¡"
+msgstr ""
+
+msgid "æè¿æåéé"
+msgstr ""
+
+msgid "æè¿éè¯¯"
+msgstr ""
+
+msgid "åç°é¾æ¥ï¼"
+msgstr ""
+
+msgid "ï¼ééæç« ï¼"
+msgstr ""
+
+msgid "æè¿ä¸æ¬¡è®¡åä»»å¡æ³¨åå¤±è´¥ï¼åç°"
+msgstr ""
+
+msgid "ï¼éé"
+msgstr ""
+
+msgid "æ£æµå° DISABLE_WP_CRON=trueï¼è¯·ç¡®è®¤æå¡å¨è®¡åä»»å¡å®æè¯·æ±"
+msgstr ""
+
+msgid "ï¼å¦åéåä¸ä¼èªå¨ç»§ç»­ã"
+msgstr ""
+
+msgid "æ£æµå° WP-Cron å·²è¿è®¡åæ¶é´è¶è¿ 5 åéï¼å¯è½æ²¡æè¢«ç³»ç» Cron æ­£å¸¸è§¦åã"
+msgstr ""
+
+msgid ">æè¿ä¸æ¬¡è®¡åä»»å¡æ³¨åå¤±è´¥ï¼åç° ï¼éé <span style="
+msgstr ""
+
+msgid ">æ£æµå° DISABLE_WP_CRON=trueï¼è¯·ç¡®è®¤æå¡å¨è®¡åä»»å¡å®æè¯·æ± ï¼å¦åéåä¸ä¼èªå¨ç»§ç»­ã <span style="
+msgstr ""
+
+msgid "Cron åç°é¾æ¥ï¼ ï¼ééæç« ï¼ æè¿ä¸æ¬¡è®¡åä»»å¡æ³¨åå¤±è´¥ï¼åç° ï¼éé æ£æµå° DISABLE_WP_CRON=trueï¼è¯·ç¡®è®¤æå¡å¨è®¡åä»»å¡å®æè¯·æ± ï¼å¦åéåä¸ä¼èªå¨ç»§ç»­ã æ£æµå° WP-Cron å·²è¿è®¡åæ¶é´è¶è¿ 5 åéï¼å¯è½æ²¡æè¢«ç³»ç» Cron æ­£å¸¸è§¦åã"
+msgstr ""
+
+msgid "ä»»å¡é"
+msgstr ""
+
+msgid "åç°éï¼"
+msgstr ""
+
+msgid "ï¼éééï¼"
+msgstr ""
+
+msgid "ä»»å¡é åç°éï¼ ï¼éééï¼"
+msgstr ""
+
+msgid "æä»¶æ´æ°"
+msgstr ""
+
+msgid "ç»´æ¤å·¥å·"
+msgstr ""
+
+msgid "ä¿®å¤/åå»ºæ°æ®è¡¨"
+msgstr ""
+
+msgid "éæ¾ running éå"
+msgstr ""
+
+msgid "return confirm('ç¡®å®éæ¾ running éåï¼')"
+msgstr ""
+
+msgid "éå»ºå®æ¶ä»»å¡"
+msgstr ""
+
+msgid "æ¸çä»»å¡é"
+msgstr ""
+
+msgid "æå¨æ£æ¥æä»¶æ´æ°"
+msgstr ""
+
+msgid "return confirm('ç¡®å®æ¸ç©ºæ¥å¿ï¼')"
+msgstr ""
+
+msgid "è¯æ­æ¥å"
+msgstr ""
+
+msgid "å¯¼åºè¯æ­ JSON"
+msgstr ""
+
+msgid "UPDATE {$queue_table} SET status='pending', last_error='æå¨éæ¾ running', scheduled_at='"
+msgstr ""
+
+msgid "æ£æ¥å¤±è´¥ï¼æ´æ°æ¨¡åæªå è½½ã"
+msgstr ""
+
+msgid "æ´æ°æ¨¡åæªå è½½ã"
+msgstr ""
+
+msgid "ææªè·åå° GitHub ææ°çæ¬ï¼å¯ç¹å»âæå¨æ£æ¥æä»¶æ´æ°âå®æ¶æ£æµã"
+msgstr ""
+
+msgid "åç°æ°çæ¬"
+msgstr ""
+
+msgid "å½åå·²æ¯ææ°çæ¬ã"
+msgstr ""
+
+msgid "' . esc_html((string)($status['message'] ?? 'ææ æ´æ°ç¶æã')) . '"
+msgstr ""
+
+msgid "ææ æ´æ°ç¶æã"
+msgstr ""
+
+msgid "echo ' ' . esc_html((string)($status['message'] ?? 'ææ æ´æ°ç¶æã')) . ' ';"
+msgstr ""
+
+msgid "å½åçæ¬ï¼"
+msgstr ""
+
+msgid "echo ' å½åçæ¬ï¼' . esc_html((string)($status['current_version'] ?? WP_CAIJI_VERSION));"
+msgstr ""
+
+msgid "ï¼ææ°çæ¬ï¼"
+msgstr ""
+
+msgid "ï¼æ£æ¥æ¶é´ï¼"
+msgstr ""
+
+msgid "æ¥ç GitHub Release"
+msgstr ""
+
+msgid "\" target=\"_blank\" rel=\"noopener noreferrer\">æ¥ç GitHub Release"
+msgstr ""
+
+msgid "echo ' æ¥ç GitHub Release ';"
+msgstr ""
+
+msgid "åå¾æ´æ°é¡µé¢"
+msgstr ""
+
+msgid "\">åå¾æ´æ°é¡µé¢"
+msgstr ""
+
+msgid "echo ' åå¾æ´æ°é¡µé¢ ';"
+msgstr ""
+
+msgid "Tag æ ç­¾åå¥å¤±è´¥:"
+msgstr ""
+
+msgid "å¾ç URL æ ææè¢«å®å¨ç­ç¥æç»"
+msgstr ""
+
+msgid "å¾çæ©å±åä¸æ¯æ:"
+msgstr ""
+
+msgid "å¾çä¸è½½å¤±è´¥:"
+msgstr ""
+
+msgid "å¾çæä»¶ä¸ºç©ºæè¶è¿å¤§å°éå¶"
+msgstr ""
+
+msgid "å¾ç MIME æ£æµå¤±è´¥æä¸æ¯å¾ç"
+msgstr ""
+
+msgid "å¾çå¥åºå¤±è´¥:"
+msgstr ""
+
+msgid "éä»¶ MIME ä¸æ¯å¾çï¼å·²å é¤éä»¶"
+msgstr ""
+
+msgid "å¾çå¥åºåæ æ³è·åéä»¶ URL"
+msgstr ""
+
+msgid "æ æ³åå»ºä¸´æ¶å¾çæä»¶"
+msgstr ""
+
+msgid "å¾çä¸è½½ HTTP ç¶æå¼å¸¸:"
+msgstr ""
+
+msgid "å¾çè¶è¿å¤§å°éå¶"
+msgstr ""
+
+msgid "èªå¨éæ¾ running è¶æ¶éå"
+msgstr ""
+
+msgid "è¾¾å°åæ¬¡ Cron æå¤§è¿è¡æ¶é´ï¼å©ä½éåä¸æ¬¡ç»§ç»­"
+msgstr ""
+
+msgid "æè¯·æ±é´éå»¶åééè³"
+msgstr ""
+
+msgid "prepare(\"UPDATE {$queue_table} SET status='pending', last_error='running è¶æ¶èªå¨éæ¾', scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at"
+msgstr ""
+
+msgid "UPDATE {$queue_table} SET status='pending', last_error='running è¶æ¶èªå¨éæ¾', scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at < %s"
+msgstr ""
+
+msgid "$affected = $wpdb->query($wpdb->prepare(\"UPDATE {$queue_table} SET status='pending', last_error='running è¶æ¶èªå¨éæ¾', scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at < %s\", current_time('mysql'), current_time('mysql'), $cutoff));"
+msgstr ""
+
+msgid "æ£æ¥å¤±è´¥ï¼æ æ³è·å GitHub ææ° Releaseï¼è¯·ç¡®è®¤æå¡å¨è½è®¿é® GitHub APIã"
+msgstr ""
+
+msgid "ï¼å¯åå¾æä»¶æ´æ°é¡µåçº§ã"
+msgstr ""
+
+msgid "ï¼ä½ Release ä¸­æ²¡æå¯ç¨ zip æ´æ°åã"
+msgstr ""
+
+msgid "æ£æ¥å®æï¼ä½æ æ³è¯å«ææ°çæ¬å·ã"
+msgstr ""
+
+msgid "WP ééå©æï¼è§åééãéåãå®æ¶ä»»å¡ãAI æ¹åä¸ GitHub èªå¨æ´æ°ã"
+msgstr ""
+
+msgid "ææ æ´æ°è¯´æã"
+msgstr ""
+
+msgid "'author' => ' ä¸ç¹ä¼å ',"
+msgstr ""
+

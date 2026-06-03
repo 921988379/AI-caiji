@@ -14,6 +14,16 @@ class WP_Caiji_AI
 {
     const ENC_PREFIX = 'caiji_enc:v1:';
 
+    private static function t($text)
+    {
+        return __($text, 'wp-caiji');
+    }
+
+    private static function esc_t($text)
+    {
+        return esc_html__($text, 'wp-caiji');
+    }
+
     public static function default_prompt()
     {
         return "请将下面采集到的文章改写为自然、流畅、适合中文网站发布的原创表达。\n要求：\n1. 保留原意和事实，不要编造不存在的信息。\n2. 优化标题和正文表达，避免机械翻译腔。\n3. 正文允许保留必要 HTML 标签，例如 p、h2、h3、ul、ol、li、strong、em、a、img。\n4. 如原文已包含数据来源，请保留并规范来源 URL；不要编造不存在的数据或来源。\n5. 正文尾部增加FAQ。\n6. 不要输出解释，不要输出 Markdown。\n7. 必须只返回 JSON：{\"title\":\"改写后的标题\",\"content\":\"改写后的 HTML 正文\"}";
@@ -29,7 +39,7 @@ class WP_Caiji_AI
     public static function mask_secret($secret)
     {
         $secret = (string)$secret;
-        if ($secret === '') return '未设置';
+        if ($secret === '') return self::t('未设置');
         if (strlen($secret) <= 8) return str_repeat('*', strlen($secret));
         return substr($secret, 0, 4) . str_repeat('*', max(4, strlen($secret) - 8)) . substr($secret, -4);
     }
@@ -62,14 +72,14 @@ class WP_Caiji_AI
     public static function language_options()
     {
         return array(
-            'zh-CN' => '中文',
-            'en' => '英文',
-            'ja' => '日文',
-            'ko' => '韩文',
-            'es' => '西班牙文',
-            'fr' => '法文',
-            'de' => '德文',
-            'auto' => '不限制/不检测',
+            'zh-CN' => self::t('中文'),
+            'en' => self::t('英文'),
+            'ja' => self::t('日文'),
+            'ko' => self::t('韩文'),
+            'es' => self::t('西班牙文'),
+            'fr' => self::t('法文'),
+            'de' => self::t('德文'),
+            'auto' => self::t('不限制/不检测'),
         );
     }
 
@@ -78,7 +88,7 @@ class WP_Caiji_AI
     {
         return array(
             'openai_compatible' => array(
-                'label' => 'OpenAI 兼容 / 中转站',
+                'label' => self::t('OpenAI 兼容 / 中转站'),
                 'endpoint' => 'https://api.seoyh.net/',
                 'models' => array('gpt-5.5', 'gpt-4o', 'gpt-4o-mini', 'gpt-4.1', 'gpt-4.1-mini', 'o4-mini'),
                 'region' => 'custom',
@@ -86,7 +96,7 @@ class WP_Caiji_AI
                 'description' => '适合绝大多数中转站、One API、New API、LiteLLM、OpenRouter 等；地区和费用取决于你的中转站。',
             ),
             'openai' => array(
-                'label' => 'OpenAI 官方',
+                'label' => self::t('OpenAI 官方'),
                 'endpoint' => 'https://api.openai.com/v1/chat/completions',
                 'models' => array('gpt-4o', 'gpt-4o-mini', 'gpt-4.1', 'gpt-4.1-mini', 'o4-mini'),
                 'region' => 'global',
@@ -94,7 +104,7 @@ class WP_Caiji_AI
                 'description' => 'OpenAI 官方 Chat Completions，通常为付费 API。',
             ),
             'deepseek' => array(
-                'label' => 'DeepSeek',
+                'label' => self::t('DeepSeek'),
                 'endpoint' => 'https://api.deepseek.com/v1/chat/completions',
                 'models' => array('deepseek-chat', 'deepseek-reasoner'),
                 'region' => 'cn',
@@ -102,7 +112,7 @@ class WP_Caiji_AI
                 'description' => 'DeepSeek 中国大陆官方接口，兼容 OpenAI 格式，通常为付费 API。',
             ),
             'qwen' => array(
-                'label' => '通义千问 / DashScope',
+                'label' => self::t('通义千问 / DashScope'),
                 'endpoint' => 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
                 'models' => array('qwen-plus', 'qwen-turbo', 'qwen-max', 'qwen-long'),
                 'region' => 'cn',
@@ -110,7 +120,7 @@ class WP_Caiji_AI
                 'description' => '阿里云 DashScope 中国大陆 OpenAI 兼容模式；常见为免费额度 + 付费计费。',
             ),
             'moonshot' => array(
-                'label' => 'Moonshot / Kimi',
+                'label' => self::t('Moonshot / Kimi'),
                 'endpoint' => 'https://api.moonshot.cn/v1/chat/completions',
                 'models' => array('moonshot-v1-8k', 'moonshot-v1-32k', 'moonshot-v1-128k'),
                 'region' => 'cn',
@@ -118,7 +128,7 @@ class WP_Caiji_AI
                 'description' => 'Moonshot / Kimi 中国大陆官方接口，兼容 OpenAI 格式，通常为付费 API。',
             ),
             'zhipu' => array(
-                'label' => '智谱 GLM',
+                'label' => self::t('智谱 GLM'),
                 'endpoint' => 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
                 'models' => array('glm-4-plus', 'glm-4-air', 'glm-4-flash'),
                 'region' => 'cn',
@@ -126,7 +136,7 @@ class WP_Caiji_AI
                 'description' => '智谱 AI 中国大陆 v4 Chat Completions；部分模型/额度可能免费，生产通常按量付费。',
             ),
             'baichuan' => array(
-                'label' => '百川智能',
+                'label' => self::t('百川智能'),
                 'endpoint' => 'https://api.baichuan-ai.com/v1/chat/completions',
                 'models' => array('Baichuan4', 'Baichuan3-Turbo', 'Baichuan3-Turbo-128k'),
                 'region' => 'cn',
@@ -134,7 +144,7 @@ class WP_Caiji_AI
                 'description' => '百川智能中国大陆 OpenAI 兼容接口，通常为付费 API。',
             ),
             'minimax' => array(
-                'label' => 'MiniMax',
+                'label' => self::t('MiniMax'),
                 'endpoint' => 'https://api.minimax.chat/v1/text/chatcompletion_v2',
                 'models' => array('abab6.5s-chat', 'abab6.5g-chat', 'abab6.5t-chat'),
                 'region' => 'cn',
@@ -142,7 +152,7 @@ class WP_Caiji_AI
                 'description' => 'MiniMax 中国大陆 Chat Completion v2，通常为付费 API；多数中转站也可用 OpenAI 兼容模式。',
             ),
             'xai' => array(
-                'label' => 'xAI / Grok',
+                'label' => self::t('xAI / Grok'),
                 'endpoint' => 'https://api.x.ai/v1/chat/completions',
                 'models' => array('grok-3', 'grok-3-mini', 'grok-2-vision-1212'),
                 'region' => 'global',
@@ -150,7 +160,7 @@ class WP_Caiji_AI
                 'description' => 'xAI / Grok 海外官方接口，兼容 OpenAI 格式，通常为付费 API。',
             ),
             'openrouter' => array(
-                'label' => 'OpenRouter',
+                'label' => self::t('OpenRouter'),
                 'endpoint' => 'https://openrouter.ai/api/v1/chat/completions',
                 'models' => array('openai/gpt-4o-mini', 'anthropic/claude-3.5-sonnet', 'google/gemini-2.0-flash-001', 'deepseek/deepseek-chat'),
                 'region' => 'global',
@@ -158,7 +168,7 @@ class WP_Caiji_AI
                 'description' => '海外聚合平台 / 中转站，兼容 OpenAI 格式；有免费模型，也有付费模型。',
             ),
             'anthropic' => array(
-                'label' => 'Anthropic Claude 官方',
+                'label' => self::t('Anthropic Claude 官方'),
                 'endpoint' => 'https://api.anthropic.com/v1/messages',
                 'models' => array('claude-3-5-sonnet-latest', 'claude-3-5-haiku-latest', 'claude-3-opus-latest'),
                 'region' => 'global',
@@ -166,7 +176,7 @@ class WP_Caiji_AI
                 'description' => 'Claude 海外官方 Messages API，通常为付费 API；如果走中转站请选择 OpenAI 兼容。',
             ),
             'gemini' => array(
-                'label' => 'Google Gemini 官方',
+                'label' => self::t('Google Gemini 官方'),
                 'endpoint' => 'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',
                 'models' => array('gemini-2.0-flash', 'gemini-1.5-pro', 'gemini-1.5-flash'),
                 'region' => 'global',
@@ -217,31 +227,31 @@ class WP_Caiji_AI
     public static function provider_region_label($region)
     {
         $labels = array(
-            'cn' => '中国大陆',
-            'global' => '其他国家/海外',
-            'custom' => '中转站/自定义',
+            'cn' => self::t('中国大陆'),
+            'global' => self::t('其他国家/海外'),
+            'custom' => self::t('中转站/自定义'),
         );
-        return $labels[$region] ?? '其他国家/海外';
+        return $labels[$region] ?? self::t('其他国家/海外');
     }
 
     public static function provider_billing_label($billing)
     {
         $labels = array(
-            'paid' => '付费',
-            'free_tier' => '免费额度/免费模型',
-            'depends' => '费用取决于中转站',
+            'paid' => self::t('付费'),
+            'free_tier' => self::t('免费额度/免费模型'),
+            'depends' => self::t('费用取决于中转站'),
         );
-        return $labels[$billing] ?? '付费';
+        return $labels[$billing] ?? self::t('付费');
     }
 
     public static function provider_grouped_options()
     {
         $groups = array(
-            'custom_depends' => array('label' => '中转站 / 自定义（费用和地区取决于服务商）', 'providers' => array()),
-            'cn_free_tier' => array('label' => '中国大陆 · 免费额度/免费模型', 'providers' => array()),
-            'cn_paid' => array('label' => '中国大陆 · 付费', 'providers' => array()),
-            'global_free_tier' => array('label' => '其他国家/海外 · 免费额度/免费模型', 'providers' => array()),
-            'global_paid' => array('label' => '其他国家/海外 · 付费', 'providers' => array()),
+            'custom_depends' => array('label' => self::t('中转站 / 自定义（费用和地区取决于服务商）'), 'providers' => array()),
+            'cn_free_tier' => array('label' => self::t('中国大陆 · 免费额度/免费模型'), 'providers' => array()),
+            'cn_paid' => array('label' => self::t('中国大陆 · 付费'), 'providers' => array()),
+            'global_free_tier' => array('label' => self::t('其他国家/海外 · 免费额度/免费模型'), 'providers' => array()),
+            'global_paid' => array('label' => self::t('其他国家/海外 · 付费'), 'providers' => array()),
         );
         foreach (self::provider_options() as $key => $meta) {
             $region = (string)($meta['region'] ?? 'global');
