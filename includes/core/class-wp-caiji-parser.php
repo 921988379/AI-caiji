@@ -98,6 +98,19 @@ class WP_Caiji_Parser
     {
         $path = trim((string)($rule['link_json_path'] ?? ''));
         $field = trim((string)($rule['link_json_url_field'] ?? ''));
+        if ($field === 'caijin_url') {
+            $links = array();
+            if (preg_match_all('/\\\\"slug\\\\"\s*:\s*\\\\"([^\\\\"]+)\\\\".*?\\\\"content_type\\\\"\s*:\s*\\\\"(podcast|article)\\\\"/is', (string)$html, $matches, PREG_SET_ORDER)) {
+                foreach ($matches as $match) {
+                    $slug = trim((string)$match[1]);
+                    $type = trim((string)$match[2]);
+                    if ($slug === '') continue;
+                    $abs = self::absolute_url('/' . $type . 's/' . ltrim($slug, '/'), $base_url);
+                    if (WP_Caiji_Utils::is_safe_public_url($abs)) $links[] = WP_Caiji_Utils::normalize_url($abs);
+                }
+            }
+            if ($links) return array_values(array_unique($links));
+        }
         if ($path === '') return array();
         $data = self::extract_json_data($html, $rule['json_source'] ?? '__NEXT_DATA__');
         if (!$data) return array();
@@ -108,7 +121,16 @@ class WP_Caiji_Parser
         foreach ($items as $item) {
             $value = null;
             if ($field !== '') {
-                $value = is_array($item) ? self::json_path_get($item, $field) : null;
+                if ($field === 'caijin_url' && is_array($item)) {
+                    $slug = isset($item['slug']) && is_scalar($item['slug']) ? trim((string)$item['slug']) : '';
+                    $type = isset($item['content_type']) && is_scalar($item['content_type']) ? trim((string)$item['content_type']) : '';
+                    if ($slug !== '' && in_array($type, array('podcast', 'article'), true)) {
+                        $value = '/' . $type . 's/' . ltrim($slug, '/');
+                    }
+                }
+                if ($value === null) {
+                    $value = is_array($item) ? self::json_path_get($item, $field) : null;
+                }
             } elseif (is_string($item)) {
                 $value = $item;
             } elseif (is_array($item)) {
@@ -275,6 +297,18 @@ class WP_Caiji_Parser
         $after = (string)($rule[$field . '_after_marker'] ?? '');
         $json_value = self::extract_json_field_by_rule($html, $rule, $field, $text_only);
         if ($json_value !== '') return $json_value;
+        if ($field === 'title' && trim((string)($rule['title_json_path'] ?? '')) === 'caijin_title') {
+            $caijin_title = self::extract_caijin_title($html);
+            if ($caijin_title !== '') return $caijin_title;
+        }
+        if ($field === 'date' && trim((string)($rule['date_json_path'] ?? '')) === 'caijin_date') {
+            $caijin_date = self::extract_caijin_date($html);
+            if ($caijin_date !== '') return $caijin_date;
+        }
+        if ($field === 'content' && (!empty($rule['caijin_content_extract']) || trim((string)($rule['content_json_path'] ?? '')) === 'caijin_content')) {
+            $caijin_content = self::extract_caijin_content($html, $text_only);
+            if ($caijin_content !== '') return $caijin_content;
+        }
         $scoped_html = self::slice_between_markers($html, $before, $after);
         if ($selector !== '') {
             return self::extract($scoped_html, $selector, $text_only);
@@ -305,9 +339,107 @@ class WP_Caiji_Parser
         $after = (string)($rule[$field . '_after_marker'] ?? '');
         $json_value = self::extract_json_field_by_rule($html, $rule, $field, false);
         if ($json_value !== '') return mb_substr($json_value, 0, max(200, (int)$max_chars));
+        if ($field === 'title' && trim((string)($rule['title_json_path'] ?? '')) === 'caijin_title') {
+            $caijin_title = self::extract_caijin_title($html);
+            if ($caijin_title !== '') return mb_substr($caijin_title, 0, max(200, (int)$max_chars));
+        }
+        if ($field === 'date' && trim((string)($rule['date_json_path'] ?? '')) === 'caijin_date') {
+            $caijin_date = self::extract_caijin_date($html);
+            if ($caijin_date !== '') return mb_substr($caijin_date, 0, max(200, (int)$max_chars));
+        }
+        if ($field === 'content' && (!empty($rule['caijin_content_extract']) || trim((string)($rule['content_json_path'] ?? '')) === 'caijin_content')) {
+            $caijin_content = self::extract_caijin_content($html, false);
+            if ($caijin_content !== '') return mb_substr($caijin_content, 0, max(200, (int)$max_chars));
+        }
         $scoped_html = self::slice_between_markers($html, $before, $after);
         if ($selector !== '') return self::extract_outer_html_sample($scoped_html, $selector, $max_chars);
         return mb_substr(trim($scoped_html), 0, max(200, (int)$max_chars));
+    }
+
+    public static function extract_caijin_title($html)
+    {
+        $html = (string)$html;
+        foreach (array(
+            '/<meta\s+property=["\']og:title["\']\s+content=["\']([^"\']+)["\']/i',
+            '/<meta\s+name=["\']twitter:title["\']\s+content=["\']([^"\']+)["\']/i',
+            '/<title>(.*?)<\/title>/is',
+        ) as $pattern) {
+            if (preg_match($pattern, $html, $m)) {
+                $title = trim(html_entity_decode(wp_strip_all_tags($m[1]), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+                if ($title !== '' && $title !== '财经 Caijin') return $title;
+            }
+        }
+        if (preg_match('/<h1\b[^>]*>(.*?)<\/h1>/is', $html, $m)) {
+            $title = trim(html_entity_decode(wp_strip_all_tags($m[1]), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            if ($title !== '') return $title;
+        }
+        return '';
+    }
+
+    public static function extract_caijin_date($html)
+    {
+        $html = (string)$html;
+        if (preg_match('/<meta\s+property=["\']article:published_time["\']\s+content=["\']([^"\']+)["\']/i', $html, $m)) {
+            return trim($m[1]);
+        }
+        if (preg_match('/(20\d{2}\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*\d{1,2}:\d{2})/u', $html, $m)) {
+            return trim($m[1]);
+        }
+        return '';
+    }
+
+    public static function extract_caijin_content($html, $text_only = false)
+    {
+        $content = '';
+        $html = (string)$html;
+        if (preg_match('/className\\":\\"prose[^\\"]*\\".*?children\\":\[\[\[\\"\$\\",\\"p\\",\\"0\\",\{\\"children\\":\\"((?:[^\\\\\\"]|\\\\.)*)\\"\}\],\[\\"\$\\",\\"br\\"/is', $html, $m)) {
+            $content = '<p>' . esc_html(self::decode_js_string($m[1])) . '</p>';
+        }
+        if ($content === '' && preg_match('/className\\":\\"prose[^\\"]*\\".*?children\\":\[\[\[\\"\$\\",\\"p\\",\\"0\\",\{\\"children\\":\[(.*?)\]\}\],\[\\"\$\\",\\"br\\"/is', $html, $m)) {
+            $content = self::caijin_react_children_to_html($m[1]);
+        }
+        if ($content === '' && preg_match('/<meta\s+property=["\']og:description["\']\s+content=["\']([^"\']+)["\']/i', $html, $m)) {
+            $content = '<p>' . esc_html(html_entity_decode($m[1], ENT_QUOTES | ENT_HTML5, 'UTF-8')) . '</p>';
+        }
+        if ($content === '' && preg_match('/<meta\s+name=["\']description["\']\s+content=["\']([^"\']+)["\']/i', $html, $m)) {
+            $content = '<p>' . esc_html(html_entity_decode($m[1], ENT_QUOTES | ENT_HTML5, 'UTF-8')) . '</p>';
+        }
+        if ($content === '' && preg_match('/<div class="prose[^" ]*[^" ]*"[^>]*>(?!.*animate-pulse)(.*?)<hr\b/is', $html, $m)) {
+            $content = $m[1];
+        }
+        if ($content === '') return '';
+        $content = html_entity_decode(str_replace('\\u0026nbsp;', '&nbsp;', $content), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        if ($text_only) return trim(preg_replace('/\s+/u', ' ', wp_strip_all_tags($content)));
+        return trim($content);
+    }
+
+    private static function caijin_react_children_to_html($raw)
+    {
+        $raw = (string)$raw;
+        $out = '';
+        if (preg_match_all('/\\"((?:[^\\\\\\"]|\\\\.)*)\\"|\[\\"\$\\",\\"(br|a)\\"(?:,.*?)?\]/is', $raw, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                if (!empty($match[2])) {
+                    if ($match[2] === 'br') $out .= '<br>';
+                    elseif ($match[2] === 'a' && preg_match('/\\"href\\":\\"((?:[^\\\\\\"]|\\\\.)*)\\".*?\\"children\\":\\"((?:[^\\\\\\"]|\\\\.)*)\\"/is', $match[0], $am)) {
+                        $href = self::decode_js_string($am[1]);
+                        $text = self::decode_js_string($am[2]);
+                        $out .= '<a href="' . esc_url($href) . '">' . esc_html($text) . '</a>';
+                    }
+                    continue;
+                }
+                $text = self::decode_js_string($match[1] ?? '');
+                if ($text !== '$' && $text !== 'p' && $text !== '0' && $text !== 'children') $out .= esc_html($text);
+            }
+        }
+        return $out !== '' ? '<p>' . $out . '</p>' : '';
+    }
+
+    private static function decode_js_string($value)
+    {
+        $json = '"' . str_replace('"', '\\"', (string)$value) . '"';
+        $decoded = json_decode($json);
+        return is_string($decoded) ? $decoded : stripcslashes((string)$value);
     }
 
     public static function extract_image_sources($content)

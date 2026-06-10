@@ -3,7 +3,7 @@ Contributors: 一点优化
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.1.26
+Stable tag: 2.1.27
 License: GPLv2 or later
 
 长期自动化文章采集插件。支持采集规则、列表页发现、分页发现、URL 队列、定时采集、失败重试、正文清洗、图片本地化、SEO 字段、随机延迟发布、Tag 提取、健康检查和诊断报告。
@@ -232,6 +232,13 @@ WP 采集 → 设置 → 卸载保护
 
 == 更新记录 ==
 
+= 2.1.27 =
+* 新增德语 de_DE、法语 fr_FR、印度尼西亚语 id_ID、印地语 hi_IN 语言包，并补齐对应 .po/.mo 文件。
+* 默认 OpenAI 兼容中转站 Endpoint 调整为 https://api.seoyh.net/v1/chat/completions。
+* 优化慢站点采集设置保存：放宽单次 Cron 最大运行、请求间隔和 AI 超时上限，避免保存后被强制截断。
+* 改进设置保存容错：部分字段缺失时保留已有值，并为复选框增加隐藏默认值，减少卡顿或拦截导致的设置丢失。
+* 采集运行、发现任务和 AI 请求同步支持新的慢站点超时/间隔配置。
+
 = 2.1.26 =
 * 完善全插件国际化：新增 I18n 核心类，按后台用户语言优先加载 languages 目录中的 .mo 文件。
 * 新增英文 en_US 与简体中文 zh_CN 实际语言包，修复仅有 POT 模板导致后台切换语言不生效的问题。
@@ -252,7 +259,7 @@ WP 采集 → 设置 → 卸载保护
 * 新增 OpenAI 兼容中转站、OpenAI、DeepSeek、通义千问、Kimi、智谱、百川、MiniMax、xAI、OpenRouter、Claude、Gemini 等平台预设。
 * 新增各 AI 平台“说明”弹窗，包含注册入口、API Key 获取步骤、插件填写方式和注意事项。
 * 支持 Anthropic Claude 官方 Messages API 与 Google Gemini 官方 generateContent API，同时继续兼容 OpenAI 格式中转站。
-* 默认中转站 Endpoint 调整为 https://api.seoyh.net/。
+* 默认中转站 Endpoint 调整为 https://api.seoyh.net/v1/chat/completions。
 
 = 2.1.23 =
 * 新增远程请求、采集、AI、图片下载、GitHub 更新检查和 WP-Cron 触发的完整披露说明。

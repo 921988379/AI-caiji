@@ -224,7 +224,7 @@ class WP_Caiji_DB
             'ai_enabled' => 0,
             'ai_provider' => 'openai_compatible',
             'ai_api_key' => '',
-            'ai_endpoint' => 'https://api.seoyh.net/',
+            'ai_endpoint' => 'https://api.seoyh.net/v1/chat/completions',
             'ai_model' => 'gpt-5.5',
             'ai_temperature' => 0.7,
             'ai_timeout_seconds' => 45,

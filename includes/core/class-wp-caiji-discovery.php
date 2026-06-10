@@ -45,7 +45,7 @@ class WP_Caiji_Discovery
         if (WP_Caiji_Queue::post_exists_by_source($url)) return false;
 
         if (!$rule) $rule = $plugin->get_rule_public($rule_id);
-        $delay = max(0, min(30, (int)($rule['request_delay'] ?? 0)));
+        $delay = max(0, min(300, (int)($rule['request_delay'] ?? 0)));
         $scheduled_at = date('Y-m-d H:i:s', current_time('timestamp') + ($delay * max(0, (int)$offset)));
 
         $queue_table = $plugin->queue_table();

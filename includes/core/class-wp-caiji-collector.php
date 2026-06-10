@@ -43,7 +43,7 @@ class WP_Caiji_Collector
                 break;
             }
             if ($index > 0) {
-                $delay = max(0, min(30, (int)($row['request_delay'] ?? 0)));
+                $delay = max(0, min(300, (int)($row['request_delay'] ?? 0)));
                 if ($delay > 0) {
                     $scheduled_at = date('Y-m-d H:i:s', current_time('timestamp') + ($delay * $index));
                     $wpdb->update($queue_table, array('scheduled_at'=>$scheduled_at), array('id'=>(int)$row['queue_id'], 'status'=>'pending'));

@@ -89,7 +89,7 @@ class WP_Caiji_AI
         return array(
             'openai_compatible' => array(
                 'label' => self::t('OpenAI 兼容 / 中转站'),
-                'endpoint' => 'https://api.seoyh.net/',
+                'endpoint' => 'https://api.seoyh.net/v1/chat/completions',
                 'models' => array('gpt-5.5', 'gpt-4o', 'gpt-4o-mini', 'gpt-4.1', 'gpt-4.1-mini', 'o4-mini'),
                 'region' => 'custom',
                 'billing' => 'depends',
@@ -430,9 +430,59 @@ class WP_Caiji_AI
 
     public static function sanitize_language($language, $allow_empty = false)
     {
-        $language = sanitize_key((string)$language);
-        if ($allow_empty && $language === '') return '';
-        return array_key_exists($language, self::language_options()) ? $language : 'zh-CN';
+        $raw = trim((string)$language);
+        if ($allow_empty && $raw === '') return '';
+
+        $aliases = array(
+            'zh' => 'zh-CN',
+            'zh-cn' => 'zh-CN',
+            'zh_cn' => 'zh-CN',
+            'cn' => 'zh-CN',
+            'chinese' => 'zh-CN',
+            '中文' => 'zh-CN',
+            '简体中文' => 'zh-CN',
+            'en-us' => 'en',
+            'en_gb' => 'en',
+            'english' => 'en',
+            '英文' => 'en',
+            'es-es' => 'es',
+            'es_mx' => 'es',
+            'spanish' => 'es',
+            'español' => 'es',
+            'espanol' => 'es',
+            '西班牙语' => 'es',
+            '西班牙文' => 'es',
+            'fr-fr' => 'fr',
+            'french' => 'fr',
+            '法语' => 'fr',
+            '法文' => 'fr',
+            'de-de' => 'de',
+            'german' => 'de',
+            '德语' => 'de',
+            '德文' => 'de',
+            'ja-jp' => 'ja',
+            'japanese' => 'ja',
+            '日语' => 'ja',
+            '日文' => 'ja',
+            'ko-kr' => 'ko',
+            'korean' => 'ko',
+            '韩语' => 'ko',
+            '韩文' => 'ko',
+            'none' => 'auto',
+            'no' => 'auto',
+            'auto' => 'auto',
+            '不限制' => 'auto',
+            '不检测' => 'auto',
+            '不限制/不检测' => 'auto',
+        );
+
+        $key = function_exists('mb_strtolower') ? mb_strtolower($raw, 'UTF-8') : strtolower($raw);
+        $key = str_replace(array('_', ' '), array('-', '-'), $key);
+        if (isset($aliases[$key])) return $aliases[$key];
+
+        $sanitized = sanitize_key($raw);
+        if (isset($aliases[$sanitized])) return $aliases[$sanitized];
+        return array_key_exists($sanitized, self::language_options()) ? $sanitized : 'zh-CN';
     }
 
     public static function language_label($language)
@@ -440,6 +490,24 @@ class WP_Caiji_AI
         $language = self::sanitize_language($language);
         $options = self::language_options();
         return $options[$language] ?? $options['zh-CN'];
+    }
+
+    private static function language_prompt_instruction($language)
+    {
+        $language = self::sanitize_language($language);
+        if ($language === 'auto') return '';
+
+        $label = self::language_label($language);
+        $extra = '';
+        if ($language === 'es') {
+            $extra = "
+- 西班牙语请使用自然、流畅的通用西班牙语（español neutro），标题、正文、FAQ、按钮/小标题等可见文本都必须翻译为西班牙语。
+- 保留 HTML 标签、链接 URL、图片地址、专有名词、品牌名和不可翻译代码，不要夹杂中文或英文解释。";
+        }
+
+        return "
+
+语言要求：请将改写后的标题和正文全部输出为{$label}。如果原文不是{$label}，请先完整翻译再改写。该语言要求优先于默认 Prompt 中任何关于“中文网站/中文表达”的描述。{$extra}";
     }
 
     public static function detect_language_matches($title, $content, $language)
@@ -471,17 +539,22 @@ class WP_Caiji_AI
 
         $lower = mb_strtolower(' ' . $text . ' ', 'UTF-8');
         $scores = array(
-            'en' => preg_match_all('/\b(the|and|or|of|to|in|for|with|that|is|are|this|from|by|as)\b/u', $lower),
-            'es' => preg_match_all('/\b(el|la|los|las|de|del|que|para|con|una|por|como|este|esta|son|más)\b/u', $lower),
-            'fr' => preg_match_all('/\b(le|la|les|des|de|du|que|pour|avec|une|dans|est|sont|plus|sur)\b/u', $lower),
-            'de' => preg_match_all('/\b(der|die|das|und|oder|von|mit|für|ist|sind|ein|eine|nicht|auf|zu)\b/u', $lower),
+            'en' => preg_match_all('/\b(the|and|or|of|to|in|for|with|that|is|are|this|from|by|as|will|can|has|have)\b/u', $lower),
+            'es' => preg_match_all('/\b(el|la|los|las|un|una|unos|unas|de|del|que|para|con|por|como|este|esta|estos|estas|son|más|también|entre|sobre|desde|hasta|pero|porque|según|cada|años|año|ser|tiene|puede)\b/u', $lower),
+            'fr' => preg_match_all('/\b(le|la|les|des|de|du|que|pour|avec|une|dans|est|sont|plus|sur|mais|par|aux|ce|cette)\b/u', $lower),
+            'de' => preg_match_all('/\b(der|die|das|und|oder|von|mit|für|ist|sind|ein|eine|nicht|auf|zu|im|den|dem|des|als)\b/u', $lower),
         );
         if (isset($scores[$language])) {
             $max_other = 0;
             foreach ($scores as $key => $score) {
                 if ($key !== $language) $max_other = max($max_other, (int)$score);
             }
-            return $latin_ratio >= 0.55 && ((int)$scores[$language] >= 2 || ((int)$scores[$language] >= 1 && (int)$scores[$language] >= $max_other));
+            $score = (int)$scores[$language];
+            $has_spanish_marks = preg_match('/[ñáéíóúü¿¡]/u', $lower) === 1;
+            if ($language === 'es') {
+                return $latin_ratio >= 0.55 && ($score >= 2 || ($has_spanish_marks && $score >= 1) || ($score >= 1 && $score >= $max_other + 1));
+            }
+            return $latin_ratio >= 0.55 && ($score >= 2 || ($score >= 1 && $score >= $max_other));
         }
 
         return true;
@@ -736,16 +809,13 @@ class WP_Caiji_AI
         $target_language = self::sanitize_language($rule['ai_rewrite_language'] ?? '', true);
         if ($target_language === '') $target_language = self::sanitize_language($settings['ai_rewrite_language'] ?? 'zh-CN');
         if ($target_language !== 'auto') {
-            $language_label = self::language_label($target_language);
-            $prompt .= "
-
-语言要求：请将改写后的标题和正文全部输出为{$language_label}。如果原文不是{$language_label}，请先翻译再改写。";
+            $prompt .= self::language_prompt_instruction($target_language);
         }
 
         $max_chars = max(1000, min(60000, (int)($settings['ai_max_input_chars'] ?? 12000)));
         $clean_content = mb_substr((string)$content, 0, $max_chars);
         $temperature = max(0, min(2, (float)($settings['ai_temperature'] ?? 0.7)));
-        $timeout = max(10, min(120, (int)($settings['ai_timeout_seconds'] ?? 45)));
+        $timeout = max(10, min(300, (int)($settings['ai_timeout_seconds'] ?? 45)));
 
         $payload = array(
             'model' => $model,
@@ -795,7 +865,7 @@ class WP_Caiji_AI
         $provider = self::sanitize_provider($settings['ai_provider'] ?? 'openai_compatible');
         $model = trim((string)($settings['ai_model'] ?? '')) ?: 'gpt-5.5';
         $endpoint = self::validate_endpoint($settings['ai_endpoint'] ?? '', $provider, $model);
-        $timeout = max(10, min(120, (int)($settings['ai_timeout_seconds'] ?? 45)));
+        $timeout = max(10, min(300, (int)($settings['ai_timeout_seconds'] ?? 45)));
         $result = array(
             'ok' => false,
             'provider' => self::provider_label($provider),

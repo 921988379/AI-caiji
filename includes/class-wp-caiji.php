@@ -569,7 +569,7 @@ class WP_Caiji
                         状态 <select name="post_status"><option value="draft" <?php selected($rule['post_status'],'draft'); ?>>草稿</option><option value="publish" <?php selected($rule['post_status'],'publish'); ?>>发布</option><option value="future" <?php selected($rule['post_status'],'future'); ?>>定时发布</option><option value="pending" <?php selected($rule['post_status'],'pending'); ?>>待审</option></select>
                     </td></tr>
                     <tr><th>发布节奏</th><td>模式 <select name="publish_mode"><option value="immediate" <?php selected($rule['publish_mode'],'immediate'); ?>>立即使用上方状态</option><option value="random_future" <?php selected($rule['publish_mode'],'random_future'); ?>>随机延迟发布</option></select> 延迟 <input name="publish_delay_min" type="number" min="0" value="<?php echo esc_attr($rule['publish_delay_min']); ?>" style="width:80px"> - <input name="publish_delay_max" type="number" min="0" value="<?php echo esc_attr($rule['publish_delay_max']); ?>" style="width:80px"> 分钟 <p class="description">选择随机延迟发布时,会把文章设为 future,并在区间内随机安排发布时间。</p></td></tr>
-                    <tr><th>长期采集控制</th><td>每批 <input name="batch_limit" type="number" min="1" max="50" value="<?php echo esc_attr($rule['batch_limit']); ?>" style="width:80px"> 篇;失败重试 <input name="retry_limit" type="number" min="0" max="10" value="<?php echo esc_attr($rule['retry_limit']); ?>" style="width:80px"> 次;请求间隔 <input name="request_delay" type="number" min="0" max="30" value="<?php echo esc_attr($rule['request_delay']); ?>" style="width:80px"> 秒</td></tr>
+                    <tr><th>长期采集控制</th><td>每批 <input name="batch_limit" type="number" min="1" max="50" value="<?php echo esc_attr($rule['batch_limit']); ?>" style="width:80px"> 篇;失败重试 <input name="retry_limit" type="number" min="0" max="10" value="<?php echo esc_attr($rule['retry_limit']); ?>" style="width:80px"> 次;请求间隔 <input name="request_delay" type="number" min="0" max="300" value="<?php echo esc_attr($rule['request_delay']); ?>" style="width:80px"> 秒 <p class="description">慢站点可适当调高，例如 60-180 秒，避免请求过密或目标站响应慢导致失败。</p></td></tr>
                 </table>
                 </div>
                 <div class="wp-caiji-section"><h2>图片与媒体</h2>
@@ -982,7 +982,7 @@ class WP_Caiji
                 </div>
                 <div class="wp-caiji-section is-collapsed"><h2>运行保护</h2>
                 <table class="form-table" role="presentation">
-                    <tr><th>单次 Cron 最大运行</th><td><input name="max_runtime_seconds" type="number" min="10" max="300" value="<?php echo esc_attr($settings['max_runtime_seconds']); ?>"> 秒 <p class="description">当前采集规则启用 AI 时，建议大于 AI 超时 + 抓取/图片处理耗时；否则会频繁出现“达到单次 Cron 最大运行时间”。</p></td></tr>
+                    <tr><th>单次 Cron 最大运行</th><td><input name="max_runtime_seconds" type="number" min="10" max="1800" value="<?php echo esc_attr($settings['max_runtime_seconds']); ?>"> 秒 <p class="description">当前采集规则启用 AI 或目标站较慢时，建议大于 AI 超时 + 抓取/图片处理耗时；慢站点可调到 600-1800 秒。</p></td></tr>
                     <tr><th>运行中超时释放</th><td><input name="running_timeout_minutes" type="number" min="5" max="1440" value="<?php echo esc_attr($settings['running_timeout_minutes']); ?>"> 分钟 <p class="description">队列长时间停留 running 会自动退回 pending，避免卡死。</p></td></tr>
                     <tr><th>任务锁超时</th><td><input name="lock_ttl_seconds" type="number" min="60" max="3600" value="<?php echo esc_attr($settings['lock_ttl_seconds']); ?>"> 秒 <p class="description">防止两个 Cron 同时运行。超过该时间会自动释放旧锁。</p></td></tr>
                 </table>
@@ -994,23 +994,23 @@ class WP_Caiji
                 </div>
                 <div class="wp-caiji-section is-collapsed"><h2>AI 改写设置</h2>
                 <table class="form-table" role="presentation">
-                    <tr><th>启用 AI 能力</th><td><label><input name="ai_enabled" type="checkbox" value="1" <?php checked($settings['ai_enabled'],1); ?>> 允许采集规则在发布前调用 AI 改写</label><p class="description">每条规则仍需单独开启“发布前 AI 改写”。关闭这里会全局禁用 AI。</p></td></tr>
+                    <tr><th>启用 AI 能力</th><td><input type="hidden" name="ai_enabled" value="0"><label><input name="ai_enabled" type="checkbox" value="1" <?php checked($settings['ai_enabled'],1); ?>> 允许采集规则在发布前调用 AI 改写</label><p class="description">每条规则仍需单独开启“发布前 AI 改写”。关闭这里会全局禁用 AI。</p></td></tr>
                     <tr><th>AI API Key</th><td><input name="ai_api_key" type="text" class="regular-text code" value="<?php echo esc_attr(WP_Caiji_AI::get_api_key($settings)); ?>" autocomplete="off" placeholder="sk-..."><p class="description">明文保存并在后台显示，仅拥有本插件设置权限的管理员可查看。诊断导出会自动脱敏。</p></td></tr>
                     <tr><th>AI 服务商</th><td><?php $current_ai_provider = WP_Caiji_AI::sanitize_provider($settings['ai_provider'] ?? 'openai_compatible'); $provider_options = WP_Caiji_AI::provider_options(); $current_provider_meta = $provider_options[$current_ai_provider] ?? array('billing'=>'depends','region'=>'custom'); $current_provider_kind = (($current_provider_meta['region'] ?? '') === 'custom' || ($current_provider_meta['billing'] ?? '') === 'depends') ? 'transit' : ((($current_provider_meta['billing'] ?? '') === 'free_tier') ? 'free' : 'paid'); ?><div class="wp-caiji-ai-provider-cascade"><select class="wp-caiji-ai-provider-kind"><option value="transit" <?php selected($current_provider_kind, 'transit'); ?>>中转 / 自定义</option><option value="free" <?php selected($current_provider_kind, 'free'); ?>>免费 / 免费额度</option><option value="paid" <?php selected($current_provider_kind, 'paid'); ?>>付费</option></select> <select name="ai_provider" class="wp-caiji-ai-provider"><?php foreach ($provider_options as $provider_key => $provider_meta): ?><?php $provider_kind = (($provider_meta['region'] ?? '') === 'custom' || ($provider_meta['billing'] ?? '') === 'depends') ? 'transit' : ((($provider_meta['billing'] ?? '') === 'free_tier') ? 'free' : 'paid'); ?><option value="<?php echo esc_attr($provider_key); ?>" data-kind="<?php echo esc_attr($provider_kind); ?>" data-endpoint="<?php echo esc_attr($provider_meta['endpoint']); ?>" data-models="<?php echo esc_attr(implode(',', (array)$provider_meta['models'])); ?>" data-region="<?php echo esc_attr(WP_Caiji_AI::provider_region_label($provider_meta['region'] ?? 'global')); ?>" data-billing="<?php echo esc_attr(WP_Caiji_AI::provider_billing_label($provider_meta['billing'] ?? 'paid')); ?>" data-description="<?php echo esc_attr($provider_meta['description'] ?? ''); ?>" data-tutorial-target="wp-caiji-ai-tutorial-<?php echo esc_attr($provider_key); ?>" <?php selected($current_ai_provider, $provider_key); ?>><?php echo esc_html(WP_Caiji_AI::provider_region_label($provider_meta['region'] ?? 'global') . ' · ' . $provider_meta['label']); ?></option><?php endforeach; ?></select> <button type="button" class="button wp-caiji-ai-tutorial-open">说明</button></div><p class="description">先选择“中转 / 免费 / 付费”，再选择对应 AI 名称；选好后点击“说明”查看该平台注册和 API Key 获取教程。中国大陆/其他国家会显示在 AI 名称前。</p></td></tr>
                     <tr><th>AI Endpoint</th><td><input name="ai_endpoint" type="url" class="regular-text wp-caiji-ai-endpoint" value="<?php echo esc_attr($settings['ai_endpoint']); ?>" placeholder="https://api.openai.com/v1 或 http://你的中转站/v1"> <button type="button" class="button wp-caiji-ai-fill-endpoint">填入所选默认地址</button><p class="description">兼容中转站：可填完整 chat/completions 地址，也可只填基础地址或 /v1，插件会自动补全。Gemini 官方可使用 {model} 占位；生产环境建议优先 HTTPS。</p></td></tr>
                     <tr><th>AI 模型</th><td><input name="ai_model" class="regular-text wp-caiji-ai-model" list="wp-caiji-ai-model-presets" value="<?php echo esc_attr($settings['ai_model']); ?>" placeholder="gpt-5.5"><datalist id="wp-caiji-ai-model-presets"><?php foreach (WP_Caiji_AI::provider_model_presets() as $model_name): ?><option value="<?php echo esc_attr($model_name); ?>"></option><?php endforeach; ?></datalist> 温度 <input name="ai_temperature" type="number" min="0" max="2" step="0.1" value="<?php echo esc_attr($settings['ai_temperature']); ?>" style="width:90px"><p class="description wp-caiji-ai-provider-hint"></p></td></tr>
-                    <tr><th>默认改写语言</th><td><select name="ai_rewrite_language"><?php foreach (WP_Caiji_AI::language_options() as $lang_code => $lang_label): ?><option value="<?php echo esc_attr($lang_code); ?>" <?php selected($settings['ai_rewrite_language'] ?? 'zh-CN', $lang_code); ?>><?php echo esc_html($lang_label); ?></option><?php endforeach; ?></select> <label><input name="ai_language_check" type="checkbox" value="1" <?php checked($settings['ai_language_check'] ?? 1, 1); ?>> 检测改写后语言，不符合则判定 AI 失败</label><p class="description">规则可单独覆盖目标语言。选择“不限制/不检测”时不会追加语言要求，也不会做语言检测。</p></td></tr>
+                    <tr><th>默认改写语言</th><td><select name="ai_rewrite_language"><?php foreach (WP_Caiji_AI::language_options() as $lang_code => $lang_label): ?><option value="<?php echo esc_attr($lang_code); ?>" <?php selected($settings['ai_rewrite_language'] ?? 'zh-CN', $lang_code); ?>><?php echo esc_html($lang_label); ?></option><?php endforeach; ?></select> <input type="hidden" name="ai_language_check" value="0"><label><input name="ai_language_check" type="checkbox" value="1" <?php checked($settings['ai_language_check'] ?? 1, 1); ?>> 检测改写后语言，不符合则判定 AI 失败</label><p class="description">规则可单独覆盖目标语言。选择“不限制/不检测”时不会追加语言要求，也不会做语言检测。</p></td></tr>
                     <tr><th>API 连接测试</th><td><button class="button button-secondary" formaction="<?php echo esc_url(admin_url('admin-post.php')); ?>" name="action" value="wp_caiji_test_ai_api">测试 API 连接</button><p class="description">会优先使用当前表单里填写的 Key、Endpoint、模型和超时发送一次极小测试请求；不会保存设置，也不会创建文章。</p></td></tr>
                     <?php $this->render_ai_api_test_result(); ?>
-                    <tr><th>AI 超时/输入限制</th><td>超时 <input name="ai_timeout_seconds" type="number" min="10" max="120" value="<?php echo esc_attr($settings['ai_timeout_seconds']); ?>" style="width:90px"> 秒；最多提交正文 <input name="ai_max_input_chars" type="number" min="1000" max="60000" value="<?php echo esc_attr($settings['ai_max_input_chars']); ?>" style="width:110px"> 字符<p class="description">如果 AI 经常 504 或 cURL 28，可先把超时降到 30-60 秒，或把单次 Cron 最大运行调到高于 AI 超时。</p></td></tr>
+                    <tr><th>AI 超时/输入限制</th><td>超时 <input name="ai_timeout_seconds" type="number" min="10" max="300" value="<?php echo esc_attr($settings['ai_timeout_seconds']); ?>" style="width:90px"> 秒；最多提交正文 <input name="ai_max_input_chars" type="number" min="1000" max="60000" value="<?php echo esc_attr($settings['ai_max_input_chars']); ?>" style="width:110px"> 字符<p class="description">如果 AI 经常 504 或 cURL 28，可按服务稳定性设置 30-300 秒，并把单次 Cron 最大运行调到高于 AI 超时。</p></td></tr>
                     <tr><th>默认改写 Prompt</th><td><textarea name="ai_rewrite_prompt" rows="8" class="large-text code"><?php echo esc_textarea($settings['ai_rewrite_prompt']); ?></textarea><p class="description">规则里未填写专属 Prompt 时使用这里。建议要求模型只返回 JSON:{"title":"...","content":"..."}</p></td></tr>
                 </table>
                 <?php $this->render_ai_tutorial_modals(); ?>
                 </div>
                 <div class="wp-caiji-section is-collapsed"><h2>日志与数据</h2>
                 <table class="form-table" role="presentation">
-                    <tr><th>日志</th><td><label><input name="enable_logs" type="checkbox" value="1" <?php checked($settings['enable_logs'],1); ?>> 启用日志</label>；保留最近 <input name="log_retention" type="number" min="100" max="20000" value="<?php echo esc_attr($settings['log_retention']); ?>"> 条</td></tr>
-                    <tr><th>卸载保护</th><td><label class="wp-caiji-danger-option"><input name="delete_data_on_uninstall" type="checkbox" value="1" <?php checked($settings['delete_data_on_uninstall'],1); ?>> 卸载插件时删除规则、队列、日志和设置</label><p class="description">危险选项：默认不删除数据，防止误卸载造成采集规则丢失。只有确认不再需要这些数据时才建议开启。</p></td></tr>
+                    <tr><th>日志</th><td><input type="hidden" name="enable_logs" value="0"><label><input name="enable_logs" type="checkbox" value="1" <?php checked($settings['enable_logs'],1); ?>> 启用日志</label>；保留最近 <input name="log_retention" type="number" min="100" max="20000" value="<?php echo esc_attr($settings['log_retention']); ?>"> 条</td></tr>
+                    <tr><th>卸载保护</th><td><input type="hidden" name="delete_data_on_uninstall" value="0"><label class="wp-caiji-danger-option"><input name="delete_data_on_uninstall" type="checkbox" value="1" <?php checked($settings['delete_data_on_uninstall'],1); ?>> 卸载插件时删除规则、队列、日志和设置</label><p class="description">危险选项：默认不删除数据，防止误卸载造成采集规则丢失。只有确认不再需要这些数据时才建议开启。</p></td></tr>
                 </table>
                 </div>
                 <?php submit_button('保存设置'); ?>
@@ -1140,7 +1140,7 @@ class WP_Caiji
             'post_status'=>in_array(($input['post_status'] ?? 'draft'), array('draft','publish','future','pending'), true) ? sanitize_key($input['post_status']) : 'draft',
             'batch_limit'=>max(1, min(50, absint($input['batch_limit'] ?? 5))),
             'retry_limit'=>max(0, min(10, absint($input['retry_limit'] ?? 3))),
-            'request_delay'=>max(0, min(30, absint($input['request_delay'] ?? 1))),
+            'request_delay'=>max(0, min(300, absint($input['request_delay'] ?? 1))),
             'download_images'=>!empty($input['download_images']) ? 1 : 0,
             'set_featured_image'=>!empty($input['set_featured_image']) ? 1 : 0,
             'dedupe_title'=>!empty($input['dedupe_title']) ? 1 : 0,
@@ -1403,40 +1403,40 @@ class WP_Caiji
     private function settings_from_post($existing_settings)
     {
         $existing_settings = wp_parse_args((array)$existing_settings, WP_Caiji_DB::default_settings());
-        $collect_random_min = max(1, min(1440, absint($_POST['collect_random_min_minutes'] ?? 10)));
-        $collect_random_max = max(1, min(1440, absint($_POST['collect_random_max_minutes'] ?? 30)));
+        $collect_random_min = max(1, min(1440, absint($_POST['collect_random_min_minutes'] ?? ($existing_settings['collect_random_min_minutes'] ?? 10))));
+        $collect_random_max = max(1, min(1440, absint($_POST['collect_random_max_minutes'] ?? ($existing_settings['collect_random_max_minutes'] ?? 30))));
         if ($collect_random_max < $collect_random_min) $collect_random_max = $collect_random_min;
         return array(
-            'discover_interval'=>sanitize_key($_POST['discover_interval'] ?? 'wp_caiji_30min'),
-            'collect_interval'=>sanitize_key($_POST['collect_interval'] ?? 'wp_caiji_10min'),
-            'collect_schedule_mode'=>in_array(($_POST['collect_schedule_mode'] ?? 'fixed'), array('fixed','random'), true) ? sanitize_key($_POST['collect_schedule_mode']) : 'fixed',
+            'discover_interval'=>sanitize_key($_POST['discover_interval'] ?? ($existing_settings['discover_interval'] ?? 'wp_caiji_30min')),
+            'collect_interval'=>sanitize_key($_POST['collect_interval'] ?? ($existing_settings['collect_interval'] ?? 'wp_caiji_10min')),
+            'collect_schedule_mode'=>in_array(($_POST['collect_schedule_mode'] ?? ($existing_settings['collect_schedule_mode'] ?? 'fixed')), array('fixed','random'), true) ? sanitize_key($_POST['collect_schedule_mode'] ?? ($existing_settings['collect_schedule_mode'] ?? 'fixed')) : 'fixed',
             'collect_random_min_minutes'=>$collect_random_min,
             'collect_random_max_minutes'=>$collect_random_max,
-            'global_collect_limit'=>max(1, min(100, absint($_POST['global_collect_limit'] ?? 10))),
-            'max_runtime_seconds'=>max(10, min(300, absint($_POST['max_runtime_seconds'] ?? 45))),
-            'running_timeout_minutes'=>max(5, min(1440, absint($_POST['running_timeout_minutes'] ?? 30))),
-            'max_rules_per_discover'=>max(1, min(100, absint($_POST['max_rules_per_discover'] ?? 20))),
-            'log_retention'=>max(100, min(20000, absint($_POST['log_retention'] ?? 2000))),
-            'enable_logs'=>isset($_POST['enable_logs']) ? 1 : 0,
-            'lock_ttl_seconds'=>max(60, min(3600, absint($_POST['lock_ttl_seconds'] ?? 600))),
-            'max_images_per_post'=>max(0, min(50, absint($_POST['max_images_per_post'] ?? 10))),
-            'max_image_size_mb'=>max(1, min(50, absint($_POST['max_image_size_mb'] ?? 5))),
-            'ai_enabled'=>isset($_POST['ai_enabled']) ? 1 : 0,
-            'ai_provider'=>WP_Caiji_AI::sanitize_provider(wp_unslash($_POST['ai_provider'] ?? 'openai_compatible')),
+            'global_collect_limit'=>max(1, min(100, absint($_POST['global_collect_limit'] ?? ($existing_settings['global_collect_limit'] ?? 10)))),
+            'max_runtime_seconds'=>max(10, min(1800, absint($_POST['max_runtime_seconds'] ?? ($existing_settings['max_runtime_seconds'] ?? 45)))),
+            'running_timeout_minutes'=>max(5, min(1440, absint($_POST['running_timeout_minutes'] ?? ($existing_settings['running_timeout_minutes'] ?? 30)))),
+            'max_rules_per_discover'=>max(1, min(100, absint($_POST['max_rules_per_discover'] ?? ($existing_settings['max_rules_per_discover'] ?? 20)))),
+            'log_retention'=>max(100, min(20000, absint($_POST['log_retention'] ?? ($existing_settings['log_retention'] ?? 2000)))),
+            'enable_logs'=>array_key_exists('enable_logs', $_POST) ? (absint($_POST['enable_logs']) ? 1 : 0) : (int)($existing_settings['enable_logs'] ?? 1),
+            'lock_ttl_seconds'=>max(60, min(3600, absint($_POST['lock_ttl_seconds'] ?? ($existing_settings['lock_ttl_seconds'] ?? 600)))),
+            'max_images_per_post'=>max(0, min(50, absint($_POST['max_images_per_post'] ?? ($existing_settings['max_images_per_post'] ?? 10)))),
+            'max_image_size_mb'=>max(1, min(50, absint($_POST['max_image_size_mb'] ?? ($existing_settings['max_image_size_mb'] ?? 5)))),
+            'ai_enabled'=>array_key_exists('ai_enabled', $_POST) ? (absint($_POST['ai_enabled']) ? 1 : 0) : (int)($existing_settings['ai_enabled'] ?? 0),
+            'ai_provider'=>WP_Caiji_AI::sanitize_provider(wp_unslash($_POST['ai_provider'] ?? ($existing_settings['ai_provider'] ?? 'openai_compatible'))),
             'ai_api_key'=>WP_Caiji_AI::prepare_api_key_for_storage(wp_unslash($_POST['ai_api_key'] ?? ($existing_settings['ai_api_key'] ?? ''))),
-            'ai_endpoint'=>WP_Caiji_AI::normalize_endpoint(esc_url_raw(wp_unslash($_POST['ai_endpoint'] ?? WP_Caiji_AI::provider_default_endpoint(wp_unslash($_POST['ai_provider'] ?? 'openai_compatible')))), wp_unslash($_POST['ai_provider'] ?? 'openai_compatible'), sanitize_text_field(wp_unslash($_POST['ai_model'] ?? 'gpt-5.5'))),
-            'ai_model'=>sanitize_text_field(wp_unslash($_POST['ai_model'] ?? 'gpt-5.5')),
-            'ai_temperature'=>max(0, min(2, (float)($_POST['ai_temperature'] ?? 0.7))),
-            'ai_timeout_seconds'=>max(10, min(120, absint($_POST['ai_timeout_seconds'] ?? 45))),
-            'ai_max_input_chars'=>max(1000, min(60000, absint($_POST['ai_max_input_chars'] ?? 12000))),
-            'ai_rewrite_prompt'=>wp_kses_post(wp_unslash($_POST['ai_rewrite_prompt'] ?? WP_Caiji_AI::default_prompt())),
-            'ai_rewrite_language'=>WP_Caiji_AI::sanitize_language($_POST['ai_rewrite_language'] ?? 'zh-CN'),
-            'ai_language_check'=>isset($_POST['ai_language_check']) ? 1 : 0,
+            'ai_endpoint'=>WP_Caiji_AI::normalize_endpoint(esc_url_raw(wp_unslash($_POST['ai_endpoint'] ?? ($existing_settings['ai_endpoint'] ?? WP_Caiji_AI::provider_default_endpoint(wp_unslash($_POST['ai_provider'] ?? ($existing_settings['ai_provider'] ?? 'openai_compatible')))))), wp_unslash($_POST['ai_provider'] ?? ($existing_settings['ai_provider'] ?? 'openai_compatible')), sanitize_text_field(wp_unslash($_POST['ai_model'] ?? ($existing_settings['ai_model'] ?? 'gpt-5.5')))),
+            'ai_model'=>sanitize_text_field(wp_unslash($_POST['ai_model'] ?? ($existing_settings['ai_model'] ?? 'gpt-5.5'))),
+            'ai_temperature'=>max(0, min(2, (float)($_POST['ai_temperature'] ?? ($existing_settings['ai_temperature'] ?? 0.7)))),
+            'ai_timeout_seconds'=>max(10, min(300, absint($_POST['ai_timeout_seconds'] ?? ($existing_settings['ai_timeout_seconds'] ?? 45)))),
+            'ai_max_input_chars'=>max(1000, min(60000, absint($_POST['ai_max_input_chars'] ?? ($existing_settings['ai_max_input_chars'] ?? 12000)))),
+            'ai_rewrite_prompt'=>wp_kses_post(wp_unslash($_POST['ai_rewrite_prompt'] ?? ($existing_settings['ai_rewrite_prompt'] ?? WP_Caiji_AI::default_prompt()))),
+            'ai_rewrite_language'=>WP_Caiji_AI::sanitize_language($_POST['ai_rewrite_language'] ?? ($existing_settings['ai_rewrite_language'] ?? 'zh-CN')),
+            'ai_language_check'=>array_key_exists('ai_language_check', $_POST) ? (absint($_POST['ai_language_check']) ? 1 : 0) : (int)($existing_settings['ai_language_check'] ?? 1),
             'github_update_enabled'=>1,
             'github_repo'=>WP_Caiji_Updater::DEFAULT_REPO,
             'github_token'=>'',
             'github_package_url'=>'',
-            'delete_data_on_uninstall'=>isset($_POST['delete_data_on_uninstall']) ? 1 : 0,
+            'delete_data_on_uninstall'=>array_key_exists('delete_data_on_uninstall', $_POST) ? (absint($_POST['delete_data_on_uninstall']) ? 1 : 0) : (int)($existing_settings['delete_data_on_uninstall'] ?? 0),
         );
     }
 

@@ -1,1650 +1,1650 @@
-# WP Caiji English translations.
+# WP Caiji German translations.
+# German (Germany) translations for WP Caiji.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the WP Caiji project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Caiji 2.1.25\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-03 07:13+0000\n"
-"PO-Revision-Date: 2026-06-10 03:35+0000\n"
+"PO-Revision-Date: 2026-06-10 05:52+0000\n"
 "Last-Translator: WP Caiji\n"
+"Language: de_DE\n"
 "Language-Team: WP Caiji\n"
-"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.8.0\n"
 
 #: includes/class-wp-caiji.php:245
 msgid "URL 队列"
-msgstr "URL Queue"
+msgstr "URL-Adresse"
 
 #: includes/class-wp-caiji.php:243
 msgid "WP 采集"
-msgstr "WP Scraper"
+msgstr "WP 采集"
 
 #: includes/class-wp-caiji.php:243
 msgid "WP 采集助手"
-msgstr "WP Scraper Assistant"
+msgstr "WP 采集助手"
 
 #: includes/class-wp-caiji.php:248
 msgid "健康检查"
-msgstr "Health Check"
+msgstr "健康检查"
 
 #: includes/class-wp-caiji.php:233
 msgid "分组"
-msgstr "Groups"
+msgstr "分组"
 
 #: includes/class-wp-caiji.php:236
 msgid "可以手动输入服务商或中转站支持的模型名。"
-msgstr ""
-"You can manually enter any model name supported by the provider or relay service."
+msgstr "可以手动输入服务商或中转站支持的模型名."
 
 #: includes/class-wp-caiji.php:230
 msgid "已复制"
-msgstr "Copied"
+msgstr "已复制"
 
 #: includes/class-wp-caiji.php:234
 msgid "推荐模型："
-msgstr "Recommended models:"
+msgstr "推荐模型:"
 
 #: includes/class-wp-caiji.php:232
 msgid "有未保存内容，确定关闭吗？"
-msgstr "You have unsaved changes. Are you sure you want to close?"
+msgstr "有未保存内容，确定关闭吗？"
 
 #: includes/class-wp-caiji.php:231
 msgid "确定执行？"
-msgstr "Are you sure you want to run this?"
+msgstr "确定执行？"
 
 #: includes/class-wp-caiji.php:247
 msgid "设置"
-msgstr "Settings"
+msgstr "设置"
 
 #: includes/class-wp-caiji.php:246
 msgid "采集日志"
-msgstr "Scraping Logs"
+msgstr "采集日志"
 
 #: includes/class-wp-caiji.php:244
 msgid "采集规则"
-msgstr "Scraping Rules"
+msgstr "采集规则"
 
 #: includes/class-wp-caiji.php:235
 msgid "；也可以手动输入中转站支持的任意模型名。"
-msgstr "; you can also manually enter any model name supported by the relay service."
+msgstr "；也可以手动输入中转站支持的任意模型名."
 
 # Automatically collected static CJK strings from legacy templates.
 #: includes/class-wp-caiji.php:90
 msgid ""
-"WP 采集助手会根据管理员配置的采集规则向目标网站发起远程 HTTP/HTTPS 请求，以读取列表页、文章页和图片资源；启用图片本地化时，远程图片会下载到本站媒体库。"
+"WP 采集助手会根据管理员配置的采集规则向目标网站发起远程 HTTP/HTTPS "
+"请求，以读取列表页、文章页和图片资源；启用图片本地化时，远程图片会下载到本站媒体库。"
 msgstr ""
-"WP Scraper Assistant sends remote HTTP/HTTPS requests to target sites according to the scraping rules configured by the administrator, in order to read listing pages, article pages, and image assets. When image localization is enabled, remote images are downloaded to this site's media library."
+"WP 采集助手会根据管理员配置的采集规则向目标网站发起远程 HTTP/HTTPS请求, "
+"以读取列表页、文章页和图片资源；启用图片本地化时,远程图片会下载到本站媒体库."
 
 #: includes/class-wp-caiji.php:90
 msgid ""
-"$content = ' WP 采集助手会根据管理员配置的采集规则向目标网站发起远程 HTTP/HTTPS 请求，以读取列表页、文章页和图片资源；启用图片本地化时，远程图片会下载到本站媒体库。 '"
+"$content = ' WP 采集助手会根据管理员配置的采集规则向目标网站发起远程 HTTP/HTTPS "
+"请求，以读取列表页、文章页和图片资源；启用图片本地化时，远程图片会下载到本站媒体库。 '"
 msgstr ""
-"$content = ' WP Scraper Assistant sends remote HTTP/HTTPS requests to target sites according to the scraping rules configured by the administrator, in order to read listing pages, article pages, and image assets. When image localization is enabled, remote images are downloaded to this site's media library. '"
+"$content = ' WP Scraper Assistant sends remote HTTP/HTTPS requests to target"
+" sites according to the scraping rules configured by the administrator, in "
+"order to read listing pages, article pages, and image assets. When image "
+"localization is enabled, remote images are downloaded to this site's media "
+"library. '"
 
 #: includes/class-wp-caiji.php:91
 msgid ""
-"启用 AI 改写时，插件会把文章标题、正文片段、目标语言和管理员配置的 Prompt 发送到管理员填写的 OpenAI 兼容 AI Endpoint。AI API Key 按站点管理员要求明文保存在 WordPress 数据库选项中，并只在具备插件管理权限的后台页面显示；诊断导出会自动脱敏。"
+"启用 AI 改写时，插件会把文章标题、正文片段、目标语言和管理员配置的 Prompt 发送到管理员填写的 OpenAI 兼容 AI "
+"Endpoint。AI API Key 按站点管理员要求明文保存在 WordPress "
+"数据库选项中，并只在具备插件管理权限的后台页面显示；诊断导出会自动脱敏。"
 msgstr ""
-"When AI rewriting is enabled, the plugin sends the article title, content excerpt, target language, and administrator-configured prompt to the OpenAI-compatible AI endpoint entered by the administrator. At the site administrator's request, the AI API Key is stored in plain text in the WordPress database options and is only displayed on admin pages for users with plugin management permissions; diagnostic exports automatically redact it."
+"启用 AI 改写时,插件会把文章标题、正文片段、目标语言和管理员配置的 Prompt Die OpenAI-Entwicklungsplattform "
+"für AI Endpoint.AI API Key ist eine von WordPress erstellte "
+"Lösung数据库选项中，并只在具备插件管理权限的后台页面显示；诊断导出会自动脱敏。"
 
 #: includes/class-wp-caiji.php:91
 msgid ""
-". ' 启用 AI 改写时，插件会把文章标题、正文片段、目标语言和管理员配置的 Prompt 发送到管理员填写的 OpenAI 兼容 AI Endpoint。AI API Key 按站点管理员要求明文保存在 WordPress 数据库选项中，并只在具备插件管理权限的后台页面显示；诊断导出会自动脱敏。 '"
+". ' 启用 AI 改写时，插件会把文章标题、正文片段、目标语言和管理员配置的 Prompt 发送到管理员填写的 OpenAI 兼容 AI "
+"Endpoint。AI API Key 按站点管理员要求明文保存在 WordPress "
+"数据库选项中，并只在具备插件管理权限的后台页面显示；诊断导出会自动脱敏。 '"
 msgstr ""
-". ' When AI rewriting is enabled, the plugin sends the article title, content excerpt, target language, and administrator-configured prompt to the OpenAI-compatible AI endpoint entered by the administrator. At the site administrator's request, the AI API Key is stored in plain text in the WordPress database options and is only displayed on admin pages for users with plugin management permissions; diagnostic exports automatically redact it. '"
+". ' 启用 AI 改写时,插件会把文章标题、正文片段、目标语言和管理员配置的 Prompt Die OpenAI-"
+"Entwicklungsplattform für AI Endpoint.AI API Key ist eine von WordPress "
+"erstellte Lösung '"
 
 #: includes/class-wp-caiji.php:92
 msgid "插件会向 GitHub API 请求 Release 信息，用于检查插件更新；安装更新时会从 GitHub Release 下载插件 ZIP 包。"
-msgstr ""
-"The plugin requests release information from the GitHub API to check for plugin updates; when installing an update, it downloads the plugin ZIP package from GitHub Releases."
+msgstr "插件会向 GitHub API 请求 Release 信息, 用于检查插件更新；安装更新时会从 GitHub Release 下载插件 ZIP 包."
 
 #: includes/class-wp-caiji.php:92
 msgid ""
-". ' 插件会向 GitHub API 请求 Release 信息，用于检查插件更新；安装更新时会从 GitHub Release 下载插件 ZIP 包。 '"
+". ' 插件会向 GitHub API 请求 Release 信息，用于检查插件更新；安装更新时会从 GitHub Release 下载插件 ZIP "
+"包。 '"
 msgstr ""
-". ' The plugin requests release information from the GitHub API to check for plugin updates; when installing an update, it downloads the plugin ZIP package from GitHub Releases. '"
+". ' 插件会向 GitHub API 请求 Release 信息, 用于检查插件更新；安装更新时会从 GitHub Release 下载插件 ZIP "
+"包. '"
 
 #: includes/class-wp-caiji.php:93
 msgid ""
-"插件会在自定义数据库表中保存采集规则、队列 URL、采集状态、错误日志、来源 URL 和生成的文章 ID。默认卸载插件不会删除这些数据；只有管理员在设置中启用“卸载时删除数据”后，卸载时才会删除规则、队列、日志和设置。"
+"插件会在自定义数据库表中保存采集规则、队列 URL、采集状态、错误日志、来源 URL 和生成的文章 "
+"ID。默认卸载插件不会删除这些数据；只有管理员在设置中启用“卸载时删除数据”后，卸载时才会删除规则、队列、日志和设置。"
 msgstr ""
-"The plugin stores scraping rules, queued URLs, scraping status, error logs, source URLs, and generated post IDs in custom database tables. Uninstalling the plugin does not delete this data by default; rules, queues, logs, and settings are deleted on uninstall only if the administrator enables \"Delete data on uninstall\" in the settings."
+"The plugin stores scraping rules, queued URLs, scraping status, error logs, "
+"source URLs, and generated post IDs in custom database tables. Uninstalling "
+"the plugin does not delete this data by default; rules, queues, logs, and "
+"settings are deleted on uninstall only if the administrator enables \"Delete"
+" data on uninstall\" in the settings."
 
 #: includes/class-wp-caiji.php:93
 msgid ""
-". ' 插件会在自定义数据库表中保存采集规则、队列 URL、采集状态、错误日志、来源 URL 和生成的文章 ID。默认卸载插件不会删除这些数据；只有管理员在设置中启用“卸载时删除数据”后，卸载时才会删除规则、队列、日志和设置。 '"
+". ' 插件会在自定义数据库表中保存采集规则、队列 URL、采集状态、错误日志、来源 URL 和生成的文章 "
+"ID。默认卸载插件不会删除这些数据；只有管理员在设置中启用“卸载时删除数据”后，卸载时才会删除规则、队列、日志和设置。 '"
 msgstr ""
-". ' The plugin stores scraping rules, queued URLs, scraping status, error logs, source URLs, and generated post IDs in custom database tables. Uninstalling the plugin does not delete this data by default; rules, queues, logs, and settings are deleted on uninstall only if the administrator enables \"Delete data on uninstall\" in the settings. '"
+". ' The plugin stores scraping rules, queued URLs, scraping status, error "
+"logs, source URLs, and generated post IDs in custom database tables. "
+"Uninstalling the plugin does not delete this data by default; rules, queues,"
+" logs, and settings are deleted on uninstall only if the administrator "
+"enables \"Delete data on uninstall\" in the settings. '"
 
 #: includes/class-wp-caiji.php:94
 msgid "站点管理员应确认采集行为符合目标网站 robots.txt、版权声明和服务条款，并在站点隐私政策中披露使用的第三方 AI 服务和远程内容来源。"
-msgstr ""
-"Site administrators should confirm that scraping activity complies with the target site's robots.txt, copyright notices, and terms of service, and disclose the third-party AI services and remote content sources used in the site's privacy policy."
+msgstr "站点管理员应确认采集行为符合目标网站robots.txt, 版权声明和服务条款, 并在站点隐私政策中披露使用的第三方 AI 服务和远程内容来源."
 
 #: includes/class-wp-caiji.php:94
 msgid ""
-". ' 站点管理员应确认采集行为符合目标网站 robots.txt、版权声明和服务条款，并在站点隐私政策中披露使用的第三方 AI 服务和远程内容来源。 ';"
-msgstr ""
-". ' Site administrators should confirm that scraping activity complies with the target site's robots.txt, copyright notices, and terms of service, and disclose the third-party AI services and remote content sources used in the site's privacy policy. ';"
+". ' 站点管理员应确认采集行为符合目标网站 robots.txt、版权声明和服务条款，并在站点隐私政策中披露使用的第三方 AI 服务和远程内容来源。 "
+"';"
+msgstr ". ' 站点管理员应确认采集行为符合目标网站robots.txt."
 
 #: includes/class-wp-caiji.php:183
 msgid "每 5 分钟"
-msgstr "Every 5 minutes"
+msgstr "Mehr als 5 Tage"
 
 #: includes/class-wp-caiji.php:184
 msgid "每 10 分钟"
-msgstr "Every 10 minutes"
+msgstr "Vor 10 Minuten"
 
 #: includes/class-wp-caiji.php:185
 msgid "每 30 分钟"
-msgstr "Every 30 minutes"
+msgstr "Mehr als 30 Tage"
 
 #: includes/class-wp-caiji.php:260
 msgid "概览"
-msgstr "Overview"
+msgstr "概览"
 
 #: includes/class-wp-caiji.php:275
 msgid "新建/编辑规则"
-msgstr "Add/Edit Rule"
+msgstr "新建/编辑规则"
 
 #: includes/class-wp-caiji.php:276
 msgid "查看待采集"
-msgstr "View Pending Items"
+msgstr "查看待采集"
 
 #: includes/class-wp-caiji.php:279
 msgid "WP 采集页面导航"
-msgstr "WP Scraper Page Navigation"
+msgstr "WP 采集页面导航"
 
 #: includes/class-wp-caiji.php:284
 msgid "版权："
-msgstr "Copyright:"
+msgstr "Sachverhalt:"
 
 #: includes/class-wp-caiji.php:284
 msgid "一点优化"
-msgstr "Yidian Optimization"
+msgstr "一点优化"
 
 #: includes/class-wp-caiji.php:284
 msgid ">版权：<a href="
-msgstr ">Copyright:<a href="
+msgstr ">版权:<a href="
 
 #: includes/class-wp-caiji.php:284
 msgid "版权： 一点优化"
-msgstr "Copyright: Yidian Optimization"
+msgstr "版权: 一点优化"
 
 #: includes/class-wp-caiji.php:292
 msgid "待采"
-msgstr "Pending"
+msgstr "待采"
 
 #: includes/class-wp-caiji.php:293
 msgid "运行中"
-msgstr "Running"
+msgstr "运行中"
 
 #: includes/class-wp-caiji.php:294
 msgid "成功"
-msgstr "Success"
+msgstr "Nein"
 
 #: includes/class-wp-caiji.php:295
 msgid "失败"
-msgstr "Failed"
+msgstr "失败"
 
 #: includes/class-wp-caiji.php:296
 msgid "跳过"
-msgstr "Skipped"
+msgstr "跳过"
 
 #: includes/class-wp-caiji.php:297
 msgid "信息"
-msgstr "Info"
+msgstr "信息"
 
 #: includes/class-wp-caiji.php:298
 msgid "警告"
-msgstr "Warning"
+msgstr "警告"
 
 #: includes/class-wp-caiji.php:299
 msgid "错误"
-msgstr "Error"
+msgstr "错误"
 
 #: includes/class-wp-caiji.php:300
 msgid "启用"
-msgstr "Enable"
+msgstr "启用"
 
 #: includes/class-wp-caiji.php:301
 msgid "停用"
-msgstr "Disable"
+msgstr "停用"
 
 #: includes/class-wp-caiji.php:346
 msgid "图片"
-msgstr "Images"
+msgstr "图片"
 
 #: includes/class-wp-caiji.php:373
 msgid "长期自动采集控制台:发现链接、队列采集、失败重试与健康检查集中管理。"
-msgstr ""
-"Long-term automated scraping console: centrally manage link discovery, queued scraping, failed retries, and health checks."
+msgstr "长期自动采集控制台:发现链接、队列采集、失败重试与健康检查集中管理."
 
 #: includes/class-wp-caiji.php:374
 msgid "长期自动采集建议:使用队列模式,先发现文章链接,再按批次采集文章,失败后可重试。"
-msgstr ""
-"Long-term automated scraping recommendation: use queue mode to discover article links first, then scrape articles in batches. Failed items can be retried."
+msgstr "Weitere Informationen:"
 
 #: includes/class-wp-caiji.php:376
 msgid "规则"
-msgstr "Rules"
+msgstr "规则"
 
 #: includes/class-wp-caiji.php:376
 msgid "待采集"
-msgstr "Pending Scraping"
+msgstr "待采集"
 
 #: includes/class-wp-caiji.php:380
 msgid "今日统计"
-msgstr "Today's Stats"
+msgstr "今日统计"
 
 #: includes/class-wp-caiji.php:382
 msgid "今日发现"
-msgstr "Discovered Today"
+msgstr "今日发现"
 
 #: includes/class-wp-caiji.php:382
 msgid "今日成功"
-msgstr "Successful Today"
+msgstr "今日成功"
 
 #: includes/class-wp-caiji.php:382
 msgid "今日失败"
-msgstr "Failed Today"
+msgstr "今日失败"
 
 #: includes/class-wp-caiji.php:382
 msgid "今日错误日志"
-msgstr "Today's Error Logs"
+msgstr "今日错误日志"
 
 #: includes/class-wp-caiji.php:382
 msgid "AI 相关"
-msgstr "AI Related"
+msgstr "AI 相关"
 
 #: includes/class-wp-caiji.php:382
 msgid "图片相关"
-msgstr "Image Related"
+msgstr "图片相关"
 
 #: includes/class-wp-caiji.php:382
 msgid "超时运行"
-msgstr "Timed-out Runs"
+msgstr "超时运行"
 
 #: includes/class-wp-caiji.php:386
 msgid "最近 7 天趋势"
-msgstr "Last 7 Days Trend"
+msgstr "Mehr als 7 Monate"
 
 #: includes/class-wp-caiji.php:387
 msgid "日期"
-msgstr "Date"
+msgstr "日期"
 
 #: includes/class-wp-caiji.php:387
 msgid "总队列"
-msgstr "Total Queue"
+msgstr "总队列"
 
 #: includes/class-wp-caiji.php:387
 msgid "成功率"
-msgstr "Success Rate"
+msgstr "成功率"
 
 #: includes/class-wp-caiji.php:387
 msgid "日期 总队列 成功 失败 成功率"
-msgstr "Date Total Queue Success Failed Success Rate"
+msgstr "日期 总队列 成功 失败 成功率"
 
 #: includes/class-wp-caiji.php:388
 msgid "暂无数据"
-msgstr "No data available"
+msgstr "暂无数据"
 
 #: includes/class-wp-caiji.php:391
 msgid "定时状态"
-msgstr "Schedule Status"
+msgstr "定时状态"
 
 #: includes/class-wp-caiji.php:392
 msgid "发现链接任务:"
-msgstr "Link discovery task:"
+msgstr "发现链接任务:"
 
 #: includes/class-wp-caiji.php:392
 msgid "未计划"
-msgstr "Not scheduled"
+msgstr "未计划"
 
 #: includes/class-wp-caiji.php:393
 msgid "采集文章任务:"
-msgstr "Article scraping task:"
+msgstr "采集文章任务:"
 
 #: includes/class-wp-caiji.php:394
 msgid "建议服务器 Cron:"
-msgstr "Recommended server Cron:"
+msgstr "Weitere Informationen zu Cron:"
 
 #: includes/class-wp-caiji.php:396
 msgid "管理采集规则"
-msgstr "Manage Scraping Rules"
+msgstr "管理采集规则"
 
 #: includes/class-wp-caiji.php:396
 msgid "查看队列"
-msgstr "View Queue"
+msgstr "查看队列"
 
 #: includes/class-wp-caiji.php:396
 msgid "插件设置"
-msgstr "Plugin Settings"
+msgstr "插件设置"
 
 #: includes/class-wp-caiji.php:396
 msgid ")); ?>\">管理采集规则 page_url("
-msgstr ")); ?>\">Manage Scraping Rules page_url("
+msgstr "));?>\">管理采集规则 page_url("
 
 #: includes/class-wp-caiji.php:396
 msgid ")); ?>\">查看队列 page_url("
-msgstr ")); ?>\">View Queue page_url("
+msgstr "));?>\">查看队列 page_url("
 
 #: includes/class-wp-caiji.php:396
 msgid ")); ?>\">插件设置 page_url("
-msgstr ")); ?>\">Plugin Settings page_url("
+msgstr "));?>\">插件设置 page_url("
 
 #: includes/class-wp-caiji.php:396
 msgid "管理采集规则 查看队列 插件设置 健康检查"
-msgstr "Manage Scraping Rules View Queue Plugin Settings Health Check"
+msgstr "管理采集规则 查看队列 插件设置 健康检查"
 
 #: includes/class-wp-caiji.php:397
 msgid "规则概览"
-msgstr "Rule Overview"
+msgstr "规则概览"
 
 #: includes/class-wp-caiji.php:398
 msgid "失败率"
-msgstr "Failure Rate"
+msgstr "失败率"
 
 #: includes/class-wp-caiji.php:398
 msgid "操作"
-msgstr "Actions"
+msgstr "操作"
 
 #: includes/class-wp-caiji.php:398
 msgid "ID 规则 待采 成功 失败 失败率 操作"
-msgstr "ID Rule Pending Success Failed Failure Rate Actions"
+msgstr "ID 规则 待采 成功 失败 失败率 操作"
 
 #: includes/class-wp-caiji.php:399
 msgid "暂无规则"
-msgstr "No rules yet"
+msgstr "暂无规则"
 
 #: includes/class-wp-caiji.php:400
 msgid "看队列"
-msgstr "View Queue"
+msgstr "看队列"
 
 #: includes/class-wp-caiji.php:400
 msgid "% 看队列"
-msgstr "% View Queue"
+msgstr "% 看队列"
 
 #: includes/class-wp-caiji.php:402
 msgid "最近错误/警告"
-msgstr "Recent Errors/Warnings"
+msgstr "最近错误/警告"
 
 #: includes/class-wp-caiji.php:403
 msgid "时间"
-msgstr "Time"
+msgstr "时间"
 
 #: includes/class-wp-caiji.php:403
 msgid "级别"
-msgstr "Level"
+msgstr "级别"
 
 #: includes/class-wp-caiji.php:403
 msgid "消息"
-msgstr "Message"
+msgstr "Nein"
 
 #: includes/class-wp-caiji.php:403
 msgid "时间 级别 规则 消息 URL"
-msgstr "Time Level Rule Message URL"
+msgstr "时间 级别 规则 消息 URL"
 
 #: includes/class-wp-caiji.php:404
 msgid "暂无错误"
-msgstr "No errors"
+msgstr "暂无错误"
 
 #: includes/class-wp-caiji.php:407
 msgid "请确认采集行为符合目标网站 robots、版权声明和服务条款。长期采集建议先保存为草稿。"
-msgstr ""
-"Please confirm that scraping activity complies with the target site's robots rules, copyright notices, and terms of service. For long-term scraping, we recommend saving posts as drafts first."
+msgstr "请确认采集行为符合目标网站 Roboter, 版权声明和服务条款.长期采集建议先保存为草稿."
 
 #: includes/class-wp-caiji.php:437
 msgid "配置站点来源、内容选择器、正文清洗、AI 改写与发布策略。"
-msgstr ""
-"Configure site sources, content selectors, content cleanup, AI rewriting, and publishing strategy."
+msgstr "配置站点来源、内容选择器、正文清洗、AI 改写与发布策略."
 
 #: includes/class-wp-caiji.php:439
 msgid "采集任务已提交,将在约 1 秒后后台执行。"
-msgstr "Scraping task submitted and will run in the background in about 1 second."
+msgstr "采集任务已提交,将在约 1 秒后后台执行."
 
 #: includes/class-wp-caiji.php:439
 msgid "发现链接任务已提交,将在约 1 秒后后台执行。"
-msgstr ""
-"Link discovery task submitted and will run in the background in about 1 second."
+msgstr "发现链接任务已提交,将在约 1 秒后后台执行."
 
 #: includes/class-wp-caiji.php:440
 msgid "新增采集规则"
-msgstr "Add Scraping Rule"
+msgstr "新增采集规则"
 
 #: includes/class-wp-caiji.php:441
 msgid "退出编辑"
-msgstr "Exit Editing"
+msgstr "退出编辑"
 
 #: includes/class-wp-caiji.php:449
 msgid "编辑采集规则"
-msgstr "Edit Scraping Rule"
+msgstr "编辑采集规则"
 
 #: includes/class-wp-caiji.php:450
 msgid "按分组填写规则,保存后可进行列表页测试和文章预览测试。"
-msgstr ""
-"Fill in the rule by group. After saving, you can test the listing page and preview the article."
+msgstr "按分组填写规则,保存后可进行列表页测试和文章预览测试."
 
 #: includes/class-wp-caiji.php:452
 msgid "关闭"
-msgstr "Close"
+msgstr "关闭"
 
 #: includes/class-wp-caiji.php:454
 msgid "采集规则配置分组"
-msgstr "Scraping Rule Configuration Groups"
+msgstr "采集规则配置分组"
 
 #: includes/class-wp-caiji.php:459
 msgid "基础信息"
-msgstr "Basic Information"
+msgstr "基础信息"
 
 #: includes/class-wp-caiji.php:461
 msgid "规则名称"
-msgstr "Rule Name"
+msgstr "规则名称"
 
 #: includes/class-wp-caiji.php:462
 msgid "规则状态"
-msgstr "Rule Status"
+msgstr "规则状态"
 
 #: includes/class-wp-caiji.php:462
 msgid "启用定时发现/采集"
-msgstr "Enable scheduled discovery/scraping"
+msgstr "启用定时发现/采集"
 
 #: includes/class-wp-caiji.php:462
 msgid "标题/来源去重"
-msgstr "Title/Source Deduplication"
+msgstr "标题/来源去重"
 
 #: includes/class-wp-caiji.php:462
 msgid "> 启用定时发现/采集 <input name="
-msgstr "> Enable scheduled discovery/scraping <input name="
+msgstr "> 启用定时发现/采集 <input name="
 
 #: includes/class-wp-caiji.php:462
 msgid "规则状态 启用定时发现/采集 标题/来源去重"
-msgstr "Rule Status Enable scheduled discovery/scraping Title/Source Deduplication"
+msgstr "规则状态 启用定时发现/采集 标题/来源去重"
 
 #: includes/class-wp-caiji.php:465
 msgid "来源与文章 URL"
-msgstr "Source and Article URL"
+msgstr "来源与文章 URL"
 
 #: includes/class-wp-caiji.php:467
 msgid "列表页 URL"
-msgstr "Listing Page URL"
+msgstr "URL anzeigen"
 
 #: includes/class-wp-caiji.php:467
 msgid "每行一个栏目/列表页 URL,用于自动发现文章链接"
-msgstr ""
-"One category/listing page URL per line, used to automatically discover article links"
+msgstr "每行一个栏目/列表页 URL, 用于自动发现文章链接"
 
 #: includes/class-wp-caiji.php:468
 msgid "分页规则"
-msgstr "Pagination Rule"
+msgstr "分页规则"
 
 #: includes/class-wp-caiji.php:468
 msgid "页码"
-msgstr "Page Number"
+msgstr "页码"
 
 #: includes/class-wp-caiji.php:468
 msgid "例如:https://example.com/news/page/{page}"
-msgstr "Example: https://example.com/news/page/{page}"
+msgstr "Quelle:https://example.com/news/page/{page}"
 
 #: includes/class-wp-caiji.php:468
 msgid ""
-"]); ?>\" placeholder=\"例如:https://example.com/news/page/{page}\"> 页码 <input name=\"page_start\" type=\"number\" min=\"1\" value=\"<?php echo esc_attr($rule["
+"]); ?>\" placeholder=\"例如:https://example.com/news/page/{page}\"> 页码 <input "
+"name=\"page_start\" type=\"number\" min=\"1\" value=\"<?php echo "
+"esc_attr($rule["
 msgstr ""
-"]); ?>\" placeholder=\"Example: https://example.com/news/page/{page}\"> Page Number <input name=\"page_start\" type=\"number\" min=\"1\" value=\"<?php echo esc_attr($rule["
+"]); ?>\" placeholder=\"Example: https://example.com/news/page/{page}\"> Page"
+" Number <input name=\"page_start\" type=\"number\" min=\"1\" value=\"<?php "
+"echo esc_attr($rule["
 
 #: includes/class-wp-caiji.php:468
 msgid "分页规则 页码 -"
-msgstr "Pagination Rule Page Number -"
+msgstr "分页规则 页码 -"
 
 #: includes/class-wp-caiji.php:469
 msgid "文章链接获取方式"
-msgstr "Article Link Retrieval Method"
+msgstr "文章链接获取方式"
 
 #: includes/class-wp-caiji.php:471
 msgid "选择器 CSS/XPath"
-msgstr "Selector CSS/XPath"
+msgstr "Verwenden Sie CSS/XPath"
 
 #: includes/class-wp-caiji.php:472
 msgid "前后代码截取"
-msgstr "Extract Between Markers"
+msgstr "前后代码截取"
 
 #: includes/class-wp-caiji.php:473
 msgid "JSON/Next.js 路径"
-msgstr "JSON/Next.js Path"
+msgstr "JSON/Next.js-Version"
 
 #: includes/class-wp-caiji.php:475
 msgid "先选择一种获取规则，只显示对应编辑项；保存后按当前选择的规则执行。"
 msgstr ""
-"Select a retrieval rule first; only the corresponding fields will be shown. After saving, the currently selected rule will be used."
+"Select a retrieval rule first; only the corresponding fields will be shown. "
+"After saving, the currently selected rule will be used."
 
 #: includes/class-wp-caiji.php:477
 msgid "文章链接选择器"
-msgstr "Article Link Selector"
+msgstr "文章链接选择器"
 
 #: includes/class-wp-caiji.php:477
 msgid "使用 CSS/XPath 从列表页提取文章链接。"
-msgstr "Use CSS/XPath to extract article links from listing pages."
+msgstr "Die Verwendung von CSS/XPath ist für die Verwendung von CSS/XPath geeignet."
 
 #: includes/class-wp-caiji.php:477
 msgid "> 文章链接选择器 <input name="
-msgstr "> Article Link Selector <input name="
+msgstr "> 文章链接选择器 <Eingabename="
 
 #: includes/class-wp-caiji.php:477
 msgid "]); ?>\" placeholder=\"例如:.news-list a 或 //div[@class="
-msgstr "]); ?>\" placeholder=\"Example: .news-list a or //div[@class="
+msgstr "]);?>\" placeholder=\"例如:.news-list a 或 //div[@class="
 
 #: includes/class-wp-caiji.php:477
 msgid "文章链接选择器 使用 CSS/XPath 从列表页提取文章链接。"
-msgstr ""
-"Article Link Selector Use CSS/XPath to extract article links from listing pages."
+msgstr "文章链接选择器 使用 CSS/XPath 从列表页提取文章链接."
 
 #: includes/class-wp-caiji.php:478
 msgid "链接前后代码"
-msgstr "Link Surrounding Code"
+msgstr "链接前后代码"
 
 #: includes/class-wp-caiji.php:479
 msgid "前代码/开始标记，例如:&lt;div class=&quot;article-list&quot;&gt;"
-msgstr "Before code/start marker, e.g.: &lt;div class=&quot;article-list&quot;&gt;"
+msgstr "前代码/开始标记，例如:&lt;div class=&quot;article-list&quot;&gt;"
 
 #: includes/class-wp-caiji.php:481
 msgid "后代码/结束标记，例如:&lt;/div&gt;&lt;div class=&quot;page&quot;&gt;"
-msgstr "After code/end marker, e.g.: &lt;/div&gt;&lt;div class=&quot;page&quot;&gt;"
+msgstr "后代码/结束标记, 例如:&lt;/div&gt;&lt;div class=&quot;page&quot;&gt;"
 
 #: includes/class-wp-caiji.php:482
 msgid "可只填前代码或只填后代码；选择器留空时自动提取片段里的所有 a 标签链接。"
-msgstr ""
-"You can fill in only the before code or only the after code. If the selector is left blank, all links from a tags in the fragment will be extracted automatically."
+msgstr "可只填前代码或只填后代码;选择器留空时自动提取片段里的所有 ein 标签链接."
 
 #: includes/class-wp-caiji.php:484
 msgid "JSON/Next.js 链接"
-msgstr "JSON/Next.js Links"
+msgstr "JSON/Next.js-Datei"
 
 #: includes/class-wp-caiji.php:485
 msgid "JSON 来源"
-msgstr "JSON Source"
+msgstr "JSON-Code"
 
 #: includes/class-wp-caiji.php:486
 msgid "路径"
-msgstr "Path"
+msgstr "路径"
 
 #: includes/class-wp-caiji.php:486
 msgid "例如: props.pageProps.corporateData"
-msgstr "Example: props.pageProps.corporateData"
+msgstr "Quelle: props.pageProps.corporateData"
 
 #: includes/class-wp-caiji.php:487
 msgid "例如: alias 或 url"
-msgstr "Example: alias or url"
+msgstr "Name: Alias ​​und URL"
 
 #: includes/class-wp-caiji.php:487
 msgid "URL 字段"
-msgstr "URL Field"
+msgstr "URL 字段"
 
 #: includes/class-wp-caiji.php:488
 msgid "用于 Next.js 等站点的页面 JSON。来源默认"
-msgstr "For page JSON on sites such as Next.js. Default source"
+msgstr "Verwenden Sie Next.js als JSON-Datei"
 
 #: includes/class-wp-caiji.php:488
 msgid "，也支持"
-msgstr ", also supports"
+msgstr "，也支持"
 
 #: includes/class-wp-caiji.php:488
 msgid "id:脚本ID"
-msgstr "id:script ID"
+msgstr "id:脚本ID"
 
 #: includes/class-wp-caiji.php:488
 msgid "var:变量名"
-msgstr "var:variable name"
+msgstr "var:变量名"
 
 #: includes/class-wp-caiji.php:488
 msgid "用于 Next.js 等站点的页面 JSON。来源默认 __NEXT_DATA__ ，也支持 ld+json 、 id:脚本ID 、 var:变量名 。"
 msgstr ""
-"For page JSON on sites such as Next.js. The default source is __NEXT_DATA__; ld+json, id:script ID, and var:variable name are also supported."
+"Verwenden Sie Next.js, um JSON zu verwenden. Verwenden Sie __NEXT_DATA__, "
+"verwenden Sie ld+json, id:脚本ID, var:变量名."
 
 #: includes/class-wp-caiji.php:490
 msgid "手动文章 URL"
-msgstr "Manual Article URL"
+msgstr "手动文章 URL"
 
 #: includes/class-wp-caiji.php:490
 msgid "每行一个文章 URL,保存后可直接加入队列"
-msgstr ""
-"One article URL per line. After saving, they can be added directly to the queue."
+msgstr "每行一个文章 URL, 保存后可直接加入队列"
 
 #: includes/class-wp-caiji.php:491
 msgid "测试发现链接"
-msgstr "Test Link Discovery"
+msgstr "测试发现链接"
 
 #: includes/class-wp-caiji.php:491
 msgid "新规则请先保存后再测试。"
-msgstr "Please save the new rule before testing."
+msgstr "新规则请先保存后再测试."
 
 #: includes/class-wp-caiji.php:491
 msgid "测试按钮不会保存当前修改；如刚改了规则，请先保存再测试。"
-msgstr ""
-"The test button will not save current changes. If you just changed the rule, please save it before testing."
+msgstr "测试按钮不会保存当前修改；如刚改了规则,请先保存再测试."
 
 #: includes/class-wp-caiji.php:491
 msgid "留空默认测试第一个列表页 URL"
-msgstr "Leave blank to test the first listing page URL by default"
+msgstr "留空默认测试第一个列表页 URL"
 
 #: includes/class-wp-caiji.php:491
 msgid ">测试发现链接 <span class="
-msgstr ">Test Link Discovery <span class="
+msgstr ">测试发现链接 <span class="
 
 #: includes/class-wp-caiji.php:491
 msgid ">新规则请先保存后再测试。 <p class="
-msgstr ">Please save the new rule before testing. <p class="
+msgstr "<p class="
 
 #: includes/class-wp-caiji.php:491
 msgid "测试发现链接 测试发现链接 新规则请先保存后再测试。 测试按钮不会保存当前修改；如刚改了规则，请先保存再测试。"
-msgstr ""
-"Test Link Discovery Test Link Discovery Please save the new rule before testing. The test button will not save current changes. If you just changed the rule, please save it before testing."
+msgstr "测试发现链接 测试发现链接 新规则请先保存后再测试.测试按钮不会保存当前修改；如刚改了规则,请先保存再测试."
 
 #: includes/class-wp-caiji.php:494
 msgid "文章字段提取"
-msgstr "Article Field Extraction"
+msgstr "文章字段提取"
 
 #: includes/class-wp-caiji.php:496
 msgid "标题获取方式"
-msgstr "Title Retrieval Method"
+msgstr "标题获取方式"
 
 #: includes/class-wp-caiji.php:503
 msgid "标题选择器"
-msgstr "Title Selector"
+msgstr "标题选择器"
 
 #: includes/class-wp-caiji.php:503
 msgid "使用 CSS/XPath 提取标题。"
-msgstr "Use CSS/XPath to extract the title."
+msgstr "Die CSS/XPath-Funktion wird verwendet."
 
 #: includes/class-wp-caiji.php:503
 msgid "> 标题选择器 <input name="
-msgstr "> Title Selector <input name="
+msgstr "> 标题选择器 <Eingabename="
 
 #: includes/class-wp-caiji.php:503
 msgid "标题选择器 使用 CSS/XPath 提取标题。"
-msgstr "Title Selector Use CSS/XPath to extract the title."
+msgstr "Verwenden Sie eine CSS/XPath-Datei, die Sie nicht verwenden können."
 
 #: includes/class-wp-caiji.php:504
 msgid "标题前后代码"
-msgstr "Title Surrounding Code"
+msgstr "标题前后代码"
 
 #: includes/class-wp-caiji.php:505
 msgid "标题前代码/开始标记"
-msgstr "Title before code/start marker"
+msgstr "标题前代码/开始标记"
 
 #: includes/class-wp-caiji.php:507
 msgid "标题后代码/结束标记"
-msgstr "Title after code/end marker"
+msgstr "标题后代码/结束标记"
 
 #: includes/class-wp-caiji.php:509
 msgid "标题 JSON 路径"
-msgstr "Title JSON Path"
+msgstr "JSON-Version"
 
 #: includes/class-wp-caiji.php:509
 msgid "填写后优先从上方 JSON 来源提取标题。"
-msgstr ""
-"When filled in, the title will be extracted first from the JSON source above."
+msgstr "Wenn Sie JSON verwenden, ist dies der Fall."
 
 #: includes/class-wp-caiji.php:509
 msgid "例如: props.pageProps.data.title"
-msgstr "Example: props.pageProps.data.title"
+msgstr "Quelle: props.pageProps.data.title"
 
 #: includes/class-wp-caiji.php:509
 msgid "> 标题 JSON 路径 <input name="
-msgstr "> Title JSON Path <input name="
+msgstr "> JSON-Datei verwenden <Eingabename="
 
 #: includes/class-wp-caiji.php:509
 msgid "标题 JSON 路径 填写后优先从上方 JSON 来源提取标题。"
-msgstr ""
-"Title JSON Path When filled in, the title will be extracted first from the JSON source above."
+msgstr "Wenn Sie JSON verwenden, können Sie die JSON-Datei verwenden."
 
 #: includes/class-wp-caiji.php:510
 msgid "正文获取方式"
-msgstr "Content Retrieval Method"
+msgstr "正文获取方式"
 
 #: includes/class-wp-caiji.php:517
 msgid "正文选择器"
-msgstr "Content Selector"
+msgstr "正文选择器"
 
 #: includes/class-wp-caiji.php:517
 msgid "使用 CSS/XPath 提取正文。"
-msgstr "Use CSS/XPath to extract the content."
+msgstr "Die CSS/XPath-Funktion ist nicht verfügbar."
 
 #: includes/class-wp-caiji.php:517
 msgid "> 正文选择器 <input name="
-msgstr "> Content Selector <input name="
+msgstr "> 正文选择器 <Eingabename="
 
 #: includes/class-wp-caiji.php:517
 msgid "正文选择器 使用 CSS/XPath 提取正文。"
-msgstr "Content Selector Use CSS/XPath to extract the content."
+msgstr "Die neueste CSS/XPath-Datei wird verwendet."
 
 #: includes/class-wp-caiji.php:518
 msgid "正文前后代码"
-msgstr "Content Surrounding Code"
+msgstr "正文前后代码"
 
 #: includes/class-wp-caiji.php:519
 msgid "正文前代码/开始标记"
-msgstr "Content before code/start marker"
+msgstr "正文前代码/开始标记"
 
 #: includes/class-wp-caiji.php:521
 msgid "正文后代码/结束标记"
-msgstr "Content after code/end marker"
+msgstr "正文后代码/结束标记"
 
 #: includes/class-wp-caiji.php:523
 msgid "正文 JSON 路径"
-msgstr "Content JSON Path"
+msgstr "Ist JSON verfügbar"
 
 #: includes/class-wp-caiji.php:523
 msgid "填写后优先从上方 JSON 来源提取正文。"
-msgstr ""
-"When filled in, the content will be extracted first from the JSON source above."
+msgstr "Wenn Sie JSON verwenden, ist dies der Fall."
 
 #: includes/class-wp-caiji.php:523
 msgid "例如: props.pageProps.data.content"
-msgstr "Example: props.pageProps.data.content"
+msgstr "Quelle: props.pageProps.data.content"
 
 #: includes/class-wp-caiji.php:523
 msgid "> 正文 JSON 路径 <input name="
-msgstr "> Content JSON Path <input name="
+msgstr "> Verwenden Sie JSON als <Eingabename="
 
 #: includes/class-wp-caiji.php:523
 msgid "正文 JSON 路径 填写后优先从上方 JSON 来源提取正文。"
-msgstr ""
-"Content JSON Path When filled in, the content will be extracted first from the JSON source above."
+msgstr "Wenn Sie JSON verwenden möchten, können Sie die JSON-Datei verwenden."
 
 #: includes/class-wp-caiji.php:524
 msgid "日期获取方式"
-msgstr "Date Retrieval Method"
+msgstr "日期获取方式"
 
 #: includes/class-wp-caiji.php:531
 msgid "日期选择器"
-msgstr "Date Selector"
+msgstr "日期选择器"
 
 #: includes/class-wp-caiji.php:531
 msgid "可选。使用 CSS/XPath 提取发布时间。"
-msgstr "Optional. Use CSS/XPath to extract the publication time."
+msgstr "Weitere Informationen finden Sie unter CSS/XPath."
 
 #: includes/class-wp-caiji.php:531
 msgid "> 日期选择器 <input name="
-msgstr "> Date Selector <input name="
+msgstr "> 日期选择器 <input name="
 
 #: includes/class-wp-caiji.php:531
 msgid "日期选择器 可选。使用 CSS/XPath 提取发布时间。"
-msgstr "Date Selector Optional. Use CSS/XPath to extract the publication time."
+msgstr "日期选择器 可选.使用 CSS/XPath 提取发布时间。"
 
 #: includes/class-wp-caiji.php:532
 msgid "日期前后代码"
-msgstr "Date Surrounding Code"
+msgstr "日期前后代码"
 
 #: includes/class-wp-caiji.php:533
 msgid "日期前代码/开始标记"
-msgstr "Date before code/start marker"
+msgstr "日期前代码/开始标记"
 
 #: includes/class-wp-caiji.php:535
 msgid "日期后代码/结束标记"
-msgstr "Date after code/end marker"
+msgstr "日期后代码/结束标记"
 
 #: includes/class-wp-caiji.php:537
 msgid "日期 JSON 路径"
-msgstr "Date JSON Path"
+msgstr "JSON ist nicht verfügbar"
 
 #: includes/class-wp-caiji.php:537
 msgid "填写后优先从上方 JSON 来源提取日期。"
-msgstr "When filled in, the date will be extracted first from the JSON source above."
+msgstr "Wenn Sie JSON verwenden, ist dies nicht der Fall."
 
 #: includes/class-wp-caiji.php:537
 msgid "例如: props.pageProps.data.created"
-msgstr "Example: props.pageProps.data.created"
+msgstr "Quelle: props.pageProps.data.created"
 
 #: includes/class-wp-caiji.php:537
 msgid "> 日期 JSON 路径 <input name="
-msgstr "> Date JSON Path <input name="
+msgstr "> Verwenden Sie JSON als <Eingabename="
 
 #: includes/class-wp-caiji.php:537
 msgid "日期 JSON 路径 填写后优先从上方 JSON 来源提取日期。"
-msgstr ""
-"Date JSON Path When filled in, the date will be extracted first from the JSON source above."
+msgstr "Wenn Sie JSON verwenden möchten, können Sie die JSON-Datei verwenden."
 
 #: includes/class-wp-caiji.php:538
 msgid "Tag 标签获取方式"
-msgstr "Tag Retrieval Method"
+msgstr "Tag 标签获取方式"
 
 #: includes/class-wp-caiji.php:545
 msgid "Tag 标签选择器"
-msgstr "Tag Selector"
+msgstr "Tag 标签选择器"
 
 #: includes/class-wp-caiji.php:545
 msgid "可选。提取文章页已有标签，多个标签会自动拆分并与固定标签/自动标签合并。"
-msgstr ""
-"Optional. Extract existing tags from the article page. Multiple tags will be split automatically and merged with fixed/automatic tags."
+msgstr "可选.提取文章页已有标签,多个标签会自动拆分并与固定标签/自动标签合并."
 
 #: includes/class-wp-caiji.php:545
 msgid "> Tag 标签选择器 <input name="
-msgstr "> Tag Selector <input name="
+msgstr "> Tag 标签选择器 <input name="
 
 #: includes/class-wp-caiji.php:545
 msgid "); ?>\" placeholder=\"例如:.tags a 或 //a[@rel="
-msgstr " ); ?>\" placeholder=\"Example: .tags a or //a[@rel="
+msgstr ");?>\" placeholder=\"例如:.tags a 或 //a[@rel="
 
 #: includes/class-wp-caiji.php:545
 msgid "Tag 标签选择器 可选。提取文章页已有标签，多个标签会自动拆分并与固定标签/自动标签合并。"
-msgstr ""
-"Tag Selector Optional. Extract existing tags from the article page. Multiple tags will be split automatically and merged with fixed/automatic tags."
+msgstr "Tag 标签选择器可选.提取文章页已有标签,多个标签会自动拆分并与固定标签/自动标签合并."
 
 #: includes/class-wp-caiji.php:546
 msgid "Tag 标签前后代码"
-msgstr "Tag Surrounding Code"
+msgstr "Tag 标签前后代码"
 
 #: includes/class-wp-caiji.php:547
 msgid "Tag 标签前代码/开始标记"
-msgstr "Tag before code/start marker"
+msgstr "Tag 标签前代码/开始标记"
 
 #: includes/class-wp-caiji.php:549
 msgid "Tag 标签后代码/结束标记"
-msgstr "Tag after code/end marker"
+msgstr "Tag 标签后代码/结束标记"
 
 #: includes/class-wp-caiji.php:551
 msgid "Tag 标签 JSON 路径"
-msgstr "Tag JSON Path"
+msgstr "JSON-Kennzeichnung"
 
 #: includes/class-wp-caiji.php:551
 msgid "填写后优先从上方 JSON 来源提取 Tag 标签。"
-msgstr "When filled in, tags will be extracted first from the JSON source above."
+msgstr "Die JSON-Tag-Tag-Kennzeichnung wird in JSON verwendet."
 
 #: includes/class-wp-caiji.php:551
 msgid "例如: props.pageProps.data.tags"
-msgstr "Example: props.pageProps.data.tags"
+msgstr "Quelle: props.pageProps.data.tags"
 
 #: includes/class-wp-caiji.php:551
 msgid "> Tag 标签 JSON 路径 <input name="
-msgstr "> Tag JSON Path <input name="
+msgstr "> JSON-Tag mit <Eingabename="
 
 #: includes/class-wp-caiji.php:551
 msgid "Tag 标签 JSON 路径 填写后优先从上方 JSON 来源提取 Tag 标签。"
-msgstr ""
-"Tag JSON Path When filled in, tags will be extracted first from the JSON source above."
+msgstr "Tag 标签 JSON 填写后优先从上方 JSON 来源提取 Tag 标签."
 
 #: includes/class-wp-caiji.php:552
 msgid "测试文章预览"
-msgstr "Test Article Preview"
+msgstr "测试文章预览"
 
 #: includes/class-wp-caiji.php:552
 msgid "测试预览"
-msgstr "Test Preview"
+msgstr "测试预览"
 
 #: includes/class-wp-caiji.php:552
 msgid "测试按钮不会保存当前修改；如刚改了字段提取或清洗规则，请先保存再测试。"
-msgstr ""
-"The test button will not save current changes. If you just changed field extraction or cleanup rules, please save before testing."
+msgstr "测试按钮不会保存当前修改；如刚改了字段提取或清洗规则,请先保存再测试."
 
 #: includes/class-wp-caiji.php:552
 msgid "留空默认测试手动 URL 或第一个发现到的文章 URL"
-msgstr ""
-"Leave blank to test the manual URL or the first discovered article URL by default"
+msgstr "留空默认测试手动 URL 或第一个发现到的文章 URL"
 
 #: includes/class-wp-caiji.php:552
 msgid ">测试预览 <span class="
-msgstr ">Test Preview <span class="
+msgstr ">测试预览 <span class="
 
 #: includes/class-wp-caiji.php:552
 msgid "测试文章预览 测试预览 新规则请先保存后再测试。 测试按钮不会保存当前修改；如刚改了字段提取或清洗规则，请先保存再测试。"
-msgstr ""
-"Test Article Preview Test Preview Please save the new rule before testing. The test button will not save current changes. If you just changed field extraction or cleanup rules, please save before testing."
+msgstr "测试文章预览 测试预览 新规则请先保存后再测试.测试按钮不会保存当前修改；如刚改了字段提取或清洗规则,请先保存再测试."
 
 #: includes/class-wp-caiji.php:555
 msgid "正文清洗"
-msgstr "Content Cleanup"
+msgstr "正文清洗"
 
 #: includes/class-wp-caiji.php:557
 msgid "删除选择器"
-msgstr "Remove Selectors"
+msgstr "删除选择器"
 
 #: includes/class-wp-caiji.php:557
 msgid "每行一个需要从正文中删除的选择器,如 .ad、.share、script"
-msgstr ""
-"One selector to remove from the content per line, such as .ad, .share, script"
+msgstr "每行一个需要从正文中删除的选择器,.ad、.share、script"
 
 #: includes/class-wp-caiji.php:558
 msgid "高级清洗"
-msgstr "Advanced Cleanup"
+msgstr "高级清洗"
 
 #: includes/class-wp-caiji.php:558
 msgid "删除空段落"
-msgstr "Remove empty paragraphs"
+msgstr "删除空段落"
 
 #: includes/class-wp-caiji.php:558
 msgid "删除正文外链但保留文字"
-msgstr "Remove external links from content but keep the text"
+msgstr "删除正文外链但保留文字"
 
 #: includes/class-wp-caiji.php:558
 msgid "删除包含关键词的段落,每行一个关键词:"
-msgstr "Remove paragraphs containing keywords, one keyword per line:"
+msgstr "删除包含关键词的段落,每行一个关键词:"
 
 #: includes/class-wp-caiji.php:558
 msgid "> 删除空段落 <input name="
-msgstr "> Remove empty paragraphs <input name="
+msgstr "> 删除空段落 <Eingabename="
 
 #: includes/class-wp-caiji.php:558
 msgid "> 删除正文外链但保留文字 删除包含关键词的段落,每行一个关键词: <textarea name="
-msgstr ""
-"> Remove external links from content but keep the text Remove paragraphs containing keywords, one keyword per line: <textarea name="
+msgstr "> 删除正文外链但保留文字 删除包含关键词的段落,每行一个关键词: <textarea name="
 
 #: includes/class-wp-caiji.php:558
 msgid "高级清洗 删除空段落 删除正文外链但保留文字 删除包含关键词的段落,每行一个关键词:"
-msgstr ""
-"Advanced Cleanup Remove empty paragraphs Remove external links from content but keep the text Remove paragraphs containing keywords, one keyword per line:"
+msgstr "高级清洗 删除空段落 删除正文外链但保留文字 删除包含关键词的段落,每行一个关键词:"
 
 #: includes/class-wp-caiji.php:559
 msgid "关键词替换"
-msgstr "Keyword Replacement"
+msgstr "关键词替换"
 
 #: includes/class-wp-caiji.php:559
 msgid "会同时作用于标题和正文。留空则不替换。"
-msgstr "Applies to both the title and content. Leave blank to make no replacements."
+msgstr "会同时作用于标题和正文.留空则不替换."
 
 #: includes/class-wp-caiji.php:559
 msgid "每行一条:原词=>新词,例如:旧品牌=>新品牌"
-msgstr "One per line: original=>replacement, e.g.: Old Brand=>New Brand"
+msgstr "每行一条:原词=>新词,例如:旧品牌=>新品牌"
 
 #: includes/class-wp-caiji.php:559
 msgid "关键词替换 新词,例如:旧品牌=>新品牌\"> 会同时作用于标题和正文。留空则不替换。"
-msgstr ""
-"Keyword Replacement replacement, e.g.: Old Brand=>New Brand\"> Applies to both the title and content. Leave blank to make no replacements."
+msgstr "例如:旧品牌=>新品牌\"> 会同时作用于标题和正文.留空则不替换。"
 
 #: includes/class-wp-caiji.php:562
 msgid "发布与节奏"
-msgstr "Publishing and Timing"
+msgstr "发布与节奏"
 
 #: includes/class-wp-caiji.php:564
 msgid "发布设置"
-msgstr "Publishing Settings"
+msgstr "发布设置"
 
 #: includes/class-wp-caiji.php:566
 msgid "不指定分类"
-msgstr "No category specified"
+msgstr "不指定分类"
 
 #: includes/class-wp-caiji.php:568
 msgid "不指定作者"
-msgstr "No author specified"
+msgstr "不指定作者"
 
 #: includes/class-wp-caiji.php:569
 msgid "草稿"
-msgstr "Draft"
+msgstr "草稿"
 
 #: includes/class-wp-caiji.php:569
 msgid "发布"
-msgstr "Publish"
+msgstr "发布"
 
 #: includes/class-wp-caiji.php:569
 msgid "定时发布"
-msgstr "Schedule"
+msgstr "定时发布"
 
 #: includes/class-wp-caiji.php:569
 msgid "待审"
-msgstr "Pending Review"
+msgstr "待审"
 
 #: includes/class-wp-caiji.php:569
 msgid ">草稿 <option value="
-msgstr ">Draft <option value="
+msgstr ">草稿 <option value="
 
 #: includes/class-wp-caiji.php:569
 msgid ">发布 <option value="
-msgstr ">Publish <option value="
+msgstr ">发布 <option value="
 
 #: includes/class-wp-caiji.php:569
 msgid ">定时发布 <option value="
-msgstr ">Schedule <option value="
+msgstr ">定时发布 <option value="
 
 #: includes/class-wp-caiji.php:569
 msgid "状态 草稿 发布 定时发布 待审"
-msgstr "Status Draft Publish Schedule Pending Review"
+msgstr "状态 草稿 发布 定时发布 待审"
 
 #: includes/class-wp-caiji.php:571
 msgid "发布节奏"
-msgstr "Publishing Pace"
+msgstr "发布节奏"
 
 #: includes/class-wp-caiji.php:571
 msgid "模式"
-msgstr "Mode"
+msgstr "模式"
 
 #: includes/class-wp-caiji.php:571
 msgid "立即使用上方状态"
-msgstr "Use the status above immediately"
+msgstr "立即使用上方状态"
 
 #: includes/class-wp-caiji.php:571
 msgid "随机延迟发布"
-msgstr "Publish after a random delay"
+msgstr "随机延迟发布"
 
 #: includes/class-wp-caiji.php:571
 msgid "延迟"
-msgstr "Delay"
+msgstr "延迟"
 
 #: includes/class-wp-caiji.php:571
 msgid "分钟"
-msgstr "minutes"
+msgstr "分钟"
 
 #: includes/class-wp-caiji.php:571
 msgid "选择随机延迟发布时,会把文章设为 future,并在区间内随机安排发布时间。"
-msgstr ""
-"When random delayed publishing is selected, the post will be set to future and its publish time will be scheduled randomly within the range."
+msgstr "选择随机延迟发布时, 会把文章设为 Zukunft, 并在区间内随机安排发布时间."
 
 #: includes/class-wp-caiji.php:571
 msgid ">立即使用上方状态 <option value="
-msgstr ">Use the status above now <option value="
+msgstr ">立即使用上方状态 <option value="
 
 #: includes/class-wp-caiji.php:571
 msgid ">随机延迟发布 延迟 <input name="
-msgstr ">Random delayed publishing Delay <input name="
+msgstr ">随机延迟发布 延迟 <Eingabename="
 
 #: includes/class-wp-caiji.php:571
 msgid "> 分钟 <p class="
-msgstr "> minutes <p class="
+msgstr "> 分钟 <p class="
 
 #: includes/class-wp-caiji.php:571
 msgid "发布节奏 模式 立即使用上方状态 随机延迟发布 延迟 - 分钟 选择随机延迟发布时,会把文章设为 future,并在区间内随机安排发布时间。"
-msgstr ""
-"Publishing cadence Mode Use the status above now Random delayed publishing Delay - minutes When random delayed publishing is selected, the post will be set to future and its publish time will be scheduled randomly within the range."
+msgstr "发布节奏 模式 立即使用上方状态 随机延迟发布 延迟 - 分钟选择随机延迟发布时, 会把文章设为 Zukunft, 并在区间内随机安排发布时间."
 
 #: includes/class-wp-caiji.php:572
 msgid "长期采集控制"
-msgstr "Long-running collection controls"
+msgstr "长期采集控制"
 
 #: includes/class-wp-caiji.php:572
 msgid "每批"
-msgstr "Per batch"
+msgstr "每批"
 
 #: includes/class-wp-caiji.php:572
 msgid "篇;失败重试"
-msgstr "posts; failed retry"
+msgstr "篇;失败重试"
 
 #: includes/class-wp-caiji.php:572
 msgid "次;请求间隔"
-msgstr "times; request interval"
+msgstr "次;请求间隔"
 
 #: includes/class-wp-caiji.php:572
 msgid ""
-"]); ?>\" style=\"width:80px\"> 篇;失败重试 <input name=\"retry_limit\" type=\"number\" min=\"0\" max=\"10\" value=\"<?php echo esc_attr($rule["
+"]); ?>\" style=\"width:80px\"> 篇;失败重试 <input name=\"retry_limit\" "
+"type=\"number\" min=\"0\" max=\"10\" value=\"<?php echo esc_attr($rule["
 msgstr ""
-"]); ?>\" style=\"width:80px\"> posts; failed retry <input name=\"retry_limit\" type=\"number\" min=\"0\" max=\"10\" value=\"<?php echo esc_attr($rule["
+"]); ?>\" style=\"width:80px\"> posts; failed retry <input "
+"name=\"retry_limit\" type=\"number\" min=\"0\" max=\"10\" value=\"<?php echo"
+" esc_attr($rule["
 
 #: includes/class-wp-caiji.php:572
 msgid ""
-"]); ?>\" style=\"width:80px\"> 次;请求间隔 <input name=\"request_delay\" type=\"number\" min=\"0\" max=\"30\" value=\"<?php echo esc_attr($rule["
+"]); ?>\" style=\"width:80px\"> 次;请求间隔 <input name=\"request_delay\" "
+"type=\"number\" min=\"0\" max=\"30\" value=\"<?php echo esc_attr($rule["
 msgstr ""
-"]); ?>\" style=\"width:80px\"> times; request interval <input name=\"request_delay\" type=\"number\" min=\"0\" max=\"30\" value=\"<?php echo esc_attr($rule["
+"]); ?>\" style=\"width:80px\"> times; request interval <input "
+"name=\"request_delay\" type=\"number\" min=\"0\" max=\"30\" value=\"<?php "
+"echo esc_attr($rule["
 
 #: includes/class-wp-caiji.php:572
 msgid "长期采集控制 每批 篇;失败重试 次;请求间隔 秒"
-msgstr ""
-"Long-running collection controls Per batch posts; failed retry times; request interval seconds"
+msgstr "长期采集控制 每批 篇;失败重试 次;请求间隔 秒"
 
 #: includes/class-wp-caiji.php:575
 msgid "图片与媒体"
-msgstr "Images and media"
+msgstr "图片与媒体"
 
 #: includes/class-wp-caiji.php:577
 msgid "图片本地化"
-msgstr "Localize images"
+msgstr "图片本地化"
 
 #: includes/class-wp-caiji.php:577
 msgid "第一张图设为特色图"
-msgstr "Set the first image as the featured image"
+msgstr "第一张图设为特色图"
 
 #: includes/class-wp-caiji.php:577
 msgid "图片 ALT 模板:"
-msgstr "Image ALT template:"
+msgstr "ALT-Sprache:"
 
 #: includes/class-wp-caiji.php:577
 msgid "> 图片本地化 <input name="
-msgstr "> Localize images <input name="
+msgstr "> 图片本地化 <input name="
 
 #: includes/class-wp-caiji.php:577
 msgid "> 第一张图设为特色图 图片 ALT 模板:<input name="
-msgstr "> Set the first image as the featured image Image ALT template:<input name="
+msgstr "> 第一张图设为特色图 图片 ALT-Befehl:<Eingabename="
 
 #: includes/class-wp-caiji.php:577
 msgid "图片 图片本地化 第一张图设为特色图 图片 ALT 模板:"
-msgstr ""
-"Images Localize images Set the first image as the featured image Image ALT template:"
+msgstr "图片 图片本地化 第一张图设为特色图 图片 ALT-Sprache:"
 
 #: includes/class-wp-caiji.php:580
 msgid "AI 改写"
-msgstr "AI rewriting"
+msgstr "AI 改写"
 
 #: includes/class-wp-caiji.php:582
 msgid "发布前 AI 改写"
-msgstr "AI rewrite before publishing"
+msgstr "发布前 AI 改写"
 
 #: includes/class-wp-caiji.php:582
 msgid "需要先在\"WP 采集 → 设置\"里启用 AI 并配置 API。AI 会在正文清洗和图片本地化之后、写入文章之前运行。"
-msgstr ""
-"You must first enable AI and configure the API under \"WP Caiji → Settings\". AI runs after content cleanup and image localization, and before the post is written."
+msgstr "需要先在„WP 采集 → 设置“里启用 AI 并配置 API.AI会在正文清洗和图片本地化之后、写入文章之前运行."
 
 #: includes/class-wp-caiji.php:582
 msgid "> 启用 <p class="
-msgstr "> Enable <p class="
+msgstr "> 启用 <p class="
 
 #: includes/class-wp-caiji.php:582
 msgid ">需要先在"
-msgstr ">You must first go to"
+msgstr ">需要先在"
 
 #: includes/class-wp-caiji.php:582
 msgid "发布前 AI 改写 启用 需要先在\"WP 采集 → 设置\"里启用 AI 并配置 API。AI 会在正文清洗和图片本地化之后、写入文章之前运行。"
-msgstr ""
-"AI rewrite before publishing Enable You must first enable AI and configure the API under \"WP Caiji → Settings\". AI runs after content cleanup and image localization, and before the post is written."
+msgstr "发布前 AI 改写 启用 需要先在„WP 采集 → 设置“里启用 AI 并配置 API.AI会在正文清洗和图片本地化之后、写入文章之前运行."
 
 #: includes/class-wp-caiji.php:583
 msgid "失败处理"
-msgstr "Failure handling"
+msgstr "失败处理"
 
 #: includes/class-wp-caiji.php:583
 msgid "AI 失败时发布原文"
-msgstr "Publish the original content when AI fails"
+msgstr "AI 失败时发布原文"
 
 #: includes/class-wp-caiji.php:583
 msgid "AI 失败时标记队列失败"
-msgstr "Mark the queue as failed when AI fails"
+msgstr "AI 失败时标记队列失败"
 
 #: includes/class-wp-caiji.php:583
 msgid ">AI 失败时发布原文 <option value="
-msgstr ">Publish the original content when AI fails <option value="
+msgstr ">AI 失败时发布原文 <option value="
 
 #: includes/class-wp-caiji.php:583
 msgid "失败处理 AI 失败时发布原文 AI 失败时标记队列失败"
-msgstr ""
-"Failure handling Publish the original content when AI fails Mark the queue as failed when AI fails"
+msgstr "失败处理 AI 失败时发布原文 AI 失败时标记队列失败"
 
 #: includes/class-wp-caiji.php:584
 msgid "改写目标语言"
-msgstr "Rewrite target language"
+msgstr "改写目标语言"
 
 #: includes/class-wp-caiji.php:584
 msgid "使用全局设置"
-msgstr "Use global settings"
+msgstr "使用全局设置"
 
 #: includes/class-wp-caiji.php:584
 msgid "用于翻译/改写场景；启用语言检测后，改写结果不符合目标语言会按 AI 失败处理。"
-msgstr ""
-"Used for translation/rewriting scenarios; after language detection is enabled, rewritten results that do not match the target language will be handled as an AI failure."
+msgstr "用于翻译/改写场景；启用语言检测后,改写结果不符合目标语言会按 AI 失败处理."
 
 #: includes/class-wp-caiji.php:584
 msgid ">使用全局设置 <option value="
-msgstr ">Use global settings <option value="
+msgstr ">使用全局设置 <option value="
 
 #: includes/class-wp-caiji.php:584
 msgid "改写目标语言 使用全局设置 用于翻译/改写场景；启用语言检测后，改写结果不符合目标语言会按 AI 失败处理。"
-msgstr ""
-"Rewrite target language Use global settings Used for translation/rewriting scenarios; after language detection is enabled, rewritten results that do not match the target language will be handled as an AI failure."
+msgstr "改写目标语言 使用全局设置用于翻译/改写场景；启用语言检测后,改写结果不符合目标语言会按 AI 失败处理."
 
 #: includes/class-wp-caiji.php:585
 msgid "专属 Prompt"
-msgstr "Dedicated Prompt"
+msgstr "专属 Eingabeaufforderung"
 
 #: includes/class-wp-caiji.php:585
 msgid "建议要求模型只返回 JSON:{\"title\":\"改写标题\",\"content\":\"改写后的 HTML 正文\"}"
-msgstr ""
-"We recommend asking the model to return only JSON:{\"title\":\"rewritten title\",\"content\":\"rewritten HTML body\"}"
+msgstr "建议要求模型只返回 JSON:{\"title\": \"改写标题\", \"content\": \"改写后的 HTML 正文\"}"
 
 #: includes/class-wp-caiji.php:585
 msgid "留空则使用全局默认 Prompt"
-msgstr "Leave blank to use the global default Prompt"
+msgstr "留空则使用全局默认 Eingabeaufforderung"
 
 #: includes/class-wp-caiji.php:585
 msgid ">建议要求模型只返回 JSON:{"
-msgstr ">We recommend asking the model to return only JSON:{"
+msgstr ">建议要求模型只返回 JSON:{"
 
 #: includes/class-wp-caiji.php:585
 msgid "改写标题"
-msgstr "rewritten title"
+msgstr "改写标题"
 
 #: includes/class-wp-caiji.php:585
 msgid "改写后的 HTML 正文"
-msgstr "rewritten HTML body"
+msgstr "改写后的 HTML 正文"
 
 #: includes/class-wp-caiji.php:585
 msgid "专属 Prompt 建议要求模型只返回 JSON:{\"title\":\"改写标题\",\"content\":\"改写后的 HTML 正文\"}"
-msgstr ""
-"Dedicated Prompt We recommend asking the model to return only JSON:{\"title\":\"rewritten title\",\"content\":\"rewritten HTML body\"}"
+msgstr "专属 Prompt 建议要求模型只返回 JSON:{\"title\": \"改写标题\", \"content\": \"改写后的 HTML 正文\"}"
 
 #: includes/class-wp-caiji.php:588
 msgid "分类与标签"
-msgstr "Categories and tags"
+msgstr "分类与标签"
 
 #: includes/class-wp-caiji.php:590
 msgid "自动分类规则"
-msgstr "Automatic category rules"
+msgstr "自动分类规则"
 
 #: includes/class-wp-caiji.php:590
 msgid "匹配标题或正文后,会优先使用命中的分类 ID;没有命中则使用默认分类。"
-msgstr ""
-"After matching the title or body, the matched category ID will be used first; if there is no match, the default category will be used."
+msgstr "匹配标题或正文后,会优先使用命中的分类 ID;没有命中则使用默认分类."
 
 #: includes/class-wp-caiji.php:590
 msgid "每行一条:关键词=>分类ID,例如:WordPress=>3"
-msgstr "One per line: keyword=>category ID, for example: WordPress=>3"
+msgstr "每行一条:关键词=>分类ID,例如:WordPress=>3"
 
 #: includes/class-wp-caiji.php:590
 msgid "自动分类规则 分类ID,例如:WordPress=>3\"> 匹配标题或正文后,会优先使用命中的分类 ID;没有命中则使用默认分类。"
-msgstr ""
-"Automatic category rules category ID, for example: WordPress=>3\"> After matching the title or body, the matched category ID will be used first; if there is no match, the default category will be used."
+msgstr "自动分类规则 分类ID,例如:WordPress=>3\"> 匹配标题或正文后,会优先使用命中的分类ID;没有命中则使用默认分类."
 
 #: includes/class-wp-caiji.php:591
 msgid "固定标签"
-msgstr "Fixed tags"
+msgstr "固定标签"
 
 #: includes/class-wp-caiji.php:591
 msgid "会与页面提取标签、自动标签合并后写入文章。"
-msgstr ""
-"They will be merged with page-extracted tags and automatic tags, then written to the post."
+msgstr "会与页面提取标签、自动标签合并后写入文章."
 
 #: includes/class-wp-caiji.php:591
 msgid "每行或用逗号/顿号/分号/竖线分隔，例如：SEO, WordPress"
-msgstr ""
-"Separate by line or with commas/Chinese commas/semicolons/pipes, for example: SEO, WordPress"
+msgstr "Weitere Informationen: SEO, WordPress"
 
 #: includes/class-wp-caiji.php:591
 msgid "固定标签 会与页面提取标签、自动标签合并后写入文章。"
-msgstr ""
-"Fixed tags They will be merged with page-extracted tags and automatic tags, then written to the post."
+msgstr "固定标签 会与页面提取标签、自动标签合并后写入文章."
 
 #: includes/class-wp-caiji.php:592
 msgid "自动标签"
-msgstr "Automatic tags"
+msgstr "自动标签"
 
 #: includes/class-wp-caiji.php:592
 msgid "根据标题关键词自动加标签"
-msgstr "Automatically add tags based on title keywords"
+msgstr "根据标题关键词自动加标签"
 
 #: includes/class-wp-caiji.php:592
 msgid "启用增强匹配"
-msgstr "Enable enhanced matching"
+msgstr "启用增强匹配"
 
 #: includes/class-wp-caiji.php:592
 msgid "标签名”，并尽量避免英文短词误匹配；关闭后回退为旧版纯包含匹配。"
-msgstr ""
-"tag name\", and tries to avoid false matches on short English words; when disabled, it falls back to the old simple contains matching."
+msgstr "标签名“, 并尽量避免英文短词误匹配；关闭后回退为旧版纯包含匹配."
 
 #: includes/class-wp-caiji.php:592
 msgid "支持：每行一个关键词；或 关键词=>标签名；或 关键词1|关键词2=>标签名。正文出现不会作为标签。"
-msgstr ""
-"Supports: one keyword per line; or keyword=>tag name; or keyword1|keyword2=>tag name. Occurrences in the body will not be used as tags."
+msgstr "支持:每行一个关键词；或 关键词=>标签名；或关键词1|关键词2=>标签名.正文出现不会作为标签."
 
 #: includes/class-wp-caiji.php:592
 msgid "> 根据标题关键词自动加标签 <label style="
-msgstr "> Automatically add tags based on title keywords <label style="
+msgstr "> 根据标题关键词自动加标签 <label style="
 
 #: includes/class-wp-caiji.php:592
 msgid "> 启用增强匹配 <textarea name="
-msgstr "> Enable enhanced matching <textarea name="
+msgstr "> 启用增强匹配 <textarea name="
 
 #: includes/class-wp-caiji.php:592
 msgid ""
-"自动标签 根据标题关键词自动加标签 启用增强匹配 标签名；或 关键词1|关键词2=>标签名。正文出现不会作为标签。\"> 只使用这里手动填写的关键词；不会再自动载入站点现有文章标签。开启“增强匹配”时，支持“关键词=>标签名”“关键词1|关键词2=>标签名”，并尽量避免英文短词误匹配；关闭后回退为旧版纯包含匹配。"
+"自动标签 根据标题关键词自动加标签 启用增强匹配 标签名；或 关键词1|关键词2=>标签名。正文出现不会作为标签。\"> "
+"只使用这里手动填写的关键词；不会再自动载入站点现有文章标签。开启“增强匹配”时，支持“关键词=>标签名”“关键词1|关键词2=>标签名”，并尽量避免英文短词误匹配；关闭后回退为旧版纯包含匹配。"
 msgstr ""
-"Automatic tags Automatically add tags based on title keywords Enable enhanced matching tag name; or keyword1|keyword2=>tag name. Occurrences in the body will not be used as tags.\"> Only the keywords entered here will be used; existing site post tags will no longer be loaded automatically. When \"enhanced matching\" is enabled, \"keyword=>tag name\" and \"keyword1|keyword2=>tag name\" are supported, and false matches on short English words are avoided as much as possible; when disabled, it falls back to the old simple contains matching."
+"自动标签 根据标题关键词自动加标签 启用增强匹配 "
+"标签名；或关键词1|关键词2=>标签名.正文出现不会作为标签.\">只使用这里手动填写的关键词；不会再自动载入站点现有文章标签.开启“增强匹配“时，支持“关键词=>标签名““关键词1|关键词2=>标签名“,并尽量避免英文短词误匹配;关闭后回退为旧版纯包含匹配."
 
 #: includes/class-wp-caiji.php:595
 msgid "SEO 与摘要"
-msgstr "SEO and excerpt"
+msgstr "SEO-Experte"
 
 #: includes/class-wp-caiji.php:597
 msgid "摘要"
-msgstr "Excerpt"
+msgstr "摘要"
 
 #: includes/class-wp-caiji.php:597
 msgid "自动生成摘要"
-msgstr "Automatically generate excerpt"
+msgstr "自动生成摘要"
 
 #: includes/class-wp-caiji.php:597
 msgid "长度"
-msgstr "Length"
+msgstr "长度"
 
 #: includes/class-wp-caiji.php:597
 msgid "> 自动生成摘要 长度 <input name="
-msgstr "> Automatically generate excerpt Length <input name="
+msgstr "> 自动生成摘要 长度 <input name="
 
 #: includes/class-wp-caiji.php:597
 msgid "摘要 自动生成摘要 长度 字"
-msgstr "Excerpt Automatically generate excerpt Length characters"
+msgstr "摘要 自动生成摘要 长度 字"
 
 #: includes/class-wp-caiji.php:598
 msgid "SEO 字段"
-msgstr "SEO fields"
+msgstr "SEO-Kenntnisse"
 
 #: includes/class-wp-caiji.php:598
 msgid "插件"
-msgstr "Plugin"
+msgstr "Nein"
 
 #: includes/class-wp-caiji.php:598
 msgid "不写入"
-msgstr "Do not write"
+msgstr "不写入"
 
 #: includes/class-wp-caiji.php:598
 msgid "SEO 标题模板:"
-msgstr "SEO title template:"
+msgstr "SEO-Hinweise:"
 
 #: includes/class-wp-caiji.php:598
 msgid "SEO 描述模板:"
-msgstr "SEO description template:"
+msgstr "SEO-Informationen:"
 
 #: includes/class-wp-caiji.php:598
 msgid "可用变量:{title}、{excerpt}、{site}、{source}"
-msgstr "Available variables: {title}, {excerpt}, {site}, {source}"
+msgstr "Produktmerkmale: {title}, {excerpt}, {site}, {source}"
 
 #: includes/class-wp-caiji.php:598
 msgid "复制标题模板"
-msgstr "Copy title template"
+msgstr "复制标题模板"
 
 #: includes/class-wp-caiji.php:598
 msgid "复制描述模板"
-msgstr "Copy description template"
+msgstr "复制描述模板"
 
 #: includes/class-wp-caiji.php:598
 msgid ">不写入 <option value="
-msgstr ">Do not write <option value="
+msgstr ">不写入 <option value="
 
 #: includes/class-wp-caiji.php:598
 msgid ">All in One SEO SEO 标题模板:<input name="
-msgstr ">All in One SEO SEO title template:<input name="
+msgstr ">All-in-One-SEO SEO-Suche:<Eingabename="
 
 #: includes/class-wp-caiji.php:598
 msgid ""
-"]); ?>\" placeholder=\"{title} - {site}\"> SEO 描述模板:<input name=\"seo_desc_template\" class=\"regular-text\" value=\"<?php echo esc_attr($rule["
+"]); ?>\" placeholder=\"{title} - {site}\"> SEO 描述模板:<input "
+"name=\"seo_desc_template\" class=\"regular-text\" value=\"<?php echo "
+"esc_attr($rule["
 msgstr ""
-"]); ?>\" placeholder=\"{title} - {site}\"> SEO description template:<input name=\"seo_desc_template\" class=\"regular-text\" value=\"<?php echo esc_attr($rule["
+"]); ?>\" placeholder=\"{title} - {site}\"> SEO description template:<input "
+"name=\"seo_desc_template\" class=\"regular-text\" value=\"<?php echo "
+"esc_attr($rule["
 
 #: includes/class-wp-caiji.php:598
 msgid ">可用变量:{title}、{excerpt}、{site}、{source} <button class="
-msgstr ">Available variables: {title}, {excerpt}, {site}, {source} <button class="
+msgstr ">可用变量:{title}、{excerpt}、{site}、{source} <button class="
 
 #: includes/class-wp-caiji.php:598
 msgid ">复制标题模板 <button class="
-msgstr ">Copy title template <button class="
+msgstr ">复制标题模板 <button class="
 
 #: includes/class-wp-caiji.php:598
 msgid ""
-"SEO 字段 插件 不写入 Rank Math Yoast SEO All in One SEO SEO 标题模板: SEO 描述模板: 可用变量:{title}、{excerpt}、{site}、{source} 复制标题模板 复制描述模板"
+"SEO 字段 插件 不写入 Rank Math Yoast SEO All in One SEO SEO 标题模板: SEO 描述模板: "
+"可用变量:{title}、{excerpt}、{site}、{source} 复制标题模板 复制描述模板"
 msgstr ""
-"SEO fields Plugin Do not write Rank Math Yoast SEO All in One SEO SEO title template: SEO description template: Available variables: {title}, {excerpt}, {site}, {source} Copy title template Copy description template"
+"SEO 字段 插件 不写入 Rank Math Yoast SEO All in One SEO SEO-Suche: SEO-Suche: "
+"{title}, {excerpt}, {site}, {source}复制标题模板 复制描述模板"
 
 #: includes/class-wp-caiji.php:601
 msgid "请求头与访问"
-msgstr "Request headers and access"
+msgstr "请求头与访问"
 
 #: includes/class-wp-caiji.php:603
 msgid "请求头配置"
-msgstr "Request header configuration"
+msgstr "请求头配置"
 
 #: includes/class-wp-caiji.php:603
 msgid "User-Agent 池,每行一个:"
-msgstr "User-Agent pool, one per line:"
+msgstr "User-Agent-Anleitung, Benutzername:"
 
 #: includes/class-wp-caiji.php:603
 msgid "留空则自动随机生成常见浏览器 User-Agent"
-msgstr "Leave blank to automatically generate common browser User-Agents at random"
+msgstr "留空则自动随机生成常见浏览器 User-Agent"
 
 #: includes/class-wp-caiji.php:603
 msgid "留空则自动随机生成来源页"
-msgstr "Leave blank to automatically generate referrer pages at random"
+msgstr "留空则自动随机生成来源页"
 
 #: includes/class-wp-caiji.php:603
 msgid "可每行填写一组 Cookie，采集时随机选择；留空则不发送"
-msgstr ""
-"You can enter one Cookie set per line; one will be selected randomly during collection. Leave blank to send none."
+msgstr "可每行填写一组 Cookie,采集时随机选择；留空则不发送"
 
 #: includes/class-wp-caiji.php:603
-msgid ""
-"]); ?>\" placeholder=\"留空则自动随机生成来源页\"> Cookie: <?php echo esc_textarea($rule["
+msgid "]); ?>\" placeholder=\"留空则自动随机生成来源页\"> Cookie: <?php echo esc_textarea($rule["
 msgstr ""
-"]); ?>\" placeholder=\"Leave blank to automatically generate referrer pages at random\"> Cookie: <?php echo esc_textarea($rule["
+"]); ?>\" placeholder=\"Leave blank to automatically generate referrer pages "
+"at random\"> Cookie: <?php echo esc_textarea($rule["
 
 #: includes/class-wp-caiji.php:603
 msgid "请求头配置 User-Agent 池,每行一个: Referer: Cookie:"
-msgstr "Request header configuration User-Agent pool, one per line: Referer: Cookie:"
+msgstr "请求头配置 User-Agent-Adresse, Referenznummer: Referrer: Cookie:"
 
 #: includes/class-wp-caiji.php:611
 msgid "保存规则"
-msgstr "Save rule"
+msgstr "保存规则"
 
 #: includes/class-wp-caiji.php:611
 msgid "添加规则"
-msgstr "Add rule"
+msgstr "添加规则"
 
 #: includes/class-wp-caiji.php:612
 msgid "取消"
-msgstr "Cancel"
+msgstr "取消"
 
 #: includes/class-wp-caiji.php:613
 msgid "测试不会保存当前修改；如果刚改了规则，请先保存再测试。"
-msgstr ""
-"Testing will not save your current changes; if you just changed the rule, please save it before testing."
+msgstr "测试不会保存当前修改；如果刚改了规则,请先保存再测试."
 
 #: includes/class-wp-caiji.php:626
 msgid "规则测试结果"
-msgstr "Rule test results"
+msgstr "规则测试结果"
 
 #: includes/class-wp-caiji.php:627
 msgid "这里显示刚刚执行的列表页测试或文章预览结果；关闭后仍可继续编辑当前规则。"
-msgstr ""
-"The list-page test or article preview results just run are shown here; after closing, you can continue editing the current rule."
+msgstr "这里显示刚刚执行的列表页测试或文章预览结果;关闭后仍可继续编辑当前规则。"
 
 #: includes/class-wp-caiji.php:636
 msgid "关闭结果"
-msgstr "Close results"
+msgstr "关闭结果"
 
 #: includes/class-wp-caiji.php:641
 msgid "规则列表"
-msgstr "Rule list"
+msgstr "规则列表"
 
 #: includes/class-wp-caiji.php:642
 msgid "名称"
-msgstr "Name"
+msgstr "名称"
 
 #: includes/class-wp-caiji.php:642
 msgid "状态"
-msgstr "Status"
+msgstr "Nein"
 
 #: includes/class-wp-caiji.php:642
 msgid "最后发现"
-msgstr "Last discovered"
+msgstr "最后发现"
 
 #: includes/class-wp-caiji.php:642
 msgid "最后采集"
-msgstr "Last collected"
+msgstr "最后采集"
 
 #: includes/class-wp-caiji.php:642
 msgid "ID 名称 状态 待采 成功 失败 最后发现 最后采集 操作"
-msgstr ""
-"ID Name Status Pending Collected Failed Last discovered Last collected Actions"
+msgstr "ID 名称 状态 待采 成功 失败 最后发现 最后采集 操作"
 
 #: includes/class-wp-caiji.php:646
 msgid "编辑"
-msgstr "Edit"
+msgstr "编辑"
 
 #: includes/class-wp-caiji.php:648
 msgid "复制"
-msgstr "Duplicate"
+msgstr "复制"
 
 #: includes/class-wp-caiji.php:649
 msgid "发现链接"
-msgstr "Discover links"
+msgstr "发现链接"
 
 #: includes/class-wp-caiji.php:650
 msgid "采集队列"
-msgstr "Collection queue"
+msgstr "采集队列"
 
 #: includes/class-wp-caiji.php:651
 msgid "删除"
-msgstr "Delete"
+msgstr "删除"
 
 #: includes/class-wp-caiji.php:651
 msgid "return confirm('确定删除规则?队列和日志也会删除。')"
 msgstr ""
-"return confirm('Are you sure you want to delete this rule? The queue and logs will also be deleted.')"
+"return confirm('Are you sure you want to delete this rule? The queue and "
+"logs will also be deleted.')"
 
 #: includes/class-wp-caiji.php:655
 msgid "规则导入/导出"
-msgstr "Rule import/export"
+msgstr "规则导入/导出"
 
 #: includes/class-wp-caiji.php:656
 msgid "导出全部规则 JSON"
-msgstr "Export all rules as JSON"
+msgstr "Verwenden Sie JSON"
 
 #: includes/class-wp-caiji.php:661
 msgid "导入规则 JSON"
-msgstr "Import rules JSON"
+msgstr "Wird in JSON verwendet"
 
 #: includes/class-wp-caiji.php:661
 msgid "return confirm('导入会新增规则,不会覆盖现有规则,确定继续?')"
-msgstr ""
-"return confirm('Importing will add new rules and will not overwrite existing rules. Continue?')"
+msgstr "Rückkehr bestätigen('导入会新增规则,不会覆盖现有规则,确定继续?')"
 
 #: includes/class-wp-caiji.php:697
 msgid "查看采集任务状态,筛选失败项,重试或清理队列。"
-msgstr ""
-"View collection task status, filter failed items, and retry or clean up the queue."
+msgstr "查看采集任务状态,筛选失败项,重试或清理队列."
 
 #: includes/class-wp-caiji.php:699
 msgid "全部"
-msgstr "All"
+msgstr "全部"
 
 #: includes/class-wp-caiji.php:699
 msgid ")); ?>\">全部 page_url("
-msgstr ")); ?>\">All page_url("
+msgstr "));?>\">Weitere Seite page_url("
 
 #: includes/class-wp-caiji.php:699
 msgid "))); ?>\">待采 page_url("
-msgstr "))); ?>\">Pending page_url("
+msgstr ")));?>\">Seitenansicht page_url("
 
 #: includes/class-wp-caiji.php:699
 msgid "))); ?>\">失败 page_url("
-msgstr "))); ?>\">Failed page_url("
+msgstr ")));?>\">Seitenansicht page_url("
 
 #: includes/class-wp-caiji.php:699
 msgid "全部 待采 失败 成功"
-msgstr "All Pending Failed Success"
+msgstr "全部 待采 失败 成功"
 
 #: includes/class-wp-caiji.php:702
 msgid ">全部 <option value="
-msgstr ">All <option value="
+msgstr ">全部 <option value="
 
 #: includes/class-wp-caiji.php:702
 msgid "状态 全部"
-msgstr "Status All"
+msgstr "状态 全部"
 
 #: includes/class-wp-caiji.php:703
 msgid "全部规则"
-msgstr "All rules"
+msgstr "全部规则"
 
 #: includes/class-wp-caiji.php:703
 msgid ">全部规则 <option value="
-msgstr ">All rules <option value="
+msgstr ">全部规则 <option value="
 
 #: includes/class-wp-caiji.php:703
 msgid "规则 全部规则"
-msgstr "Rule All rules"
+msgstr "规则 全部规则"
 
 #: includes/class-wp-caiji.php:704
 msgid "URL 关键词"
-msgstr "URL keyword"
+msgstr "URL 关键词"
 
 #: includes/class-wp-caiji.php:705
 msgid "错误关键词"
-msgstr "Error keyword"
+msgstr "错误关键词"
 
 #: includes/class-wp-caiji.php:706
 msgid "已到期/可执行"
-msgstr "Due/executable"
+msgstr "已到期/可执行"
 
 #: includes/class-wp-caiji.php:706
 msgid "延迟中"
-msgstr "Delayed"
+msgstr "延迟中"
 
 #: includes/class-wp-caiji.php:706
 msgid ">已到期/可执行 <option value="
-msgstr ">Due/executable <option value="
+msgstr ">已到期/可执行 <option value="
 
 #: includes/class-wp-caiji.php:706
 msgid "执行时间 全部 已到期/可执行 延迟中"
-msgstr "Execution time All Due/executable Delayed"
+msgstr "执行时间 全部 已到期/可执行 延迟中"
 
 #: includes/class-wp-caiji.php:707
 msgid "筛选"
-msgstr "Filter"
+msgstr "筛选"
 
 #: includes/class-wp-caiji.php:707
 msgid "重置"
-msgstr "Reset"
+msgstr "重置"
 
 #: includes/class-wp-caiji.php:707
 msgid ">筛选 <a class="
-msgstr ">Filter <a class="
+msgstr ">筛选 <a class="
 
 #: includes/class-wp-caiji.php:707
 msgid "筛选 重置"
-msgstr "Filter Reset"
+msgstr "筛选 重置"
 
 #: includes/class-wp-caiji.php:710
 msgid "失败任务"
-msgstr "Failed tasks"
+msgstr "失败任务"
 
 #: includes/class-wp-caiji.php:711
 msgid "等待执行"
-msgstr "Waiting to run"
+msgstr "等待执行"
 
 #: includes/class-wp-caiji.php:713
 msgid "AI 失败"
-msgstr "AI failure"
+msgstr "AI-Test"
 
 #: includes/class-wp-caiji.php:714
 msgid "图片问题"
-msgstr "Image issue"
+msgstr "图片问题"
 
 #: includes/class-wp-caiji.php:715
 msgid "选择器问题"
-msgstr "Selector issue"
+msgstr "选择器问题"
 
 #: includes/class-wp-caiji.php:721
 msgid "清理队列:规则 全部规则"
-msgstr "Clean queue: Rule All rules"
+msgstr "清理队列:规则 全部规则"
 
 #: includes/class-wp-caiji.php:722
 msgid ">成功 <option value="
-msgstr ">Success <option value="
+msgstr ">成功 <option value="
 
 #: includes/class-wp-caiji.php:722
 msgid ">失败 <option value="
-msgstr ">Failed <option value="
+msgstr ">失败 <option value="
 
 #: includes/class-wp-caiji.php:722
 msgid ">跳过 <option value="
-msgstr ">Skipped <option value="
+msgstr ">跳过 <option value="
 
 #: includes/class-wp-caiji.php:722
 msgid "状态 成功 失败 跳过 待采"
-msgstr "Status Success Failed Skipped Pending"
+msgstr "状态 成功 失败 跳过 待采"
 
 #: includes/class-wp-caiji.php:723
 msgid "早于 天"
-msgstr "Older than days"
+msgstr "早于 天"
 
 #: includes/class-wp-caiji.php:724
 msgid "清理"
-msgstr "Clean up"
+msgstr "清理"
 
 #: includes/class-wp-caiji.php:724
 msgid "return confirm('确定按条件清理队列?')"
-msgstr ""
-"return confirm('Are you sure you want to clean the queue by these conditions?')"
+msgstr "Rückkehr bestätigen('确定按条件清理队列?')"
 
 #: includes/class-wp-caiji.php:729
 msgid "批量操作"
-msgstr "Bulk actions"
+msgstr "批量操作"
 
 #: includes/class-wp-caiji.php:729
 msgid "重试选中"
-msgstr "Retry selected"
+msgstr "重试选中"
 
 #: includes/class-wp-caiji.php:729
 msgid "删除选中"
@@ -1652,7 +1652,7 @@ msgstr "Delete selected"
 
 #: includes/class-wp-caiji.php:729
 msgid "重试全部失败"
-msgstr "Retry all failed"
+msgstr "重试全部失败"
 
 #: includes/class-wp-caiji.php:729
 msgid "删除全部成功"
@@ -1660,27 +1660,27 @@ msgstr "Delete all successful"
 
 #: includes/class-wp-caiji.php:729
 msgid "应用"
-msgstr "Apply"
+msgstr "应用"
 
 #: includes/class-wp-caiji.php:729
 msgid "条;当前第"
-msgstr "items; current page"
+msgstr "条;当前第"
 
 #: includes/class-wp-caiji.php:729
 msgid "页,每页"
-msgstr "page, per page"
+msgstr "页,每页"
 
 #: includes/class-wp-caiji.php:729
 msgid "条。"
-msgstr "items."
+msgstr "Nein."
 
 #: includes/class-wp-caiji.php:729
 msgid ">批量操作 <option value="
-msgstr ">Bulk actions <option value="
+msgstr ">批量操作 <option value="
 
 #: includes/class-wp-caiji.php:729
 msgid ">重试选中 <option value="
-msgstr ">Retry selected <option value="
+msgstr ">重试选中 <option value="
 
 #: includes/class-wp-caiji.php:729
 msgid ">删除选中 <option value="
@@ -1688,7 +1688,7 @@ msgstr ">Delete selected <option value="
 
 #: includes/class-wp-caiji.php:729
 msgid ">重试全部失败 <option value="
-msgstr ">Retry all failed <option value="
+msgstr ">重试全部失败 <option value="
 
 #: includes/class-wp-caiji.php:729
 msgid ">删除全部成功 <button class="
@@ -1696,525 +1696,524 @@ msgstr ">Delete all successful <button class="
 
 #: includes/class-wp-caiji.php:729
 msgid "return confirm('确定执行批量操作?')"
-msgstr "return confirm('Are you sure you want to perform this bulk action?')"
+msgstr "Rückkehr bestätigen('确定执行批量操作?')"
 
 #: includes/class-wp-caiji.php:729
 msgid "批量操作 重试选中 删除选中 重试全部失败 删除全部成功 应用 共 条;当前第 页,每页 条。"
 msgstr ""
-"Bulk actions Retry selected Delete selected Retry all failed Delete all successful Apply Total items; current page page, per page items."
+"Bulk actions Retry selected Delete selected Retry all failed Delete all "
+"successful Apply Total items; current page page, per page items."
 
 #: includes/class-wp-caiji.php:731
 msgid "次数"
-msgstr "Attempts"
+msgstr "次数"
 
 #: includes/class-wp-caiji.php:731
 msgid "文章"
-msgstr "Post"
+msgstr "文章"
 
 #: includes/class-wp-caiji.php:731
 msgid "下次执行"
-msgstr "Next run"
+msgstr "下次执行"
 
 #: includes/class-wp-caiji.php:731
 msgid "更新时间"
-msgstr "Updated at"
+msgstr "更新时间"
 
 #: includes/class-wp-caiji.php:731
 msgid "cb.checked=this.checked)\"> ID 规则 状态 次数 文章 URL 错误 下次执行 更新时间 操作"
-msgstr ""
-"cb.checked=this.checked)\"> ID Rule Status Attempts Post URL Error Next run Updated at Actions"
+msgstr "cb.checked=this.checked)\"> ID 规则 状态 次数 文章 URL 错误 下次执行 更新时间 操作"
 
 #: includes/class-wp-caiji.php:732
 msgid "暂无队列"
-msgstr "No queue items"
+msgstr "暂无队列"
 
 #: includes/class-wp-caiji.php:734
 msgid "立即"
-msgstr "Now"
+msgstr "立即"
 
 #: includes/class-wp-caiji.php:735
 msgid "重试"
-msgstr "Retry"
+msgstr "重试"
 
 #: includes/class-wp-caiji.php:736
 msgid "return confirm('确定删除?')"
-msgstr "return confirm('Are you sure you want to delete?')"
+msgstr "return bestätigen('确定删除?')"
 
 #: includes/class-wp-caiji.php:772
 msgid "追踪采集过程、错误原因、警告信息和目标 URL。"
-msgstr ""
-"Track the collection process, error causes, warning messages, and target URLs."
+msgstr "追踪采集过程、错误原因、警告信息和目标 URL."
 
 #: includes/class-wp-caiji.php:775
 msgid "级别 全部"
-msgstr "Level All"
+msgstr "级别 全部"
 
 #: includes/class-wp-caiji.php:777
 msgid "消息或 URL"
-msgstr "Message or URL"
+msgstr "消息或 URL"
 
 #: includes/class-wp-caiji.php:777
 msgid "关键词"
-msgstr "Keyword"
+msgstr "关键词"
 
 #: includes/class-wp-caiji.php:778
 msgid "队列ID"
-msgstr "Queue ID"
+msgstr "队列ID"
 
 #: includes/class-wp-caiji.php:786
 msgid "选择器相关"
-msgstr "Selector related"
+msgstr "选择器相关"
 
 #: includes/class-wp-caiji.php:787
 msgid "重复/跳过"
-msgstr "Duplicate/skipped"
+msgstr "重复/跳过"
 
 #: includes/class-wp-caiji.php:789
 msgid "清空日志"
-msgstr "Clear logs"
+msgstr "清空日志"
 
 #: includes/class-wp-caiji.php:789
 msgid "return confirm('确定清空全部日志?')"
-msgstr "return confirm('Are you sure you want to clear all logs?')"
+msgstr "Rückkehr bestätigen('确定清空全部日志?')"
 
 #: includes/class-wp-caiji.php:791
 msgid "共 条;当前第 页,每页 条。"
-msgstr "Total items; current page page, per page items."
+msgstr "共 条;当前第 页,每页 条."
 
 #: includes/class-wp-caiji.php:793
 msgid "队列"
-msgstr "Queue"
+msgstr "队列"
 
 #: includes/class-wp-caiji.php:793
 msgid "时间 级别 规则 队列 消息 URL"
-msgstr "Time Level Rule Queue Message URL"
+msgstr "时间 级别 规则 队列 消息 URL"
 
 #: includes/class-wp-caiji.php:794
 msgid "暂无日志"
-msgstr "No logs"
+msgstr "暂无日志"
 
 #: includes/class-wp-caiji.php:807
 msgid "&laquo; 上一页"
-msgstr "&laquo; Previous page"
+msgstr "&laquo; 上一页"
 
 #: includes/class-wp-caiji.php:807
 msgid "\">&laquo; 上一页"
-msgstr "\">&laquo; Previous page"
+msgstr "\">&laquo; 上一页"
 
 #: includes/class-wp-caiji.php:807
 msgid ""
-"if ($paged > 1) echo ' page_url($page, array_merge($args, array('paged'=>$paged-1)))) . '\">&laquo; 上一页 ';"
+"if ($paged > 1) echo ' page_url($page, array_merge($args, "
+"array('paged'=>$paged-1)))) . '\">&laquo; 上一页 ';"
 msgstr ""
-"if ($paged > 1) echo ' page_url($page, array_merge($args, array('paged'=>$paged-1)))) . '\">&laquo; Previous page ';"
+"if ($paged > 1) echo ' page_url($page, array_merge($args, "
+"array('paged'=>$paged-1)))) . '\">&laquo; Previous page ';"
 
 #: includes/class-wp-caiji.php:809
 msgid "下一页 &raquo;"
-msgstr "Next page &raquo;"
+msgstr "下一页 &raquo;"
 
 #: includes/class-wp-caiji.php:809
 msgid "\">下一页 &raquo;"
-msgstr "\">Next page &raquo;"
+msgstr "\">下一页 &raquo;"
 
 #: includes/class-wp-caiji.php:809
 msgid ""
-"if ($paged page_url($page, array_merge($args, array('paged'=>$paged+1)))) . '\">下一页 &raquo; ';"
+"if ($paged page_url($page, array_merge($args, array('paged'=>$paged+1)))) . "
+"'\">下一页 &raquo; ';"
 msgstr ""
-"if ($paged page_url($page, array_merge($args, array('paged'=>$paged+1)))) . '\">Next page &raquo; ';"
+"if ($paged page_url($page, array_merge($args, array('paged'=>$paged+1)))) . "
+"'\">Next page &raquo; ';"
 
 #: includes/class-wp-caiji.php:842
 msgid "WP采集 AI重写"
-msgstr "WP Caiji AI Rewrite"
+msgstr "WP采集 AI重写"
 
 #: includes/class-wp-caiji.php:861
 msgid "来源:"
-msgstr "Source:"
+msgstr "Beschreibung:"
 
 #: includes/class-wp-caiji.php:861
 msgid "来源: <a href=\""
-msgstr "Source: <a href=\""
+msgstr "Quelle: <a href=\""
 
 #: includes/class-wp-caiji.php:861
 msgid ""
-"if ($source_url !== '') echo ' 来源: ' . esc_html(wp_html_excerpt($source_url, 90)) . ' ';"
+"if ($source_url !== '') echo ' 来源: ' . esc_html(wp_html_excerpt($source_url,"
+" 90)) . ' ';"
 msgstr ""
-"if ($source_url !== '') echo ' Source: ' . esc_html(wp_html_excerpt($source_url, 90)) . ' ';"
+"if ($source_url !== '') echo ' Source: ' . "
+"esc_html(wp_html_excerpt($source_url, 90)) . ' ';"
 
 #: includes/class-wp-caiji.php:862
 msgid "这篇文章没有采集来源 URL,仍可手动用当前标题和正文进行 AI 重写。"
-msgstr ""
-"This post has no collected source URL, but you can still manually use the current title and body for AI rewriting."
+msgstr "这篇文章没有采集来源 URL,仍可手动用当前标题和正文进行 AI 重写."
 
 #: includes/class-wp-caiji.php:862
 msgid "else echo ' 这篇文章没有采集来源 URL,仍可手动用当前标题和正文进行 AI 重写。 ';"
-msgstr ""
-"else echo ' This post has no collected source URL, but you can still manually use the current title and body for AI rewriting. ';"
+msgstr "else echo ' 这篇文章没有采集来源 URL,仍可手动用当前标题和正文进行 AI 重写。 ';"
 
 #: includes/class-wp-caiji.php:864
 msgid "规则:"
-msgstr "Rule:"
+msgstr "Beschreibung:"
 
 #: includes/class-wp-caiji.php:864
 msgid "队列:"
-msgstr "Queue:"
+msgstr "Quelle:"
 
 #: includes/class-wp-caiji.php:864
 msgid "队列: #"
-msgstr "Queue: #"
+msgstr "Name: #"
 
 #: includes/class-wp-caiji.php:864
 msgid ""
-"echo ' 规则: ' . esc_html($queue['rule_name'] ?: ('#' . (int)$queue['rule_id'])) . ' 队列: #' . intval($queue['id']) . ' / ' . esc_html($queue['status']) . ' ';"
+"echo ' 规则: ' . esc_html($queue['rule_name'] ?: ('#' . "
+"(int)$queue['rule_id'])) . ' 队列: #' . intval($queue['id']) . ' / ' . "
+"esc_html($queue['status']) . ' ';"
 msgstr ""
-"echo ' Rule: ' . esc_html($queue['rule_name'] ?: ('#' . (int)$queue['rule_id'])) . ' Queue: #' . intval($queue['id']) . ' / ' . esc_html($queue['status']) . ' ';"
+"echo ' Rule: ' . esc_html($queue['rule_name'] ?: ('#' . "
+"(int)$queue['rule_id'])) . ' Queue: #' . intval($queue['id']) . ' / ' . "
+"esc_html($queue['status']) . ' ';"
 
 #: includes/class-wp-caiji.php:867
 msgid "最近 AI 日志:"
-msgstr "Recent AI logs:"
+msgstr "Beschreibung von AI:"
 
 #: includes/class-wp-caiji.php:867
 msgid "echo ' 最近 AI 日志: ';"
-msgstr "echo ' Recent AI logs: ';"
+msgstr "echo ' 最近 AI 日志: ';"
 
 #: includes/class-wp-caiji.php:870
 msgid "暂无"
-msgstr "None"
+msgstr "Nein"
 
 #: includes/class-wp-caiji.php:870
 msgid "最近 AI 日志: 暂无"
-msgstr "Recent AI logs: None"
+msgstr "最近 AI 日志: 暂无"
 
 #: includes/class-wp-caiji.php:870
 msgid "} else echo ' 最近 AI 日志: 暂无 ';"
-msgstr "} else echo ' Recent AI logs: None ';"
+msgstr "} else echo ' 最近 AI 日志: 暂无 ';"
 
 #: includes/class-wp-caiji.php:871
 msgid "采集队列:"
-msgstr "Collection queue:"
+msgstr "采集队列:"
 
 #: includes/class-wp-caiji.php:871
 msgid "未匹配到队列记录"
-msgstr "No matching queue record found"
+msgstr "未匹配到队列记录"
 
 #: includes/class-wp-caiji.php:871
 msgid "采集队列: 未匹配到队列记录"
-msgstr "Collection queue: No matching queue record found"
+msgstr "采集队列: 未匹配到队列记录"
 
 #: includes/class-wp-caiji.php:871
 msgid "} else echo ' 采集队列: 未匹配到队列记录 ';"
-msgstr "} else echo ' Collection queue: No matching queue record found ';"
+msgstr "} else echo ' 采集队列: 未匹配到队列记录 ';"
 
 #: includes/class-wp-caiji.php:873
 msgid "全局 AI 能力当前未启用,请先到 WP采集设置开启。"
-msgstr ""
-"Global AI capabilities are currently not enabled. Please enable them first in WP Caiji Settings."
+msgstr "全局 AI 能力当前未启用,请先到 WP采集设置开启."
 
 #: includes/class-wp-caiji.php:873
 msgid "if (empty($settings['ai_enabled'])) echo ' 全局 AI 能力当前未启用,请先到 WP采集设置开启。 ';"
 msgstr ""
-"if (empty($settings['ai_enabled'])) echo ' Global AI capabilities are currently not enabled. Please enable them first in WP Caiji Settings. ';"
+"if (empty($settings['ai_enabled'])) echo ' Global AI capabilities are "
+"currently not enabled. Please enable them first in WP Caiji Settings. ';"
 
 #: includes/class-wp-caiji.php:875
 msgid "手动 AI 重写当前文章"
-msgstr "Manually AI rewrite current post"
+msgstr "手动 AI 重写当前文章"
 
 #: includes/class-wp-caiji.php:875
 msgid "确定要用 AI 重写当前文章标题和正文吗?建议先确认文章已保存。"
-msgstr ""
-"Are you sure you want to use AI to rewrite the current post title and body? We recommend confirming that the post has been saved first."
+msgstr "确定要用 AI 重写当前文章标题和正文吗?建议先确认文章已保存。"
 
 #: includes/class-wp-caiji.php:875
 msgid ""
-"<a class=\"button button-primary wp-caiji-confirm\" data-confirm=\"确定要用 AI 重写当前文章标题和正文吗?建议先确认文章已保存。\" href=\""
+"<a class=\"button button-primary wp-caiji-confirm\" data-confirm=\"确定要用 AI "
+"重写当前文章标题和正文吗?建议先确认文章已保存。\" href=\""
 msgstr ""
-"<a class=\"button button-primary wp-caiji-confirm\" data-confirm=\"Are you sure you want to use AI to rewrite the current post title and body? We recommend confirming that the post has been saved first.\" href=\""
+"<a class=\"button button-primary wp-caiji-confirm\" data-confirm=\"确定要用 AI "
+"重写当前文章标题和正文吗?建议先确认文章已保存。\" href=\""
 
 #: includes/class-wp-caiji.php:875
 msgid "\">手动 AI 重写当前文章"
-msgstr "\">Manually AI rewrite current post"
+msgstr "\">手动 AI 重写当前文章"
 
 #: includes/class-wp-caiji.php:875
 msgid "echo ' 手动 AI 重写当前文章 ';"
-msgstr "echo ' Manually AI rewrite current post ';"
+msgstr "echo ' 手动 AI 重写当前文章 ';"
 
 #: includes/class-wp-caiji.php:876
 msgid "会直接更新当前文章标题和正文;失败时不会改动原文。"
 msgstr ""
-"This will directly update the current post title and body; if it fails, the original content will not be changed."
+"This will directly update the current post title and body; if it fails, the "
+"original content will not be changed."
 
 #: includes/class-wp-caiji.php:876
 msgid "echo ' 会直接更新当前文章标题和正文;失败时不会改动原文。 ';"
 msgstr ""
-"echo ' This will directly update the current post title and body; if it fails, the original content will not be changed. ';"
+"echo ' This will directly update the current post title and body; if it "
+"fails, the original content will not be changed. ';"
 
 #: includes/class-wp-caiji.php:883
 msgid "权限验证失败"
-msgstr "Permission verification failed"
+msgstr "权限验证失败"
 
 #: includes/class-wp-caiji.php:885
 msgid "文章不存在"
-msgstr "Post does not exist"
+msgstr "文章不存在"
 
 #: includes/class-wp-caiji.php:889
 msgid "全局 AI 能力未启用"
-msgstr "Global AI capabilities are not enabled"
+msgstr "全局 AI 能力未启用"
 
 #: includes/class-wp-caiji.php:912
 msgid "文章编辑页手动 AI 改写失败:"
-msgstr "Manual AI rewrite on the post edit page failed:"
+msgstr "文章编辑页手动 AI 改写失败:"
 
 #: includes/class-wp-caiji.php:922
 msgid "文章编辑页手动 AI 改写失败:结果过短或为空"
-msgstr "Manual AI rewrite on the post edit page failed: result is too short or empty"
+msgstr "文章编辑页手动 AI 改写失败:结果过短或为空"
 
 #: includes/class-wp-caiji.php:930
 msgid "文章编辑页手动 AI 改写失败:改写后图片全部丢失"
-msgstr ""
-"Manual AI rewrite on the post edit page failed: all images were lost after rewriting"
+msgstr "文章编辑页手动 AI 改写失败:改写后图片全部丢失"
 
 #: includes/class-wp-caiji.php:946
 msgid "文章编辑页手动 AI 改写后图片数量减少:原"
-msgstr ""
-"Image count decreased after manual AI rewrite on the post edit page: original"
+msgstr "文章编辑页手动 AI 改写后图片数量减少:原"
 
 #: includes/class-wp-caiji.php:946
 msgid "张,现"
-msgstr "images, now"
+msgstr "张,现"
 
 #: includes/class-wp-caiji.php:947
 msgid "文章编辑页手动 AI 改写完成,文章 ID:"
-msgstr "Manual AI rewrite on the post edit page completed, post ID:"
+msgstr "文章编辑页手动 AI 改写完成,文章 ID:"
 
 #: includes/class-wp-caiji.php:948
 msgid "AI 重写完成,已更新当前文章"
-msgstr "AI rewrite completed. The current post has been updated"
+msgstr "AI 重写完成,已更新当前文章"
 
 #: includes/class-wp-caiji.php:959
 msgid "WP 采集设置"
-msgstr "WP Caiji Settings"
+msgstr "WP 采集设置"
 
 #: includes/class-wp-caiji.php:959
 msgid "调整采集频率、队列运行限制、图片本地化和 AI 改写能力。"
-msgstr ""
-"Adjust collection frequency, queue run limits, image localization, and AI rewriting capabilities."
+msgstr "调整采集频率、队列运行限制、图片本地化和 AI 改写能力."
 
 #: includes/class-wp-caiji.php:963
 msgid "定时与队列"
-msgstr "Scheduling and queue"
+msgstr "定时与队列"
 
 #: includes/class-wp-caiji.php:965
 msgid "发现链接频率"
-msgstr "Link discovery frequency"
+msgstr "发现链接频率"
 
 #: includes/class-wp-caiji.php:965
 msgid "每小时"
-msgstr "Hourly"
+msgstr "每小时"
 
 #: includes/class-wp-caiji.php:965
 msgid ">每 5 分钟 <option value="
-msgstr ">Every 5 minutes <option value="
+msgstr "> 5 Tage <option value="
 
 #: includes/class-wp-caiji.php:965
 msgid ">每 10 分钟 <option value="
-msgstr ">Every 10 minutes <option value="
+msgstr "> 10 Tage <option value="
 
 #: includes/class-wp-caiji.php:965
 msgid ">每 30 分钟 <option value="
-msgstr ">Every 30 minutes <option value="
+msgstr "> 30 Tage <option value="
 
 #: includes/class-wp-caiji.php:965
 msgid "发现链接频率 每 5 分钟 每 10 分钟 每 30 分钟 每小时"
-msgstr ""
-"Link discovery frequency Every 5 minutes Every 10 minutes Every 30 minutes Hourly"
+msgstr "5 Minuten, 10 Minuten und 30 Minuten"
 
 #: includes/class-wp-caiji.php:966
 msgid "采集文章频率"
-msgstr "Article collection frequency"
+msgstr "采集文章频率"
 
 #: includes/class-wp-caiji.php:968
 msgid "固定频率"
-msgstr "Fixed frequency"
+msgstr "固定频率"
 
 #: includes/class-wp-caiji.php:969
 msgid "随机延迟采集"
-msgstr "Random delayed collection"
+msgstr "随机延迟采集"
 
 #: includes/class-wp-caiji.php:972
 msgid "每 5 分钟 每 10 分钟 每 30 分钟 每小时"
-msgstr "Every 5 minutes Every 10 minutes Every 30 minutes Hourly"
+msgstr "5 Tage, 10 Tage und 30 Tage"
 
 #: includes/class-wp-caiji.php:975
 msgid "随机间隔 - 分钟"
-msgstr "Random interval - minutes"
+msgstr "随机间隔 - 分钟"
 
 #: includes/class-wp-caiji.php:977
 msgid "随机延迟采集会在每次采集完成后，按设置范围随机安排下一次采集，更像人工操作。"
-msgstr ""
-"Random collection delay schedules the next collection randomly within the configured range after each collection completes, making it look more like manual operation."
+msgstr "随机延迟采集会在每次采集完成后,按设置范围随机安排下一次采集,更像人工操作."
 
 #: includes/class-wp-caiji.php:979
 msgid "全局每次最多采集"
-msgstr "Global maximum collections per run"
+msgstr "全局每次最多采集"
 
 #: includes/class-wp-caiji.php:979
 msgid "全局每次最多采集 篇"
-msgstr "Global maximum collections per run: posts"
+msgstr "全局每次最多采集 篇"
 
 #: includes/class-wp-caiji.php:980
 msgid "每次最多处理规则"
-msgstr "Maximum rules to process per run"
+msgstr "每次最多处理规则"
 
 #: includes/class-wp-caiji.php:980
 msgid "每次最多处理规则 条"
-msgstr "Maximum rules to process per run: rules"
+msgstr "每次最多处理规则 条"
 
 #: includes/class-wp-caiji.php:983
 msgid "运行保护"
-msgstr "Runtime protection"
+msgstr "运行保护"
 
 #: includes/class-wp-caiji.php:985
 msgid "单次 Cron 最大运行"
-msgstr "Maximum single Cron runtime"
+msgstr "单次 Cron 最大运行"
 
 #: includes/class-wp-caiji.php:985
 msgid "当前采集规则启用 AI 时，建议大于 AI 超时 + 抓取/图片处理耗时；否则会频繁出现“达到单次 Cron 最大运行时间”。"
-msgstr ""
-"When the current collection rule has AI enabled, it is recommended to set this higher than the AI timeout plus fetch/image processing time; otherwise, you may frequently see \"Maximum single Cron runtime reached\"."
+msgstr "当前采集规则启用 AI 时, 建议大于 AI 超时 + 抓取/图片处理耗时；否则会频繁出现“达到单次 Cron最大运行时间“。"
 
 #: includes/class-wp-caiji.php:985
 msgid "> 秒 <p class="
-msgstr "> seconds <p class="
+msgstr "> 秒 <p class="
 
 #: includes/class-wp-caiji.php:985
 msgid ""
-"单次 Cron 最大运行 秒 当前采集规则启用 AI 时，建议大于 AI 超时 + 抓取/图片处理耗时；否则会频繁出现“达到单次 Cron 最大运行时间”。"
+"单次 Cron 最大运行 秒 当前采集规则启用 AI 时，建议大于 AI 超时 + 抓取/图片处理耗时；否则会频繁出现“达到单次 Cron "
+"最大运行时间”。"
 msgstr ""
-"Maximum single Cron runtime seconds When the current collection rule has AI enabled, it is recommended to set this higher than the AI timeout plus fetch/image processing time; otherwise, you may frequently see \"Maximum single Cron runtime reached\"."
+"单次 Cron 最大运行 秒 当前采集规则启用 AI 时, 建议大于 AI 超时 +抓取/图片处理耗时；否则会频繁出现“达到单次 Cron "
+"最大运行时间“。"
 
 #: includes/class-wp-caiji.php:986
 msgid "运行中超时释放"
-msgstr "Release running timeout"
+msgstr "运行中超时释放"
 
 #: includes/class-wp-caiji.php:986
 msgid "队列长时间停留 running 会自动退回 pending，避免卡死。"
-msgstr ""
-"If a queue item stays in running for too long, it will automatically be moved back to pending to prevent it from getting stuck."
+msgstr "队列长时间停留 läuft 会自动退回 ausstehend, 避免卡死."
 
 #: includes/class-wp-caiji.php:986
 msgid "运行中超时释放 分钟 队列长时间停留 running 会自动退回 pending，避免卡死。"
-msgstr ""
-"Release running timeout minutes If a queue item stays in running for too long, it will automatically be moved back to pending to prevent it from getting stuck."
+msgstr "运行中超时释放 分钟 队列长时间停留 läuft 会自动退回 ausstehend,避免卡死."
 
 #: includes/class-wp-caiji.php:987
 msgid "任务锁超时"
-msgstr "Task lock timeout"
+msgstr "任务锁超时"
 
 #: includes/class-wp-caiji.php:987
 msgid "防止两个 Cron 同时运行。超过该时间会自动释放旧锁。"
-msgstr ""
-"Prevents two Cron jobs from running at the same time. Old locks are automatically released after this time is exceeded."
+msgstr "防止两个 Cron 同时运行.超过该时间会自动释放旧锁。"
 
 #: includes/class-wp-caiji.php:987
 msgid "任务锁超时 秒 防止两个 Cron 同时运行。超过该时间会自动释放旧锁。"
-msgstr ""
-"Task lock timeout seconds Prevents two Cron jobs from running at the same time. Old locks are automatically released after this time is exceeded."
+msgstr "任务锁超时 秒 防止两个 Cron 同时运行.超过该时间会自动释放旧锁."
 
 #: includes/class-wp-caiji.php:992
 msgid "图片限制"
-msgstr "Image limits"
+msgstr "图片限制"
 
 #: includes/class-wp-caiji.php:992
 msgid "每篇最多"
-msgstr "Maximum per post"
+msgstr "每篇最多"
 
 #: includes/class-wp-caiji.php:992
 msgid "张；单图最大"
-msgstr "images; maximum per image"
+msgstr "张；单图最大"
 
 #: includes/class-wp-caiji.php:992
 msgid "0 张表示不下载图片；建议生产环境保持 5-10 张、5MB 以内，避免被大图拖慢。"
-msgstr ""
-"0 images means do not download images; for production, we recommend keeping this to 5-10 images and within 5MB to avoid being slowed down by large images."
+msgstr "0 张表示不下载图片;建议生产环境保持 5-10 张、5MB 以内,避免被大图拖慢。"
 
 #: includes/class-wp-caiji.php:992
 msgid ""
-"]); ?>\" style=\"width:80px\"> 张；单图最大 <input name=\"max_image_size_mb\" type=\"number\" min=\"1\" max=\"50\" value=\"<?php echo esc_attr($settings["
+"]); ?>\" style=\"width:80px\"> 张；单图最大 <input name=\"max_image_size_mb\" "
+"type=\"number\" min=\"1\" max=\"50\" value=\"<?php echo esc_attr($settings["
 msgstr ""
-"]); ?>\" style=\"width:80px\"> images; maximum per image <input name=\"max_image_size_mb\" type=\"number\" min=\"1\" max=\"50\" value=\"<?php echo esc_attr($settings["
+"]); ?>\" style=\"width:80px\"> images; maximum per image <input "
+"name=\"max_image_size_mb\" type=\"number\" min=\"1\" max=\"50\" "
+"value=\"<?php echo esc_attr($settings["
 
 #: includes/class-wp-caiji.php:992
 msgid "图片限制 每篇最多 张；单图最大 MB 0 张表示不下载图片；建议生产环境保持 5-10 张、5MB 以内，避免被大图拖慢。"
-msgstr ""
-"Image limits Maximum per post images; maximum per image MB 0 images means do not download images; for production, we recommend keeping this to 5-10 images and within 5MB to avoid being slowed down by large images."
+msgstr "图片限制 每篇最多 张；单图最大 MB 0 张表示不下载图片；建议生产环境保持 5-10 张、5MB以内,避免被大图拖慢."
 
 #: includes/class-wp-caiji.php:995
 msgid "AI 改写设置"
-msgstr "AI rewrite settings"
+msgstr "AI-Technologie"
 
 #: includes/class-wp-caiji.php:997
 msgid "启用 AI 能力"
-msgstr "Enable AI features"
+msgstr "启用 AI 能力"
 
 #: includes/class-wp-caiji.php:997
 msgid "允许采集规则在发布前调用 AI 改写"
-msgstr "Allow collection rules to call AI rewriting before publishing"
+msgstr "允许采集规则在发布前调用 AI 改写"
 
 #: includes/class-wp-caiji.php:997
 msgid "每条规则仍需单独开启“发布前 AI 改写”。关闭这里会全局禁用 AI。"
-msgstr ""
-"Each rule still needs to enable \"AI rewrite before publishing\" separately. Turning this off disables AI globally."
+msgstr "每条规则仍需单独开启„发布前 AI 改写“"
 
 #: includes/class-wp-caiji.php:997
 msgid "> 允许采集规则在发布前调用 AI 改写 <p class="
-msgstr "> Allow collection rules to call AI rewriting before publishing <p class="
+msgstr "> 允许采集规则在发布前调用 AI 改写 <p class="
 
 #: includes/class-wp-caiji.php:997
 msgid "启用 AI 能力 允许采集规则在发布前调用 AI 改写 每条规则仍需单独开启“发布前 AI 改写”。关闭这里会全局禁用 AI。"
-msgstr ""
-"Enable AI features Allow collection rules to call AI rewriting before publishing Each rule still needs to enable \"AI rewrite before publishing\" separately. Turning this off disables AI globally."
+msgstr "启用 AI 能力 允许采集规则在发布前调用 AI 改写 每条规则仍需单独开启“发布前 AI改写“。关闭这里会全局禁用 AI。"
 
 #: includes/class-wp-caiji.php:998
 msgid "明文保存并在后台显示，仅拥有本插件设置权限的管理员可查看。诊断导出会自动脱敏。"
-msgstr ""
-"Saved in plain text and displayed in the admin area; only administrators with permission to configure this plugin can view it. Diagnostic exports are automatically masked."
+msgstr "明文保存并在后台显示,仅拥有本插件设置权限的管理员可查看.诊断导出会自动脱敏."
 
 #: includes/class-wp-caiji.php:998
 msgid "AI API Key 明文保存并在后台显示，仅拥有本插件设置权限的管理员可查看。诊断导出会自动脱敏。"
-msgstr ""
-"AI API Key is saved in plain text and displayed in the admin area; only administrators with permission to configure this plugin can view it. Diagnostic exports are automatically masked."
+msgstr "AI-API-Schlüssel"
 
 #: includes/class-wp-caiji.php:999
 msgid "AI 服务商"
-msgstr "AI provider"
+msgstr "AI 服务商"
 
 #: includes/class-wp-caiji.php:999
 msgid "中转 / 自定义"
-msgstr "Proxy / custom"
+msgstr "中转 / 自定义"
 
 #: includes/class-wp-caiji.php:999
 msgid "免费 / 免费额度"
-msgstr "Free / free quota"
+msgstr "免费 / 免费额度"
 
 #: includes/class-wp-caiji.php:999
 msgid "付费"
-msgstr "Paid"
+msgstr "付费"
 
 #: includes/class-wp-caiji.php:999
 msgid "说明"
-msgstr "Instructions"
+msgstr "说明"
 
 #: includes/class-wp-caiji.php:999
 msgid ""
-"先选择“中转 / 免费 / 付费”，再选择对应 AI 名称；选好后点击“说明”查看该平台注册和 API Key 获取教程。中国大陆/其他国家会显示在 AI 名称前。"
-msgstr ""
-"First choose \"Proxy / Free / Paid\", then choose the corresponding AI name; after selecting it, click \"Instructions\" to view the platform registration and API Key tutorial. Mainland China/Other countries will be shown before the AI name."
+"先选择“中转 / 免费 / 付费”，再选择对应 AI 名称；选好后点击“说明”查看该平台注册和 API Key 获取教程。中国大陆/其他国家会显示在 "
+"AI 名称前。"
+msgstr "Verwenden Sie den API-Schlüssel获取教程.中国大陆/其他国家会显示在 AI 名称前."
 
 #: includes/class-wp-caiji.php:999
 msgid ">中转 / 自定义 <option value="
-msgstr ">Proxy / custom <option value="
+msgstr ">中转 / 自定义 <option value="
 
 #: includes/class-wp-caiji.php:999
 msgid ">免费 / 免费额度 <option value="
-msgstr ">Free / free quota <option value="
+msgstr ">免费 / 免费额度 <option value="
 
 #: includes/class-wp-caiji.php:999
 msgid ">付费 <select name="
@@ -2222,187 +2221,197 @@ msgstr ">Paid <select name="
 
 #: includes/class-wp-caiji.php:999
 msgid ">说明 <p class="
-msgstr ">Instructions <p class="
+msgstr ">说明 <p class="
 
 #: includes/class-wp-caiji.php:999
 msgid ""
-"AI 服务商 中转 / 自定义 免费 / 免费额度 付费 说明 先选择“中转 / 免费 / 付费”，再选择对应 AI 名称；选好后点击“说明”查看该平台注册和 API Key 获取教程。中国大陆/其他国家会显示在 AI 名称前。"
+"AI 服务商 中转 / 自定义 免费 / 免费额度 付费 说明 先选择“中转 / 免费 / 付费”，再选择对应 AI "
+"名称；选好后点击“说明”查看该平台注册和 API Key 获取教程。中国大陆/其他国家会显示在 AI 名称前。"
 msgstr ""
-"AI provider Proxy / custom Free / free quota Paid Instructions First choose \"Proxy / Free / Paid\", then choose the corresponding AI name; after selecting it, click \"Instructions\" to view the platform registration and API Key tutorial. Mainland China/Other countries will be shown before the AI name."
+"AI 服务商 中转 / 自定义 免费 / 免费额度 付费 说明 先选择“中转 / 免费 / 付费“, 再选择对应 "
+"AI名称；选好后点击„说明“查看该平台注册和 API Key 获取教程.中国大陆/其他国家会显示在 AI名称前."
 
 #: includes/class-wp-caiji.php:1000
 msgid "填入所选默认地址"
-msgstr "Fill in the selected default address"
+msgstr "填入所选默认地址"
 
 #: includes/class-wp-caiji.php:1000
 msgid ""
-"兼容中转站：可填完整 chat/completions 地址，也可只填基础地址或 /v1，插件会自动补全。Gemini 官方可使用 {model} 占位；生产环境建议优先 HTTPS。"
-msgstr ""
-"Compatible with proxy sites: you can enter the full chat/completions address, or only the base address or /v1; the plugin will complete it automatically. Official Gemini can use the {model} placeholder; HTTPS is recommended first in production."
+"兼容中转站：可填完整 chat/completions 地址，也可只填基础地址或 /v1，插件会自动补全。Gemini 官方可使用 {model} "
+"占位；生产环境建议优先 HTTPS。"
+msgstr "Gemini-Chat/Vervollständigungen {model} ist eine HTTPS-Verbindung."
 
 #: includes/class-wp-caiji.php:1000
 msgid "https://api.openai.com/v1 或 http://你的中转站/v1"
-msgstr "https://api.openai.com/v1 or http://your-proxy-site/v1"
+msgstr "https://api.openai.com/v1 oder http://你的中转站/v1"
 
 #: includes/class-wp-caiji.php:1000
 msgid ">填入所选默认地址 <p class="
-msgstr ">Fill in the selected default address <p class="
+msgstr ">填入所选默认地址 <p class="
 
 #: includes/class-wp-caiji.php:1000
 msgid ""
-"AI Endpoint 填入所选默认地址 兼容中转站：可填完整 chat/completions 地址，也可只填基础地址或 /v1，插件会自动补全。Gemini 官方可使用 {model} 占位；生产环境建议优先 HTTPS。"
+"AI Endpoint 填入所选默认地址 兼容中转站：可填完整 chat/completions 地址，也可只填基础地址或 "
+"/v1，插件会自动补全。Gemini 官方可使用 {model} 占位；生产环境建议优先 HTTPS。"
 msgstr ""
-"AI Endpoint Fill in the selected default address Compatible with proxy sites: you can enter the full chat/completions address, or only the base address or /v1; the plugin will complete it automatically. Official Gemini can use the {model} placeholder; HTTPS is recommended first in production."
+"AI Endpoint 填入所选默认地址 兼容中转站: 可填完整 Chat/Completions 地址, "
+"也可只填基础地址或/v1，插件会自动补全。Gemini 官方可使用 {model} 占位；生产环境建议优先 HTTPS。"
 
 #: includes/class-wp-caiji.php:1001
 msgid "AI 模型"
-msgstr "AI model"
+msgstr "AI 模型"
 
 #: includes/class-wp-caiji.php:1001
 msgid "温度"
-msgstr "Temperature"
+msgstr "温度"
 
 #: includes/class-wp-caiji.php:1001
 msgid ""
-"]); ?>\" placeholder=\"gpt-5.5\"> 温度 <input name=\"ai_temperature\" type=\"number\" min=\"0\" max=\"2\" step=\"0.1\" value=\"<?php echo esc_attr($settings["
+"]); ?>\" placeholder=\"gpt-5.5\"> 温度 <input name=\"ai_temperature\" "
+"type=\"number\" min=\"0\" max=\"2\" step=\"0.1\" value=\"<?php echo "
+"esc_attr($settings["
 msgstr ""
-"]); ?>\" placeholder=\"gpt-5.5\"> Temperature <input name=\"ai_temperature\" type=\"number\" min=\"0\" max=\"2\" step=\"0.1\" value=\"<?php echo esc_attr($settings["
+"]); ?>\" placeholder=\"gpt-5.5\"> Temperature <input name=\"ai_temperature\""
+" type=\"number\" min=\"0\" max=\"2\" step=\"0.1\" value=\"<?php echo "
+"esc_attr($settings["
 
 #: includes/class-wp-caiji.php:1001
 msgid "AI 模型 温度"
-msgstr "AI model Temperature"
+msgstr "AI-Technologie"
 
 #: includes/class-wp-caiji.php:1002
 msgid "默认改写语言"
-msgstr "Default rewrite language"
+msgstr "默认改写语言"
 
 #: includes/class-wp-caiji.php:1002
 msgid "检测改写后语言，不符合则判定 AI 失败"
-msgstr ""
-"Detect the language after rewriting; if it does not match, treat the AI as failed"
+msgstr "检测改写后语言,不符合则判定 AI 失败"
 
 #: includes/class-wp-caiji.php:1002
 msgid "规则可单独覆盖目标语言。选择“不限制/不检测”时不会追加语言要求，也不会做语言检测。"
-msgstr ""
-"Rules can override the target language separately. When \"No limit / no detection\" is selected, no language requirement will be appended and no language detection will be performed."
+msgstr "独覆盖目标语言."
 
 #: includes/class-wp-caiji.php:1002
 msgid "> 检测改写后语言，不符合则判定 AI 失败 <p class="
-msgstr ""
-"> Detect the language after rewriting; if it does not match, treat the AI as failed <p class="
+msgstr "> 检测改写后语言,不符合则判定 AI 失败 <p class="
 
 #: includes/class-wp-caiji.php:1002
 msgid "默认改写语言 检测改写后语言，不符合则判定 AI 失败 规则可单独覆盖目标语言。选择“不限制/不检测”时不会追加语言要求，也不会做语言检测。"
-msgstr ""
-"Default rewrite language Detect the language after rewriting; if it does not match, treat the AI as failed Rules can override the target language separately. When \"No limit / no detection\" is selected, no language requirement will be appended and no language detection will be performed."
+msgstr "默认改写语言 检测改写后语言, 不符合则判定 AI 失败独覆盖目标语言."
 
 #: includes/class-wp-caiji.php:1003
 msgid "API 连接测试"
-msgstr "API connection test"
+msgstr "API-Fehlerbehebung"
 
 #: includes/class-wp-caiji.php:1003
 msgid "测试 API 连接"
-msgstr "Test API connection"
+msgstr "测试 API 连接"
 
 #: includes/class-wp-caiji.php:1003
 msgid "会优先使用当前表单里填写的 Key、Endpoint、模型和超时发送一次极小测试请求；不会保存设置，也不会创建文章。"
-msgstr ""
-"A very small test request will be sent using the Key, Endpoint, model, and timeout currently entered in the form first; settings will not be saved, and no post will be created."
+msgstr "会优先使用当前表单里填写的Schlüssel, Endpunkt, Schlüssel und Endpunkt."
 
 #: includes/class-wp-caiji.php:1003
 msgid ">测试 API 连接 <p class="
-msgstr ">Test API connection <p class="
+msgstr ">测试 API-Version <p class="
 
 #: includes/class-wp-caiji.php:1003
-msgid ""
-"API 连接测试 测试 API 连接 会优先使用当前表单里填写的 Key、Endpoint、模型和超时发送一次极小测试请求；不会保存设置，也不会创建文章。"
+msgid "API 连接测试 测试 API 连接 会优先使用当前表单里填写的 Key、Endpoint、模型和超时发送一次极小测试请求；不会保存设置，也不会创建文章。"
 msgstr ""
-"API connection test Test API connection A very small test request will be sent using the Key, Endpoint, model, and timeout currently entered in the form first; settings will not be saved, and no post will be created."
+"API-Version. API-Version ist nicht verfügbar Schlüssel, Endpunkt, Schlüssel "
+"und Endpunkt."
 
 #: includes/class-wp-caiji.php:1005
 msgid "AI 超时/输入限制"
-msgstr "AI timeout/input limit"
+msgstr "AI 超时/输入限制"
 
 #: includes/class-wp-caiji.php:1005
 msgid "超时"
-msgstr "Timeout"
+msgstr "超时"
 
 #: includes/class-wp-caiji.php:1005
 msgid "秒；最多提交正文"
-msgstr "seconds; submit up to"
+msgstr "秒；最多提交正文"
 
 #: includes/class-wp-caiji.php:1005
 msgid "字符"
-msgstr "characters"
+msgstr "字符"
 
 #: includes/class-wp-caiji.php:1005
 msgid "如果 AI 经常 504 或 cURL 28，可先把超时降到 30-60 秒，或把单次 Cron 最大运行调到高于 AI 超时。"
 msgstr ""
-"If AI often returns 504 or cURL 28, you can first lower the timeout to 30-60 seconds, or set the maximum single Cron runtime higher than the AI timeout."
+"If AI often returns 504 or cURL 28, you can first lower the timeout to 30-60"
+" seconds, or set the maximum single Cron runtime higher than the AI timeout."
 
 #: includes/class-wp-caiji.php:1005
 msgid ""
-"]); ?>\" style=\"width:90px\"> 秒；最多提交正文 <input name=\"ai_max_input_chars\" type=\"number\" min=\"1000\" max=\"60000\" value=\"<?php echo esc_attr($settings["
+"]); ?>\" style=\"width:90px\"> 秒；最多提交正文 <input name=\"ai_max_input_chars\" "
+"type=\"number\" min=\"1000\" max=\"60000\" value=\"<?php echo "
+"esc_attr($settings["
 msgstr ""
-"]); ?>\" style=\"width:90px\"> seconds; submit up to <input name=\"ai_max_input_chars\" type=\"number\" min=\"1000\" max=\"60000\" value=\"<?php echo esc_attr($settings["
+"]); ?>\" style=\"width:90px\"> seconds; submit up to <input "
+"name=\"ai_max_input_chars\" type=\"number\" min=\"1000\" max=\"60000\" "
+"value=\"<?php echo esc_attr($settings["
 
 #: includes/class-wp-caiji.php:1005
 msgid "> 字符<p class="
-msgstr "> characters<p class="
+msgstr "> 字符<p class="
 
 #: includes/class-wp-caiji.php:1005
 msgid ""
-"AI 超时/输入限制 超时 秒；最多提交正文 字符 如果 AI 经常 504 或 cURL 28，可先把超时降到 30-60 秒，或把单次 Cron 最大运行调到高于 AI 超时。"
+"AI 超时/输入限制 超时 秒；最多提交正文 字符 如果 AI 经常 504 或 cURL 28，可先把超时降到 30-60 秒，或把单次 Cron "
+"最大运行调到高于 AI 超时。"
 msgstr ""
-"AI timeout/input limit Timeout seconds; submit up to characters If AI often returns 504 or cURL 28, you can first lower the timeout to 30-60 seconds, or set the maximum single Cron runtime higher than the AI timeout."
+"AI 超时/输入限制 超时 秒；最多提交正文 字符 如果 AI 经常 504 或 cURL 28, 可先把超时降到 30-60秒, 或把单次 Cron "
+"最大运行调到高于 AI 超时。"
 
 #: includes/class-wp-caiji.php:1006
 msgid "默认改写 Prompt"
-msgstr "Default rewrite Prompt"
+msgstr "默认改写 Eingabeaufforderung"
 
 #: includes/class-wp-caiji.php:1006
 msgid "规则里未填写专属 Prompt 时使用这里。建议要求模型只返回 JSON:{\"title\":\"...\",\"content\":\"...\"}"
-msgstr ""
-"Used when no dedicated Prompt is entered in the rule. We recommend asking the model to return only JSON:{\"title\":\"...\",\"content\":\"...\"}"
+msgstr "规则里未填写专属 Prompt 时使用这里.建议要求模型只返回 JSON:{\"title\":\"...\",\"content=\"...\"}"
 
 #: includes/class-wp-caiji.php:1006
 msgid ">规则里未填写专属 Prompt 时使用这里。建议要求模型只返回 JSON:{"
-msgstr ""
-">Used when no dedicated Prompt is entered in the rule. We recommend asking the model to return only JSON:{"
+msgstr ">规则里未填写专属 Prompt 时使用这里.建议要求模型只返回 JSON:{"
 
 #: includes/class-wp-caiji.php:1006
 msgid ""
-"默认改写 Prompt 规则里未填写专属 Prompt 时使用这里。建议要求模型只返回 JSON:{\"title\":\"...\",\"content\":\"...\"}"
+"默认改写 Prompt 规则里未填写专属 Prompt 时使用这里。建议要求模型只返回 "
+"JSON:{\"title\":\"...\",\"content\":\"...\"}"
 msgstr ""
-"Default rewrite Prompt Used when no dedicated Prompt is entered in the rule. We recommend asking the model to return only JSON:{\"title\":\"...\",\"content\":\"...\"}"
+"默认改写 Prompt 规则里未填写专属 Prompt 时使用这里。建议要求模型只返回 "
+"JSON:{\"title\":\"...\",\"content=\"...\"}"
 
 #: includes/class-wp-caiji.php:1010
 msgid "日志与数据"
-msgstr "Logs and data"
+msgstr "日志与数据"
 
 #: includes/class-wp-caiji.php:1012
 msgid "日志"
-msgstr "Logs"
+msgstr "日志"
 
 #: includes/class-wp-caiji.php:1012
 msgid "启用日志"
-msgstr "Enable logs"
+msgstr "启用日志"
 
 #: includes/class-wp-caiji.php:1012
 msgid "；保留最近"
-msgstr "; keep the latest"
+msgstr "；保留最近"
 
 #: includes/class-wp-caiji.php:1012
 msgid "> 启用日志 ；保留最近 <input name="
-msgstr "> Enable logs ; keep the latest <input name="
+msgstr "> 启用日志 ；保留最近 <input name="
 
 #: includes/class-wp-caiji.php:1012
 msgid "日志 启用日志 ；保留最近 条"
-msgstr "Logs Enable logs ; keep the latest entries"
+msgstr "日志 启用日志 ；保留最近 条"
 
 #: includes/class-wp-caiji.php:1013
 msgid "卸载保护"
-msgstr "Uninstall protection"
+msgstr "卸载保护"
 
 #: includes/class-wp-caiji.php:1013
 msgid "卸载插件时删除规则、队列、日志和设置"
@@ -2410,70 +2419,73 @@ msgstr "Delete rules, queue, logs, and settings when uninstalling the plugin"
 
 #: includes/class-wp-caiji.php:1013
 msgid "危险选项：默认不删除数据，防止误卸载造成采集规则丢失。只有确认不再需要这些数据时才建议开启。"
-msgstr ""
-"Dangerous option: data is not deleted by default to prevent collection rules from being lost due to accidental uninstallation. Enable this only after confirming you no longer need this data."
+msgstr "危险选项:默认不删除数据,防止误卸载造成采集规则丢失.只有确认不再需要这些数据时才建议开启."
 
 #: includes/class-wp-caiji.php:1013
 msgid "> 卸载插件时删除规则、队列、日志和设置 <p class="
 msgstr ""
-"> Delete rules, queue, logs, and settings when uninstalling the plugin <p class="
+"> Delete rules, queue, logs, and settings when uninstalling the plugin <p "
+"class="
 
 #: includes/class-wp-caiji.php:1013
 msgid "卸载保护 卸载插件时删除规则、队列、日志和设置 危险选项：默认不删除数据，防止误卸载造成采集规则丢失。只有确认不再需要这些数据时才建议开启。"
 msgstr ""
-"Uninstall protection Delete rules, queue, logs, and settings when uninstalling the plugin Dangerous option: data is not deleted by default to prevent collection rules from being lost due to accidental uninstallation. Enable this only after confirming you no longer need this data."
+"Uninstall protection Delete rules, queue, logs, and settings when "
+"uninstalling the plugin Dangerous option: data is not deleted by default to "
+"prevent collection rules from being lost due to accidental uninstallation. "
+"Enable this only after confirming you no longer need this data."
 
 #: includes/class-wp-caiji.php:1016
 msgid "保存设置"
-msgstr "Save settings"
+msgstr "保存设置"
 
 #: includes/class-wp-caiji.php:1034
 msgid "API Key 获取说明"
-msgstr "API Key instructions"
+msgstr "API-Schlüssel"
 
 #: includes/class-wp-caiji.php:1041
 msgid "官方入口："
-msgstr "Official entry:"
+msgstr "官方入口:"
 
 #: includes/class-wp-caiji.php:1044
 msgid "平台说明："
-msgstr "Platform instructions:"
+msgstr "平台说明:"
 
 #: includes/class-wp-caiji.php:1046
 msgid "操作步骤"
-msgstr "Steps"
+msgstr "操作步骤"
 
 #: includes/class-wp-caiji.php:1053
 msgid "注意事项"
-msgstr "Notes"
+msgstr "注意事项"
 
 #: includes/class-wp-caiji.php:1062
 msgid "我知道了"
-msgstr "Got it"
+msgstr "我知道了"
 
 #: includes/class-wp-caiji.php:1291
 msgid "规则或列表页 URL 无效"
-msgstr "Rule or list page URL is invalid"
+msgstr "规则或列表页 URL 无效"
 
 #: includes/class-wp-caiji.php:1297
 msgid "列表页抓取失败,请查看采集日志"
-msgstr "Failed to fetch the list page. Please check the collection logs"
+msgstr "列表页抓取失败,请查看采集日志"
 
 #: includes/class-wp-caiji.php:1321
 msgid "列表页测试结果"
-msgstr "List page test results"
+msgstr "列表页测试结果"
 
 #: includes/class-wp-caiji.php:1321
 msgid "echo ' 列表页测试结果 ';"
-msgstr "echo ' List page test results ';"
+msgstr "echo ' 列表页测试结果 ';"
 
 #: includes/class-wp-caiji.php:1326
 msgid "列表页:"
-msgstr "List page:"
+msgstr "Beschreibung:"
 
 #: includes/class-wp-caiji.php:1326
 msgid "列表页: <a href=\""
-msgstr "List page: <a href=\""
+msgstr "Quelle: <a href=\""
 
 #: includes/class-wp-caiji.php:1326
 msgid "echo ' 列表页: ' . esc_html($result['url']) . ' ';"
@@ -2481,35 +2493,43 @@ msgstr "echo ' List page: ' . esc_html($result['url']) . ' ';"
 
 #: includes/class-wp-caiji.php:1327
 msgid "本次预览发现:"
-msgstr "This preview found:"
+msgstr "本次预览发现:"
 
 #: includes/class-wp-caiji.php:1327
 msgid ""
-"' . intval($result['count']) . ' 条;可入队 ' . intval($result['ready_count'] ?? 0) . ' 条;来源已存在 ' . intval($result['duplicate_count'] ?? 0) . ' 条。最多显示 50 条。"
+"' . intval($result['count']) . ' 条;可入队 ' . intval($result['ready_count'] ?? "
+"0) . ' 条;来源已存在 ' . intval($result['duplicate_count'] ?? 0) . ' 条。最多显示 50 条。"
 msgstr ""
-"' . intval($result['count']) . ' items; ready to queue ' . intval($result['ready_count'] ?? 0) . ' items; source already exists ' . intval($result['duplicate_count'] ?? 0) . ' items. Showing up to 50 items."
+"' . intval($result['count']) . ' items; ready to queue ' . "
+"intval($result['ready_count'] ?? 0) . ' items; source already exists ' . "
+"intval($result['duplicate_count'] ?? 0) . ' items. Showing up to 50 items."
 
 #: includes/class-wp-caiji.php:1327
 msgid "条;可入队"
-msgstr "items; ready to queue"
+msgstr "条;可入队"
 
 #: includes/class-wp-caiji.php:1327
 msgid "条;来源已存在"
-msgstr "items; source already exists"
+msgstr "条;来源已存在"
 
 #: includes/class-wp-caiji.php:1327
 msgid "条。最多显示 50 条。"
-msgstr "items. Showing up to 50 items."
+msgstr "条。最多显示 50 条。"
 
 #: includes/class-wp-caiji.php:1327
 msgid ""
-"echo ' 本次预览发现: ' . intval($result['count']) . ' 条;可入队 ' . intval($result['ready_count'] ?? 0) . ' 条;来源已存在 ' . intval($result['duplicate_count'] ?? 0) . ' 条。最多显示 50 条。 ';"
+"echo ' 本次预览发现: ' . intval($result['count']) . ' 条;可入队 ' . "
+"intval($result['ready_count'] ?? 0) . ' 条;来源已存在 ' . "
+"intval($result['duplicate_count'] ?? 0) . ' 条。最多显示 50 条。 ';"
 msgstr ""
-"echo ' This preview found: ' . intval($result['count']) . ' items; ready to queue ' . intval($result['ready_count'] ?? 0) . ' items; source already exists ' . intval($result['duplicate_count'] ?? 0) . ' items. Showing up to 50 items. ';"
+"echo ' This preview found: ' . intval($result['count']) . ' items; ready to "
+"queue ' . intval($result['ready_count'] ?? 0) . ' items; source already "
+"exists ' . intval($result['duplicate_count'] ?? 0) . ' items. Showing up to "
+"50 items. ';"
 
 #: includes/class-wp-caiji.php:1394
 msgid "测试结果"
-msgstr "Test result"
+msgstr "测试结果"
 
 #: includes/class-wp-caiji.php:1394
 msgid "' . ($ok ? '连接成功' : '连接失败') . '"
@@ -2517,119 +2537,113 @@ msgstr "' . ($ok ? 'Connection successful' : 'Connection failed') . '"
 
 #: includes/class-wp-caiji.php:1394
 msgid "测试结果 <div class=\"notice"
-msgstr "Test result <div class=\"notice"
+msgstr "测试结果 <div class=\"notice"
 
 #: includes/class-wp-caiji.php:1394
 msgid "连接成功"
-msgstr "Connection successful"
+msgstr "连接成功"
 
 #: includes/class-wp-caiji.php:1394
 msgid "连接失败"
-msgstr "Connection failed"
+msgstr "连接失败"
 
 #: includes/class-wp-caiji.php:1394
 msgid "echo ' 测试结果 ' . ($ok ? '连接成功' : '连接失败') . ' ';"
 msgstr ""
-"echo ' Test result ' . ($ok ? 'Connection successful' : 'Connection failed') . ' ';"
+"echo ' Test result ' . ($ok ? 'Connection successful' : 'Connection failed')"
+" . ' ';"
 
 #: includes/class-wp-caiji.php:1395
 msgid "服务商"
-msgstr "Provider"
+msgstr "服务商"
 
 #: includes/class-wp-caiji.php:1395
 msgid "模型"
-msgstr "Model"
+msgstr "模型"
 
 #: includes/class-wp-caiji.php:1395
 msgid "HTTP 状态"
-msgstr "HTTP status"
+msgstr "HTTP-Adresse"
 
 #: includes/class-wp-caiji.php:1395
 msgid "耗时(ms)"
-msgstr "Time (ms)"
+msgstr "耗时(ms)"
 
 #: includes/class-wp-caiji.php:1395
 msgid "返回/错误"
-msgstr "Response/error"
+msgstr "返回/错误"
 
 #: includes/class-wp-caiji.php:1451
 msgid "- 副本"
-msgstr "- Copy"
+msgstr "- 副本"
 
 #: includes/class-wp-caiji.php:1487
 msgid "规则文件过大,请上传 2MB 以内的 JSON 文件。"
-msgstr "Rule file is too large. Please upload a JSON file within 2MB."
+msgstr "规则文件过大,请上传 2MB 以内的JSON-Version。"
 
 #: includes/class-wp-caiji.php:1491
 msgid "规则文件读取失败或文件过大。"
-msgstr "Failed to read the rule file or the file is too large."
+msgstr "规则文件读取失败或文件过大."
 
 #: includes/class-wp-caiji.php:1495
 msgid "规则 JSON 格式错误:"
-msgstr "Rule JSON format error:"
+msgstr "JSON-Version verwenden:"
 
 #: includes/class-wp-caiji.php:1521
 msgid "手动发现链接任务已提交,约 1 秒后后台执行"
-msgstr ""
-"Manual link discovery task submitted; it will run in the background in about 1 second"
+msgstr "手动发现链接任务已提交, 约 1 秒后后台执行"
 
 #: includes/class-wp-caiji.php:1534
 msgid "手动采集队列任务已提交,约 1 秒后后台执行"
-msgstr ""
-"Manual collection queue task submitted; it will run in the background in about 1 second"
+msgstr "手动采集队列任务已提交, 约 1 秒后后台执行"
 
 #: includes/class-wp-caiji.php:1617
 msgid "规则不存在或已被删除"
-msgstr "Rule does not exist or has been deleted"
+msgstr "规则不存在或已被删除"
 
 #: includes/class-wp-caiji.php:1622
 msgid "测试 URL 无效或被安全策略拒绝:只允许公网 http/https 地址"
-msgstr ""
-"Test URL is invalid or rejected by the security policy: only public http/https addresses are allowed"
+msgstr "测试 URL 无效或被安全策略拒绝:只允许公网 http/https 地址"
 
 #: includes/class-wp-caiji.php:1628
 msgid "页面抓取失败,请查看采集日志"
-msgstr "Failed to fetch the page. Please check the collection logs"
+msgstr "页面抓取失败,请查看采集日志"
 
 #: includes/class-wp-caiji.php:1668
 msgid "标题提取为空，请检查标题选择器或标题前后代码"
-msgstr ""
-"Title extraction is empty. Please check the title selector or title before/after code"
+msgstr "标题提取为空,请检查标题选择器或标题前后代码"
 
 #: includes/class-wp-caiji.php:1669
 msgid "正文提取为空，请检查正文选择器或正文前后代码"
-msgstr ""
-"Content extraction is empty. Please check the content selector or content before/after code"
+msgstr "正文提取为空,请检查正文选择器或正文前后代码"
 
 #: includes/class-wp-caiji.php:1670
 msgid "清洗/替换后正文为空,请检查移除选择器、替换规则或正文选择器"
-msgstr ""
-"Content is empty after cleaning/replacement. Please check the remove selectors, replacement rules, or content selector"
+msgstr "清洗/替换后正文为空,请检查移除选择器、替换规则或正文选择器"
 
 #: includes/class-wp-caiji.php:1671
 msgid "日期提取为空，请检查日期选择器或日期前后代码"
-msgstr ""
-"Date extraction is empty. Please check the date selector or date before/after code"
+msgstr "日期提取为空,请检查日期选择器或日期前后代码"
 
 #: includes/class-wp-caiji.php:1674
 msgid "图片本地化限制:每篇最多"
-msgstr "Image localization limit: maximum per post"
+msgstr "图片本地化限制:每篇最多"
 
 #: includes/class-wp-caiji.php:1674
 msgid "张,单图最大"
-msgstr "images, maximum per image"
+msgstr "张,单图最大"
 
 #: includes/class-wp-caiji.php:1733
 msgid "测试预览结果"
-msgstr "Test preview result"
+msgstr "测试预览结果"
 
 #: includes/class-wp-caiji.php:1733
 msgid "echo ' 测试预览结果 ';"
-msgstr "echo ' Test preview result ';"
+msgstr "echo ' 测试预览结果 ';"
 
 #: includes/class-wp-caiji.php:1740
 msgid "标题:"
-msgstr "Title:"
+msgstr "Beschreibung:"
 
 #: includes/class-wp-caiji.php:1740
 msgid "' . esc_html($result['title'] ?: '未提取到') . '"
@@ -2637,7 +2651,7 @@ msgstr "' . esc_html($result['title'] ?: 'Not extracted') . '"
 
 #: includes/class-wp-caiji.php:1740
 msgid "未提取到"
-msgstr "Not extracted"
+msgstr "未提取到"
 
 #: includes/class-wp-caiji.php:1740
 msgid "echo ' 标题: ' . esc_html($result['title'] ?: '未提取到') . ' ';"
@@ -2645,7 +2659,7 @@ msgstr "echo ' Title: ' . esc_html($result['title'] ?: 'Not extracted') . ' ';"
 
 #: includes/class-wp-caiji.php:1741
 msgid "日期:"
-msgstr "Date:"
+msgstr "Beschreibung:"
 
 #: includes/class-wp-caiji.php:1741
 msgid "' . esc_html($result['date'] ?: '未提取到/未设置') . '"
@@ -2653,7 +2667,7 @@ msgstr "' . esc_html($result['date'] ?: 'Not extracted/not set') . '"
 
 #: includes/class-wp-caiji.php:1741
 msgid "未提取到/未设置"
-msgstr "Not extracted/not set"
+msgstr "未提取到/未设置"
 
 #: includes/class-wp-caiji.php:1741
 msgid "echo ' 日期: ' . esc_html($result['date'] ?: '未提取到/未设置') . ' ';"
@@ -2661,1138 +2675,1197 @@ msgstr "echo ' Date: ' . esc_html($result['date'] ?: 'Not extracted/not set') . 
 
 #: includes/class-wp-caiji.php:1742
 msgid "最终写入 Tag:"
-msgstr "Final Tag to write:"
+msgstr "最终写入 Schlagwort:"
 
 #: includes/class-wp-caiji.php:1742
 msgid ""
-"' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags']) : '未设置') . '"
+"' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags'])"
+" : '未设置') . '"
 msgstr ""
-"' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags']) : 'Not set') . '"
+"' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags'])"
+" : 'Not set') . '"
 
 #: includes/class-wp-caiji.php:1742
 msgid "未设置"
-msgstr "Not set"
+msgstr "未设置"
 
 #: includes/class-wp-caiji.php:1742
 msgid ""
-"echo ' 最终写入 Tag: ' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags']) : '未设置') . ' ';"
+"echo ' 最终写入 Tag: ' . esc_html(!empty($result['tags']) ? implode(', ', "
+"(array)$result['tags']) : '未设置') . ' ';"
 msgstr ""
-"echo ' Final Tag to write: ' . esc_html(!empty($result['tags']) ? implode(', ', (array)$result['tags']) : 'Not set') . ' ';"
+"echo ' Final Tag to write: ' . esc_html(!empty($result['tags']) ? implode(',"
+" ', (array)$result['tags']) : 'Not set') . ' ';"
 
 #: includes/class-wp-caiji.php:1743
 msgid "页面提取 Tag:"
-msgstr "Tag extracted from page:"
+msgstr "页面提取 Schlagwort:"
 
 #: includes/class-wp-caiji.php:1743
 msgid ""
-"' . esc_html(!empty($result['extracted_tags']) ? implode(', ', (array)$result['extracted_tags']) : '未提取到/未设置') . '"
+"' . esc_html(!empty($result['extracted_tags']) ? implode(', ', "
+"(array)$result['extracted_tags']) : '未提取到/未设置') . '"
 msgstr ""
-"' . esc_html(!empty($result['extracted_tags']) ? implode(', ', (array)$result['extracted_tags']) : 'Not extracted/not set') . '"
+"' . esc_html(!empty($result['extracted_tags']) ? implode(', ', "
+"(array)$result['extracted_tags']) : 'Not extracted/not set') . '"
 
 #: includes/class-wp-caiji.php:1743
 msgid ""
-"echo ' 页面提取 Tag: ' . esc_html(!empty($result['extracted_tags']) ? implode(', ', (array)$result['extracted_tags']) : '未提取到/未设置') . ' ';"
+"echo ' 页面提取 Tag: ' . esc_html(!empty($result['extracted_tags']) ? implode(',"
+" ', (array)$result['extracted_tags']) : '未提取到/未设置') . ' ';"
 msgstr ""
-"echo ' Tag extracted from page: ' . esc_html(!empty($result['extracted_tags']) ? implode(', ', (array)$result['extracted_tags']) : 'Not extracted/not set') . ' ';"
+"echo ' Tag extracted from page: ' . "
+"esc_html(!empty($result['extracted_tags']) ? implode(', ', "
+"(array)$result['extracted_tags']) : 'Not extracted/not set') . ' ';"
 
 #: includes/class-wp-caiji.php:1744
 msgid "固定 Tag:"
-msgstr "Fixed Tag:"
+msgstr "固定 Schlagwort:"
 
 #: includes/class-wp-caiji.php:1744
 msgid ""
-"' . esc_html(!empty($result['fixed_tags']) ? implode(', ', (array)$result['fixed_tags']) : '未设置') . '；"
+"' . esc_html(!empty($result['fixed_tags']) ? implode(', ', "
+"(array)$result['fixed_tags']) : '未设置') . '；"
 msgstr ""
-"' . esc_html(!empty($result['fixed_tags']) ? implode(', ', (array)$result['fixed_tags']) : 'Not set') . ';"
+"' . esc_html(!empty($result['fixed_tags']) ? implode(', ', "
+"(array)$result['fixed_tags']) : 'Not set') . ';"
 
 #: includes/class-wp-caiji.php:1744
 msgid "自动匹配 Tag:"
-msgstr "Auto-matched Tag:"
+msgstr "自动匹配 Schlagwort:"
 
 #: includes/class-wp-caiji.php:1744
 msgid ""
-"' . esc_html(!empty($result['auto_tags']) ? implode(', ', (array)$result['auto_tags']) : '未匹配') . '"
+"' . esc_html(!empty($result['auto_tags']) ? implode(', ', "
+"(array)$result['auto_tags']) : '未匹配') . '"
 msgstr ""
-"' . esc_html(!empty($result['auto_tags']) ? implode(', ', (array)$result['auto_tags']) : 'No match') . '"
+"' . esc_html(!empty($result['auto_tags']) ? implode(', ', "
+"(array)$result['auto_tags']) : 'No match') . '"
 
 #: includes/class-wp-caiji.php:1744
 msgid "； 自动匹配 Tag:"
-msgstr "; Auto-matched Tag:"
+msgstr "； 自动匹配 Schlagwort:"
 
 #: includes/class-wp-caiji.php:1744
 msgid "未匹配"
-msgstr "No match"
+msgstr "未匹配"
 
 #: includes/class-wp-caiji.php:1744
 msgid ""
-"echo ' 固定 Tag: ' . esc_html(!empty($result['fixed_tags']) ? implode(', ', (array)$result['fixed_tags']) : '未设置') . '； 自动匹配 Tag: ' . esc_html(!empty($result['auto_tags']) ? implode(', ', (array)$result['auto_tags']) : '未匹配') . ' ';"
+"echo ' 固定 Tag: ' . esc_html(!empty($result['fixed_tags']) ? implode(', ', "
+"(array)$result['fixed_tags']) : '未设置') . '； 自动匹配 Tag: ' . "
+"esc_html(!empty($result['auto_tags']) ? implode(', ', "
+"(array)$result['auto_tags']) : '未匹配') . ' ';"
 msgstr ""
-"echo ' Fixed Tag: ' . esc_html(!empty($result['fixed_tags']) ? implode(', ', (array)$result['fixed_tags']) : 'Not set') . '; Auto-matched Tag: ' . esc_html(!empty($result['auto_tags']) ? implode(', ', (array)$result['auto_tags']) : 'No match') . ' ';"
+"echo ' Fixed Tag: ' . esc_html(!empty($result['fixed_tags']) ? implode(', ',"
+" (array)$result['fixed_tags']) : 'Not set') . '; Auto-matched Tag: ' . "
+"esc_html(!empty($result['auto_tags']) ? implode(', ', "
+"(array)$result['auto_tags']) : 'No match') . ' ';"
 
 #: includes/class-wp-caiji.php:1745
 msgid "正文长度:"
-msgstr "Content length:"
+msgstr "正文长度:"
 
 #: includes/class-wp-caiji.php:1745
 msgid ""
-"原始 ' . intval($result['raw_text_length'] ?? 0) . ' 字；清洗后 ' . intval($result['content_length']) . ' 字；"
+"原始 ' . intval($result['raw_text_length'] ?? 0) . ' 字；清洗后 ' . "
+"intval($result['content_length']) . ' 字；"
 msgstr ""
-"Original ' . intval($result['raw_text_length'] ?? 0) . ' characters; after cleaning ' . intval($result['content_length']) . ' characters;"
+"Original ' . intval($result['raw_text_length'] ?? 0) . ' characters; after "
+"cleaning ' . intval($result['content_length']) . ' characters;"
 
 #: includes/class-wp-caiji.php:1745
 msgid "图片数:"
-msgstr "Image count:"
+msgstr "Produktdetails:"
 
 #: includes/class-wp-caiji.php:1745
 msgid "正文长度: 原始"
-msgstr "Content length: original"
+msgstr "正文长度: 原始"
 
 #: includes/class-wp-caiji.php:1745
 msgid "字；清洗后"
-msgstr "characters; after cleaning"
+msgstr "字；清洗后"
 
 #: includes/class-wp-caiji.php:1745
 msgid "字； 图片数:"
-msgstr "characters; image count:"
+msgstr "字； 图片数:"
 
 #: includes/class-wp-caiji.php:1745
 msgid ""
-"echo ' 正文长度: 原始 ' . intval($result['raw_text_length'] ?? 0) . ' 字；清洗后 ' . intval($result['content_length']) . ' 字； 图片数: ' . intval($result['image_count']) . ' ';"
+"echo ' 正文长度: 原始 ' . intval($result['raw_text_length'] ?? 0) . ' 字；清洗后 ' . "
+"intval($result['content_length']) . ' 字； 图片数: ' . "
+"intval($result['image_count']) . ' ';"
 msgstr ""
-"echo ' Content length: original ' . intval($result['raw_text_length'] ?? 0) . ' characters; after cleaning ' . intval($result['content_length']) . ' characters; image count: ' . intval($result['image_count']) . ' ';"
+"echo ' Content length: original ' . intval($result['raw_text_length'] ?? 0) "
+". ' characters; after cleaning ' . intval($result['content_length']) . ' "
+"characters; image count: ' . intval($result['image_count']) . ' ';"
 
 #: includes/class-wp-caiji.php:1746
 msgid "正文预览:"
-msgstr "Content preview:"
+msgstr "正文预览:"
 
 #: includes/class-wp-caiji.php:1746
 msgid "echo ' 正文预览: ';"
-msgstr "echo ' Content preview: ';"
+msgstr "echo ' 正文预览: ';"
 
 #: includes/class-wp-caiji.php:1750
 msgid "测试提示:"
-msgstr "Test tips:"
+msgstr "Beschreibung:"
 
 #: includes/class-wp-caiji.php:1750
 msgid "echo ' 测试提示: ';"
-msgstr "echo ' Test tips: ';"
+msgstr "echo ' 测试提示: ';"
 
 #: includes/class-wp-caiji.php:1754
 msgid "查看提取诊断信息"
-msgstr "View extraction diagnostics"
+msgstr "查看提取诊断信息"
 
 #: includes/class-wp-caiji.php:1754
 msgid "echo ' 查看提取诊断信息 ';"
-msgstr "echo ' View extraction diagnostics ';"
+msgstr "echo ' 查看提取诊断信息 ';"
 
 #: includes/class-wp-caiji.php:1756
 msgid "选择器:"
-msgstr "Selectors:"
+msgstr "选择器:"
 
 #: includes/class-wp-caiji.php:1756
 msgid ""
-"链接 ' . esc_html($result['selectors']['link'] ?? '') . '；标题 ' . esc_html($result['selectors']['title']) . '；正文 ' . esc_html($result['selectors']['content']) . (!empty($result['selectors']['date']) ? '；日期 ' . esc_html($result['selectors']['date']) : '') . (!empty($result['selectors']['tag']) ? '；Tag标签 ' . esc_html($result['selectors']['tag']) : '') . '"
+"链接 ' . esc_html($result['selectors']['link'] ?? '') . '；标题 ' . "
+"esc_html($result['selectors']['title']) . '；正文 ' . "
+"esc_html($result['selectors']['content']) . "
+"(!empty($result['selectors']['date']) ? '；日期 ' . "
+"esc_html($result['selectors']['date']) : '') . "
+"(!empty($result['selectors']['tag']) ? '；Tag标签 ' . "
+"esc_html($result['selectors']['tag']) : '') . '"
 msgstr ""
-"Link ' . esc_html($result['selectors']['link'] ?? '') . '; title ' . esc_html($result['selectors']['title']) . '; content ' . esc_html($result['selectors']['content']) . (!empty($result['selectors']['date']) ? '; date ' . esc_html($result['selectors']['date']) : '') . (!empty($result['selectors']['tag']) ? '; Tag label ' . esc_html($result['selectors']['tag']) : '') . '"
+"Link ' . esc_html($result['selectors']['link'] ?? '') . '; title ' . "
+"esc_html($result['selectors']['title']) . '; content ' . "
+"esc_html($result['selectors']['content']) . "
+"(!empty($result['selectors']['date']) ? '; date ' . "
+"esc_html($result['selectors']['date']) : '') . "
+"(!empty($result['selectors']['tag']) ? '; Tag label ' . "
+"esc_html($result['selectors']['tag']) : '') . '"
 
 #: includes/class-wp-caiji.php:1756
 msgid "选择器: 链接"
-msgstr "Selectors: link"
+msgstr "选择器: 链接"
 
 #: includes/class-wp-caiji.php:1756
 msgid "；标题"
-msgstr "; title"
+msgstr "；标题"
 
 #: includes/class-wp-caiji.php:1756
 msgid "；正文"
-msgstr "; content"
+msgstr "；正文"
 
 #: includes/class-wp-caiji.php:1756
 msgid "；日期"
-msgstr "; date"
+msgstr "；日期"
 
 #: includes/class-wp-caiji.php:1756
 msgid "；Tag标签"
-msgstr "; Tag label"
+msgstr "；Tag标签"
 
 #: includes/class-wp-caiji.php:1756
 msgid ""
-"echo ' 选择器: 链接 ' . esc_html($result['selectors']['link'] ?? '') . '；标题 ' . esc_html($result['selectors']['title']) . '；正文 ' . esc_html($result['selectors']['content']) . (!empty($result['selectors']['date']) ? '；日期 ' . esc_html($result['selectors']['date']) : '') . (!empty($result['selectors']['tag']) ? '；Tag标签 ' . esc_html($result['selectors']['tag']) : '') . ' ';"
+"echo ' 选择器: 链接 ' . esc_html($result['selectors']['link'] ?? '') . '；标题 ' . "
+"esc_html($result['selectors']['title']) . '；正文 ' . "
+"esc_html($result['selectors']['content']) . "
+"(!empty($result['selectors']['date']) ? '；日期 ' . "
+"esc_html($result['selectors']['date']) : '') . "
+"(!empty($result['selectors']['tag']) ? '；Tag标签 ' . "
+"esc_html($result['selectors']['tag']) : '') . ' ';"
 msgstr ""
-"echo ' Selectors: link ' . esc_html($result['selectors']['link'] ?? '') . '; title ' . esc_html($result['selectors']['title']) . '; content ' . esc_html($result['selectors']['content']) . (!empty($result['selectors']['date']) ? '; date ' . esc_html($result['selectors']['date']) : '') . (!empty($result['selectors']['tag']) ? '; Tag label ' . esc_html($result['selectors']['tag']) : '') . ' ';"
+"echo ' Selectors: link ' . esc_html($result['selectors']['link'] ?? '') . ';"
+" title ' . esc_html($result['selectors']['title']) . '; content ' . "
+"esc_html($result['selectors']['content']) . "
+"(!empty($result['selectors']['date']) ? '; date ' . "
+"esc_html($result['selectors']['date']) : '') . "
+"(!empty($result['selectors']['tag']) ? '; Tag label ' . "
+"esc_html($result['selectors']['tag']) : '') . ' ';"
 
 #: includes/class-wp-caiji.php:1758
 msgid "链接截取:"
-msgstr "Link extraction:"
+msgstr "链接截取:"
 
 #: includes/class-wp-caiji.php:1758
 msgid "已启用前后代码截取模式"
-msgstr "Before/after code extraction mode is enabled"
+msgstr "已启用前后代码截取模式"
 
 #: includes/class-wp-caiji.php:1758
 msgid "链接截取: 已启用前后代码截取模式"
-msgstr "Link extraction: before/after code extraction mode is enabled"
+msgstr "链接截取: 已启用前后代码截取模式"
 
 #: includes/class-wp-caiji.php:1758
 msgid "echo ' 链接截取: 已启用前后代码截取模式 ';"
-msgstr "echo ' Link extraction: before/after code extraction mode is enabled ';"
+msgstr "echo ' 链接截取: 已启用前后代码截取模式 ';"
 
 #: includes/class-wp-caiji.php:1762
 msgid "标题"
-msgstr "Title"
+msgstr "标题"
 
 #: includes/class-wp-caiji.php:1762
 msgid "正文"
-msgstr "Content"
+msgstr "正文"
 
 #: includes/class-wp-caiji.php:1762
 msgid "Tag标签"
-msgstr "Tag label"
+msgstr "Tag标签"
 
 #: includes/class-wp-caiji.php:1765
 msgid "字段截取:"
-msgstr "Field extraction:"
+msgstr "字段截取:"
 
 #: includes/class-wp-caiji.php:1765
 msgid "' . esc_html(implode('、', $enabled_markers)) . ' 已启用前后代码截取模式"
 msgstr ""
-"' . esc_html(implode(', ', $enabled_markers)) . ' before/after code extraction mode is enabled"
+"' . esc_html(implode(', ', $enabled_markers)) . ' before/after code "
+"extraction mode is enabled"
 
 #: includes/class-wp-caiji.php:1765
 msgid ""
-"if ($enabled_markers) echo ' 字段截取: ' . esc_html(implode('、', $enabled_markers)) . ' 已启用前后代码截取模式 ';"
+"if ($enabled_markers) echo ' 字段截取: ' . esc_html(implode('、', "
+"$enabled_markers)) . ' 已启用前后代码截取模式 ';"
 msgstr ""
-"if ($enabled_markers) echo ' Field extraction: ' . esc_html(implode(', ', $enabled_markers)) . ' before/after code extraction mode is enabled ';"
+"if ($enabled_markers) echo ' Field extraction: ' . esc_html(implode(', ', "
+"$enabled_markers)) . ' before/after code extraction mode is enabled ';"
 
 #: includes/class-wp-caiji.php:1769
 msgid "JSON 路径:"
-msgstr "JSON path:"
+msgstr "JSON-Code:"
 
 #: includes/class-wp-caiji.php:1769
 msgid "JSON 路径: 来源"
-msgstr "JSON path: source"
+msgstr "JSON-Version: Nicht verfügbar"
 
 #: includes/class-wp-caiji.php:1769
 msgid "；链接"
-msgstr "; link"
+msgstr "；链接"
 
 #: includes/class-wp-caiji.php:1769
 msgid "/ URL字段"
-msgstr "/ URL field"
+msgstr "/ URL字段"
 
 #: includes/class-wp-caiji.php:1772
 msgid "选择器匹配数量:"
-msgstr "Selector match count:"
+msgstr "选择器匹配数量:"
 
 #: includes/class-wp-caiji.php:1772
 msgid ""
-"链接 ' . intval($result['selector_counts']['link'] ?? 0) . '；标题 ' . intval($result['selector_counts']['title'] ?? 0) . '；正文 ' . intval($result['selector_counts']['content'] ?? 0) . '；日期 ' . intval($result['selector_counts']['date'] ?? 0) . '；Tag标签 ' . intval($result['selector_counts']['tag'] ?? 0) . '"
+"链接 ' . intval($result['selector_counts']['link'] ?? 0) . '；标题 ' . "
+"intval($result['selector_counts']['title'] ?? 0) . '；正文 ' . "
+"intval($result['selector_counts']['content'] ?? 0) . '；日期 ' . "
+"intval($result['selector_counts']['date'] ?? 0) . '；Tag标签 ' . "
+"intval($result['selector_counts']['tag'] ?? 0) . '"
 msgstr ""
-"Link ' . intval($result['selector_counts']['link'] ?? 0) . '; title ' . intval($result['selector_counts']['title'] ?? 0) . '; content ' . intval($result['selector_counts']['content'] ?? 0) . '; date ' . intval($result['selector_counts']['date'] ?? 0) . '; Tag label ' . intval($result['selector_counts']['tag'] ?? 0) . '"
+"Link ' . intval($result['selector_counts']['link'] ?? 0) . '; title ' . "
+"intval($result['selector_counts']['title'] ?? 0) . '; content ' . "
+"intval($result['selector_counts']['content'] ?? 0) . '; date ' . "
+"intval($result['selector_counts']['date'] ?? 0) . '; Tag label ' . "
+"intval($result['selector_counts']['tag'] ?? 0) . '"
 
 #: includes/class-wp-caiji.php:1772
 msgid "选择器匹配数量: 链接"
-msgstr "Selector match count: link"
+msgstr "选择器匹配数量: 链接"
 
 #: includes/class-wp-caiji.php:1772
 msgid ""
-"echo ' 选择器匹配数量: 链接 ' . intval($result['selector_counts']['link'] ?? 0) . '；标题 ' . intval($result['selector_counts']['title'] ?? 0) . '；正文 ' . intval($result['selector_counts']['content'] ?? 0) . '；日期 ' . intval($result['selector_counts']['date'] ?? 0) . '；Tag标签 ' . intval($result['selector_counts']['tag'] ?? 0) . ' ';"
+"echo ' 选择器匹配数量: 链接 ' . intval($result['selector_counts']['link'] ?? 0) . "
+"'；标题 ' . intval($result['selector_counts']['title'] ?? 0) . '；正文 ' . "
+"intval($result['selector_counts']['content'] ?? 0) . '；日期 ' . "
+"intval($result['selector_counts']['date'] ?? 0) . '；Tag标签 ' . "
+"intval($result['selector_counts']['tag'] ?? 0) . ' ';"
 msgstr ""
-"echo ' Selector match count: link ' . intval($result['selector_counts']['link'] ?? 0) . '; title ' . intval($result['selector_counts']['title'] ?? 0) . '; content ' . intval($result['selector_counts']['content'] ?? 0) . '; date ' . intval($result['selector_counts']['date'] ?? 0) . '; Tag label ' . intval($result['selector_counts']['tag'] ?? 0) . ' ';"
+"echo ' Selector match count: link ' . "
+"intval($result['selector_counts']['link'] ?? 0) . '; title ' . "
+"intval($result['selector_counts']['title'] ?? 0) . '; content ' . "
+"intval($result['selector_counts']['content'] ?? 0) . '; date ' . "
+"intval($result['selector_counts']['date'] ?? 0) . '; Tag label ' . "
+"intval($result['selector_counts']['tag'] ?? 0) . ' ';"
 
 #: includes/class-wp-caiji.php:1774
 msgid "列表链接诊断:"
-msgstr "List link diagnostics:"
+msgstr "列表链接诊断:"
 
 #: includes/class-wp-caiji.php:1774
 msgid ""
-"匹配 ' . intval($result['links_found'] ?? 0) . ' 条；可入队 ' . intval($result['links_ready'] ?? 0) . ' 条；来源已存在 ' . intval($result['links_duplicate'] ?? 0) . ' 条。"
+"匹配 ' . intval($result['links_found'] ?? 0) . ' 条；可入队 ' . "
+"intval($result['links_ready'] ?? 0) . ' 条；来源已存在 ' . "
+"intval($result['links_duplicate'] ?? 0) . ' 条。"
 msgstr ""
-"Matched ' . intval($result['links_found'] ?? 0) . ' items; ready to queue ' . intval($result['links_ready'] ?? 0) . ' items; source already exists ' . intval($result['links_duplicate'] ?? 0) . ' items."
+"Matched ' . intval($result['links_found'] ?? 0) . ' items; ready to queue ' "
+". intval($result['links_ready'] ?? 0) . ' items; source already exists ' . "
+"intval($result['links_duplicate'] ?? 0) . ' items."
 
 #: includes/class-wp-caiji.php:1774
 msgid "列表链接诊断: 匹配"
-msgstr "List link diagnostics: matched"
+msgstr "列表链接诊断: 匹配"
 
 #: includes/class-wp-caiji.php:1774
 msgid "条；可入队"
-msgstr "items; ready to queue"
+msgstr "条；可入队"
 
 #: includes/class-wp-caiji.php:1774
 msgid "条；来源已存在"
-msgstr "items; source already exists"
+msgstr "条；来源已存在"
 
 #: includes/class-wp-caiji.php:1774
 msgid ""
-"echo ' 列表链接诊断: 匹配 ' . intval($result['links_found'] ?? 0) . ' 条；可入队 ' . intval($result['links_ready'] ?? 0) . ' 条；来源已存在 ' . intval($result['links_duplicate'] ?? 0) . ' 条。 ';"
+"echo ' 列表链接诊断: 匹配 ' . intval($result['links_found'] ?? 0) . ' 条；可入队 ' . "
+"intval($result['links_ready'] ?? 0) . ' 条；来源已存在 ' . "
+"intval($result['links_duplicate'] ?? 0) . ' 条。 ';"
 msgstr ""
-"echo ' List link diagnostics: matched ' . intval($result['links_found'] ?? 0) . ' items; ready to queue ' . intval($result['links_ready'] ?? 0) . ' items; source already exists ' . intval($result['links_duplicate'] ?? 0) . ' items. ';"
+"echo ' List link diagnostics: matched ' . intval($result['links_found'] ?? "
+"0) . ' items; ready to queue ' . intval($result['links_ready'] ?? 0) . ' "
+"items; source already exists ' . intval($result['links_duplicate'] ?? 0) . '"
+" items. ';"
 
 #: includes/class-wp-caiji.php:1776
 msgid "可入队链接示例:"
-msgstr "Example links ready to queue:"
+msgstr "可入队链接示例:"
 
 #: includes/class-wp-caiji.php:1776
 msgid "echo ' 可入队链接示例: ';"
-msgstr "echo ' Example links ready to queue: ';"
+msgstr "echo ' 可入队链接示例: ';"
 
 #: includes/class-wp-caiji.php:1781
 msgid "图片示例:"
-msgstr "Image examples:"
+msgstr "Weitere Informationen:"
 
 #: includes/class-wp-caiji.php:1781
 msgid "echo ' 图片示例: ';"
-msgstr "echo ' Image examples: ';"
+msgstr "echo ' 图片示例: ';"
 
 #: includes/class-wp-caiji.php:1787
 msgid "标题节点 HTML:"
-msgstr "Title node HTML:"
+msgstr "HTML-Anleitung:"
 
 #: includes/class-wp-caiji.php:1787
 msgid ""
-"if (!empty($result['html_samples']['title'])) echo ' 标题节点 HTML: ' . esc_textarea($result['html_samples']['title']) . ' ';"
+"if (!empty($result['html_samples']['title'])) echo ' 标题节点 HTML: ' . "
+"esc_textarea($result['html_samples']['title']) . ' ';"
 msgstr ""
-"if (!empty($result['html_samples']['title'])) echo ' Title node HTML: ' . esc_textarea($result['html_samples']['title']) . ' ';"
+"if (!empty($result['html_samples']['title'])) echo ' Title node HTML: ' . "
+"esc_textarea($result['html_samples']['title']) . ' ';"
 
 #: includes/class-wp-caiji.php:1788
 msgid "正文节点 HTML:"
-msgstr "Content node HTML:"
+msgstr "HTML-Anleitung:"
 
 #: includes/class-wp-caiji.php:1788
 msgid ""
-"if (!empty($result['html_samples']['content'])) echo ' 正文节点 HTML: ' . esc_textarea($result['html_samples']['content']) . ' ';"
+"if (!empty($result['html_samples']['content'])) echo ' 正文节点 HTML: ' . "
+"esc_textarea($result['html_samples']['content']) . ' ';"
 msgstr ""
-"if (!empty($result['html_samples']['content'])) echo ' Content node HTML: ' . esc_textarea($result['html_samples']['content']) . ' ';"
+"if (!empty($result['html_samples']['content'])) echo ' Content node HTML: ' "
+". esc_textarea($result['html_samples']['content']) . ' ';"
 
 #: includes/class-wp-caiji.php:1838
 msgid "发现链接任务已有实例运行,本次跳过"
-msgstr "A link discovery task instance is already running; skipping this run"
+msgstr "发现链接任务已有实例运行,本次跳过"
 
 #: includes/class-wp-caiji.php:1856
 msgid "采集文章任务已有实例运行,本次跳过"
-msgstr "A post collection task instance is already running; skipping this run"
+msgstr "采集文章任务已有实例运行,本次跳过"
 
 #: includes/class-wp-caiji.php:1894
 msgid "发现链接完成,新增"
-msgstr "Link discovery completed, added"
+msgstr "发现链接完成,新增"
 
 #: includes/class-wp-caiji.php:1951
 msgid "队列已被其他进程认领或尚未到执行时间,本次跳过"
-msgstr ""
-"The queue has been claimed by another process or is not yet due; skipping this run"
+msgstr "队列已被其他进程认领或尚未到执行时间,本次跳过"
 
 #: includes/class-wp-caiji.php:1957
 msgid "页面抓取失败"
-msgstr "Page fetch failed"
+msgstr "页面抓取失败"
 
 #: includes/class-wp-caiji.php:1965
 msgid "标题或正文提取失败,请检查选择器"
-msgstr "Title or content extraction failed. Please check the selectors"
+msgstr "标题或正文提取失败,请检查选择器"
 
 #: includes/class-wp-caiji.php:1972
 msgid "标题或来源 URL 重复"
-msgstr "Duplicate title or source URL"
+msgstr "标题或来源 URL 重复"
 
 #: includes/class-wp-caiji.php:1973
 msgid "标题或来源 URL 重复,已跳过"
-msgstr "Duplicate title or source URL; skipped"
+msgstr "标题或来源 URL 重复,已跳过"
 
 #: includes/class-wp-caiji.php:1984
 msgid "图片本地化摘要:发现"
-msgstr "Image localization summary: found"
+msgstr "图片本地化摘要:发现"
 
 #: includes/class-wp-caiji.php:1984
 msgid "张,成功"
-msgstr "images, successful"
+msgstr "张, 成功"
 
 #: includes/class-wp-caiji.php:1984
 msgid "张,失败"
-msgstr "images, failed"
+msgstr "张,失败"
 
 #: includes/class-wp-caiji.php:1984
 msgid "张,跳过"
-msgstr "images, skipped"
+msgstr "张,跳过"
 
 #: includes/class-wp-caiji.php:1985
 msgid ",特色图附件 ID:"
-msgstr ", featured image attachment ID:"
+msgstr ",特色图附件 ID:"
 
 #: includes/class-wp-caiji.php:1993
 msgid "AI 改写失败:"
-msgstr "AI rewrite failed:"
+msgstr "AI-Inhalt:"
 
 #: includes/class-wp-caiji.php:1998
 msgid ";已回退发布原文"
-msgstr "; fell back to publishing the original content"
+msgstr ";已回退发布原文"
 
 #: includes/class-wp-caiji.php:2004
 msgid "AI 改写结果过短或为空,疑似质量不合格"
-msgstr "AI rewrite result is too short or empty, suspected quality failure"
+msgstr "AI 改写结果过短或为空,疑似质量不合格"
 
 #: includes/class-wp-caiji.php:2013
 msgid "AI 改写后图片全部丢失,疑似质量不合格"
-msgstr "All images were lost after AI rewriting, suspected quality failure"
+msgstr "AI ist eine der führenden Marken in der Welt der KI"
 
 #: includes/class-wp-caiji.php:2022
 msgid "AI 改写后图片数量减少:原"
-msgstr "Image count decreased after AI rewriting: original"
+msgstr "AI 改写后图片数量减少:原"
 
 #: includes/class-wp-caiji.php:2023
 msgid "AI 改写完成"
-msgstr "AI rewrite completed"
+msgstr "AI 改写完成"
 
 #: includes/class-wp-caiji.php:2035
 msgid "采集成功,文章 ID:"
-msgstr "Collection successful, post ID:"
+msgstr "采集成功,文章 ID:"
 
 #: includes/core/class-wp-caiji-fetcher.php:15
 msgid "URL 不安全或不可访问公网，已拒绝抓取"
-msgstr "URL is unsafe or not publicly accessible; fetch rejected"
+msgstr "URL 不安全或不可访问公网，已拒绝抓取"
 
 #: includes/core/class-wp-caiji-fetcher.php:48
 msgid "HTTP 状态异常："
-msgstr "Abnormal HTTP status:"
+msgstr "HTTP-Adresse:"
 
 #: includes/core/class-wp-caiji-parser.php:415
 msgid "/(?:标签|Tags?|关键词|关键字)\\s*[:：]/iu"
-msgstr "/(?:Labels?|Tags?|Keywords?)\\s*[:：]/iu"
+msgstr "/(?:标签|Tags?|关键词|关键字)\\s*[:：]/iu"
 
 #: includes/core/class-wp-caiji-ai.php:29
 msgid ""
-"请将下面采集到的文章改写为自然、流畅、适合中文网站发布的原创表达。 要求： 1. 保留原意和事实，不要编造不存在的信息。 2. 优化标题和正文表达，避免机械翻译腔。 3. 正文允许保留必要 HTML 标签，例如 p、h2、h3、ul、ol、li、strong、em、a、img。 4. 如原文已包含数据来源，请保留并规范来源 URL；不要编造不存在的数据或来源。 5. 正文尾部增加FAQ。 6. 不要输出解释，不要输出 Markdown。 7. 必须只返回 JSON：{\"title\":\"改写后的标题\",\"content\":\"改写后的 HTML 正文\"}"
+"请将下面采集到的文章改写为自然、流畅、适合中文网站发布的原创表达。 要求： 1. 保留原意和事实，不要编造不存在的信息。 2. "
+"优化标题和正文表达，避免机械翻译腔。 3. 正文允许保留必要 HTML 标签，例如 p、h2、h3、ul、ol、li、strong、em、a、img。 "
+"4. 如原文已包含数据来源，请保留并规范来源 URL；不要编造不存在的数据或来源。 5. 正文尾部增加FAQ。 6. 不要输出解释，不要输出 "
+"Markdown。 7. 必须只返回 JSON：{\"title\":\"改写后的标题\",\"content\":\"改写后的 HTML 正文\"}"
 msgstr ""
-"Please rewrite the collected article below into original wording that is natural, fluent, and suitable for publication on a Chinese website. Requirements: 1. Preserve the original meaning and facts; do not fabricate information that does not exist. 2. Improve the title and body wording, and avoid a machine-translation tone. 3. The body may keep necessary HTML tags, such as p, h2, h3, ul, ol, li, strong, em, a, and img. 4. If the original article already includes data sources, keep and standardize the source URL; do not fabricate data or sources that do not exist. 5. Add an FAQ at the end of the body. 6. Do not output explanations, and do not output Markdown. 7. Return only JSON: {\"title\":\"rewritten title\",\"content\":\"rewritten HTML body\"}"
+"请将下面采集到的文章改写为自然、流畅、适合中文网站发布的原创表达. Beschreibung: 1. 2. 2. 3. 3.正文允许保留必要 HTML "
+"标签, 例如 p、h2、h3、ul、ol、li、strong、em、a、img。 4. 5.正文尾部增加FAQ。 6. 不要输出解释，不要输出 "
+"Markdown。 7. 必须只返回JSON:{\"title\": \"改写后的标题\", \"content\": \"改写后的 HTML-"
+"Datei\"}"
 
 #: includes/core/class-wp-caiji-ai.php:35
 msgid ""
-"请将下面采集到的文章改写为自然、流畅、适合中文网站发布的原创表达。 要求： 1. 保留原意和事实，不要编造不存在的信息。 2. 优化标题和正文表达，避免机械翻译腔。 3. 正文允许保留必要 HTML 标签，例如 p、h2、h3、ul、ol、li、strong、em、a、img。 4. 不要输出解释，不要输出 Markdown。 5. 必须只返回 JSON：{\"title\":\"改写后的标题\",\"content\":\"改写后的 HTML 正文\"}"
+"请将下面采集到的文章改写为自然、流畅、适合中文网站发布的原创表达。 要求： 1. 保留原意和事实，不要编造不存在的信息。 2. "
+"优化标题和正文表达，避免机械翻译腔。 3. 正文允许保留必要 HTML 标签，例如 p、h2、h3、ul、ol、li、strong、em、a、img。 "
+"4. 不要输出解释，不要输出 Markdown。 5. 必须只返回 "
+"JSON：{\"title\":\"改写后的标题\",\"content\":\"改写后的 HTML 正文\"}"
 msgstr ""
-"Please rewrite the collected article below into original wording that is natural, fluent, and suitable for publication on a Chinese website. Requirements: 1. Preserve the original meaning and facts; do not fabricate information that does not exist. 2. Improve the title and body wording, and avoid a machine-translation tone. 3. The body may keep necessary HTML tags, such as p, h2, h3, ul, ol, li, strong, em, a, and img. 4. Do not output explanations, and do not output Markdown. 5. Return only JSON: {\"title\":\"rewritten title\",\"content\":\"rewritten HTML body\"}"
+"请将下面采集到的文章改写为自然、流畅、适合中文网站发布的原创表达. Beschreibung: 1. 2. 2. 3. 3.正文允许保留必要 HTML "
+"标签,例如 p、h2、h3、ul、ol、li、strong、em、a、img。 4. 不要输出解释，不要输出 Markdown。 5.必须只返回 "
+"JSON: {\"title\": \"改写后的标题\", \"content\": \"改写后的 HTML 正文\"}"
 
 #: includes/core/class-wp-caiji-ai.php:75
 msgid "中文"
-msgstr "Chinese"
+msgstr "中文"
 
 #: includes/core/class-wp-caiji-ai.php:76
 msgid "英文"
-msgstr "English"
+msgstr "英文"
 
 #: includes/core/class-wp-caiji-ai.php:77
 msgid "日文"
-msgstr "Japanese"
+msgstr "日文"
 
 #: includes/core/class-wp-caiji-ai.php:78
 msgid "韩文"
-msgstr "Korean"
+msgstr "韩文"
 
 #: includes/core/class-wp-caiji-ai.php:79
 msgid "西班牙文"
-msgstr "Spanish"
+msgstr "西班牙文"
 
 #: includes/core/class-wp-caiji-ai.php:80
 msgid "法文"
-msgstr "French"
+msgstr "法文"
 
 #: includes/core/class-wp-caiji-ai.php:81
 msgid "德文"
-msgstr "German"
+msgstr "德文"
 
 #: includes/core/class-wp-caiji-ai.php:82
 msgid "不限制/不检测"
-msgstr "No limit / no detection"
+msgstr "不限制/不检测"
 
 #: includes/core/class-wp-caiji-ai.php:91
 msgid "OpenAI 兼容 / 中转站"
-msgstr "OpenAI-compatible / proxy site"
+msgstr "OpenAI 兼容 / 中转站"
 
 #: includes/core/class-wp-caiji-ai.php:96
 msgid "适合绝大多数中转站、One API、New API、LiteLLM、OpenRouter 等；地区和费用取决于你的中转站。"
-msgstr ""
-"Suitable for most relay services, One API, New API, LiteLLM, OpenRouter, etc.; region and pricing depend on your relay service."
+msgstr "适合绝大多数中转站, One API, New API, LiteLLM, OpenRouter 等;"
 
 #: includes/core/class-wp-caiji-ai.php:99
 msgid "OpenAI 官方"
-msgstr "OpenAI Official"
+msgstr "OpenAI-Lizenz"
 
 #: includes/core/class-wp-caiji-ai.php:104
 msgid "OpenAI 官方 Chat Completions，通常为付费 API。"
-msgstr "OpenAI official Chat Completions, usually a paid API."
+msgstr "OpenAI ist eine API für Chat-Abschlüsse."
 
 #: includes/core/class-wp-caiji-ai.php:112
 msgid "DeepSeek 中国大陆官方接口，兼容 OpenAI 格式，通常为付费 API。"
 msgstr ""
-"DeepSeek official API for Mainland China, compatible with the OpenAI format, usually a paid API."
+"DeepSeek ist ein vertrauenswürdiges Unternehmen, das OpenAI verwendet und "
+"die API verwendet."
 
 #: includes/core/class-wp-caiji-ai.php:115
 msgid "通义千问 / DashScope"
-msgstr "Qwen / DashScope"
+msgstr "通义千问 / DashScope"
 
 #: includes/core/class-wp-caiji-ai.php:120
 msgid "阿里云 DashScope 中国大陆 OpenAI 兼容模式；常见为免费额度 + 付费计费。"
-msgstr ""
-"Alibaba Cloud DashScope OpenAI-compatible mode for Mainland China; commonly includes free quota plus paid billing."
+msgstr "阿里云 DashScope 中国大陆 OpenAI 兼容模式；常见为免费额度 + 付费计费。"
 
 #: includes/core/class-wp-caiji-ai.php:128
 msgid "Moonshot / Kimi 中国大陆官方接口，兼容 OpenAI 格式，通常为付费 API。"
-msgstr ""
-"Moonshot / Kimi official API for Mainland China, compatible with the OpenAI format, usually a paid API."
+msgstr "Moonshot / Kimi hat eine neue OpenAI-API entwickelt."
 
 #: includes/core/class-wp-caiji-ai.php:131
 msgid "智谱 GLM"
-msgstr "Zhipu GLM"
+msgstr "智谱 GLM"
 
 #: includes/core/class-wp-caiji-ai.php:136
 msgid "智谱 AI 中国大陆 v4 Chat Completions；部分模型/额度可能免费，生产通常按量付费。"
-msgstr ""
-"Zhipu AI Mainland China v4 Chat Completions; some models/quotas may be free, while production use is usually pay-as-you-go."
+msgstr "智谱 AI 中国大陆 v4 Chat Completions；部分模型/额度可能免费,生产通常按量付费。"
 
 #: includes/core/class-wp-caiji-ai.php:139
 msgid "百川智能"
-msgstr "Baichuan AI"
+msgstr "百川智能"
 
 #: includes/core/class-wp-caiji-ai.php:144
 msgid "百川智能中国大陆 OpenAI 兼容接口，通常为付费 API。"
-msgstr "Baichuan AI OpenAI-compatible API for Mainland China, usually a paid API."
+msgstr "百川智能中国大陆 OpenAI 兼容接口，通常为付费 API"
 
 #: includes/core/class-wp-caiji-ai.php:152
 msgid "MiniMax 中国大陆 Chat Completion v2，通常为付费 API；多数中转站也可用 OpenAI 兼容模式。"
-msgstr ""
-"MiniMax Mainland China Chat Completion v2, usually a paid API; most relay services can also use OpenAI-compatible mode."
+msgstr "MiniMax hat die Chat Completion v2-API und die OpenAI-API entwickelt."
 
 #: includes/core/class-wp-caiji-ai.php:160
 msgid "xAI / Grok 海外官方接口，兼容 OpenAI 格式，通常为付费 API。"
-msgstr ""
-"xAI / Grok official overseas API, compatible with the OpenAI format, usually a paid API."
+msgstr "xAI / Grok verfügt über eine neue OpenAI-API und eine andere API."
 
 #: includes/core/class-wp-caiji-ai.php:168
 msgid "海外聚合平台 / 中转站，兼容 OpenAI 格式；有免费模型，也有付费模型。"
-msgstr ""
-"Overseas aggregation platform / relay service, compatible with the OpenAI format; includes both free and paid models."
+msgstr "海外聚合平台 / 中转站, 兼容 OpenAI 格式；有免费模型, 也有付费模型."
 
 #: includes/core/class-wp-caiji-ai.php:171
 msgid "Anthropic Claude 官方"
-msgstr "Anthropic Claude Official"
+msgstr "Anthropic Claude 官方"
 
 #: includes/core/class-wp-caiji-ai.php:176
 msgid "Claude 海外官方 Messages API，通常为付费 API；如果走中转站请选择 OpenAI 兼容。"
-msgstr ""
-"Claude official overseas Messages API, usually a paid API; choose OpenAI-compatible if using a relay service."
+msgstr "Claude hat die Messages API und die OpenAI-API entwickelt."
 
 #: includes/core/class-wp-caiji-ai.php:179
 msgid "Google Gemini 官方"
-msgstr "Google Gemini Official"
+msgstr "Google Gemini 官方"
 
 #: includes/core/class-wp-caiji-ai.php:184
 msgid "Google Gemini 海外官方 generateContent API；有免费额度/免费层，Key 会自动放入 URL 参数。"
-msgstr ""
-"Google Gemini official overseas generateContent API; has free quota/free tier, and the key will be automatically placed in the URL parameters."
+msgstr "Google Gemini unterstützt die GenerateContent-API."
 
 #: includes/core/class-wp-caiji-ai.php:230
 msgid "中国大陆"
-msgstr "Mainland China"
+msgstr "中国大陆"
 
 #: includes/core/class-wp-caiji-ai.php:231
 msgid "其他国家/海外"
-msgstr "Other countries/overseas"
+msgstr "其他国家/海外"
 
 #: includes/core/class-wp-caiji-ai.php:232
 msgid "中转站/自定义"
-msgstr "Relay service/custom"
+msgstr "中转站/自定义"
 
 #: includes/core/class-wp-caiji-ai.php:241
 msgid "免费额度/免费模型"
-msgstr "Free quota/free model"
+msgstr "免费额度/免费模型"
 
 #: includes/core/class-wp-caiji-ai.php:242
 msgid "费用取决于中转站"
-msgstr "Pricing depends on the relay service"
+msgstr "费用取决于中转站"
 
 #: includes/core/class-wp-caiji-ai.php:250
 msgid "中转站 / 自定义（费用和地区取决于服务商）"
-msgstr "Relay service / custom (pricing and region depend on the provider)"
+msgstr "中转站 / 自定义（费用和地区取决于服务商）"
 
 #: includes/core/class-wp-caiji-ai.php:251
 msgid "中国大陆 · 免费额度/免费模型"
-msgstr "Mainland China · Free quota/free model"
+msgstr "中国大陆 · 免费额度/免费模型"
 
 #: includes/core/class-wp-caiji-ai.php:252
 msgid "中国大陆 · 付费"
-msgstr "Mainland China · Paid"
+msgstr "中国大陆 · 付费"
 
 #: includes/core/class-wp-caiji-ai.php:253
 msgid "其他国家/海外 · 免费额度/免费模型"
-msgstr "Other countries/overseas · Free quota/free model"
+msgstr "其他国家/海外 · 免费额度/免费模型"
 
 #: includes/core/class-wp-caiji-ai.php:254
 msgid "其他国家/海外 · 付费"
-msgstr "Other countries/overseas · Paid"
+msgstr "其他国家/海外 · 付费"
 
 #: includes/core/class-wp-caiji-ai.php:273
 msgid "OpenAI 兼容 / 中转站 API Key 获取说明"
-msgstr "OpenAI-compatible / relay service API key instructions"
+msgstr "OpenAI 兼容 / 中转站 API Key 获取说明"
 
 #: includes/core/class-wp-caiji-ai.php:276
 msgid "登录你的中转站后台，例如 One API、New API、LiteLLM、OpenRouter 或服务商提供的兼容平台。"
-msgstr ""
-"Log in to your relay service admin panel, such as One API, New API, LiteLLM, OpenRouter, or a compatible platform provided by your service provider."
+msgstr "登录你的中转站后台, 例如 One API, New API, LiteLLM, OpenRouter 或服务商提供的兼容平台."
 
 #: includes/core/class-wp-caiji-ai.php:277
 msgid "在后台找到“令牌 / Tokens / API Keys / 渠道密钥”等菜单，新建一个可用令牌。"
-msgstr ""
-"In the admin panel, find a menu such as \"Tokens / API Keys / Channel Keys\" and create a usable token."
+msgstr "在后台找到„令牌 / Tokens / API Keys / 渠道密钥“等菜单,新建一个可用令牌."
 
 #: includes/core/class-wp-caiji-ai.php:278
 msgid "复制生成的 Key，通常以 sk- 开头，也可能是中转站自定义格式。"
-msgstr ""
-"Copy the generated key; it usually starts with sk-, but may also use a custom relay-service format."
+msgstr "复制生成的 Key,通常以 sk- 开头,也可能是中转站自定义格式."
 
 #: includes/core/class-wp-caiji-ai.php:279
 msgid "复制中转站提供的接口地址。常见格式为 https://你的域名/v1 或 https://你的域名/v1/chat/completions。"
-msgstr ""
-"Copy the endpoint URL provided by the relay service. Common formats are https://your-domain/v1 or https://your-domain/v1/chat/completions."
+msgstr "复制中转站提供的接口地址.常见格式为 https://你的域名/v1 oder https://你的域名/v1/chat/completions."
 
 #: includes/core/class-wp-caiji-ai.php:280
 msgid "回到本插件：服务商选择“OpenAI 兼容 / 中转站”，API Key 填令牌，Endpoint 填中转站地址，模型名填中转站支持的模型。"
-msgstr ""
-"Return to this plugin: choose \"OpenAI-compatible / relay service\" as the provider, enter the token in API Key, enter the relay service URL in Endpoint, and enter a model name supported by the relay service."
+msgstr "回到本插件: 服务商选择„OpenAI 兼容 / 中转站“, API Key 填令牌, Endpoint填中转站地址,模型名填中转站支持的模型."
 
 #: includes/core/class-wp-caiji-ai.php:281
 msgid "点击“测试 API 连接”，成功后再保存设置。"
-msgstr "Click \"Test API connection\" and save the settings after it succeeds."
+msgstr "Der Name „API-API-Version“ wird angezeigt."
 
 #: includes/core/class-wp-caiji-ai.php:283
 msgid "如果中转站要求自定义模型名，请以中转站后台显示为准。"
-msgstr ""
-"If the relay service requires a custom model name, use the value shown in the relay service admin panel."
+msgstr "如果中转站要求自定义模型名,请以中转站后台显示为准."
 
 #: includes/core/class-wp-caiji-ai.php:283
 msgid "不要把 Key 写在 Endpoint URL 里，应填写在 API Key 输入框。"
-msgstr "Do not put the key in the Endpoint URL; enter it in the API Key field."
+msgstr "不要把 Key 写在 Endpoint URL 里, 应填写在 API Key 输入框."
 
 #: includes/core/class-wp-caiji-ai.php:286
 msgid "OpenAI 官方 API Key 获取说明"
-msgstr "OpenAI official API key instructions"
+msgstr "Der OpenAI-API-Schlüssel ist nicht verfügbar"
 
 #: includes/core/class-wp-caiji-ai.php:289
 msgid "打开 OpenAI Platform 并登录账号。"
-msgstr "Open OpenAI Platform and log in to your account."
+msgstr "Die OpenAI-Plattform ist eine neue Plattform."
 
 #: includes/core/class-wp-caiji-ai.php:290
 msgid "进入 API keys 页面，点击 Create new secret key。"
-msgstr "Go to the API keys page and click Create new secret key."
+msgstr "Erstellen Sie API-Schlüssel, um einen neuen geheimen Schlüssel zu erstellen."
 
 #: includes/core/class-wp-caiji-ai.php:291
 msgid "复制生成的 sk- 开头密钥；密钥只显示一次，请妥善保存。"
-msgstr ""
-"Copy the generated key that starts with sk-; the key is shown only once, so keep it safe."
+msgstr "复制生成的 sk- 开头密钥；密钥只显示一次,请妥善保存."
 
 #: includes/core/class-wp-caiji-ai.php:292
 msgid "确认 Billing / 账单已开通，官方 API 通常需要可用余额或付款方式。"
-msgstr ""
-"Confirm that Billing is enabled; the official API usually requires an available balance or payment method."
+msgstr "确认 Billing / 账单已开通, 官方 API 通常需要可用余额或付款方式."
 
 #: includes/core/class-wp-caiji-ai.php:293
 msgid "回到本插件选择“OpenAI 官方”，Endpoint 使用默认地址，模型选择 gpt-4o、gpt-4o-mini 等。"
 msgstr ""
-"Return to this plugin and choose \"OpenAI Official\"; use the default Endpoint and select a model such as gpt-4o or gpt-4o-mini."
+"Return to this plugin and choose \"OpenAI Official\"; use the default "
+"Endpoint and select a model such as gpt-4o or gpt-4o-mini."
 
 #: includes/core/class-wp-caiji-ai.php:294
 msgid "点击“测试 API 连接”。"
-msgstr "Click \"Test API connection\"."
+msgstr "点击„测试 API 连接“"
 
 #: includes/core/class-wp-caiji-ai.php:296
 msgid "OpenAI ChatGPT 网页会员不等于 API 余额。"
-msgstr "An OpenAI ChatGPT web subscription is not the same as API balance."
+msgstr "OpenAI ChatGPT ist ein API-Client, der Ihnen hilft."
 
 #: includes/core/class-wp-caiji-ai.php:296
 msgid "中国大陆网络环境可能需要你的服务器能正常访问 OpenAI 官方域名。"
-msgstr ""
-"In Mainland China network environments, your server may need to be able to access OpenAI's official domains normally."
+msgstr "中国大陆网络环境可能需要你的服务器能正常访问 OpenAI 官方域名."
 
 #: includes/core/class-wp-caiji-ai.php:299
 msgid "DeepSeek API Key 获取说明"
-msgstr "DeepSeek API key instructions"
+msgstr "Der DeepSeek-API-Schlüssel ist nicht verfügbar"
 
 #: includes/core/class-wp-caiji-ai.php:302
 msgid "打开 DeepSeek 开放平台并注册/登录。"
-msgstr "Open the DeepSeek open platform and sign up/log in."
+msgstr "打开 DeepSeek 开放平台并注册/登录."
 
 #: includes/core/class-wp-caiji-ai.php:303
 msgid "完成必要的账号验证后，进入 API Keys 页面。"
-msgstr "After completing the required account verification, go to the API Keys page."
+msgstr "完成必要的账号验证后，进入 API Keys 页面。"
 
 #: includes/core/class-wp-caiji-ai.php:304
 msgid "点击创建 API Key，复制生成的密钥。"
-msgstr "Click to create an API Key and copy the generated key."
+msgstr "Geben Sie den API-Schlüssel ein."
 
 #: includes/core/class-wp-caiji-ai.php:305
 msgid "确认账号余额或充值状态可用。"
-msgstr "Confirm that the account balance or top-up status is available."
+msgstr "确认账号余额或充值状态可用."
 
 #: includes/core/class-wp-caiji-ai.php:306
 msgid "回到本插件选择“DeepSeek”，Endpoint 使用默认地址，模型可选 deepseek-chat 或 deepseek-reasoner。"
 msgstr ""
-"Return to this plugin and choose \"DeepSeek\"; use the default Endpoint, and choose deepseek-chat or deepseek-reasoner as the model."
+"回到本插件选择„DeepSeek“, Endpoint 使用默认地址, 模型型可选 deepseek-chat und deepseek-"
+"reasoner."
 
 #: includes/core/class-wp-caiji-ai.php:309
 msgid "deepseek-reasoner 成本和响应时间通常高于 deepseek-chat。"
-msgstr ""
-"deepseek-reasoner usually costs more and has a longer response time than deepseek-chat."
+msgstr "deepseek-reasoner 成本和响应时间通常高于 deepseek-chat."
 
 #: includes/core/class-wp-caiji-ai.php:309
 msgid "如果走中转站，请选择“OpenAI 兼容 / 中转站”。"
-msgstr "If using a relay service, choose \"OpenAI-compatible / relay service\"."
+msgstr "Als nächstes wurde die OpenAI-Software entwickelt."
 
 #: includes/core/class-wp-caiji-ai.php:312
 msgid "通义千问 / DashScope API Key 获取说明"
-msgstr "Qwen / DashScope API key instructions"
+msgstr "通义千问 / DashScope API Key 获取说明"
 
 #: includes/core/class-wp-caiji-ai.php:315
 msgid "登录阿里云账号并进入 DashScope 控制台。"
-msgstr "Log in to your Alibaba Cloud account and open the DashScope console."
+msgstr "登录阿里云账号并进入 DashScope 控制台."
 
 #: includes/core/class-wp-caiji-ai.php:316
 msgid "按页面提示开通 DashScope / 模型服务。"
-msgstr "Follow the page prompts to enable DashScope / model services."
+msgstr "按页面提示开通 DashScope / 模型服务。"
 
 #: includes/core/class-wp-caiji-ai.php:317
 msgid "进入 API Key 管理页面，创建或复制 API Key。"
-msgstr "Go to the API Key management page and create or copy an API Key."
+msgstr "Der API-Schlüssel ist eine neue Version des API-Schlüssels."
 
 #: includes/core/class-wp-caiji-ai.php:318
 msgid "确认免费额度、资源包或按量付费已可用。"
-msgstr ""
-"Confirm that free quota, resource packages, or pay-as-you-go billing is available."
+msgstr "确认免费额度、资源包或按量付费已可用."
 
 #: includes/core/class-wp-caiji-ai.php:319
 msgid "回到本插件选择“通义千问 / DashScope”，Endpoint 使用兼容模式默认地址。"
-msgstr ""
-"Return to this plugin and choose \"Qwen / DashScope\"; use the default compatible-mode Endpoint."
+msgstr "回到本插件选择„通义千问/DashScope“, Endpoint 使用兼容模式默认地址。"
 
 #: includes/core/class-wp-caiji-ai.php:320
 msgid "模型可填 qwen-plus、qwen-turbo、qwen-max、qwen-long 等，然后测试连接。"
-msgstr ""
-"For the model, you can enter qwen-plus, qwen-turbo, qwen-max, qwen-long, etc., then test the connection."
+msgstr "模型可填 qwen-plus, qwen-turbo, qwen-max, qwen-long 等, 然后测试连接."
 
 #: includes/core/class-wp-caiji-ai.php:322
 msgid "建议使用 DashScope 的 OpenAI 兼容模式 Endpoint。"
-msgstr "We recommend using DashScope's OpenAI-compatible Endpoint."
+msgstr "Die Verwendung von DashScope und OpenAI für Endpoint-Anwendungen."
 
 #: includes/core/class-wp-caiji-ai.php:322
 msgid "阿里云权限/实名/计费策略可能随账号类型不同。"
-msgstr ""
-"Alibaba Cloud permissions, real-name verification, and billing policies may vary by account type."
+msgstr "阿里云权限/实名/计费策略可能随账号类型不同."
 
 #: includes/core/class-wp-caiji-ai.php:325
 msgid "Moonshot / Kimi API Key 获取说明"
-msgstr "Moonshot / Kimi API key instructions"
+msgstr "Moonshot/Kimi-API-Schlüssel ist nicht verfügbar"
 
 #: includes/core/class-wp-caiji-ai.php:328
 msgid "打开 Moonshot AI 开放平台并注册/登录。"
-msgstr "Open the Moonshot AI open platform and sign up/log in."
+msgstr "打开 Moonshot AI 开放平台并注册/登录."
 
 #: includes/core/class-wp-caiji-ai.php:329
 msgid "进入控制台的 API Key 管理页面。"
-msgstr "Go to the API Key management page in the console."
+msgstr "Stellen Sie sicher, dass der API-Schlüssel nicht verfügbar ist."
 
 #: includes/core/class-wp-caiji-ai.php:330
 msgid "点击新建 API Key 并复制密钥。"
-msgstr "Click to create a new API Key and copy the key."
+msgstr "Geben Sie den API-Schlüssel ein."
 
 #: includes/core/class-wp-caiji-ai.php:331
 msgid "确认账号余额或赠送额度可用。"
-msgstr "Confirm that your account balance or promotional quota is available."
+msgstr "确认账号余额或赠送额度可用."
 
 #: includes/core/class-wp-caiji-ai.php:332
 msgid "回到本插件选择“Moonshot / Kimi”，Endpoint 使用默认地址。"
-msgstr ""
-"Return to this plugin and choose \"Moonshot / Kimi\"; use the default Endpoint."
+msgstr "Die aktuelle Version von „Moonshot / Kimi“ lautet Endpoint."
 
 #: includes/core/class-wp-caiji-ai.php:333
 msgid "模型可填 moonshot-v1-8k、moonshot-v1-32k、moonshot-v1-128k，然后测试连接。"
 msgstr ""
-"For the model, you can enter moonshot-v1-8k, moonshot-v1-32k, or moonshot-v1-128k, then test the connection."
+"Die folgenden Optionen sind „moonshot-v1-8k“, „moonshot-v1-32k“ und "
+"„moonshot-v1-128k“."
 
 #: includes/core/class-wp-caiji-ai.php:335
 msgid "长上下文模型费用通常更高。"
-msgstr "Long-context models usually cost more."
+msgstr "长上下文模型费用通常更高."
 
 #: includes/core/class-wp-caiji-ai.php:335
 msgid "如接口策略变化，请以 Moonshot 控制台显示为准。"
-msgstr ""
-"If API policies change, follow the information shown in the Moonshot console."
+msgstr "如接口策略变化, 请以 Moonshot 控制台显示为准."
 
 #: includes/core/class-wp-caiji-ai.php:338
 msgid "智谱 GLM API Key 获取说明"
-msgstr "Zhipu GLM API key instructions"
+msgstr "Weitere Informationen zum GLM-API-Schlüssel finden Sie hier"
 
 #: includes/core/class-wp-caiji-ai.php:341
 msgid "打开智谱开放平台并注册/登录。"
-msgstr "Open the Zhipu open platform and sign up/log in."
+msgstr "打开智谱开放平台并注册/登录."
 
 #: includes/core/class-wp-caiji-ai.php:342
 msgid "进入用户中心 / API Keys 页面。"
-msgstr "Go to User Center / API Keys."
+msgstr "Weitere Informationen finden Sie unter API Keys."
 
 #: includes/core/class-wp-caiji-ai.php:343
 msgid "创建新的 API Key 并复制。"
-msgstr "Create a new API Key and copy it."
+msgstr "Der API-Schlüssel wird angezeigt."
 
 #: includes/core/class-wp-caiji-ai.php:344
 msgid "确认免费额度、套餐或余额可用。"
-msgstr "Confirm that free quota, a plan, or balance is available."
+msgstr "确认免费额度、套餐或余额可用."
 
 #: includes/core/class-wp-caiji-ai.php:345
 msgid "回到本插件选择“智谱 GLM”，Endpoint 使用默认 v4 地址。"
-msgstr "Return to this plugin and choose \"Zhipu GLM\"; use the default v4 Endpoint."
+msgstr "回到本插件选择„智谱 GLM“, Endpoint 使用默认 v4 地址."
 
 #: includes/core/class-wp-caiji-ai.php:346
 msgid "模型可填 glm-4-plus、glm-4-air、glm-4-flash，然后测试连接。"
 msgstr ""
-"For the model, you can enter glm-4-plus, glm-4-air, or glm-4-flash, then test the connection."
+"Weitere Informationen zu glm-4-plus, glm-4-air und glm-4-flash finden Sie "
+"hier."
 
 #: includes/core/class-wp-caiji-ai.php:348
 msgid "免费模型/额度会随官方活动变化。"
-msgstr "Free models/quotas may change with official promotions."
+msgstr "免费模型/额度会随官方活动变化."
 
 #: includes/core/class-wp-caiji-ai.php:348
 msgid "如果官方 Key 格式或鉴权方式变化，请优先参考控制台最新文档。"
-msgstr ""
-"If the official key format or authentication method changes, refer to the latest console documentation first."
+msgstr "如果官方 Key 格式或鉴权方式变化,请优先参考控制台最新文档."
 
 #: includes/core/class-wp-caiji-ai.php:351
 msgid "百川智能 API Key 获取说明"
-msgstr "Baichuan AI API key instructions"
+msgstr "百川智能 API Key 获取说明"
 
 #: includes/core/class-wp-caiji-ai.php:354
 msgid "打开百川智能开放平台并注册/登录。"
-msgstr "Open the Baichuan AI open platform and sign up/log in."
+msgstr "打开百川智能开放平台并注册/登录."
 
 #: includes/core/class-wp-caiji-ai.php:355
 msgid "进入控制台的 API Key 或密钥管理页面。"
-msgstr "Go to the API Key or key management page in the console."
+msgstr "Stellen Sie sicher, dass der API-Schlüssel nicht verfügbar ist."
 
 #: includes/core/class-wp-caiji-ai.php:356
 msgid "创建 API Key 并复制。"
-msgstr "Create an API Key and copy it."
+msgstr "Der API-Schlüssel wird angezeigt."
 
 #: includes/core/class-wp-caiji-ai.php:357
 msgid "确认账号已开通对应模型权限和计费。"
-msgstr ""
-"Confirm that the account has enabled the required model permissions and billing."
+msgstr "确认账号已开通对应模型权限和计费."
 
 #: includes/core/class-wp-caiji-ai.php:358
 msgid "回到本插件选择“百川智能”，Endpoint 使用默认地址。"
-msgstr "Return to this plugin and choose \"Baichuan AI\"; use the default Endpoint."
+msgstr "回到本插件选择„百川智能“, Endpoint 使用默认地址."
 
 #: includes/core/class-wp-caiji-ai.php:359
 msgid "模型可填 Baichuan4、Baichuan3-Turbo、Baichuan3-Turbo-128k，然后测试连接。"
-msgstr ""
-"For the model, you can enter Baichuan4, Baichuan3-Turbo, or Baichuan3-Turbo-128k, then test the connection."
+msgstr "模型可填 Baichuan4、Baichuan3-Turbo、Baichuan3-Turbo-128k，然后测试连接。"
 
 #: includes/core/class-wp-caiji-ai.php:361
 msgid "模型名称大小写建议按官方控制台填写。"
-msgstr "Use the model-name capitalization shown in the official console."
+msgstr "模型名称大小写建议按官方控制台填写."
 
 #: includes/core/class-wp-caiji-ai.php:364
 msgid "MiniMax API Key 获取说明"
-msgstr "MiniMax API key instructions"
+msgstr "Der MiniMax-API-Schlüssel ist nicht verfügbar"
 
 #: includes/core/class-wp-caiji-ai.php:367
 msgid "打开 MiniMax 开放平台并注册/登录。"
-msgstr "Open the MiniMax open platform and sign up/log in."
+msgstr "打开 MiniMax 开放平台并注册/登录."
 
 #: includes/core/class-wp-caiji-ai.php:368
 msgid "进入账户中心 / 接口密钥页面。"
-msgstr "Go to Account Center / API Keys."
+msgstr "进入账户中心 / 接口密钥页面."
 
 #: includes/core/class-wp-caiji-ai.php:369
 msgid "创建或复制 API Key。"
-msgstr "Create or copy an API Key."
+msgstr "创建或复制 API Key。"
 
 #: includes/core/class-wp-caiji-ai.php:370
 msgid "确认已开通模型调用权限和余额。"
-msgstr "Confirm that model access permissions and balance are available."
+msgstr "确认已开通模型调用权限和余额."
 
 #: includes/core/class-wp-caiji-ai.php:371
 msgid "回到本插件选择“MiniMax”，Endpoint 使用默认 chatcompletion_v2 地址。"
 msgstr ""
-"Return to this plugin and choose \"MiniMax\"; use the default chatcompletion_v2 Endpoint."
+"Die Endpoint-Version von chatcompletion_v2 ist die neueste Version von "
+"„MiniMax“."
 
 #: includes/core/class-wp-caiji-ai.php:372
 msgid "模型可填 abab6.5s-chat、abab6.5g-chat、abab6.5t-chat，然后测试连接。"
-msgstr ""
-"For the model, you can enter abab6.5s-chat, abab6.5g-chat, or abab6.5t-chat, then test the connection."
+msgstr "模型可填 abab6.5s-chat、abab6.5g-chat、abab6.5t-chat，然后测试连接。"
 
 #: includes/core/class-wp-caiji-ai.php:374
 msgid "如果你的 MiniMax 账号还要求 GroupId 等额外参数，建议通过中转站转换为 OpenAI 兼容格式后接入。"
-msgstr ""
-"If your MiniMax account also requires extra parameters such as GroupId, we recommend using a relay service to convert it to the OpenAI-compatible format before connecting."
+msgstr "Die von MiniMax bereitgestellte GroupId ist die neueste Version von OpenAI."
 
 #: includes/core/class-wp-caiji-ai.php:377
 msgid "xAI / Grok API Key 获取说明"
-msgstr "xAI / Grok API key instructions"
+msgstr "xAI/Grok-API-Schlüssel verfügbar"
 
 #: includes/core/class-wp-caiji-ai.php:380
 msgid "打开 xAI Console 并登录。"
-msgstr "Open xAI Console and log in."
+msgstr "Die neue xAI-Konsole ist nicht verfügbar."
 
 #: includes/core/class-wp-caiji-ai.php:381
 msgid "进入 API Keys 页面创建新的 API Key。"
-msgstr "Go to the API Keys page and create a new API Key."
+msgstr "API-Schlüssel finden Sie unter API-Schlüssel."
 
 #: includes/core/class-wp-caiji-ai.php:382
 msgid "复制生成的密钥。"
-msgstr "Copy the generated key."
+msgstr "复制生成的密钥."
 
 #: includes/core/class-wp-caiji-ai.php:383
 msgid "确认 Billing / Credits 可用。"
-msgstr "Confirm that Billing / Credits are available."
+msgstr "确认 Billing / Credits 可用."
 
 #: includes/core/class-wp-caiji-ai.php:384
 msgid "回到本插件选择“xAI / Grok”，Endpoint 使用默认地址。"
-msgstr "Return to this plugin and choose \"xAI / Grok\"; use the default Endpoint."
+msgstr "回到本插件选择„xAI / Grok“, Endpoint 使用默认地址。"
 
 #: includes/core/class-wp-caiji-ai.php:385
 msgid "模型可填 grok-3、grok-3-mini 等，然后测试连接。"
-msgstr ""
-"For the model, you can enter grok-3, grok-3-mini, etc., then test the connection."
+msgstr "模型可填 grok-3、grok-3-mini 等，然后测试连接。"
 
 #: includes/core/class-wp-caiji-ai.php:387
 msgid "xAI 官方 API 通常需要海外网络可访问。"
-msgstr "The official xAI API usually requires access from an overseas network."
+msgstr "Die xAI-API-API ist für den Zugriff auf die API zuständig."
 
 #: includes/core/class-wp-caiji-ai.php:387
 msgid "模型名称可能更新较快，请以 xAI Console 为准。"
-msgstr "Model names may change quickly; use xAI Console as the source of truth."
+msgstr "模型名称可能更新较快，请以 xAI Console 为准。"
 
 #: includes/core/class-wp-caiji-ai.php:390
 msgid "OpenRouter API Key 获取说明"
-msgstr "OpenRouter API key instructions"
+msgstr "Der OpenRouter-API-Schlüssel ist nicht verfügbar"
 
 #: includes/core/class-wp-caiji-ai.php:393
 msgid "打开 OpenRouter 并注册/登录。"
-msgstr "Open OpenRouter and sign up/log in."
+msgstr "打开 OpenRouter 并注册/登录."
 
 #: includes/core/class-wp-caiji-ai.php:394
 msgid "进入 Keys 页面，点击 Create Key。"
-msgstr "Go to the Keys page and click Create Key."
+msgstr "Verwenden Sie die Funktion „Keys“ und erstellen Sie einen Schlüssel."
 
 #: includes/core/class-wp-caiji-ai.php:395
 msgid "复制生成的 API Key。"
-msgstr "Copy the generated API Key."
+msgstr "Geben Sie den API-Schlüssel ein."
 
 #: includes/core/class-wp-caiji-ai.php:396
 msgid "如需付费模型，请在 Credits / Billing 中充值；免费模型可留意模型页标记。"
-msgstr ""
-"For paid models, top up in Credits / Billing; for free models, check the labels on the model page."
+msgstr "如需付费模型,请在 Credits/Abrechnung 中充值;免费模型可留意模型页标记"
 
 #: includes/core/class-wp-caiji-ai.php:397
 msgid "回到本插件选择“OpenRouter”，Endpoint 使用默认地址。"
-msgstr "Return to this plugin and choose \"OpenRouter\"; use the default Endpoint."
+msgstr "Die aktuelle Version von „OpenRouter“ ist Endpoint."
 
 #: includes/core/class-wp-caiji-ai.php:398
 msgid ""
-"模型名需要填写 OpenRouter 模型 ID，例如 openai/gpt-4o-mini、deepseek/deepseek-chat 等，然后测试连接。"
-msgstr ""
-"The model name must be an OpenRouter model ID, such as openai/gpt-4o-mini or deepseek/deepseek-chat, then test the connection."
+"模型名需要填写 OpenRouter 模型 ID，例如 openai/gpt-4o-mini、deepseek/deepseek-chat "
+"等，然后测试连接。"
+msgstr "Öffnen Sie die OpenRouter-ID und öffnen Sie sie."
 
 #: includes/core/class-wp-caiji-ai.php:400
 msgid "OpenRouter 上的“免费模型”和“付费模型”会变化，请以模型页面为准。"
-msgstr ""
-"\"Free models\" and \"paid models\" on OpenRouter may change; use the model page as the source of truth."
+msgstr "Die OpenRouter-App ist nicht verfügbar."
 
 #: includes/core/class-wp-caiji-ai.php:400
 msgid "也可以把 OpenRouter 当作 OpenAI 兼容中转站使用。"
-msgstr "You can also use OpenRouter as an OpenAI-compatible relay service."
+msgstr "Die Verwendung von OpenRouter und OpenAI ist eine neue Lösung."
 
 #: includes/core/class-wp-caiji-ai.php:403
 msgid "Anthropic Claude 官方 API Key 获取说明"
-msgstr "Anthropic Claude official API key instructions"
+msgstr "Der API-Schlüssel von Anthropic Claude ist nicht verfügbar"
 
 #: includes/core/class-wp-caiji-ai.php:406
 msgid "打开 Anthropic Console 并登录。"
-msgstr "Open Anthropic Console and log in."
+msgstr "Die neue Anthropic Console ist verfügbar."
 
 #: includes/core/class-wp-caiji-ai.php:407
 msgid "进入 Settings / API Keys 页面。"
-msgstr "Go to Settings / API Keys."
+msgstr "Weitere Informationen finden Sie unter Einstellungen/API-Schlüssel."
 
 #: includes/core/class-wp-caiji-ai.php:408
 msgid "点击 Create Key，复制生成的 API Key。"
-msgstr "Click Create Key and copy the generated API Key."
+msgstr "Erstellen Sie einen Schlüssel und erstellen Sie einen API-Schlüssel."
 
 #: includes/core/class-wp-caiji-ai.php:410
 msgid "回到本插件选择“Anthropic Claude 官方”，Endpoint 使用默认 /v1/messages 地址。"
-msgstr ""
-"Return to this plugin and choose \"Anthropic Claude Official\"; use the default /v1/messages Endpoint."
+msgstr "Die Endpoint-Datei /v1/messages wird von „Anthropic Claude“ verwendet."
 
 #: includes/core/class-wp-caiji-ai.php:411
 msgid "模型可填 claude-3-5-sonnet-latest、claude-3-5-haiku-latest 等，然后测试连接。"
-msgstr ""
-"For the model, you can enter claude-3-5-sonnet-latest, claude-3-5-haiku-latest, etc., then test the connection."
+msgstr "模型可填 claude-3-5-sonnet-latest、claude-3-5-haiku-latest 等，然后测试连接。"
 
 #: includes/core/class-wp-caiji-ai.php:413
 msgid "Claude 官方接口不是 OpenAI 格式，本插件已单独适配。"
 msgstr ""
-"The official Claude API is not in OpenAI format; this plugin has separate support for it."
+"Claude ist einer von OpenAI-Mitarbeitern, die sich für OpenAI entschieden "
+"haben."
 
 #: includes/core/class-wp-caiji-ai.php:413
 msgid "如果使用 Claude 中转站，请选择“OpenAI 兼容 / 中转站”。"
-msgstr ""
-"If using a Claude relay service, choose \"OpenAI-compatible / relay service\"."
+msgstr "Claude ist einer der führenden Entwickler von OpenAI."
 
 #: includes/core/class-wp-caiji-ai.php:416
 msgid "Google Gemini API Key 获取说明"
-msgstr "Google Gemini API key instructions"
+msgstr "Google Gemini-API-Schlüssel verfügbar"
 
 #: includes/core/class-wp-caiji-ai.php:419
 msgid "打开 Google AI Studio 并登录 Google 账号。"
-msgstr "Open Google AI Studio and log in to your Google account."
+msgstr "打开 Google AI Studio 并登录 Google 账号."
 
 #: includes/core/class-wp-caiji-ai.php:420
 msgid "进入 Get API key / API keys 页面。"
-msgstr "Go to Get API key / API keys."
+msgstr "Hier erfahren Sie, wie Sie den API-Schlüssel/die API-Schlüssel abrufen."
 
 #: includes/core/class-wp-caiji-ai.php:421
 msgid "创建 API Key，选择或创建对应 Google Cloud 项目。"
 msgstr ""
-"Create an API Key, and select or create the corresponding Google Cloud project."
+"Create an API Key, and select or create the corresponding Google Cloud "
+"project."
 
 #: includes/core/class-wp-caiji-ai.php:422
 msgid "复制生成的 API Key；免费额度和地区限制以 Google 当前政策为准。"
-msgstr ""
-"Copy the generated API Key; free quota and regional restrictions are subject to Google's current policies."
+msgstr "复制生成的 API Key；免费额度和地区限制以 Google 当前政策为准."
 
 #: includes/core/class-wp-caiji-ai.php:423
 msgid "回到本插件选择“Google Gemini 官方”，Endpoint 使用默认 {model}:generateContent 地址。"
-msgstr ""
-"Return to this plugin and choose \"Google Gemini Official\"; use the default {model}:generateContent Endpoint."
+msgstr "Der Endpoint hat die Funktion „Google Gemini“ verwendet."
 
 #: includes/core/class-wp-caiji-ai.php:424
 msgid "模型可填 gemini-2.0-flash、gemini-1.5-pro、gemini-1.5-flash，然后测试连接。"
 msgstr ""
-"For the model, you can enter gemini-2.0-flash, gemini-1.5-pro, or gemini-1.5-flash, then test the connection."
+"Weitere Informationen finden Sie unter gemini-2.0-flash, gemini-1.5-pro und "
+"gemini-1.5-flash."
 
 #: includes/core/class-wp-caiji-ai.php:426
 msgid "Gemini 官方接口 Key 会由插件自动放到 URL 参数中，不需要手动拼接 ?key=。"
-msgstr ""
-"For the official Gemini API, the plugin automatically puts the key into the URL parameters; you do not need to manually append ?key=."
+msgstr "Gemini 官方接口 Key 会由插件自动放到 URL 参数中，不需要手动拼接?key=。"
 
 #: includes/core/class-wp-caiji-ai.php:426
 msgid "中国大陆服务器可能无法直接访问 Google 官方接口，必要时使用中转站。"
-msgstr ""
-"Servers in Mainland China may not be able to access Google's official API directly; use a relay service if necessary."
+msgstr "中国大陆服务器可能无法直接访问 Google 官方接口, 必要时使用中转站."
 
 #: includes/core/class-wp-caiji-ai.php:574
 msgid "AI API Endpoint 无效或不安全，必须是公网 HTTP/HTTPS 地址"
-msgstr "AI API Endpoint is invalid or unsafe; it must be a public HTTP/HTTPS URL"
+msgstr "AI API Endpoint unterstützt die Verwendung von HTTP/HTTPS"
 
 #: includes/core/class-wp-caiji-ai.php:614
 msgid "? \"系统要求： \" :"
-msgstr "? \"System requirements: \" :"
+msgstr "? „系统要求:“:"
 
 #: includes/core/class-wp-caiji-ai.php:727
 msgid "AI API Key 未设置"
-msgstr "AI API Key is not set"
+msgstr "AI-API-Schlüssel-Download"
 
 #: includes/core/class-wp-caiji-ai.php:755
 msgid "标题："
-msgstr "Title:"
+msgstr "Inhalt:"
 
 #: includes/core/class-wp-caiji-ai.php:755
 msgid "正文 HTML："
-msgstr "Body HTML:"
+msgstr "HTML-Code:"
 
 #: includes/core/class-wp-caiji-ai.php:766
 msgid "AI API 请求失败：HTTP"
-msgstr "AI API request failed: HTTP"
+msgstr "AI-API-Version: HTTP"
 
 #: includes/core/class-wp-caiji-ai.php:770
 msgid "AI API 返回内容为空"
-msgstr "AI API returned empty content"
+msgstr "AI-API-Unterstützung"
 
 #: includes/core/class-wp-caiji-ai.php:775
 msgid "AI 改写结果解析失败或正文为空；响应片段："
-msgstr "Failed to parse AI rewrite result or body is empty; response snippet:"
+msgstr "AI 改写结果解析失败或正文为空；响应片段："
 
 #: includes/core/class-wp-caiji-ai.php:777
 msgid "AI 改写结果正文过短，已判定为失败；响应片段："
-msgstr ""
-"AI rewrite result body is too short and has been marked as failed; response snippet:"
+msgstr "KI-Technologie:"
 
 #: includes/core/class-wp-caiji-ai.php:782
 msgid "AI 改写结果未通过目标语言检测，目标语言："
-msgstr "AI rewrite result did not pass target-language detection; target language:"
+msgstr "AI 改写结果未通过目标语言检测，目标语言："
 
 #: includes/core/class-wp-caiji-ai.php:782
 msgid "；已判定为失败"
-msgstr "; marked as failed"
+msgstr "；已判定为失败"
 
 #: includes/core/class-wp-caiji-ai.php:837
 msgid "HTTP 成功，但返回不是 JSON："
-msgstr "HTTP succeeded, but the response is not JSON:"
+msgstr "HTTP-Protokoll, JSON-Version:"
 
 #: includes/core/class-wp-caiji-ai.php:842
 msgid "HTTP 成功，JSON 解析成功"
-msgstr "HTTP succeeded, JSON parsed successfully"
+msgstr "HTTP-Standard, JSON-Standard"
 
 #: includes/core/class-wp-caiji-health.php:18
 msgid "规则表"
-msgstr "Rules table"
+msgstr "规则表"
 
 #: includes/core/class-wp-caiji-health.php:18
 msgid "队列表"
-msgstr "Queue table"
+msgstr "队列表"
 
 #: includes/core/class-wp-caiji-health.php:18
 msgid "日志表"
-msgstr "Log table"
+msgstr "日志表"
 
 #: includes/core/class-wp-caiji-health.php:46
 msgid "WP 采集健康检查"
-msgstr "WP Caiji Health Check"
+msgstr "WP 采集健康检查"
 
 #: includes/core/class-wp-caiji-health.php:46
 msgid "检查数据表、队列状态、Cron 计划、任务锁和最近错误。"
-msgstr ""
-"Check database tables, queue status, Cron schedules, task locks, and recent errors."
+msgstr "检查数据表、队列状态、Cron 计划、任务锁和最近错误。"
 
 #: includes/core/class-wp-caiji-health.php:47
 msgid "状态概览"
-msgstr "Status Overview"
+msgstr "状态概览"
 
 #: includes/core/class-wp-caiji-health.php:49
 msgid "数据库表"
-msgstr "Database Tables"
+msgstr "数据库表"
 
 #: includes/core/class-wp-caiji-health.php:49
 msgid "正常"
-msgstr "OK"
+msgstr "正常"
 
 #: includes/core/class-wp-caiji-health.php:49
 msgid "缺失"
-msgstr "Missing"
+msgstr "缺失"
 
 #: includes/core/class-wp-caiji-health.php:50
 msgid "队列状态"
-msgstr "Queue Status"
+msgstr "队列状态"
 
 #: includes/core/class-wp-caiji-health.php:50
 msgid "，运行中"
-msgstr ", running"
+msgstr "运行中"
 
 #: includes/core/class-wp-caiji-health.php:50
 msgid "，成功"
-msgstr ", succeeded"
+msgstr "，成功"
 
 #: includes/core/class-wp-caiji-health.php:50
 msgid "，失败"
-msgstr ", failed"
+msgstr "，失败"
 
 #: includes/core/class-wp-caiji-health.php:50
 msgid "，跳过"
-msgstr ", skipped"
+msgstr "跳过"
 
 #: includes/core/class-wp-caiji-health.php:50
 msgid "]); ?>，运行中 <?php echo intval($counts["
@@ -3812,139 +3885,149 @@ msgstr "]); ?>, skipped <?php echo intval($counts["
 
 #: includes/core/class-wp-caiji-health.php:50
 msgid "队列状态 待采 ，运行中 ，成功 ，失败 ，跳过"
-msgstr "Queue status pending, running, succeeded, failed, skipped"
+msgstr "队列状态 待采,运行中,成功,失败,跳过"
 
 #: includes/core/class-wp-caiji-health.php:51
 msgid "失败率 %"
-msgstr "Failure rate %"
+msgstr "失败率 %"
 
 #: includes/core/class-wp-caiji-health.php:52
 msgid "卡住 running"
-msgstr "Stuck running"
+msgstr "Ich laufe"
 
 #: includes/core/class-wp-caiji-health.php:52
 msgid "卡住 running 条"
-msgstr "Stuck running items"
+msgstr "卡住 läuft 条"
 
 #: includes/core/class-wp-caiji-health.php:53
 msgid "最近成功采集"
-msgstr "Recent successful collections"
+msgstr "最近成功采集"
 
 #: includes/core/class-wp-caiji-health.php:54
 msgid "最近错误"
-msgstr "Recent errors"
+msgstr "最近错误"
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid "发现链接："
-msgstr "Links found:"
+msgstr "发现链接:"
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid "；采集文章："
-msgstr "; collected articles:"
+msgstr "；采集文章："
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid "最近一次计划任务注册失败：发现"
-msgstr "Most recent scheduled-task registration failed: found"
+msgstr "最近一次计划任务注册失败:发现"
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid "；采集"
-msgstr "; collected"
+msgstr "；采集"
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid "检测到 DISABLE_WP_CRON=true：请确认服务器计划任务定期请求"
 msgstr ""
-"Detected DISABLE_WP_CRON=true: please confirm the server scheduled task regularly requests"
+"Detected DISABLE_WP_CRON=true: please confirm the server scheduled task "
+"regularly requests"
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid "，否则队列不会自动继续。"
-msgstr ", otherwise the queue will not continue automatically."
+msgstr "否则队列不会自动继续."
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid "检测到 WP-Cron 已过计划时间超过 5 分钟，可能没有被系统 Cron 正常触发。"
-msgstr ""
-"Detected that WP-Cron is more than 5 minutes past its scheduled time; it may not be triggered properly by the system Cron."
+msgstr "WP-Cron ist eine 5-Sterne-Version von WP-Cron."
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid ">最近一次计划任务注册失败：发现 ；采集 <span style="
-msgstr ""
-">Most recent scheduled-task registration failed: found ; collected <span style="
+msgstr ">最近一次计划任务注册失败:发现 ；采集 <span style="
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid ">检测到 DISABLE_WP_CRON=true：请确认服务器计划任务定期请求 ，否则队列不会自动继续。 <span style="
 msgstr ""
-">Detected DISABLE_WP_CRON=true: please confirm the server scheduled task regularly requests , otherwise the queue will not continue automatically. <span style="
+">Detected DISABLE_WP_CRON=true: please confirm the server scheduled task "
+"regularly requests , otherwise the queue will not continue automatically. "
+"<span style="
 
 #: includes/core/class-wp-caiji-health.php:55
 msgid ""
-"Cron 发现链接： ；采集文章： 最近一次计划任务注册失败：发现 ；采集 检测到 DISABLE_WP_CRON=true：请确认服务器计划任务定期请求 ，否则队列不会自动继续。 检测到 WP-Cron 已过计划时间超过 5 分钟，可能没有被系统 Cron 正常触发。"
+"Cron 发现链接： ；采集文章： 最近一次计划任务注册失败：发现 ；采集 检测到 "
+"DISABLE_WP_CRON=true：请确认服务器计划任务定期请求 ，否则队列不会自动继续。 检测到 WP-Cron 已过计划时间超过 5 "
+"分钟，可能没有被系统 Cron 正常触发。"
 msgstr ""
-"Cron links found: ; collected articles: Most recent scheduled-task registration failed: found ; collected Detected DISABLE_WP_CRON=true: please confirm the server scheduled task regularly requests , otherwise the queue will not continue automatically. Detected that WP-Cron is more than 5 minutes past its scheduled time; it may not be triggered properly by the system Cron."
+"Cron links found: ; collected articles: Most recent scheduled-task "
+"registration failed: found ; collected Detected DISABLE_WP_CRON=true: please"
+" confirm the server scheduled task regularly requests , otherwise the queue "
+"will not continue automatically. Detected that WP-Cron is more than 5 "
+"minutes past its scheduled time; it may not be triggered properly by the "
+"system Cron."
 
 #: includes/core/class-wp-caiji-health.php:56
 msgid "任务锁"
-msgstr "Task Lock"
+msgstr "任务锁"
 
 #: includes/core/class-wp-caiji-health.php:56
 msgid "发现锁："
-msgstr "Discovery lock:"
+msgstr "发现锁:"
 
 #: includes/core/class-wp-caiji-health.php:56
 msgid "；采集锁："
-msgstr "; collection lock:"
+msgstr "；采集锁:"
 
 #: includes/core/class-wp-caiji-health.php:56
 msgid "任务锁 发现锁： ；采集锁："
-msgstr "Task lock Discovery lock: ; collection lock:"
+msgstr "任务锁 发现锁: ；采集锁:"
 
 #: includes/core/class-wp-caiji-health.php:57
 msgid "插件更新"
-msgstr "Plugin Updates"
+msgstr "插件更新"
 
 #: includes/core/class-wp-caiji-health.php:59
 msgid "维护工具"
-msgstr "Maintenance Tools"
+msgstr "维护工具"
 
 #: includes/core/class-wp-caiji-health.php:63
 msgid "修复/创建数据表"
-msgstr "Repair/create database tables"
+msgstr "修复/创建数据表"
 
 #: includes/core/class-wp-caiji-health.php:64
 msgid "释放 running 队列"
-msgstr "Release running queue"
+msgstr "释放 läuft 队列"
 
 #: includes/core/class-wp-caiji-health.php:64
 msgid "return confirm('确定释放 running 队列？')"
-msgstr "return confirm('Release the running queue?')"
+msgstr "return bestätigen('确定释放 läuft 队列？')"
 
 #: includes/core/class-wp-caiji-health.php:65
 msgid "重建定时任务"
-msgstr "Rebuild scheduled tasks"
+msgstr "重建定时任务"
 
 #: includes/core/class-wp-caiji-health.php:66
 msgid "清理任务锁"
-msgstr "Clear task locks"
+msgstr "清理任务锁"
 
 #: includes/core/class-wp-caiji-health.php:67
 msgid "手动检查插件更新"
-msgstr "Manually check plugin updates"
+msgstr "手动检查插件更新"
 
 #: includes/core/class-wp-caiji-health.php:68
 msgid "return confirm('确定清空日志？')"
-msgstr "return confirm('Clear logs?')"
+msgstr "Rückkehr bestätigen('确定清空日志？')"
 
 #: includes/core/class-wp-caiji-health.php:70
 msgid "诊断报告"
-msgstr "Diagnostic Report"
+msgstr "诊断报告"
 
 #: includes/core/class-wp-caiji-health.php:71
 msgid "导出诊断 JSON"
-msgstr "Export diagnostic JSON"
+msgstr "JSON-Version verwenden"
 
 #: includes/core/class-wp-caiji-health.php:86
 msgid ""
-"UPDATE {$queue_table} SET status='pending', last_error='手动释放 running', scheduled_at='"
+"UPDATE {$queue_table} SET status='pending', last_error='手动释放 running', "
+"scheduled_at='"
 msgstr ""
-"UPDATE {$queue_table} SET status='pending', last_error='Manually released running', scheduled_at='"
+"UPDATE {$queue_table} SET status='pending', last_error='Manually released "
+"running', scheduled_at='"
 
 #: includes/core/class-wp-caiji-health.php:99
 msgid "检查失败：更新模块未加载。"
@@ -3956,21 +4039,21 @@ msgstr "Update module not loaded."
 
 #: includes/core/class-wp-caiji-health.php:139
 msgid "暂未获取到 GitHub 最新版本；可点击“手动检查插件更新”实时检测。"
-msgstr ""
-"The latest GitHub version has not been fetched yet; click \"Manually check plugin updates\" to check in real time."
+msgstr "暂未获取到 GitHub 最新版本；可点击„手动检查插件更新“实时检测."
 
 #: includes/core/class-wp-caiji-health.php:154
 msgid "发现新版本"
-msgstr "New version found"
+msgstr "发现新版本"
 
 #: includes/core/class-wp-caiji-health.php:154
 msgid "当前已是最新版本。"
-msgstr "You are already on the latest version."
+msgstr "当前已是最新版本."
 
 #: includes/core/class-wp-caiji-health.php:169
 msgid "' . esc_html((string)($status['message'] ?? '暂无更新状态。')) . '"
 msgstr ""
-"' . esc_html((string)($status['message'] ?? 'No update status available.')) . '"
+"' . esc_html((string)($status['message'] ?? 'No update status available.')) "
+". '"
 
 #: includes/core/class-wp-caiji-health.php:169
 msgid "暂无更新状态。"
@@ -3979,37 +4062,40 @@ msgstr "No update status available."
 #: includes/core/class-wp-caiji-health.php:169
 msgid "echo ' ' . esc_html((string)($status['message'] ?? '暂无更新状态。')) . ' ';"
 msgstr ""
-"echo ' ' . esc_html((string)($status['message'] ?? 'No update status available.')) . ' ';"
+"echo ' ' . esc_html((string)($status['message'] ?? 'No update status "
+"available.')) . ' ';"
 
 #: includes/core/class-wp-caiji-health.php:170
 msgid "当前版本："
-msgstr "Current version:"
+msgstr "当前版本:"
 
 #: includes/core/class-wp-caiji-health.php:170
 msgid ""
-"echo ' 当前版本：' . esc_html((string)($status['current_version'] ?? WP_CAIJI_VERSION));"
+"echo ' 当前版本：' . esc_html((string)($status['current_version'] ?? "
+"WP_CAIJI_VERSION));"
 msgstr ""
-"echo ' Current version:' . esc_html((string)($status['current_version'] ?? WP_CAIJI_VERSION));"
+"echo ' Current version:' . esc_html((string)($status['current_version'] ?? "
+"WP_CAIJI_VERSION));"
 
 #: includes/core/class-wp-caiji-health.php:172
 msgid "；最新版本："
-msgstr "; latest version:"
+msgstr "；最新版本："
 
 #: includes/core/class-wp-caiji-health.php:175
 msgid "；检查时间："
-msgstr "; checked at:"
+msgstr "；检查时间:"
 
 #: includes/core/class-wp-caiji-health.php:178
 msgid "查看 GitHub Release"
-msgstr "View GitHub Release"
+msgstr "Mehr GitHub Release"
 
 #: includes/core/class-wp-caiji-health.php:178
 msgid "\" target=\"_blank\" rel=\"noopener noreferrer\">查看 GitHub Release"
-msgstr "\" target=\"_blank\" rel=\"noopener noreferrer\">View GitHub Release"
+msgstr "\" target=\"_blank\" rel=\"noopener noreferrer\">查看 GitHub Release"
 
 #: includes/core/class-wp-caiji-health.php:178
 msgid "echo ' 查看 GitHub Release ';"
-msgstr "echo ' View GitHub Release ';"
+msgstr "echo ' 查看 GitHub Release ';"
 
 #: includes/core/class-wp-caiji-health.php:181
 msgid "前往更新页面"
@@ -4025,91 +4111,105 @@ msgstr "echo ' Go to update page ';"
 
 #: includes/core/class-wp-caiji-publisher.php:76
 msgid "Tag 标签写入失败:"
-msgstr "Failed to write tag:"
+msgstr "Tag 标签写入失败:"
 
 #: includes/core/class-wp-caiji-media.php:36
 msgid "图片 URL 无效或被安全策略拒绝"
-msgstr "Image URL is invalid or rejected by the security policy"
+msgstr "图片 URL 无效或被安全策略拒绝"
 
 #: includes/core/class-wp-caiji-media.php:44
 msgid "图片扩展名不支持:"
-msgstr "Unsupported image extension:"
+msgstr "图片扩展名不支持:"
 
 #: includes/core/class-wp-caiji-media.php:51
 msgid "图片下载失败:"
-msgstr "Image download failed:"
+msgstr "图片下载失败:"
 
 #: includes/core/class-wp-caiji-media.php:57
 msgid "图片文件为空或超过大小限制"
-msgstr "Image file is empty or exceeds the size limit"
+msgstr "图片文件为空或超过大小限制"
 
 #: includes/core/class-wp-caiji-media.php:65
 msgid "图片 MIME 检测失败或不是图片"
-msgstr "Image MIME detection failed or the file is not an image"
+msgstr "图片 MIME 检测失败或不是图片"
 
 #: includes/core/class-wp-caiji-media.php:77
 msgid "图片入库失败:"
-msgstr "Failed to save image to the media library:"
+msgstr "图片入库失败:"
 
 #: includes/core/class-wp-caiji-media.php:84
 msgid "附件 MIME 不是图片，已删除附件"
-msgstr "Attachment MIME is not an image; attachment has been deleted"
+msgstr "附件 MIME 不是图片,已删除附件"
 
 #: includes/core/class-wp-caiji-media.php:106
 msgid "图片入库后无法获取附件 URL"
-msgstr "Unable to get attachment URL after saving image to the media library"
+msgstr "图片入库后无法获取附件 URL"
 
 #: includes/core/class-wp-caiji-media.php:129
 msgid "无法创建临时图片文件"
-msgstr "Unable to create temporary image file"
+msgstr "无法创建临时图片文件"
 
 #: includes/core/class-wp-caiji-media.php:149
 msgid "图片下载 HTTP 状态异常:"
-msgstr "Unexpected HTTP status while downloading image:"
+msgstr "HTTP-Link zum Download:"
 
 #: includes/core/class-wp-caiji-media.php:154
 msgid "图片超过大小限制"
-msgstr "Image exceeds the size limit"
+msgstr "图片超过大小限制"
 
 #: includes/core/class-wp-caiji-collector.php:19
 msgid "自动释放 running 超时队列"
-msgstr "Automatically release timed-out running queue items"
+msgstr "自动释放 laufen 超时队列"
 
 #: includes/core/class-wp-caiji-collector.php:42
 msgid "达到单次 Cron 最大运行时间，剩余队列下次继续"
-msgstr ""
-"Reached the maximum runtime for a single Cron run; remaining queue items will continue next time"
+msgstr "达到单次 Cron 最大运行时间, 剩余队列下次继续"
 
 #: includes/core/class-wp-caiji-collector.php:50
 msgid "按请求间隔延后采集至"
-msgstr "Collection delayed until according to the request interval"
+msgstr "按请求间隔延后采集至"
 
 #: includes/core/class-wp-caiji-queue.php:36
+#, python-format
 msgid ""
-"prepare(\"UPDATE {$queue_table} SET status='pending', last_error='running 超时自动释放', scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at"
+"prepare(\"UPDATE {$queue_table} SET status='pending', last_error='running "
+"超时自动释放', scheduled_at=%s, finished_at=%s WHERE status='running' AND "
+"started_at"
 msgstr ""
-"prepare(\"UPDATE {$queue_table} SET status='pending', last_error='running timeout auto-release', scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at"
+"prepare(\"UPDATE {$queue_table} SET status='pending', last_error='running "
+"timeout auto-release', scheduled_at=%s, finished_at=%s WHERE "
+"status='running' AND started_at"
 
 #: includes/core/class-wp-caiji-queue.php:36
+#, python-format
 msgid ""
-"UPDATE {$queue_table} SET status='pending', last_error='running 超时自动释放', scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at < %s"
+"UPDATE {$queue_table} SET status='pending', last_error='running 超时自动释放', "
+"scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at < %s"
 msgstr ""
-"UPDATE {$queue_table} SET status='pending', last_error='running timeout auto-release', scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at < %s"
+"UPDATE {$queue_table} SET status='pending', last_error='running timeout "
+"auto-release', scheduled_at=%s, finished_at=%s WHERE status='running' AND "
+"started_at < %s"
 
 #: includes/core/class-wp-caiji-queue.php:36
+#, python-format
 msgid ""
-"$affected = $wpdb->query($wpdb->prepare(\"UPDATE {$queue_table} SET status='pending', last_error='running 超时自动释放', scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at < %s\", current_time('mysql'), current_time('mysql'), $cutoff));"
+"$affected = $wpdb->query($wpdb->prepare(\"UPDATE {$queue_table} SET "
+"status='pending', last_error='running 超时自动释放', scheduled_at=%s, "
+"finished_at=%s WHERE status='running' AND started_at < %s\", "
+"current_time('mysql'), current_time('mysql'), $cutoff));"
 msgstr ""
-"$affected = $wpdb->query($wpdb->prepare(\"UPDATE {$queue_table} SET status='pending', last_error='running timeout auto-release', scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at < %s\", current_time('mysql'), current_time('mysql'), $cutoff));"
+"$affected = $wpdb->query($wpdb->prepare(\"UPDATE {$queue_table} SET "
+"status='pending', last_error='running timeout auto-release', "
+"scheduled_at=%s, finished_at=%s WHERE status='running' AND started_at < "
+"%s\", current_time('mysql'), current_time('mysql'), $cutoff));"
 
 #: includes/core/class-wp-caiji-updater.php:62
 msgid "检查失败：无法获取 GitHub 最新 Release，请确认服务器能访问 GitHub API。"
-msgstr ""
-"Check failed: unable to fetch the latest GitHub Release. Please confirm that the server can access the GitHub API."
+msgstr "检查失败:无法获取 GitHub 最新 Release，请确认服务器能访问 GitHub API。"
 
 #: includes/core/class-wp-caiji-updater.php:78
 msgid "，可前往插件更新页升级。"
-msgstr ", you can go to the plugin updates page to upgrade."
+msgstr "可前往插件更新页升级."
 
 #: includes/core/class-wp-caiji-updater.php:79
 msgid "，但 Release 中没有可用 zip 更新包。"
@@ -4117,12 +4217,13 @@ msgstr ", but there is no available zip update package in the Release."
 
 #: includes/core/class-wp-caiji-updater.php:83
 msgid "检查完成，但无法识别最新版本号。"
-msgstr "Check completed, but the latest version number could not be identified."
+msgstr "检查完成, 但无法识别最新版本号."
 
 #: includes/core/class-wp-caiji-updater.php:167
 msgid "WP 采集助手：规则采集、队列、定时任务、AI 改写与 GitHub 自动更新。"
 msgstr ""
-"WP Caiji Assistant: rule-based collection, queues, scheduled tasks, AI rewriting, and GitHub automatic updates."
+"WP-Standards: Verwendung von WP-Komponenten, Verschlüsselung, AI-"
+"Unterstützung und GitHub-Unterstützung."
 
 #: includes/core/class-wp-caiji-updater.php:168
 msgid "暂无更新说明。"
@@ -4130,5 +4231,5 @@ msgstr "No update notes available."
 
 #: includes/core/class-wp-caiji-updater.php:175
 msgid "'author' => ' 一点优化 ',"
-msgstr "'author' => ' Yidian Optimization ',"
+msgstr "'author' => ' 一点优化 ',"
 
