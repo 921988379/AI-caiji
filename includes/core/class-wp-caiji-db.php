@@ -126,8 +126,17 @@ class WP_Caiji_DB
             KEY created_at (created_at)
         ) {$charset};");
 
+        self::maybe_add_index($rules, 'name', "ALTER TABLE {$rules} ADD KEY name (name)");
+        self::maybe_add_index($rules, 'updated_at', "ALTER TABLE {$rules} ADD KEY updated_at (updated_at)");
         self::maybe_add_index($queue, 'post_id', "ALTER TABLE {$queue} ADD KEY post_id (post_id)");
+        self::maybe_add_index($queue, 'status_finished', "ALTER TABLE {$queue} ADD KEY status_finished (status, finished_at)");
+        self::maybe_add_index($queue, 'discovered_at', "ALTER TABLE {$queue} ADD KEY discovered_at (discovered_at)");
+        self::maybe_add_index($queue, 'rule_status', "ALTER TABLE {$queue} ADD KEY rule_status (rule_id, status)");
+        self::maybe_add_index($queue, 'status_scheduled', "ALTER TABLE {$queue} ADD KEY status_scheduled (status, scheduled_at)");
+        self::maybe_add_index($queue, 'rule_id_id', "ALTER TABLE {$queue} ADD KEY rule_id_id (rule_id, id)");
         self::maybe_add_index($logs, 'queue_id', "ALTER TABLE {$logs} ADD KEY queue_id (queue_id)");
+        self::maybe_add_index($logs, 'level_created', "ALTER TABLE {$logs} ADD KEY level_created (level, created_at)");
+        self::maybe_add_index($logs, 'rule_created', "ALTER TABLE {$logs} ADD KEY rule_created (rule_id, created_at)");
 
         self::maybe_add_column($rules, 'link_before_marker', "ALTER TABLE {$rules} ADD link_before_marker TEXT NULL");
         self::maybe_add_column($rules, 'link_after_marker', "ALTER TABLE {$rules} ADD link_after_marker TEXT NULL");

@@ -12,7 +12,7 @@ class WP_Caiji
     const META_SOURCE_URL = '_wp_caiji_source_url';
     const OPTION_SETTINGS = 'wp_caiji_settings_v2';
     const OPTION_SCHEMA_VERSION = 'wp_caiji_schema_version';
-    const SCHEMA_VERSION = '2.1.23';
+    const SCHEMA_VERSION = '2.1.30';
     const LOCK_DISCOVER = 'wp_caiji_lock_discover';
     const LOCK_COLLECT = 'wp_caiji_lock_collect';
 
@@ -43,6 +43,10 @@ class WP_Caiji
         add_action(self::CRON_COLLECT_RULE_ONCE, array($this, 'cron_collect_rule_once'));
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
+        add_action('wp_ajax_wp_caiji_dashboard_stats', array($this, 'ajax_dashboard_stats'));
+        add_action('wp_ajax_wp_caiji_rule_counts', array($this, 'ajax_rule_counts'));
+        add_action('wp_ajax_wp_caiji_queue_details', array($this, 'ajax_queue_details'));
+        add_action('wp_ajax_wp_caiji_log_details', array($this, 'ajax_log_details'));
         add_action('admin_init', array(__CLASS__, 'maybe_upgrade_schema'));
         add_action('admin_init', array(__CLASS__, 'add_privacy_policy_content'));
         add_action('admin_post_wp_caiji_save_rule', array($this, 'save_rule'));
@@ -227,6 +231,12 @@ class WP_Caiji
         wp_enqueue_style('wp-caiji-admin', WP_CAIJI_URL . 'assets/admin.css', array(), WP_CAIJI_VERSION);
         wp_enqueue_script('wp-caiji-admin', WP_CAIJI_URL . 'assets/admin.js', array(), WP_CAIJI_VERSION, true);
         wp_localize_script('wp-caiji-admin', 'wpCaijiI18n', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('wp_caiji_ajax'),
+            'loading' => __('加载中...', 'wp-caiji'),
+            'loadFailed' => __('加载失败，请刷新重试。', 'wp-caiji'),
+            'details' => __('详情', 'wp-caiji'),
+            'hideDetails' => __('收起', 'wp-caiji'),
             'copied' => __('已复制', 'wp-caiji'),
             'confirmDefault' => __('确定执行？', 'wp-caiji'),
             'unsavedConfirm' => __('有未保存内容，确定关闭吗？', 'wp-caiji'),
@@ -324,70 +334,132 @@ class WP_Caiji
         return $this->logs_table;
     }
 
-    public function render_dashboard()
+    private function get_dashboard_stats($force = false)
     {
         global $wpdb;
-        if (!self::current_user_can_manage()) return;
+        $cache_key = 'wp_caiji_dashboard_stats_v2';
+        $stats = $force ? false : get_transient($cache_key);
+        if (is_array($stats)) return $stats;
+
         $settings = $this->get_settings();
-        $cache_key = 'wp_caiji_dashboard_stats_v1';
-        $stats = get_transient($cache_key);
-        if (!is_array($stats)) {
-            $counts = array();
-            foreach (array('pending','running','success','failed','skipped') as $s) {
-                $counts[$s] = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE status=%s", $s));
-            }
-            $rules_count = (int)$wpdb->get_var("SELECT COUNT(*) FROM {$this->rules_table}");
-            $today = current_time('Y-m-d') . ' 00:00:00';
-            $today_success = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE status='success' AND finished_at >= %s", $today));
-            $today_failed = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE status='failed' AND finished_at >= %s", $today));
-            $today_logs_error = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->logs_table} WHERE level='error' AND created_at >= %s", $today));
-            $today_discovered = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE discovered_at >= %s", $today));
-            $today_ai_issues = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->logs_table} WHERE created_at >= %s AND message LIKE %s", $today, '%' . $wpdb->esc_like('AI') . '%'));
-            $today_image_issues = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->logs_table} WHERE created_at >= %s AND message LIKE %s", $today, '%' . $wpdb->esc_like('图片') . '%'));
-            $running_timeout = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE status='running' AND started_at < %s", date('Y-m-d H:i:s', current_time('timestamp') - ((int)$settings['running_timeout_minutes'] * 60))));
-            $seven_days_ago = date('Y-m-d 00:00:00', current_time('timestamp') - 6 * DAY_IN_SECONDS);
-            $daily_rows = $wpdb->get_results($wpdb->prepare("SELECT DATE(COALESCE(finished_at, discovered_at)) day,
-                SUM(CASE WHEN status='success' THEN 1 ELSE 0 END) success_count,
-                SUM(CASE WHEN status='failed' THEN 1 ELSE 0 END) failed_count,
-                COUNT(*) total_count
-                FROM {$this->queue_table}
-                WHERE COALESCE(finished_at, discovered_at) >= %s
-                GROUP BY DATE(COALESCE(finished_at, discovered_at))
-                ORDER BY day DESC LIMIT 7", $seven_days_ago), ARRAY_A);
-            $recent_errors = $wpdb->get_results("SELECT l.*, r.name rule_name FROM {$this->logs_table} l LEFT JOIN {$this->rules_table} r ON l.rule_id=r.id WHERE l.level IN ('error','warning') ORDER BY l.id DESC LIMIT 8", ARRAY_A);
-            $top_rules = $wpdb->get_results("SELECT r.id, r.name,
-                SUM(CASE WHEN q.status='pending' THEN 1 ELSE 0 END) pending_count,
-                SUM(CASE WHEN q.status='success' THEN 1 ELSE 0 END) success_count,
-                SUM(CASE WHEN q.status='failed' THEN 1 ELSE 0 END) failed_count,
-                COUNT(q.id) total_count
-                FROM {$this->rules_table} r LEFT JOIN {$this->queue_table} q ON r.id=q.rule_id GROUP BY r.id ORDER BY failed_count DESC, pending_count DESC LIMIT 8", ARRAY_A);
-            $stats = compact('counts', 'rules_count', 'today_discovered', 'today_success', 'today_failed', 'today_logs_error', 'today_ai_issues', 'today_image_issues', 'running_timeout', 'daily_rows', 'recent_errors', 'top_rules');
-            set_transient($cache_key, $stats, 60);
-        } else {
-            extract($stats, EXTR_SKIP);
+        $counts = array();
+        foreach (array('pending','running','success','failed','skipped') as $s) {
+            $counts[$s] = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE status=%s", $s));
         }
+        $rules_count = (int)$wpdb->get_var("SELECT COUNT(*) FROM {$this->rules_table}");
+        $today = current_time('Y-m-d') . ' 00:00:00';
+        $today_success = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE status='success' AND finished_at >= %s", $today));
+        $today_failed = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE status='failed' AND finished_at >= %s", $today));
+        $today_logs_error = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->logs_table} WHERE level='error' AND created_at >= %s", $today));
+        $today_discovered = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE discovered_at >= %s", $today));
+        $today_ai_issues = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->logs_table} WHERE created_at >= %s AND message LIKE %s", $today, '%' . $wpdb->esc_like('AI') . '%'));
+        $today_image_issues = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->logs_table} WHERE created_at >= %s AND message LIKE %s", $today, '%' . $wpdb->esc_like('图片') . '%'));
+        $running_timeout = (int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$this->queue_table} WHERE status='running' AND started_at < %s", date('Y-m-d H:i:s', current_time('timestamp') - ((int)$settings['running_timeout_minutes'] * 60))));
+        $seven_days_ago = date('Y-m-d 00:00:00', current_time('timestamp') - 6 * DAY_IN_SECONDS);
+        $daily_rows = $wpdb->get_results($wpdb->prepare("SELECT DATE(COALESCE(finished_at, discovered_at)) day,
+            SUM(CASE WHEN status='success' THEN 1 ELSE 0 END) success_count,
+            SUM(CASE WHEN status='failed' THEN 1 ELSE 0 END) failed_count,
+            COUNT(*) total_count
+            FROM {$this->queue_table}
+            WHERE COALESCE(finished_at, discovered_at) >= %s
+            GROUP BY DATE(COALESCE(finished_at, discovered_at))
+            ORDER BY day DESC LIMIT 7", $seven_days_ago), ARRAY_A);
+        $recent_errors = $wpdb->get_results("SELECT l.*, r.name rule_name FROM {$this->logs_table} l LEFT JOIN {$this->rules_table} r ON l.rule_id=r.id WHERE l.level IN ('error','warning') ORDER BY l.id DESC LIMIT 8", ARRAY_A);
+        $top_rules = $wpdb->get_results("SELECT r.id, r.name,
+            SUM(CASE WHEN q.status='pending' THEN 1 ELSE 0 END) pending_count,
+            SUM(CASE WHEN q.status='success' THEN 1 ELSE 0 END) success_count,
+            SUM(CASE WHEN q.status='failed' THEN 1 ELSE 0 END) failed_count,
+            COUNT(q.id) total_count
+            FROM {$this->rules_table} r LEFT JOIN {$this->queue_table} q ON r.id=q.rule_id GROUP BY r.id ORDER BY failed_count DESC, pending_count DESC LIMIT 8", ARRAY_A);
+        $stats = compact('counts', 'rules_count', 'today_discovered', 'today_success', 'today_failed', 'today_logs_error', 'today_ai_issues', 'today_image_issues', 'running_timeout', 'daily_rows', 'recent_errors', 'top_rules');
+        set_transient($cache_key, $stats, 60);
+        return $stats;
+    }
+
+    private function render_dashboard_stats_html($stats)
+    {
+        $counts = $stats['counts'];
+        ob_start();
+        ?>
+        <div class="wp-caiji-grid">
+            <?php foreach (array('规则'=>$stats['rules_count'],'待采集'=>$counts['pending'],'运行中'=>$counts['running'],'成功'=>$counts['success'],'失败'=>$counts['failed'],'跳过'=>$counts['skipped']) as $k=>$v): ?>
+                <div class="wp-caiji-stat"><strong><?php echo esc_html($v); ?></strong><br><?php echo esc_html($k); ?></div>
+            <?php endforeach; ?>
+        </div>
+        <div class="wp-caiji-section-title"><span>今日统计</span></div>
+        <div class="wp-caiji-grid">
+            <?php foreach (array('今日发现'=>$stats['today_discovered'],'今日成功'=>$stats['today_success'],'今日失败'=>$stats['today_failed'],'今日错误日志'=>$stats['today_logs_error'],'AI 相关'=>$stats['today_ai_issues'],'图片相关'=>$stats['today_image_issues'],'超时运行'=>$stats['running_timeout']) as $k=>$v): ?>
+                <div class="wp-caiji-stat"><strong><?php echo esc_html($v); ?></strong><br><?php echo esc_html($k); ?></div>
+            <?php endforeach; ?>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function render_dashboard_trend_html($stats)
+    {
+        $daily_rows = (array)$stats['daily_rows'];
+        ob_start();
+        ?>
+        <table class="widefat striped" style="max-width:1000px"><thead><tr><th>日期</th><th>总队列</th><th>成功</th><th>失败</th><th>成功率</th></tr></thead><tbody>
+            <?php if (!$daily_rows): ?><tr><td colspan="5">暂无数据</td></tr><?php endif; ?>
+            <?php foreach ($daily_rows as $d): $done = max(1, (int)$d['success_count'] + (int)$d['failed_count']); $rate = round(((int)$d['success_count'] / $done) * 100, 2); ?><tr><td><?php echo esc_html($d['day']); ?></td><td><?php echo intval($d['total_count']); ?></td><td><?php echo intval($d['success_count']); ?></td><td><?php echo intval($d['failed_count']); ?></td><td><?php echo esc_html($rate); ?>%</td></tr><?php endforeach; ?>
+        </tbody></table>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function render_dashboard_rules_html($stats)
+    {
+        $top_rules = (array)$stats['top_rules'];
+        ob_start();
+        ?>
+        <table class="widefat striped" style="max-width:1000px"><thead><tr><th>ID</th><th>规则</th><th>待采</th><th>成功</th><th>失败</th><th>失败率</th><th>操作</th></tr></thead><tbody>
+            <?php if (!$top_rules): ?><tr><td colspan="7">暂无规则</td></tr><?php endif; ?>
+            <?php foreach ($top_rules as $r): $done = max(1, (int)$r['success_count'] + (int)$r['failed_count']); $fail_rate = round(((int)$r['failed_count'] / $done) * 100, 2); ?><tr><td><?php echo intval($r['id']); ?></td><td><?php echo esc_html($r['name']); ?></td><td><?php echo intval($r['pending_count']); ?></td><td><?php echo intval($r['success_count']); ?></td><td><?php echo intval($r['failed_count']); ?></td><td><?php echo esc_html($fail_rate); ?>%</td><td><a href="<?php echo esc_url($this->page_url('wp-caiji-queue', array('rule_id'=>$r['id']))); ?>">看队列</a></td></tr><?php endforeach; ?>
+        </tbody></table>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function render_dashboard_errors_html($stats)
+    {
+        $recent_errors = (array)$stats['recent_errors'];
+        ob_start();
+        ?>
+        <table class="widefat striped" style="max-width:1000px"><thead><tr><th>时间</th><th>级别</th><th>规则</th><th>消息</th><th>URL</th></tr></thead><tbody>
+            <?php if (!$recent_errors): ?><tr><td colspan="5">暂无错误</td></tr><?php endif; ?>
+            <?php foreach ($recent_errors as $e): ?><tr><td><?php echo esc_html($e['created_at']); ?></td><td><?php echo esc_html($e['level']); ?></td><td><?php echo esc_html($e['rule_name']); ?></td><td><?php echo esc_html(wp_html_excerpt($e['message'], 80)); ?></td><td><?php echo esc_html(wp_html_excerpt($e['url'], 80)); ?></td></tr><?php endforeach; ?>
+        </tbody></table>
+        <?php
+        return ob_get_clean();
+    }
+
+    public function ajax_dashboard_stats()
+    {
+        if (!self::current_user_can_manage()) wp_send_json_error(array('message'=>'权限不足'), 403);
+        check_ajax_referer('wp_caiji_ajax', 'nonce');
+        $stats = $this->get_dashboard_stats(!empty($_POST['refresh']));
+        wp_send_json_success(array(
+            'stats' => $this->render_dashboard_stats_html($stats),
+            'trend' => $this->render_dashboard_trend_html($stats),
+            'rules' => $this->render_dashboard_rules_html($stats),
+            'errors' => $this->render_dashboard_errors_html($stats),
+        ));
+    }
+
+    public function render_dashboard()
+    {
+        if (!self::current_user_can_manage()) return;
         $next_discover = wp_next_scheduled(self::CRON_DISCOVER);
         $next_collect = wp_next_scheduled(self::CRON_COLLECT);
         ?>
         <div class="wrap wp-caiji-page">
             <?php $this->render_page_header('WP 采集助手', '长期自动采集控制台:发现链接、队列采集、失败重试与健康检查集中管理。'); ?>
             <div class="wp-caiji-callout">长期自动采集建议:使用队列模式,先发现文章链接,再按批次采集文章,失败后可重试。</div>
-            <div class="wp-caiji-grid">
-                <?php foreach (array('规则'=>$rules_count,'待采集'=>$counts['pending'],'运行中'=>$counts['running'],'成功'=>$counts['success'],'失败'=>$counts['failed'],'跳过'=>$counts['skipped']) as $k=>$v): ?>
-                    <div class="wp-caiji-stat"><strong><?php echo esc_html($v); ?></strong><br><?php echo esc_html($k); ?></div>
-                <?php endforeach; ?>
-            </div>
-            <div class="wp-caiji-section-title"><span>今日统计</span></div>
-            <div class="wp-caiji-grid">
-                <?php foreach (array('今日发现'=>$today_discovered,'今日成功'=>$today_success,'今日失败'=>$today_failed,'今日错误日志'=>$today_logs_error,'AI 相关'=>$today_ai_issues,'图片相关'=>$today_image_issues,'超时运行'=>$running_timeout) as $k=>$v): ?>
-                    <div class="wp-caiji-stat"><strong><?php echo esc_html($v); ?></strong><br><?php echo esc_html($k); ?></div>
-                <?php endforeach; ?>
-            </div>
+            <div data-wp-caiji-dashboard-stats><p class="description">加载统计中...</p></div>
             <div class="wp-caiji-section-title"><span>最近 7 天趋势</span></div>
-            <table class="widefat striped" style="max-width:1000px"><thead><tr><th>日期</th><th>总队列</th><th>成功</th><th>失败</th><th>成功率</th></tr></thead><tbody>
-                <?php if (!$daily_rows): ?><tr><td colspan="5">暂无数据</td></tr><?php endif; ?>
-                <?php foreach ($daily_rows as $d): $done = max(1, (int)$d['success_count'] + (int)$d['failed_count']); $rate = round(((int)$d['success_count'] / $done) * 100, 2); ?><tr><td><?php echo esc_html($d['day']); ?></td><td><?php echo intval($d['total_count']); ?></td><td><?php echo intval($d['success_count']); ?></td><td><?php echo intval($d['failed_count']); ?></td><td><?php echo esc_html($rate); ?>%</td></tr><?php endforeach; ?>
-            </tbody></table>
+            <div data-wp-caiji-dashboard-trend><p class="description">加载趋势中...</p></div>
             <div class="wp-caiji-section-title"><span>定时状态</span></div>
             <p>发现链接任务:<?php echo $next_discover ? esc_html(date_i18n('Y-m-d H:i:s', $next_discover)) : '未计划'; ?></p>
             <p>采集文章任务:<?php echo $next_collect ? esc_html(date_i18n('Y-m-d H:i:s', $next_collect)) : '未计划'; ?></p>
@@ -395,18 +467,50 @@ class WP_Caiji
             <code>*/10 * * * * curl -s <?php echo esc_html(home_url('/wp-cron.php?doing_wp_cron')); ?> &gt;/dev/null 2&gt;&amp;1</code>
             <p style="margin-top:20px"><a class="button button-primary" href="<?php echo esc_url($this->page_url('wp-caiji-rules')); ?>">管理采集规则</a> <a class="button" href="<?php echo esc_url($this->page_url('wp-caiji-queue')); ?>">查看队列</a> <a class="button" href="<?php echo esc_url($this->page_url('wp-caiji-settings')); ?>">插件设置</a> <a class="button" href="<?php echo esc_url($this->page_url('wp-caiji-health')); ?>">健康检查</a></p>
             <div class="wp-caiji-section-title"><span>规则概览</span></div>
-            <table class="widefat striped" style="max-width:1000px"><thead><tr><th>ID</th><th>规则</th><th>待采</th><th>成功</th><th>失败</th><th>失败率</th><th>操作</th></tr></thead><tbody>
-                <?php if (!$top_rules): ?><tr><td colspan="7">暂无规则</td></tr><?php endif; ?>
-                <?php foreach ($top_rules as $r): $done = max(1, (int)$r['success_count'] + (int)$r['failed_count']); $fail_rate = round(((int)$r['failed_count'] / $done) * 100, 2); ?><tr><td><?php echo intval($r['id']); ?></td><td><?php echo esc_html($r['name']); ?></td><td><?php echo intval($r['pending_count']); ?></td><td><?php echo intval($r['success_count']); ?></td><td><?php echo intval($r['failed_count']); ?></td><td><?php echo esc_html($fail_rate); ?>%</td><td><a href="<?php echo esc_url($this->page_url('wp-caiji-queue', array('rule_id'=>$r['id']))); ?>">看队列</a></td></tr><?php endforeach; ?>
-            </tbody></table>
+            <div data-wp-caiji-dashboard-rules><p class="description">加载规则概览中...</p></div>
             <div class="wp-caiji-section-title"><span>最近错误/警告</span></div>
-            <table class="widefat striped" style="max-width:1000px"><thead><tr><th>时间</th><th>级别</th><th>规则</th><th>消息</th><th>URL</th></tr></thead><tbody>
-                <?php if (!$recent_errors): ?><tr><td colspan="5">暂无错误</td></tr><?php endif; ?>
-                <?php foreach ($recent_errors as $e): ?><tr><td><?php echo esc_html($e['created_at']); ?></td><td><?php echo esc_html($e['level']); ?></td><td><?php echo esc_html($e['rule_name']); ?></td><td><?php echo esc_html(wp_html_excerpt($e['message'], 80)); ?></td><td><?php echo esc_html(wp_html_excerpt($e['url'], 80)); ?></td></tr><?php endforeach; ?>
-            </tbody></table>
+            <div data-wp-caiji-dashboard-errors><p class="description">加载最近错误中...</p></div>
             <p>请确认采集行为符合目标网站 robots、版权声明和服务条款。长期采集建议先保存为草稿。</p>
         </div>
         <?php
+    }
+
+    private function cached_count($key, $sql, $params = array(), $ttl = 60)
+    {
+        global $wpdb;
+        $version = (int)get_option('wp_caiji_admin_cache_version', 1);
+        $cache_key = 'wp_caiji_count_' . md5($version . '|' . $key . '|' . $sql . '|' . wp_json_encode($params));
+        $cached = get_transient($cache_key);
+        if ($cached !== false) return (int)$cached;
+        $count = (int)($params ? $wpdb->get_var($wpdb->prepare($sql, $params)) : $wpdb->get_var($sql));
+        set_transient($cache_key, $count, max(15, (int)$ttl));
+        return $count;
+    }
+
+    private function get_rules_for_select($selected_id = 0, $limit = 300)
+    {
+        global $wpdb;
+        $limit = max(20, min(1000, (int)$limit));
+        $rules = $wpdb->get_results($wpdb->prepare("SELECT id,name FROM {$this->rules_table} ORDER BY name ASC LIMIT %d", $limit), ARRAY_A);
+        $selected_id = absint($selected_id);
+        if ($selected_id) {
+            $has_selected = false;
+            foreach ($rules as $r) {
+                if ((int)$r['id'] === $selected_id) { $has_selected = true; break; }
+            }
+            if (!$has_selected) {
+                $selected = $wpdb->get_row($wpdb->prepare("SELECT id,name FROM {$this->rules_table} WHERE id=%d", $selected_id), ARRAY_A);
+                if ($selected) array_unshift($rules, $selected);
+            }
+        }
+        return $rules;
+    }
+
+    private function render_rule_select_options($rules, $selected_id)
+    {
+        foreach ((array)$rules as $r) {
+            echo '<option value="' . intval($r['id']) . '" ' . selected((int)$selected_id, (int)$r['id'], false) . '>' . esc_html($r['name']) . '</option>';
+        }
     }
 
     public function render_rules()
@@ -427,11 +531,33 @@ class WP_Caiji
         };
         $auto_tag_keywords_value = (string)($rule['auto_tag_keywords'] ?? '');
         $has_test_result_modal = $edit_id && ($this->get_test_result('article', 'article_test') || $this->get_test_result('list', 'list_test'));
-        $rules = $wpdb->get_results("SELECT r.*,
-            SUM(CASE WHEN q.status='pending' THEN 1 ELSE 0 END) pending_count,
-            SUM(CASE WHEN q.status='success' THEN 1 ELSE 0 END) success_count,
-            SUM(CASE WHEN q.status='failed' THEN 1 ELSE 0 END) failed_count
-            FROM {$this->rules_table} r LEFT JOIN {$this->queue_table} q ON r.id=q.rule_id GROUP BY r.id ORDER BY r.id DESC", ARRAY_A);
+        $rule_search = isset($_GET['s']) ? sanitize_text_field(wp_unslash($_GET['s'])) : '';
+        $rule_enabled = isset($_GET['enabled']) ? sanitize_key($_GET['enabled']) : '';
+        $rule_paged = max(1, absint($_GET['paged'] ?? 1));
+        $rule_per_page = 30;
+        $rule_offset = ($rule_paged - 1) * $rule_per_page;
+        $rule_where = array('1=1');
+        $rule_params = array();
+        if ($rule_search !== '') {
+            if (ctype_digit($rule_search)) {
+                $rule_where[] = '(id=%d OR name LIKE %s)';
+                $rule_params[] = (int)$rule_search;
+                $rule_params[] = '%' . $wpdb->esc_like($rule_search) . '%';
+            } else {
+                $rule_where[] = 'name LIKE %s';
+                $rule_params[] = '%' . $wpdb->esc_like($rule_search) . '%';
+            }
+        }
+        if ($rule_enabled === '1' || $rule_enabled === '0') {
+            $rule_where[] = 'enabled=%d';
+            $rule_params[] = (int)$rule_enabled;
+        }
+        $rule_where_sql = 'WHERE ' . implode(' AND ', $rule_where);
+        $rule_total_sql = "SELECT COUNT(*) FROM {$this->rules_table} {$rule_where_sql}";
+        $rule_total = $this->cached_count('rules', $rule_total_sql, $rule_params, 60);
+        $rule_sql = "SELECT * FROM {$this->rules_table} {$rule_where_sql} ORDER BY id DESC LIMIT %d OFFSET %d";
+        $rules = $wpdb->get_results($wpdb->prepare($rule_sql, array_merge($rule_params, array($rule_per_page, $rule_offset))), ARRAY_A);
+        $rule_base_args = array_filter(array('s'=>$rule_search, 'enabled'=>$rule_enabled), function($v){ return $v !== ''; });
         ?>
         <div class="wrap wp-caiji-page">
             <?php $this->render_page_header('采集规则', '配置站点来源、内容选择器、正文清洗、AI 改写与发布策略。'); ?>
@@ -639,10 +765,18 @@ class WP_Caiji
             </div>
             <?php endif; ?>
             <div class="wp-caiji-section-title"><span>规则列表</span></div>
+            <form method="get" action="<?php echo esc_url(admin_url('admin.php')); ?>" style="background:#fff;border:1px solid #ccd0d4;padding:12px;margin:12px 0">
+                <input type="hidden" name="page" value="wp-caiji-rules">
+                关键词/ID <input name="s" value="<?php echo esc_attr($rule_search); ?>" placeholder="规则名或 ID">
+                状态 <select name="enabled"><option value="">全部</option><option value="1" <?php selected($rule_enabled, '1'); ?>>启用</option><option value="0" <?php selected($rule_enabled, '0'); ?>>停用</option></select>
+                <button class="button">筛选</button> <a class="button" href="<?php echo esc_url($this->page_url('wp-caiji-rules')); ?>">重置</a>
+                <span class="description">共 <?php echo intval($rule_total); ?> 条；当前第 <?php echo intval($rule_paged); ?> 页，每页 <?php echo intval($rule_per_page); ?> 条。计数字段已改为 AJAX 批量回填。</span>
+            </form>
+            <?php $this->render_pagination('wp-caiji-rules', $rule_base_args, $rule_paged, $rule_per_page, $rule_total); ?>
             <table class="widefat striped"><thead><tr><th>ID</th><th>名称</th><th>状态</th><th>待采</th><th>成功</th><th>失败</th><th>最后发现</th><th>最后采集</th><th>操作</th></tr></thead><tbody>
             <?php if (!$rules): ?><tr><td colspan="9">暂无规则</td></tr><?php endif; ?>
             <?php foreach ($rules as $r): ?>
-                <tr><td><?php echo intval($r['id']); ?></td><td><?php echo esc_html($r['name']); ?></td><td><?php echo $this->status_badge($r['enabled'] ? 'enabled' : 'disabled'); ?></td><td><?php echo intval($r['pending_count']); ?></td><td><?php echo intval($r['success_count']); ?></td><td><?php echo intval($r['failed_count']); ?></td><td><?php echo esc_html($r['last_discovered_at']); ?></td><td><?php echo esc_html($r['last_collected_at']); ?></td><td>
+                <tr data-wp-caiji-rule-row="<?php echo intval($r['id']); ?>"><td><?php echo intval($r['id']); ?></td><td><?php echo esc_html($r['name']); ?></td><td><?php echo $this->status_badge($r['enabled'] ? 'enabled' : 'disabled'); ?></td><td data-wp-caiji-rule-count="pending">...</td><td data-wp-caiji-rule-count="success">...</td><td data-wp-caiji-rule-count="failed">...</td><td><?php echo esc_html($r['last_discovered_at']); ?></td><td><?php echo esc_html($r['last_collected_at']); ?></td><td>
                     <a class="button wp-caiji-modal-edit" href="<?php echo esc_url($this->page_url('wp-caiji-rules', array('edit'=>$r['id']))); ?>">编辑</a>
                     <a class="button" href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=wp_caiji_toggle_rule&id='.$r['id']), 'wp_caiji_toggle_rule')); ?>"><?php echo $r['enabled'] ? '停用' : '启用'; ?></a>
                     <a class="button" href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=wp_caiji_copy_rule&id='.$r['id']), 'wp_caiji_copy_rule')); ?>">复制</a>
@@ -652,6 +786,7 @@ class WP_Caiji
                 </td></tr>
             <?php endforeach; ?>
             </tbody></table>
+            <?php $this->render_pagination('wp-caiji-rules', $rule_base_args, $rule_paged, $rule_per_page, $rule_total); ?>
             <div class="wp-caiji-section-title"><span>规则导入/导出</span></div>
             <p><a class="button" href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=wp_caiji_export_rules'), 'wp_caiji_export_rules')); ?>">导出全部规则 JSON</a></p>
             <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" enctype="multipart/form-data">
@@ -662,6 +797,34 @@ class WP_Caiji
             </form>
         </div>
         <?php
+    }
+
+    public function ajax_rule_counts()
+    {
+        global $wpdb;
+        if (!self::current_user_can_manage()) wp_send_json_error(array('message'=>'权限不足'), 403);
+        check_ajax_referer('wp_caiji_ajax', 'nonce');
+        $ids = isset($_POST['ids']) ? (array)$_POST['ids'] : array();
+        $ids = array_values(array_filter(array_map('absint', $ids)));
+        if (!$ids) wp_send_json_success(array('counts'=>array()));
+        $ids = array_slice($ids, 0, 100);
+        $placeholders = implode(',', array_fill(0, count($ids), '%d'));
+        $rows = $wpdb->get_results($wpdb->prepare("SELECT rule_id,
+            SUM(CASE WHEN status='pending' THEN 1 ELSE 0 END) pending_count,
+            SUM(CASE WHEN status='success' THEN 1 ELSE 0 END) success_count,
+            SUM(CASE WHEN status='failed' THEN 1 ELSE 0 END) failed_count
+            FROM {$this->queue_table} WHERE rule_id IN ({$placeholders}) GROUP BY rule_id", $ids), ARRAY_A);
+        $counts = array();
+        foreach ($ids as $id) $counts[$id] = array('pending'=>0, 'success'=>0, 'failed'=>0);
+        foreach ($rows as $row) {
+            $rid = (int)$row['rule_id'];
+            $counts[$rid] = array(
+                'pending' => (int)$row['pending_count'],
+                'success' => (int)$row['success_count'],
+                'failed' => (int)$row['failed_count'],
+            );
+        }
+        wp_send_json_success(array('counts'=>$counts));
     }
 
     public function render_queue()
@@ -686,11 +849,11 @@ class WP_Caiji
         if ($due === 'scheduled') { $where[] = "q.scheduled_at > %s"; $params[] = current_time('mysql'); }
         $where_sql = 'WHERE ' . implode(' AND ', $where);
         $count_sql = "SELECT COUNT(*) FROM {$this->queue_table} q {$where_sql}";
-        $total = (int)($params ? $wpdb->get_var($wpdb->prepare($count_sql, $params)) : $wpdb->get_var($count_sql));
+        $total = $this->cached_count('queue', $count_sql, $params, 45);
         $sql = "SELECT q.*, r.name rule_name FROM {$this->queue_table} q LEFT JOIN {$this->rules_table} r ON q.rule_id=r.id {$where_sql} ORDER BY q.id DESC LIMIT %d OFFSET %d";
         $query_params = array_merge($params, array($per_page, $offset));
         $rows = $wpdb->get_results($wpdb->prepare($sql, $query_params), ARRAY_A);
-        $rules = $wpdb->get_results("SELECT id,name FROM {$this->rules_table} ORDER BY name ASC", ARRAY_A);
+        $rules = $this->get_rules_for_select($rule_id, 300);
         $base_args = array_filter(array('status'=>$status,'rule_id'=>$rule_id,'s'=>$search,'error'=>$error,'due'=>$due), function($v){ return $v !== '' && $v !== 0; });
         ?>
         <div class="wrap wp-caiji-page">
@@ -700,7 +863,7 @@ class WP_Caiji
             <form method="get" action="<?php echo esc_url(admin_url('admin.php')); ?>" style="background:#fff;border:1px solid #ccd0d4;padding:12px;margin:12px 0">
                 <input type="hidden" name="page" value="wp-caiji-queue">
                 状态 <select name="status"><option value="">全部</option><?php foreach (array('pending'=>'待采','running'=>'运行中','success'=>'成功','failed'=>'失败','skipped'=>'跳过') as $k=>$v): ?><option value="<?php echo esc_attr($k); ?>" <?php selected($status,$k); ?>><?php echo esc_html($v); ?></option><?php endforeach; ?></select>
-                规则 <select name="rule_id"><option value="0">全部规则</option><?php foreach ($rules as $r): ?><option value="<?php echo intval($r['id']); ?>" <?php selected($rule_id, (int)$r['id']); ?>><?php echo esc_html($r['name']); ?></option><?php endforeach; ?></select>
+                规则 <select name="rule_id"><option value="0">全部规则</option><?php $this->render_rule_select_options($rules, $rule_id); ?></select>
                 URL <input name="s" value="<?php echo esc_attr($search); ?>" placeholder="URL 关键词">
                 错误 <input name="error" value="<?php echo esc_attr($error); ?>" placeholder="错误关键词">
                 执行时间 <select name="due"><option value="">全部</option><option value="ready" <?php selected($due,'ready'); ?>>已到期/可执行</option><option value="scheduled" <?php selected($due,'scheduled'); ?>>延迟中</option></select>
@@ -732,14 +895,42 @@ class WP_Caiji
             <?php if (!$rows): ?><tr><td colspan="11">暂无队列</td></tr><?php endif; ?>
             <?php foreach ($rows as $row): ?>
                 <tr><td><input class="wp-caiji-qid" type="checkbox" name="queue_ids[]" value="<?php echo intval($row['id']); ?>"></td><td><?php echo intval($row['id']); ?></td><td><?php echo esc_html($row['rule_name']); ?></td><td><?php echo $this->status_badge($row['status']); ?></td><td><?php echo intval($row['attempts']); ?></td><td><?php echo $row['post_id'] ? '<a href="'.esc_url(get_edit_post_link($row['post_id'])).'">'.intval($row['post_id']).'</a>' : '-'; ?></td><td><a href="<?php echo esc_url($row['url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html(wp_html_excerpt($row['url'], 100)); ?></a></td><td><?php echo esc_html(wp_html_excerpt($row['last_error'], 100)); ?></td><td><?php echo esc_html($row['scheduled_at'] ?: '立即'); ?></td><td><?php echo esc_html($row['finished_at'] ?: ($row['started_at'] ?: $row['discovered_at'])); ?></td><td>
+                    <button type="button" class="button wp-caiji-load-detail" data-wp-caiji-detail="queue" data-id="<?php echo intval($row['id']); ?>">详情</button>
                     <a class="button" href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=wp_caiji_retry_queue&id='.$row['id']), 'wp_caiji_retry_queue')); ?>">重试</a>
                     <a class="button button-link-delete" onclick="return confirm('确定删除?')" href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=wp_caiji_delete_queue&id='.$row['id']), 'wp_caiji_delete_queue')); ?>">删除</a>
-                </td></tr>
+                </td></tr><tr class="wp-caiji-detail-row" data-wp-caiji-detail-row="queue-<?php echo intval($row['id']); ?>" hidden><td colspan="11"><div class="wp-caiji-detail-content">加载中...</div></td></tr>
             <?php endforeach; ?></tbody></table>
             <?php $this->render_pagination('wp-caiji-queue', $base_args, $paged, $per_page, $total); ?>
             </form>
         </div>
         <?php
+    }
+
+    public function ajax_queue_details()
+    {
+        global $wpdb;
+        if (!self::current_user_can_manage()) wp_send_json_error(array('message'=>'权限不足'), 403);
+        check_ajax_referer('wp_caiji_ajax', 'nonce');
+        $id = absint($_POST['id'] ?? 0);
+        if (!$id) wp_send_json_error(array('message'=>'队列 ID 无效'), 400);
+        $row = $wpdb->get_row($wpdb->prepare("SELECT q.*, r.name rule_name FROM {$this->queue_table} q LEFT JOIN {$this->rules_table} r ON q.rule_id=r.id WHERE q.id=%d", $id), ARRAY_A);
+        if (!$row) wp_send_json_error(array('message'=>'队列不存在'), 404);
+        $logs = $wpdb->get_results($wpdb->prepare("SELECT level,message,created_at FROM {$this->logs_table} WHERE queue_id=%d ORDER BY id DESC LIMIT 10", $id), ARRAY_A);
+        ob_start();
+        ?>
+        <div class="wp-caiji-ajax-detail">
+            <p><strong>完整 URL：</strong><a href="<?php echo esc_url($row['url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($row['url']); ?></a></p>
+            <p><strong>规则：</strong><?php echo esc_html($row['rule_name'] ?: ('#' . (int)$row['rule_id'])); ?>　<strong>状态：</strong><?php echo esc_html($row['status']); ?>　<strong>尝试：</strong><?php echo intval($row['attempts']); ?></p>
+            <p><strong>发现：</strong><?php echo esc_html($row['discovered_at']); ?>　<strong>开始：</strong><?php echo esc_html($row['started_at'] ?: '-'); ?>　<strong>完成：</strong><?php echo esc_html($row['finished_at'] ?: '-'); ?>　<strong>计划：</strong><?php echo esc_html($row['scheduled_at'] ?: '立即'); ?></p>
+            <?php if (!empty($row['last_error'])): ?><p><strong>完整错误：</strong><?php echo esc_html($row['last_error']); ?></p><?php endif; ?>
+            <p><strong>最近日志：</strong></p>
+            <ul>
+                <?php if (!$logs): ?><li>暂无日志</li><?php endif; ?>
+                <?php foreach ($logs as $log): ?><li><?php echo esc_html($log['created_at'] . ' [' . $log['level'] . '] ' . $log['message']); ?></li><?php endforeach; ?>
+            </ul>
+        </div>
+        <?php
+        wp_send_json_success(array('html'=>ob_get_clean()));
     }
 
     public function render_logs()
@@ -761,11 +952,11 @@ class WP_Caiji
         if ($queue_id) { $where[] = 'l.queue_id=%d'; $params[] = $queue_id; }
         $where_sql = 'WHERE ' . implode(' AND ', $where);
         $count_sql = "SELECT COUNT(*) FROM {$this->logs_table} l {$where_sql}";
-        $total = (int)($params ? $wpdb->get_var($wpdb->prepare($count_sql, $params)) : $wpdb->get_var($count_sql));
-        $sql = "SELECT l.*, r.name rule_name FROM {$this->logs_table} l LEFT JOIN {$this->rules_table} r ON l.rule_id=r.id {$where_sql} ORDER BY l.id DESC LIMIT %d OFFSET %d";
+        $total = $this->cached_count('logs', $count_sql, $params, 45);
+        $sql = "SELECT l.id, l.rule_id, l.queue_id, l.level, SUBSTRING(l.message, 1, 180) message, SUBSTRING(l.url, 1, 180) url, l.created_at, r.name rule_name FROM {$this->logs_table} l LEFT JOIN {$this->rules_table} r ON l.rule_id=r.id {$where_sql} ORDER BY l.id DESC LIMIT %d OFFSET %d";
         $query_params = array_merge($params, array($per_page, $offset));
         $rows = $wpdb->get_results($wpdb->prepare($sql, $query_params), ARRAY_A);
-        $rules = $wpdb->get_results("SELECT id,name FROM {$this->rules_table} ORDER BY name ASC", ARRAY_A);
+        $rules = $this->get_rules_for_select($rule_id, 300);
         $base_args = array_filter(array('level'=>$level,'rule_id'=>$rule_id,'s'=>$search,'queue_id'=>$queue_id), function($v){ return $v !== '' && $v !== 0; });
         ?>
         <div class="wrap wp-caiji-page">
@@ -773,7 +964,7 @@ class WP_Caiji
             <form method="get" action="<?php echo esc_url(admin_url('admin.php')); ?>" style="background:#fff;border:1px solid #ccd0d4;padding:12px;margin:12px 0">
                 <input type="hidden" name="page" value="wp-caiji-logs">
                 级别 <select name="level"><option value="">全部</option><?php foreach (array('info'=>'info','success'=>'success','warning'=>'warning','error'=>'error') as $k=>$v): ?><option value="<?php echo esc_attr($k); ?>" <?php selected($level,$k); ?>><?php echo esc_html($v); ?></option><?php endforeach; ?></select>
-                规则 <select name="rule_id"><option value="0">全部规则</option><?php foreach ($rules as $r): ?><option value="<?php echo intval($r['id']); ?>" <?php selected($rule_id, (int)$r['id']); ?>><?php echo esc_html($r['name']); ?></option><?php endforeach; ?></select>
+                规则 <select name="rule_id"><option value="0">全部规则</option><?php $this->render_rule_select_options($rules, $rule_id); ?></select>
                 关键词 <input name="s" value="<?php echo esc_attr($search); ?>" placeholder="消息或 URL">
                 队列ID <input name="queue_id" value="<?php echo esc_attr($queue_id ?: ''); ?>" placeholder="queue_id" style="width:90px">
                 <button class="button">筛选</button> <a class="button" href="<?php echo esc_url($this->page_url('wp-caiji-logs')); ?>">重置</a>
@@ -790,13 +981,34 @@ class WP_Caiji
             </form>
             <p class="description">共 <?php echo intval($total); ?> 条;当前第 <?php echo intval($paged); ?> 页,每页 <?php echo intval($per_page); ?> 条。</p>
             <?php $this->render_pagination('wp-caiji-logs', $base_args, $paged, $per_page, $total); ?>
-            <table class="widefat striped"><thead><tr><th>时间</th><th>级别</th><th>规则</th><th>队列</th><th>消息</th><th>URL</th></tr></thead><tbody>
-            <?php if (!$rows): ?><tr><td colspan="6">暂无日志</td></tr><?php endif; ?>
-            <?php foreach ($rows as $row): ?><tr><td><?php echo esc_html($row['created_at']); ?></td><td><?php echo $this->status_badge($row['level']); ?></td><td><?php echo esc_html($row['rule_name']); ?></td><td><?php echo intval($row['queue_id']); ?></td><td><?php echo esc_html($row['message']); ?></td><td><?php echo esc_html(wp_html_excerpt($row['url'], 120)); ?></td></tr><?php endforeach; ?>
+            <table class="widefat striped"><thead><tr><th>时间</th><th>级别</th><th>规则</th><th>队列</th><th>消息</th><th>URL</th><th>操作</th></tr></thead><tbody>
+            <?php if (!$rows): ?><tr><td colspan="7">暂无日志</td></tr><?php endif; ?>
+            <?php foreach ($rows as $row): ?><tr><td><?php echo esc_html($row['created_at']); ?></td><td><?php echo $this->status_badge($row['level']); ?></td><td><?php echo esc_html($row['rule_name']); ?></td><td><?php echo intval($row['queue_id']); ?></td><td><?php echo esc_html(wp_html_excerpt($row['message'], 120)); ?></td><td><?php echo esc_html(wp_html_excerpt($row['url'], 120)); ?></td><td><button type="button" class="button wp-caiji-load-detail" data-wp-caiji-detail="log" data-id="<?php echo intval($row['id']); ?>">详情</button></td></tr><tr class="wp-caiji-detail-row" data-wp-caiji-detail-row="log-<?php echo intval($row['id']); ?>" hidden><td colspan="7"><div class="wp-caiji-detail-content">加载中...</div></td></tr><?php endforeach; ?>
             </tbody></table>
             <?php $this->render_pagination('wp-caiji-logs', $base_args, $paged, $per_page, $total); ?>
         </div>
         <?php
+    }
+
+    public function ajax_log_details()
+    {
+        global $wpdb;
+        if (!self::current_user_can_manage()) wp_send_json_error(array('message'=>'权限不足'), 403);
+        check_ajax_referer('wp_caiji_ajax', 'nonce');
+        $id = absint($_POST['id'] ?? 0);
+        if (!$id) wp_send_json_error(array('message'=>'日志 ID 无效'), 400);
+        $row = $wpdb->get_row($wpdb->prepare("SELECT l.*, r.name rule_name, q.status queue_status, q.post_id FROM {$this->logs_table} l LEFT JOIN {$this->rules_table} r ON l.rule_id=r.id LEFT JOIN {$this->queue_table} q ON l.queue_id=q.id WHERE l.id=%d", $id), ARRAY_A);
+        if (!$row) wp_send_json_error(array('message'=>'日志不存在'), 404);
+        ob_start();
+        ?>
+        <div class="wp-caiji-ajax-detail">
+            <p><strong>时间：</strong><?php echo esc_html($row['created_at']); ?>　<strong>级别：</strong><?php echo esc_html($row['level']); ?>　<strong>规则：</strong><?php echo esc_html($row['rule_name'] ?: ('#' . (int)$row['rule_id'])); ?></p>
+            <p><strong>队列：</strong>#<?php echo intval($row['queue_id']); ?><?php if (!empty($row['queue_status'])): ?> / <?php echo esc_html($row['queue_status']); ?><?php endif; ?><?php if (!empty($row['post_id'])): ?>　<strong>文章：</strong><a href="<?php echo esc_url(get_edit_post_link((int)$row['post_id'])); ?>"><?php echo intval($row['post_id']); ?></a><?php endif; ?></p>
+            <p><strong>完整消息：</strong><?php echo esc_html($row['message']); ?></p>
+            <?php if (!empty($row['url'])): ?><p><strong>URL：</strong><a href="<?php echo esc_url($row['url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($row['url']); ?></a></p><?php endif; ?>
+        </div>
+        <?php
+        wp_send_json_success(array('html'=>ob_get_clean()));
     }
 
     private function render_pagination($page, $args, $paged, $per_page, $total)
@@ -945,6 +1157,7 @@ class WP_Caiji
         update_post_meta($post_id, '_wp_caiji_ai_rewritten_by', get_current_user_id());
         if ($original_image_count > $new_image_count) $this->log('warning', '文章编辑页手动 AI 改写后图片数量减少:原 ' . $original_image_count . ' 张,现 ' . $new_image_count . ' 张', $rule_id, $queue_id, $log_url);
         $this->log('info', '文章编辑页手动 AI 改写完成,文章 ID:' . $post_id, $rule_id, $queue_id, $log_url);
+        $this->invalidate_dashboard_cache();
         set_transient($result_key, array('ok'=>true, 'message'=>'AI 重写完成,已更新当前文章'), 120);
         wp_safe_redirect(get_edit_post_link($post_id, ''));
         exit;
@@ -1236,6 +1449,7 @@ class WP_Caiji
         }
         self::schedule_events();
         $this->enqueue_manual_urls($id, $data['manual_urls']);
+        $this->invalidate_dashboard_cache();
         wp_safe_redirect($this->page_url('wp-caiji-rules'));
         exit;
     }
@@ -1248,6 +1462,7 @@ class WP_Caiji
         $wpdb->delete($this->rules_table, array('id'=>$id));
         $wpdb->delete($this->queue_table, array('rule_id'=>$id));
         $wpdb->delete($this->logs_table, array('rule_id'=>$id));
+        $this->invalidate_dashboard_cache();
         wp_safe_redirect($this->page_url('wp-caiji-rules'));
         exit;
     }
@@ -1339,6 +1554,7 @@ class WP_Caiji
         $id = absint($_GET['id'] ?? 0);
         $enabled = (int)$wpdb->get_var($wpdb->prepare("SELECT enabled FROM {$this->rules_table} WHERE id=%d", $id));
         $wpdb->update($this->rules_table, array('enabled'=>$enabled ? 0 : 1, 'updated_at'=>current_time('mysql')), array('id'=>$id));
+        $this->invalidate_dashboard_cache();
         wp_safe_redirect($this->page_url('wp-caiji-rules'));
         exit;
     }
@@ -1356,6 +1572,7 @@ class WP_Caiji
         if ($rule_id) { $where[] = 'rule_id=%d'; $params[] = $rule_id; }
         if ($days > 0) { $where[] = 'COALESCE(finished_at, discovered_at) < %s'; $params[] = date('Y-m-d H:i:s', current_time('timestamp') - ($days * DAY_IN_SECONDS)); }
         $wpdb->query($wpdb->prepare("DELETE FROM {$this->queue_table} WHERE " . implode(' AND ', $where), $params));
+        $this->invalidate_dashboard_cache();
         wp_safe_redirect($this->page_url('wp-caiji-queue'));
         exit;
     }
@@ -1565,6 +1782,7 @@ class WP_Caiji
         if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_retry_queue')) wp_die('权限验证失败');
         $id = absint($_GET['id'] ?? 0);
         $wpdb->update($this->queue_table, array('status'=>'pending','attempts'=>0,'last_error'=>null,'scheduled_at'=>current_time('mysql'),'started_at'=>null,'finished_at'=>null), array('id'=>$id));
+        $this->invalidate_dashboard_cache();
         wp_safe_redirect($this->page_url('wp-caiji-queue'));
         exit;
     }
@@ -1574,6 +1792,7 @@ class WP_Caiji
         global $wpdb;
         if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_delete_queue')) wp_die('权限验证失败');
         $wpdb->delete($this->queue_table, array('id'=>absint($_GET['id'] ?? 0)));
+        $this->invalidate_dashboard_cache();
         wp_safe_redirect($this->page_url('wp-caiji-queue'));
         exit;
     }
@@ -1583,6 +1802,7 @@ class WP_Caiji
         global $wpdb;
         if (!self::current_user_can_manage() || !check_admin_referer('wp_caiji_clear_logs')) wp_die('权限验证失败');
         $wpdb->query("TRUNCATE TABLE {$this->logs_table}");
+        $this->invalidate_dashboard_cache();
         wp_safe_redirect($this->page_url('wp-caiji-logs'));
         exit;
     }
@@ -1811,6 +2031,7 @@ class WP_Caiji
                 $wpdb->query("DELETE FROM {$this->queue_table} WHERE id IN ({$in})");
             }
         }
+        $this->invalidate_dashboard_cache();
         wp_safe_redirect($this->page_url('wp-caiji-queue'));
         exit;
     }
@@ -2118,6 +2339,13 @@ class WP_Caiji
     private function post_exists_by_title($title)
     {
         return WP_Caiji_Queue::post_exists_by_title($title);
+    }
+
+    private function invalidate_dashboard_cache()
+    {
+        delete_transient('wp_caiji_dashboard_stats_v2');
+        $version = (int)get_option('wp_caiji_admin_cache_version', 1);
+        update_option('wp_caiji_admin_cache_version', $version + 1, false);
     }
 
     public function log_public($level, $message, $rule_id = 0, $queue_id = 0, $url = '')

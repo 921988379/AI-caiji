@@ -262,3 +262,107 @@
         });
     });
 }());
+
+
+(function () {
+    var i18n = window.wpCaijiI18n || {};
+    function t(key, fallback) { return i18n[key] || fallback; }
+    function ready(fn) {
+        if (document.readyState !== 'loading') fn();
+        else document.addEventListener('DOMContentLoaded', fn);
+    }
+    ready(function () {
+
+        function ajaxPost(data, done) {
+            var formData = new FormData();
+            Object.keys(data || {}).forEach(function (key) {
+                var value = data[key];
+                if (Array.isArray(value)) {
+                    value.forEach(function (item) { formData.append(key + '[]', item); });
+                } else {
+                    formData.append(key, value);
+                }
+            });
+            fetch((i18n.ajaxUrl || '/wp-admin/admin-ajax.php'), {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: formData
+            }).then(function (res) { return res.json(); }).then(done).catch(function () { done({ success: false }); });
+        }
+
+        function fillHtml(container, html) {
+            if (!container) return;
+            container.innerHTML = html || '<p>' + t('loadFailed', '加载失败，请刷新重试。') + '</p>';
+        }
+
+        function loadDashboardPart(selector, action, key) {
+            var el = document.querySelector(selector);
+            if (!el) return;
+            el.innerHTML = '<p class="description">' + t('loading', '加载中...') + '</p>';
+            ajaxPost({ action: action, nonce: i18n.nonce || '' }, function (res) {
+                if (res && res.success && res.data && res.data[key]) el.innerHTML = res.data[key];
+                else fillHtml(el, '<p class="description">' + t('loadFailed', '加载失败，请刷新重试。') + '</p>');
+            });
+        }
+
+        if (document.querySelector('[data-wp-caiji-dashboard-stats]')) {
+            ['[data-wp-caiji-dashboard-stats]', '[data-wp-caiji-dashboard-trend]', '[data-wp-caiji-dashboard-rules]', '[data-wp-caiji-dashboard-errors]'].forEach(function (selector) {
+                var el = document.querySelector(selector);
+                if (el) el.innerHTML = '<p class="description">' + t('loading', '加载中...') + '</p>';
+            });
+            ajaxPost({ action: 'wp_caiji_dashboard_stats', nonce: i18n.nonce || '' }, function (res) {
+                if (res && res.success && res.data) {
+                    fillHtml(document.querySelector('[data-wp-caiji-dashboard-stats]'), res.data.stats);
+                    fillHtml(document.querySelector('[data-wp-caiji-dashboard-trend]'), res.data.trend);
+                    fillHtml(document.querySelector('[data-wp-caiji-dashboard-rules]'), res.data.rules);
+                    fillHtml(document.querySelector('[data-wp-caiji-dashboard-errors]'), res.data.errors);
+                } else {
+                    ['[data-wp-caiji-dashboard-stats]', '[data-wp-caiji-dashboard-trend]', '[data-wp-caiji-dashboard-rules]', '[data-wp-caiji-dashboard-errors]'].forEach(function (selector) {
+                        fillHtml(document.querySelector(selector), '<p class="description">' + t('loadFailed', '加载失败，请刷新重试。') + '</p>');
+                    });
+                }
+            });
+        }
+
+        var ruleTable = document.querySelector('table.widefat.striped [data-wp-caiji-rule-row]');
+        if (ruleTable) {
+            var ids = Array.prototype.map.call(document.querySelectorAll('[data-wp-caiji-rule-row]'), function (row) {
+                return row.getAttribute('data-wp-caiji-rule-row');
+            }).filter(Boolean);
+            ajaxPost({ action: 'wp_caiji_rule_counts', nonce: i18n.nonce || '', ids: ids }, function (res) {
+                if (!res || !res.success || !res.data || !res.data.counts) return;
+                document.querySelectorAll('[data-wp-caiji-rule-row]').forEach(function (row) {
+                    var id = row.getAttribute('data-wp-caiji-rule-row');
+                    var counts = res.data.counts[id] || { pending: 0, success: 0, failed: 0 };
+                    row.querySelector('[data-wp-caiji-rule-count="pending"]').textContent = counts.pending;
+                    row.querySelector('[data-wp-caiji-rule-count="success"]').textContent = counts.success;
+                    row.querySelector('[data-wp-caiji-rule-count="failed"]').textContent = counts.failed;
+                });
+            });
+        }
+
+        document.querySelectorAll('.wp-caiji-load-detail').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var id = btn.getAttribute('data-id');
+                var type = btn.getAttribute('data-wp-caiji-detail');
+                var row = document.querySelector('[data-wp-caiji-detail-row="' + type + '-' + id + '"]');
+                if (!row) return;
+                var content = row.querySelector('.wp-caiji-detail-content');
+                var open = !row.hidden;
+                if (open) {
+                    row.hidden = true;
+                    btn.textContent = t('details', '详情');
+                    return;
+                }
+                row.hidden = false;
+                if (content) content.innerHTML = '<p class="description">' + t('loading', '加载中...') + '</p>';
+                ajaxPost({ action: type === 'queue' ? 'wp_caiji_queue_details' : 'wp_caiji_log_details', nonce: i18n.nonce || '', id: id }, function (res) {
+                    if (res && res.success && res.data && res.data.html) fillHtml(content, res.data.html);
+                    else fillHtml(content, '<p class="description">' + t('loadFailed', '加载失败，请刷新重试。') + '</p>');
+                });
+                btn.textContent = t('hideDetails', '收起');
+            });
+        });
+
+    });
+}());
